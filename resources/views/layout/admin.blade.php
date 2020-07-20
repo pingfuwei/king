@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -8,13 +9,15 @@
     <title>后台管理系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- 页面meta /-->
 
     <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="/plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="/css/style.css">
-
+    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    
 
 
     <script type="text/javascript">
@@ -315,19 +318,36 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
+
+
+                            <a href="/admin/admin/Do" target="iframe">
+
+                            <a href="/admin/admin/create">
+
+
                             <a href="/admin/admin/Do" target="iframe">
                             <a href="/admin/admin/create">
+
                                 <i class="fa fa-circle-o"></i> 管理员添加
                             </a>
                         </li>
                         <li id="admin-login">
+
+
+                            <a href="/admin/admin/index">
+
+                            <a href="/admin/admin/index">
+
+
                             <a href="/admin/admin/index" target="iframe">
                             <a href="/admin/admin/index">
+
                                 <i class="fa fa-circle-o"></i> 管理员展示
                             </a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
@@ -344,7 +364,11 @@
                             </a>
                         </li>
                         <li id="admin-login">
+<<<<<<< HEAD
                             <a href="{{url('admin/vip/index')}}">
+=======
+                            <a href="{{url('admin/vip/index')}}" >
+>>>>>>> 87d188cb0fd213f6021d27037f6e1d5910f9fd88
                                 <i class="fa fa-circle-o"></i> VIP管理
                             </a>
                         </li>
@@ -353,14 +377,22 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
+<<<<<<< HEAD
                         <span>分类管理</span>
                         <span class="pull-right-container">
                        			<i class="fa fa-angle-left pull-right"></i>
                    		 	</span>
+=======
+                        <span>品优购快报管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+>>>>>>> 87d188cb0fd213f6021d27037f6e1d5910f9fd88
                     </a>
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
+<<<<<<< HEAD
                             <a href="{{url('/admin/category/create')}}">
                                 <i class="fa fa-circle-o"></i> 分类添加
                             </a>
@@ -368,6 +400,15 @@
                         <li id="admin-login">
                             <a href="{{url('/admin/category/index')}}">
                                 <i class="fa fa-circle-o"></i> 分类管理
+=======
+                            <a href="/admin/news/create" target="iframe">
+                                <i class="fa fa-circle-o"></i> 品优购快报添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="/admin/news/index" target="iframe">
+                                <i class="fa fa-circle-o"></i> 品优购快报列表
+>>>>>>> 87d188cb0fd213f6021d27037f6e1d5910f9fd88
                             </a>
                         </li>
                     </ul>
@@ -397,11 +438,27 @@
 
 </div>
 
+
 </body>
+<<<<<<< HEAD
+    <script src="/plugins/adminLTE/js/app.min.js"></script>
+</html>
+=======
+{{--<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>--}}
+{{--<script src="/plugins/jQuery/jquery-ui.min.js"></script>--}}
+{{--<script>--}}
+    {{--$.widget.bridge('uibutton', $.ui.button);--}}
+{{--</script>--}}
+<script src="/plugins/adminLTE/js/app.min.js"></script>
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
 <script>
     $.widget.bridge('uibutton', $.ui.button);
 </script>
 <script src="/plugins/adminLTE/js/app.min.js"></script>
+
+
 </html>
+
+
+>>>>>>> 378cf95eef799a0fd25e0ca395f513ad4073427c

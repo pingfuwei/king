@@ -69,5 +69,8 @@
 </body>
 
 </html>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 87d188cb0fd213f6021d27037f6e1d5910f9fd88
 @endsection
