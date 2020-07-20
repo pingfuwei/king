@@ -315,11 +315,13 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
+                            <a href="/admin/admin/Do" target="iframe">
                             <a href="/admin/admin/create">
                                 <i class="fa fa-circle-o"></i> 管理员添加
                             </a>
                         </li>
                         <li id="admin-login">
+                            <a href="/admin/admin/index" target="iframe">
                             <a href="/admin/admin/index">
                                 <i class="fa fa-circle-o"></i> 管理员展示
                             </a>
@@ -329,7 +331,7 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
-                        <span>商品管理</span>
+                        <span>VIP管理</span>
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
 				   		 	</span>
@@ -337,18 +339,17 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
-                            <a href="goods_edit.html" target="iframe">
-                                <i class="fa fa-circle-o"></i> 新增商品
+                            <a href="{{url('admin/vip/create')}}" target="iframe">
+                                <i class="fa fa-circle-o"></i> VIP添加
                             </a>
                         </li>
                         <li id="admin-login">
-                            <a href="goods.html" target="iframe">
-                                <i class="fa fa-circle-o"></i> 商品管理
+                            <a href="{{url('admin/vip/index')}}" target="iframe">
+                                <i class="fa fa-circle-o"></i> VIP管理
                             </a>
                         </li>
                     </ul>
                 </li>
-
                 <!-- 菜单 /-->
 
             </ul>
@@ -373,7 +374,6 @@
     <!-- 底部导航 /-->
 
 </div>
-
 
 </body>
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
