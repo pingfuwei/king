@@ -303,7 +303,7 @@
             </div>
             <ul class="sidebar-menu"  >
                 <li class="header">菜单</li>
-                <li id="admin-index"><a href="index.html"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
+                <li id="admin-index"><a href="/admin/indexs"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
 
                 <!-- 菜单 -->
                 <li class="treeview">
@@ -319,13 +319,6 @@
 
                         <li id="admin-login">
 
-
-                            <a href="/admin/admin/Do" target="iframe">
-
-                            <a href="/admin/admin/create">
-
-
-                            <a href="/admin/admin/Do" target="iframe">
                             <a href="/admin/admin/create">
 
                                 <i class="fa fa-circle-o"></i> 管理员添加
@@ -334,12 +327,6 @@
                         <li id="admin-login">
 
 
-                            <a href="/admin/admin/index">
-
-                            <a href="/admin/admin/index">
-
-
-                            <a href="/admin/admin/index" target="iframe">
                             <a href="/admin/admin/index">
 
                                 <i class="fa fa-circle-o"></i> 管理员展示
@@ -381,13 +368,35 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
-                            <a href="/admin/news/create" target="iframe">
+                            <a href="/admin/news/create" >
                                 <i class="fa fa-circle-o"></i> 品优购快报添加
                             </a>
                         </li>
                         <li id="admin-login">
-                            <a href="/admin/news/index" target="iframe">
+                            <a href="/admin/news/index" >
                                 <i class="fa fa-circle-o"></i> 品优购快报列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>品牌</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                            <a href="/admin/brand/create" >
+                                <i class="fa fa-circle-o"></i> 品牌添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="/admin/brand/index" >
+                                <i class="fa fa-circle-o"></i> 品牌展示
                             </a>
                         </li>
                     </ul>
@@ -419,10 +428,9 @@
 
 
 </body>
-<<<<<<< HEAD
+
     <script src="/plugins/adminLTE/js/app.min.js"></script>
 </html>
-=======
 {{--<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>--}}
 {{--<script src="/plugins/jQuery/jquery-ui.min.js"></script>--}}
 {{--<script>--}}
@@ -440,4 +448,3 @@
 </html>
 
 
->>>>>>> 378cf95eef799a0fd25e0ca395f513ad4073427c

@@ -10,7 +10,7 @@
 body{height:100%;background:#16a085;overflow:hidden;}
 canvas{z-index:-1;position:absolute;}
 </style>
-
+ <script src="/login/js/jquery.js"></script>
 <script src="/login/js/verificationNumbers.js"></script>
 <script src="/login/js/Particleground.js"></script>
 <script>
@@ -21,10 +21,8 @@ $(document).ready(function() {
     lineColor: '#5cbdaa'
   });
   //验证码
-  createCode();
   //测试提交，对接程序删除即可
   $(".submit_btn").click(function(){
-	  location.href="index.html";
 	  });
 });
 </script>
@@ -55,8 +53,6 @@ $(document).ready(function() {
 </dl>
 </div>
 </body>
-</html>
-<script src="/login/js/jquery.js"></script>
 <script>
     $(function(){
         $(document).on("click","#but",function(){
@@ -83,3 +79,5 @@ $(document).ready(function() {
     })
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 </script>
+
+</html>

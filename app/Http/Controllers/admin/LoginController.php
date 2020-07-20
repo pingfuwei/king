@@ -30,7 +30,7 @@ class LoginController extends Controller
         }else{
             if($user){
                 session(["user"=>$user]);
-                $message = $this->datacode("true","00000","登录成功","/admin/index");
+                $message = $this->datacode("true","00000","登录成功","/admin/indexs");
             }else{
                 $message = $this->datacode("false","00001","登录失败");
             }
@@ -47,5 +47,8 @@ class LoginController extends Controller
         $message["msg"] = $msg;
         $message["result"] = $result;
         return $message;
+    }
+    public function indexs(){
+        return view("admin.indexs");
     }
 }
