@@ -341,6 +341,59 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
+                        <span>开发者管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                             <a href="#">
+                                <i class="fa fa-folder"></i>
+                                <span>角色管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li id="admin-login">
+                                    <a href="{{url('admin/role/create')}}">
+                                        <i class="fa fa-circle-o"></i> 角色添加
+                                    </a>
+                                </li>
+                                <li id="admin-login">
+                                    <a href="{{url('admin/role/index')}}" >
+                                        <i class="fa fa-circle-o"></i> 角色管理
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#">
+                                <i class="fa fa-folder"></i>
+                                <span>权限管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li id="admin-login">
+                                    <a href="{{url('admin/power/create')}}">
+                                        <i class="fa fa-circle-o"></i> 权限添加
+                                    </a>
+                                </li>
+                                <li id="admin-login">
+                                    <a href="{{url('admin/power/index')}}" >
+                                        <i class="fa fa-circle-o"></i> 权限管理
+                                    </a>
+                                </li>
+                            </ul>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
                         <span>VIP管理</span>
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>

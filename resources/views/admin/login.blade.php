@@ -9,10 +9,20 @@
 body{height:100%;background:#16a085;overflow:hidden;}
 canvas{z-index:-1;position:absolute;}
 </style>
+<<<<<<< HEAD
+    <script src="/login/js/jquery.js"></script>
+    <script src="/login/js/verificationNumbers.js"></script>
+    <script src="/login/js/Particleground.js"></script>
+
+=======
 <script src="/login/js/jquery.js"></script>
 <script src="/login/js/verificationNumbers.js"></script>
 <script src="/login/js/Particleground.js"></script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> c83b1f32d9a97026ced4900a359eb4790b6cab38
+>>>>>>> 7fee95c2d0a3dfe9e708613c4f364bffff41cea8
 <script>
 $(document).ready(function() {
     //粒子背景特效
@@ -50,6 +60,14 @@ $(document).ready(function() {
 </div>
 </body>
 </html>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 18f9429fb3499504ec58e7357e0d7e3fefc78116
+>>>>>>> c83b1f32d9a97026ced4900a359eb4790b6cab38
+>>>>>>> 7fee95c2d0a3dfe9e708613c4f364bffff41cea8
 <script>
     $(function(){
         $(document).on("click","#but",function(){
