@@ -50,10 +50,11 @@
                                           <td><input  type="checkbox"></td>		
 				                          <td>{{$itme->admin_id}}</td>
 									      <td>{{$itme->admin_name}}</td>
-									      <td>{{$itme->addtime}}</td>
+									      <td>{{date("Y-m-d H:i:s",$itme->addtime)}}</td>
 		                                  <td class="text-center">
 		                                 	  <button type="button" class="btn bg-olive btn-xs">修改</button>
-		                                  </td>
+											  <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('/admin/role/role',$itme->admin_id)}}">添加角色</a></button>
+		                                   </td>
 			                          </tr>
                                       @endforeach
 			                      </tbody>
