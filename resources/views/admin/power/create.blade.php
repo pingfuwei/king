@@ -1,6 +1,6 @@
 @extends('layout.admin')
 @section('content')
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html>
 
 <head>
@@ -42,7 +42,7 @@
             <!--tab头-->
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a href="#home" data-toggle="tab">Vip添加</a>
+                    <a href="#home" data-toggle="tab">权限添加</a>
                 </li>
             </ul>
             <!--tab头/-->
@@ -54,31 +54,17 @@
                 <div class="tab-pane active" id="home">
                     <div class="row data-type">
 
-                        <div class="col-md-2 title">VIP名称</div>
+                        <div class="col-md-2 title">权限</div>
                         <div class="col-md-10 data">
-                            <input type="text" class="form-control name"    placeholder="vip名称" name="vip_name">
+                            <input type="text" class="form-control name"    placeholder="权限名称" name="power_name">
                         </div>
-
-                        <div class="col-md-2 title">价格</div>
+                        <div class="col-md-2 title">URL</div>
                         <div class="col-md-10 data">
-                            <div class="input-group">
-                                <span class="input-group-addon">¥</span>
-                                <input type="text" class="form-control price"  placeholder="价格" name="price">
-                            </div>
+                            <input type="text" class="form-control url"    placeholder="url" name="power_url">
                         </div>
-
-
                     </div>
                 </div>
-
-
-
-
-
             </div>
-            <!--tab内容/-->
-            <!--表单内容/-->
-
         </div>
 
 
@@ -87,7 +73,7 @@
     </div>
     <div class="btn-toolbar list-toolbar">
         <button class="btn btn-primary add" ng-click="setEditorValue();save()"><i class="fa fa-save "></i>添加</button>
-        <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('admin/vip/index')}}">返回列表</a></button>
+        <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('admin/power/index')}}">查看权限</a></button>
     </div>
 
 </section>
@@ -112,17 +98,17 @@
 </script>
 <script>
     $(".add").click(function(){
-        var vip_name=$(".name").val();
-        var price=$(".price").val();
+        var power_name=$(".name").val();
+        var power_url=$(".url").val();
         $.ajax({
-            url:"{{url('/admin/vip/createDo')}}",
+            url:"{{url('/admin/power/createDo')}}",
             type:'post',
-            data:{'vip_name':vip_name,'price':price},
+            data:{'power_name':power_name,'power_url':power_url},
             dataType:'json',
             success:function(res){
                 if(res.code==200){
                     alert(res.msg);
-                    location.href="{{url('admin/vip/index')}}"
+                    {{--location.href="{{url('admin/role/index')}}"--}}
                 }else{
                     alert(res.msg);
                 }

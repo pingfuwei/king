@@ -1,6 +1,6 @@
 @extends('layout.admin')
 @section('content')
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html>
 
 <head>
@@ -42,7 +42,7 @@
             <!--tab头-->
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a href="#home" data-toggle="tab">Vip添加</a>
+                    <a href="#home" data-toggle="tab">角色添加</a>
                 </li>
             </ul>
             <!--tab头/-->
@@ -54,31 +54,13 @@
                 <div class="tab-pane active" id="home">
                     <div class="row data-type">
 
-                        <div class="col-md-2 title">VIP名称</div>
+                        <div class="col-md-2 title">角色名称</div>
                         <div class="col-md-10 data">
-                            <input type="text" class="form-control name"    placeholder="vip名称" name="vip_name">
+                            <input type="text" class="form-control name"    placeholder="角色名称" name="role_name">
                         </div>
-
-                        <div class="col-md-2 title">价格</div>
-                        <div class="col-md-10 data">
-                            <div class="input-group">
-                                <span class="input-group-addon">¥</span>
-                                <input type="text" class="form-control price"  placeholder="价格" name="price">
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
-
-
-
-
-
             </div>
-            <!--tab内容/-->
-            <!--表单内容/-->
-
         </div>
 
 
@@ -87,7 +69,7 @@
     </div>
     <div class="btn-toolbar list-toolbar">
         <button class="btn btn-primary add" ng-click="setEditorValue();save()"><i class="fa fa-save "></i>添加</button>
-        <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('admin/vip/index')}}">返回列表</a></button>
+        <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('admin/role/index')}}">查看角色</a></button>
     </div>
 
 </section>
@@ -112,17 +94,16 @@
 </script>
 <script>
     $(".add").click(function(){
-        var vip_name=$(".name").val();
-        var price=$(".price").val();
+        var role_name=$(".name").val();
         $.ajax({
-            url:"{{url('/admin/vip/createDo')}}",
+            url:"{{url('/admin/role/createDo')}}",
             type:'post',
-            data:{'vip_name':vip_name,'price':price},
+            data:{'role_name':role_name},
             dataType:'json',
             success:function(res){
                 if(res.code==200){
                     alert(res.msg);
-                    location.href="{{url('admin/vip/index')}}"
+                    {{--location.href="{{url('admin/role/index')}}"--}}
                 }else{
                     alert(res.msg);
                 }

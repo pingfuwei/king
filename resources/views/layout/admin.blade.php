@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    
+
 
 
     <script type="text/javascript">
@@ -325,16 +325,78 @@
                             </a>
                         </li>
                         <li id="admin-login">
+<<<<<<< HEAD
+=======
 
 
+
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 997aa61ee26e56fd2beede77cc60243b8ec64312
                             <a href="/admin/admin/index">
 
+>>>>>>> d25c60ceb3c7bdd5750dca0170c9db7951605181
                                 <i class="fa fa-circle-o"></i> 管理员展示
                             </a>
                         </li>
                     </ul>
                 </li>
 
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>开发者管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                             <a href="#">
+                                <i class="fa fa-folder"></i>
+                                <span>角色管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li id="admin-login">
+                                    <a href="{{url('admin/role/create')}}">
+                                        <i class="fa fa-circle-o"></i> 角色添加
+                                    </a>
+                                </li>
+                                <li id="admin-login">
+                                    <a href="{{url('admin/role/index')}}" >
+                                        <i class="fa fa-circle-o"></i> 角色管理
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#">
+                                <i class="fa fa-folder"></i>
+                                <span>权限管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li id="admin-login">
+                                    <a href="{{url('admin/power/create')}}">
+                                        <i class="fa fa-circle-o"></i> 权限添加
+                                    </a>
+                                </li>
+                                <li id="admin-login">
+                                    <a href="{{url('admin/power/index')}}" >
+                                        <i class="fa fa-circle-o"></i> 权限管理
+                                    </a>
+                                </li>
+                            </ul>
+                    </ul>
+                </li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
@@ -351,20 +413,36 @@
                             </a>
                         </li>
                         <li id="admin-login">
+<<<<<<< HEAD
                                 <a href="{{url('admin/vip/index')}}">
                             <a href="{{url('admin/vip/index')}}" >
+=======
+<<<<<<< HEAD
+                            <a href="{{url('admin/vip/index')}}" >
+=======
+                            <a href="{{url('admin/vip/index')}}">
+>>>>>>> 997aa61ee26e56fd2beede77cc60243b8ec64312
+>>>>>>> d25c60ceb3c7bdd5750dca0170c9db7951605181
                                 <i class="fa fa-circle-o"></i> VIP管理
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a href="/admin/news/index">
                         <i class="fa fa-folder"></i>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 997aa61ee26e56fd2beede77cc60243b8ec64312
+>>>>>>> d25c60ceb3c7bdd5750dca0170c9db7951605181
                         <span>分类管理</span>
                         <span class="pull-right-container">
                        			<i class="fa fa-angle-left pull-right"></i>
                    		 	</span>
+<<<<<<< HEAD
                     </a>
                     <ul class="treeview-menu">
                         <li id="admin-login">
@@ -386,10 +464,21 @@
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
 				   		 	</span>
+=======
+<<<<<<< HEAD
+
+=======
+                        <span>品优购快报管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+>>>>>>> 997aa61ee26e56fd2beede77cc60243b8ec64312
+>>>>>>> d25c60ceb3c7bdd5750dca0170c9db7951605181
                     </a>
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
+<<<<<<< HEAD
                             <a href="/admin/brand/create" >
                                 <i class="fa fa-circle-o"></i> 品牌添加
                             </a>
@@ -397,6 +486,39 @@
                         <li id="admin-login">
                             <a href="/admin/brand/index" >
                                 <i class="fa fa-circle-o"></i> 品牌展示
+=======
+                            <a href="{{url('/admin/category/create')}}">
+                                <i class="fa fa-circle-o"></i> 分类添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="{{url('/admin/category/index')}}">
+<<<<<<< HEAD
+                                <i class="fa fa-circle-o"></i> 分类展示
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+
+                        <span>品优购快报管理</span>
+                        <span class="pull-right-container">
+                       			<i class="fa fa-angle-left pull-right"></i>
+                   		 	</span>
+
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                            <a href="{{url('/admin/news/create')}}">
+=======
+                                <i class="fa fa-circle-o"></i> 分类管理
+                            <a href="/admin/news/create" target="iframe">
+>>>>>>> 997aa61ee26e56fd2beede77cc60243b8ec64312
+                                <i class="fa fa-circle-o"></i> 品优购快报添加
+>>>>>>> d25c60ceb3c7bdd5750dca0170c9db7951605181
                             </a>
                         </li>
                     </ul>
@@ -412,6 +534,7 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
+<<<<<<< HEAD
                             <a href="/admin/news/create" >
                                 <i class="fa fa-circle-o"></i> 品优购添加
                             </a>
@@ -419,9 +542,66 @@
                         <li id="admin-login">
                             <a href="/admin/news/index" >
                                 <i class="fa fa-circle-o"></i> 品优购展示
+=======
+<<<<<<< HEAD
+                            <a href="{{url('/admin/news/index')}}">
+                                <i class="fa fa-circle-o"></i> 品优购快报展示
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+
+                        <span>品牌管理</span>
+                        <span class="pull-right-container">
+                       			<i class="fa fa-angle-left pull-right"></i>
+                   		 	</span>
+
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                            <a href="{{url('/admin/brand/create')}}">
+                                <i class="fa fa-circle-o"></i> 品牌添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="{{url('/admin/brand/index')}}">
+                                <i class="fa fa-circle-o"></i> 品牌展示
+=======
+                            <a href="/admin/news/index" target="iframe">
+                                <i class="fa fa-circle-o"></i> 品优购快报列表
+>>>>>>> 997aa61ee26e56fd2beede77cc60243b8ec64312
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>品牌</span>
+                        <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                            <a href="/admin/brand/create">
+                                <i class="fa fa-circle-o"></i> 品牌添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="/admin/brand/index">
+                                <i class="fa fa-circle-o"></i> 品牌展示
+>>>>>>> d25c60ceb3c7bdd5750dca0170c9db7951605181
+                            </a>
+                        </li>
+                    </ul>
+                        </span>
+                    </a>
                 </li>
 
                 <!-- 菜单 /-->
@@ -451,6 +631,7 @@
 
 
 </body>
+<<<<<<< HEAD
 
     <script src="/plugins/adminLTE/js/app.min.js"></script>
 </html>
@@ -460,6 +641,10 @@
     {{--$.widget.bridge('uibutton', $.ui.button);--}}
 {{--</script>--}}
 <script src="/plugins/adminLTE/js/app.min.js"></script>
+=======
+<<<<<<< HEAD
+
+>>>>>>> d25c60ceb3c7bdd5750dca0170c9db7951605181
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
 <script>
@@ -470,4 +655,12 @@
 
 </html>
 
+=======
+<script src="/plugins/adminLTE/js/app.min.js"></script>
+</html>
 
+
+<<<<<<< HEAD
+=======
+>>>>>>> 997aa61ee26e56fd2beede77cc60243b8ec64312
+>>>>>>> d25c60ceb3c7bdd5750dca0170c9db7951605181

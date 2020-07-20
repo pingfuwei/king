@@ -23,9 +23,9 @@
 <!-- .box-body -->
 
 <div class="box-header with-border">
-    <h3 class="box-title">VIP列表</h3>
+    <h3 class="box-title">角色列表</h3>
 </div>
-
+<button class="btn btn-default" ng-click="goListPage()"><a href="{{url('admin/role/create')}}">添加角色</a></button>
 <div class="box-body">
 
     <!-- 数据表格 -->
@@ -36,9 +36,11 @@
         <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
             <thead>
             <tr>
-                <th class="sorting_asc">VIPID</th>
-                <th class="sorting">VIP名称</th>
-                <th class="sorting">VIP价格</th>
+                <th class="sorting_asc">ID</th>
+                <th class="sorting">角色名称</th>
+                <th class="sorting">是否删除</th>
+                <th class="sorting">添加时间</th>
+                <th class="sorting">所有权限</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
@@ -46,12 +48,20 @@
             @foreach($data as $k=>$v)
             <tr>
 
-                <td>{{$v->vip_id}}</td>
-                <td>{{$v->vip_name}}</td>
-                <td>{{$v->price}}</td>
+                <td>{{$v->role_id}}</td>
+                <td>{{$v->role_name}}</td>
+                <td>@if($v->role_status==1)否@else 是 @endif</td>
+                <td>{{date("Y-m-d H:i:s",$v->role_time)}}</td>
+                <td>
+                @foreach($power as $kk=>$vv)
+                    @if($v->role_id==$vv->role_id)
+                        {{$vv->power_name}}
+                        @endif
+                @endforeach
+                </td>
                 <td class="text-center">
-                    <a href="/admin/admin/edit?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">修改</a>
-                    <a href="/admin/admin/del?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">删除</a>
+                    <button type="button" class="btn bg-olive btn-xs">修改</button>
+                    <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('/admin/power/power',$v->role_id)}}">赋权限</a></button>
                 </td>
             </tr>
                 @endforeach

@@ -1,6 +1,6 @@
 @extends('layout.admin')
 @section('content')
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html>
 
 <head>
@@ -42,7 +42,7 @@
             <!--tab头-->
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a href="#home" data-toggle="tab">Vip添加</a>
+                    <a href="#home" data-toggle="tab">角色添加</a>
                 </li>
             </ul>
             <!--tab头/-->
@@ -54,31 +54,16 @@
                 <div class="tab-pane active" id="home">
                     <div class="row data-type">
 
-                        <div class="col-md-2 title">VIP名称</div>
+
                         <div class="col-md-10 data">
-                            <input type="text" class="form-control name"    placeholder="vip名称" name="vip_name">
+                            选择角色：
+                            @foreach($role as $k=>$v)
+                                <input type="checkbox" value="{{$v->role_id}}" class="role_id" name="role_id"/>{{$v->role_name}}
+                            @endforeach
                         </div>
-
-                        <div class="col-md-2 title">价格</div>
-                        <div class="col-md-10 data">
-                            <div class="input-group">
-                                <span class="input-group-addon">¥</span>
-                                <input type="text" class="form-control price"  placeholder="价格" name="price">
-                            </div>
-                        </div>
-
-
-                    </div>
+                        <input type="hidden" class="admin_id" value="{{$admin_id}}">
                 </div>
-
-
-
-
-
             </div>
-            <!--tab内容/-->
-            <!--表单内容/-->
-
         </div>
 
 
@@ -87,7 +72,7 @@
     </div>
     <div class="btn-toolbar list-toolbar">
         <button class="btn btn-primary add" ng-click="setEditorValue();save()"><i class="fa fa-save "></i>添加</button>
-        <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('admin/vip/index')}}">返回列表</a></button>
+        <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('admin/admin/index')}}">用户列表</a></button>
     </div>
 
 </section>
@@ -110,23 +95,31 @@
     });
 
 </script>
+
 <script>
-    $(".add").click(function(){
-        var vip_name=$(".name").val();
-        var price=$(".price").val();
-        $.ajax({
-            url:"{{url('/admin/vip/createDo')}}",
-            type:'post',
-            data:{'vip_name':vip_name,'price':price},
-            dataType:'json',
-            success:function(res){
-                if(res.code==200){
-                    alert(res.msg);
-                    location.href="{{url('admin/vip/index')}}"
-                }else{
-                    alert(res.msg);
+    $(document).ready(function(){
+        $(".add").click(function(){
+            var str='';
+            $("input[name='role_id']:checked").each(function(){
+                str+=$(this).val()+',';
+            });
+            var role_id=str.substring(0,str.length-1);
+            var admin_id=$(".admin_id").val();
+            $.ajax({
+                url:"{{url('/admin/role/roleDo')}}",
+                data:{'admin_id':admin_id,'role_id':role_id},
+                dataType:'json',
+                type:'post',
+                success:function(res){
+//                    console.log(res);
+                    if(res.code=='200'){
+                        alert(res.msg);
+//                        location.href="/user/list";
+                    }else{
+                        alert(res.msg);
+                    }
                 }
-            }
+            })
         })
     })
 </script>
