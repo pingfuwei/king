@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -305,6 +305,7 @@
                 <!-- 菜单 -->
                 <li class="treeview">
                     <a href="#">
+
                         <i class="fa fa-folder"></i>
                         <span>管理员管理</span>
                         <span class="pull-right-container">
@@ -314,12 +315,20 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
+<<<<<<< HEAD
                             <a href="/admin/admin/Do" target="iframe">
+=======
+                            <a href="/admin/admin/create">
+>>>>>>> 4b667345a15e2062180cc0d7710ff71d6bcc0d79
                                 <i class="fa fa-circle-o"></i> 管理员添加
                             </a>
                         </li>
                         <li id="admin-login">
+<<<<<<< HEAD
                             <a href="/admin/admin/index" target="iframe">
+=======
+                            <a href="/admin/admin/index">
+>>>>>>> 4b667345a15e2062180cc0d7710ff71d6bcc0d79
                                 <i class="fa fa-circle-o"></i> 管理员展示
                             </a>
                         </li>
@@ -375,5 +384,10 @@
 
 
 </body>
-
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="/plugins/adminLTE/js/app.min.js"></script>
 </html>
