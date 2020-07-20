@@ -12,18 +12,15 @@ canvas{z-index:-1;position:absolute;}
 <script src="/login/js/jquery.js"></script>
 <script src="/login/js/verificationNumbers.js"></script>
 <script src="/login/js/Particleground.js"></script>
+
 <script>
 $(document).ready(function() {
-  //粒子背景特效
-  $('body').particleground({
-    dotColor: '#5cbdaa',
-    lineColor: '#5cbdaa'
-  });
-  //验证码
-  //测试提交，对接程序删除即可
-  $(".submit_btn").click(function(){
-	  });
-});
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: '#5cbdaa',
+        lineColor: '#5cbdaa'
+    });
+})
 </script>
 </head>
 <body>
@@ -52,10 +49,7 @@ $(document).ready(function() {
 </dl>
 </div>
 </body>
-<<<<<<< HEAD
 </html>
-=======
->>>>>>> 18f9429fb3499504ec58e7357e0d7e3fefc78116
 <script>
     $(function(){
         $(document).on("click","#but",function(){
@@ -73,7 +67,6 @@ $(document).ready(function() {
                     if(res.status=="true"){
                         alert(res.msg);
                         location.href="admin/index";
-                        //window.location.href=res.result;
                     }else{
                         alert(res.msg);
                     }

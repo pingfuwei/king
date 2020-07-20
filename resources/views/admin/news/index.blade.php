@@ -35,26 +35,23 @@
         <div class="pull-left">
             <div class="form-group form-inline">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" title="新建" ><i class="fa fa-file-o"></i> 新建</button>
-                    <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
-                    <button type="button" class="btn btn-default" title="提交审核" ><i class="fa fa-check"></i> 提交审核</button>
-                    <button type="button" class="btn btn-default" title="屏蔽" onclick='confirm("你确认要屏蔽吗？")'><i class="fa fa-ban"></i> 屏蔽</button>
-                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+                    <a href="/admin/news/create"><button type="button" class="btn btn-default" title="新建"style="background-color:greenyellow" ><i class="fa fa-file-o"></i> 新建</button></a>
+                    <a href="/admin/news/index"><button type="button" class="btn btn-default" title="刷新" style="background-color:indianred"onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button></a>
                 </div>
             </div>
         </div>
         <div class="box-tools pull-right">
-            <div class="has-feedback">
-                状态：<select>
-                    <option value="">全部</option>
-                    <option value="0">未申请</option>
-                    <option value="1">申请中</option>
-                    <option value="2">审核通过</option>
-                    <option value="3">已驳回</option>
-                </select>
-                商品名称：<input >
-                <button class="btn btn-default" >查询</button>
-            </div>
+            <form action="{{url('/admin/news/index')}}" method="post">
+                <div class="has-feedback">
+                    状态：<select name="is_show">
+                        <option value="4" {{$is_show==4?'selected':''}}>全部</option>
+                        <option value="1" {{$is_show==1?'selected':''}}>展示</option>
+                        <option value="0" {{$is_show==0?'selected':''}}>不展示</option>
+                    </select>
+                    品优购快报名称：<input name="title"  placeholder="请输入要查找的标题"value="{{$title}}">
+                    <button class="btn btn-default chaxun" type="submit" style="background-color:orangered" >查询</button>
+                </div>
+            </form>
         </div>
         <!--工具栏/-->
 
@@ -80,8 +77,9 @@
                 <td>{{$v->title}}</td>
                 <td>{{date('Y-m-d H:i:s',$v->addtime)}}</td>
                 <td>{{$v->is_show==1?'√':'×'}}</td>
-                <td class="text-center">
-                    <button type="button" class="btn bg-olive btn-xs">修改</button>
+                <td class="text-center" n_id="{{$v->n_id}}">
+                    <a href="{{url('/admin/news/upd/'.$v->n_id)}}"><button type="button" class="btn bg-olive btn-xs upd">修改</button></a>
+                    <button type="button" class="btn btn-xs del" style="background-color:yellow">删除</button>
                 </td>
             </tr>
             @endforeach
@@ -95,7 +93,53 @@
 
 </div>
 <!-- /.box-body -->
-
+<script>
+    $(document).on('click','.del',function(){
+        if(!confirm("是否确定删除？")){
+            return false;
+        }
+        var data={};
+        data.n_id=$(this).parent('td').attr('n_id');
+//        alert(data);
+        url="/admin/news/del";
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+        $.ajax({
+            url:url,
+            data:data,
+            type:"post",
+            dataType:'json',
+            success:function(res){
+                console.log(res);
+                alert(res.result.message);
+                if(res.message=='success'){
+                    location.href="/admin/news/index";
+                }
+            }
+        })
+    })
+//    $(document).on('click','.chaxun',function(){
+//        var data={};
+////        alert(data);
+//        data.title=$("input[name='title']").val();
+//        data.is_show=$("select[name='is_show']").val();
+//        alert(data);
+//        url="/admin/news/index";
+//        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+//        $.ajax({
+//            url:url,
+//            data:data,
+//            type:"post",
+//            dataType:'json',
+//            success:function(res){
+//                console.log(res);
+//                alert(res.result.message);
+//                if(res.message=='success'){
+//                    location.href="/admin/news/index";
+//                }
+//            }
+//        })
+//    })
+</script>
 </body>
 
 </html>
