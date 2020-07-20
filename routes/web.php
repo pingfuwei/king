@@ -18,4 +18,9 @@
 //->middleware("is_login")->
 Route::prefix("admin")->group(function (){
     Route::any('index','admin\IndexController@index');//首页
+    Route::prefix("vip")->group(function (){
+        Route::any('/create','admin\VipController@create');//vip添加
+        Route::any('/createDo','admin\VipController@createDo');//执行vip添加
+        Route::any('/index','admin\VipController@index');//执行vip添加
+    });
     });
