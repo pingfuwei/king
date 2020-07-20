@@ -1,3 +1,5 @@
+@extends('layout.admin')
+@section('content')
 <!DOCTYPE html>
 <html>
 
@@ -67,3 +69,5 @@
 </body>
 
 </html>
+
+@endsection
