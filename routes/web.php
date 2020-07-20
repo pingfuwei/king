@@ -16,7 +16,11 @@
 //});
 //后台路由
 //->middleware("is_login")->
-Route::prefix("admin")->group(function (){//后台
+Route::prefix("admin")->group(function(){
+    Route::get("login","admin\LoginController@login");//登录
+    Route::any("loginis","admin\LoginController@loginis");//登录执行
+});
+Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
     Route::any('index','admin\IndexController@index');//首页
         Route::prefix("admin")->group(function (){//后台登陆
             Route::any('create','admin\AdminController@create');//用户添加
