@@ -306,7 +306,7 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
-                        <span>基本管理</span>
+                        <span>管理员管理</span>
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
 				   		 	</span>
@@ -314,13 +314,13 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
-                            <a href="seller.html" target="iframe">
-                                <i class="fa fa-circle-o"></i> 修改资料
+                            <a href="/admin/admin/Do" target="iframe">
+                                <i class="fa fa-circle-o"></i> 管理员添加
                             </a>
                         </li>
                         <li id="admin-login">
-                            <a href="password.html" target="iframe">
-                                <i class="fa fa-circle-o"></i> 修改密码
+                            <a href="/admin/admin/index" target="iframe">
+                                <i class="fa fa-circle-o"></i> 管理员展示
                             </a>
                         </li>
                     </ul>
