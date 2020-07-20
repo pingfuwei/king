@@ -50,7 +50,8 @@
                 <td>{{$v->vip_name}}</td>
                 <td>{{$v->price}}</td>
                 <td class="text-center">
-                    <button type="button" class="btn bg-olive btn-xs">修改</button>
+                    <a href="/admin/admin/edit?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">修改</a>
+                    <a href="/admin/admin/del?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">删除</a>
                 </td>
             </tr>
                 @endforeach
@@ -69,8 +70,4 @@
 </body>
 
 </html>
-<<<<<<< HEAD
-
-=======
->>>>>>> 87d188cb0fd213f6021d27037f6e1d5910f9fd88
 @endsection
