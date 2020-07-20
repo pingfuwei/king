@@ -8,6 +8,7 @@
     <title>后台管理系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- 页面meta /-->
 
     <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
@@ -347,7 +348,28 @@
                         </li>
                     </ul>
                 </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>品优购快报管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                    </a>
+                    <ul class="treeview-menu">
 
+                        <li id="admin-login">
+                            <a href="/admin/news/create" target="iframe">
+                                <i class="fa fa-circle-o"></i> 品优购快报添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="/admin/news/index" target="iframe">
+                                <i class="fa fa-circle-o"></i> 品优购快报列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <!-- 菜单 /-->
 
             </ul>
@@ -375,5 +397,11 @@
 
 
 </body>
+{{--<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>--}}
+{{--<script src="/plugins/jQuery/jquery-ui.min.js"></script>--}}
+{{--<script>--}}
+    {{--$.widget.bridge('uibutton', $.ui.button);--}}
+{{--</script>--}}
+<script src="/plugins/adminLTE/js/app.min.js"></script>
 
 </html>

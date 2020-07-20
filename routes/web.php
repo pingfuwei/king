@@ -24,5 +24,11 @@ Route::prefix("admin")->group(function (){//后台
             Route::any('index','admin\AdminController@index');//用户添加
 
         });
+    //品优购快报
+        Route::prefix("news")->group(function (){
+            Route::any('create','admin\NewsController@create');//品优购快报添加
+            Route::any('createDo','admin\NewsController@createDo');//品优购快报入库
+            Route::any('index','admin\NewsController@index');//品优购快报列表
 
+        });
     });
