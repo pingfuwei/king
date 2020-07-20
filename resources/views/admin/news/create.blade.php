@@ -38,67 +38,41 @@
 
         <!--tab页-->
         <div class="nav-tabs-custom">
-
-            <!--tab头-->
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#home" data-toggle="tab">Vip添加</a>
-                </li>
-            </ul>
-            <!--tab头/-->
-
             <!--tab内容-->
             <div class="tab-content">
 
                 <!--表单内容-->
                 <div class="tab-pane active" id="home">
                     <div class="row data-type">
-
-                        <div class="col-md-2 title">VIP名称</div>
+                        <div class="col-md-2 title">通知</div>
                         <div class="col-md-10 data">
-                            <input type="text" class="form-control name"    placeholder="vip名称" name="vip_name">
+                            <input type="text" class="form-control"  name="notice"  placeholder="通知">
                         </div>
 
-                        <div class="col-md-2 title">价格</div>
+                        <div class="col-md-2 title">详情</div>
                         <div class="col-md-10 data">
-                            <div class="input-group">
-                                <span class="input-group-addon">¥</span>
-                                <input type="text" class="form-control price"  placeholder="价格" name="price">
-                            </div>
+                            <input type="text" class="form-control" name="desc"  placeholder="详情">
                         </div>
 
+                        <div class="col-md-2 title">标题</div>
+                        <div class="col-md-10 data">
+                            <input type="text" class="form-control" name="title"  placeholder="标题">
+                        </div>
 
+                        <div class="col-md-2 title">是否显示</div>
+                        <div class="col-md-10 data">
+                            <input type="radio" name="is_show"  placeholder="标题" value="1" checked>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="is_show"  placeholder="标题" value="0">否
+                        </div>
                     </div>
                 </div>
-
-
-
-
-
-            </div>
-            <!--tab内容/-->
-            <!--表单内容/-->
-
-        </div>
-
-
-
-
     </div>
     <div class="btn-toolbar list-toolbar">
-        <button class="btn btn-primary add" ng-click="setEditorValue();save()"><i class="fa fa-save "></i>添加</button>
-        <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('admin/vip/index')}}">返回列表</a></button>
+        <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>添加</button>
+        <a href="/admin/news/index"><button class="btn btn-default" ng-click="goListPage()">查看列表</button></a>
     </div>
 
 </section>
-
-
-
-
-
-
-
-
 <!-- 正文区域 /-->
 <script type="text/javascript">
 
@@ -111,30 +85,29 @@
 
 </script>
 <script>
-    $(".add").click(function(){
-        var vip_name=$(".name").val();
-        var price=$(".price").val();
+    $(document).on('click','#btn',function(){
+        var data={};
+        data.notice=$("input[name='notice']").val();
+        data.desc=$("input[name='desc']").val();
+        data.title=$("input[name='title']").val();
+        data.is_show=$("input[name='is_show']:checked").val();
+        var url="/admin/news/createDo";
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
         $.ajax({
-            url:"{{url('/admin/vip/createDo')}}",
-            type:'post',
-            data:{'vip_name':vip_name,'price':price},
+            url:url,
+            data:data,
+            type:"post",
             dataType:'json',
             success:function(res){
-                if(res.code==200){
-                    alert(res.msg);
-                    location.href="{{url('admin/vip/index')}}"
-                }else{
-                    alert(res.msg);
+                console.log(res);
+                alert(res.result.message);
+                if(res.message=='success'){
+                    location.href="/admin/news/index";
                 }
             }
         })
     })
 </script>
 </body>
-
 </html>
-<<<<<<< HEAD
-
-=======
->>>>>>> 87d188cb0fd213f6021d27037f6e1d5910f9fd88
 @endsection
