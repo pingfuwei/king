@@ -14,22 +14,20 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-//后台路由
 //->middleware("is_login")->
+//后台路由
 Route::prefix("admin")->group(function(){
     Route::get("login","admin\LoginController@login");//登录
     Route::any("loginis","admin\LoginController@loginis");//登录执行
 });
 Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
     Route::any('index','admin\IndexController@index');//首页
-<<<<<<< HEAD
         Route::prefix("brand")->group(function (){//品牌模块
             Route::any('create','admin\BrandController@create');//品牌添加页面
             Route::any('createDo','admin\BrandController@createDo');//品牌添加
             Route::any('index','admin\BrandController@index');//用户展示
-=======
 
-
+        });
     Route::prefix("vip")->group(function (){
         Route::any('/create','admin\VipController@create');//vip添加
         Route::any('/createDo','admin\VipController@createDo');//执行vip添加
@@ -40,8 +38,6 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('create','admin\AdminController@create');//用户添加
             Route::any('createDo','admin\AdminController@createDo');//用户添加
             Route::any('index','admin\AdminController@index');//用户添加
->>>>>>> 378cf95eef799a0fd25e0ca395f513ad4073427c
-
         });
     //品优购快报
         Route::prefix("news")->group(function (){
@@ -50,6 +46,4 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('index','admin\NewsController@index');//品优购快报列表
 
         });
-    });
-
-
+    });        

@@ -392,6 +392,28 @@
                         </li>
                     </ul>
                 </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>品牌</span>
+                        <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                            <a href="/admin/brand/create">
+                                <i class="fa fa-circle-o"></i> 品牌添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="/admin/brand/index">
+                                <i class="fa fa-circle-o"></i> 品牌展示
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <!-- 菜单 /-->
 
             </ul>
@@ -419,25 +441,7 @@
 
 
 </body>
-<<<<<<< HEAD
-    <script src="/plugins/adminLTE/js/app.min.js"></script>
-</html>
-=======
-{{--<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>--}}
-{{--<script src="/plugins/jQuery/jquery-ui.min.js"></script>--}}
-{{--<script>--}}
-    {{--$.widget.bridge('uibutton', $.ui.button);--}}
-{{--</script>--}}
 <script src="/plugins/adminLTE/js/app.min.js"></script>
-<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
-<script>
-    $.widget.bridge('uibutton', $.ui.button);
-</script>
-<script src="/plugins/adminLTE/js/app.min.js"></script>
-
-
 </html>
 
 
->>>>>>> 378cf95eef799a0fd25e0ca395f513ad4073427c

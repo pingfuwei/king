@@ -60,13 +60,5 @@
 
 <!-- 内容区域 /-->
 </body>
-<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
-<script>
-    $.widget.bridge('uibutton', $.ui.button);
-</script>
-<script src="../plugins/adminLTE/js/app.min.js"></script>
-
-
 </html>
 @endsection

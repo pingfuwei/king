@@ -10,7 +10,7 @@
 body{height:100%;background:#16a085;overflow:hidden;}
 canvas{z-index:-1;position:absolute;}
 </style>
-
+<script src="/login/js/jquery.js"></script>
 <script src="/login/js/verificationNumbers.js"></script>
 <script src="/login/js/Particleground.js"></script>
 <script>
@@ -56,7 +56,6 @@ $(document).ready(function() {
 </div>
 </body>
 </html>
-<script src="/login/js/jquery.js"></script>
 <script>
     $(function(){
         $(document).on("click","#but",function(){
@@ -73,7 +72,8 @@ $(document).ready(function() {
                     console.log(res);
                     if(res.status=="true"){
                         alert(res.msg);
-                        window.location.href=res.result;
+                        location.href="admin/index";
+                        //window.location.href=res.result;
                     }else{
                         alert(res.msg);
                     }
