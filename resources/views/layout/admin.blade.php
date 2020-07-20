@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -8,6 +9,7 @@
     <title>后台管理系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- 页面meta /-->
 
     <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
@@ -306,8 +308,9 @@
                 <!-- 菜单 -->
                 <li class="treeview">
                     <a href="#">
+
                         <i class="fa fa-folder"></i>
-                        <span>基本管理</span>
+                        <span>管理员管理</span>
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
 				   		 	</span>
@@ -315,13 +318,54 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
-                            <a href="seller.html" target="iframe">
-                                <i class="fa fa-circle-o"></i> 修改资料
+
+
+                            <a href="/admin/admin/Do" target="iframe">
+
+                            <a href="/admin/admin/create">
+
+
+                            <a href="/admin/admin/Do" target="iframe">
+                            <a href="/admin/admin/create">
+
+                                <i class="fa fa-circle-o"></i> 管理员添加
                             </a>
                         </li>
                         <li id="admin-login">
-                            <a href="password.html" target="iframe">
-                                <i class="fa fa-circle-o"></i> 修改密码
+
+
+                            <a href="/admin/admin/index">
+
+                            <a href="/admin/admin/index">
+
+
+                            <a href="/admin/admin/index" target="iframe">
+                            <a href="/admin/admin/index">
+
+                                <i class="fa fa-circle-o"></i> 管理员展示
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>VIP管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                            <a href="{{url('admin/vip/create')}}">
+                                <i class="fa fa-circle-o"></i> VIP添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="{{url('admin/vip/index')}}" >
+                                <i class="fa fa-circle-o"></i> VIP管理
                             </a>
                         </li>
                     </ul>
@@ -329,7 +373,7 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
-                        <span>商品管理</span>
+                        <span>品优购快报管理</span>
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
 				   		 	</span>
@@ -337,18 +381,17 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
-                            <a href="goods_edit.html" target="iframe">
-                                <i class="fa fa-circle-o"></i> 新增商品
+                            <a href="/admin/news/create" target="iframe">
+                                <i class="fa fa-circle-o"></i> 品优购快报添加
                             </a>
                         </li>
                         <li id="admin-login">
-                            <a href="goods.html" target="iframe">
-                                <i class="fa fa-circle-o"></i> 商品管理
+                            <a href="/admin/news/index" target="iframe">
+                                <i class="fa fa-circle-o"></i> 品优购快报列表
                             </a>
                         </li>
                     </ul>
                 </li>
-
                 <!-- 菜单 /-->
 
             </ul>
@@ -376,5 +419,25 @@
 
 
 </body>
+<<<<<<< HEAD
     <script src="/plugins/adminLTE/js/app.min.js"></script>
 </html>
+=======
+{{--<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>--}}
+{{--<script src="/plugins/jQuery/jquery-ui.min.js"></script>--}}
+{{--<script>--}}
+    {{--$.widget.bridge('uibutton', $.ui.button);--}}
+{{--</script>--}}
+<script src="/plugins/adminLTE/js/app.min.js"></script>
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="/plugins/adminLTE/js/app.min.js"></script>
+
+
+</html>
+
+
+>>>>>>> 378cf95eef799a0fd25e0ca395f513ad4073427c
