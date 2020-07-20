@@ -1,6 +1,5 @@
 @extends('layout.admin')
 @section('content')
-        <!DOCTYPE html>
 <html>
 <head>
     <!-- 页面meta -->
