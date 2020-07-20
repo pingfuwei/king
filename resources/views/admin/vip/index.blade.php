@@ -50,8 +50,8 @@
                 <td>{{$v->vip_name}}</td>
                 <td>{{$v->price}}</td>
                 <td class="text-center">
-                    <a href="/admin/admin/edit?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">修改</a>
-                    <a href="/admin/admin/del?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">删除</a>
+                    <a href="javascript:;" class="btn bg-olive btn-xs">修改</a>
+                    <a href="javascript:;" class="btn bg-olive btn-xs">删除</a>
                 </td>
             </tr>
                 @endforeach

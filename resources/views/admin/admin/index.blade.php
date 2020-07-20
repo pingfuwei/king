@@ -58,21 +58,12 @@
                                           <td><input  type="checkbox"></td>
 				                          <td>{{$itme->admin_id}}</td>
 									      <td>{{$itme->admin_name}}</td>
-<<<<<<< HEAD
 									      <td>{{date("Y-m-d H:i:s",$itme->addtime)}}</td>
-=======
-									      <td>{{date('Y-m-d H:i:s',$itme->addtime)}}</td>
->>>>>>> c83b1f32d9a97026ced4900a359eb4790b6cab38
 		                                  <td class="text-center">
-<<<<<<< HEAD
 		                                 	  <a href="/admin/admin/edit?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">修改</a>
 		                                 	  <a href="/admin/admin/del?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">删除</a>
-		                                  </td>
-=======
-		                                 	  <button type="button" class="btn bg-olive btn-xs">修改</button>
 											  <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('/admin/role/role',$itme->admin_id)}}">添加角色</a></button>
 		                                   </td>
->>>>>>> 997aa61ee26e56fd2beede77cc60243b8ec64312
 			                          </tr>
                                       @endforeach
                                       <tr><td colspan="7">{{$admin->appends(["admin_name"=>$admin_name])->links()}}</td></tr>
