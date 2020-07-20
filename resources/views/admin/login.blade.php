@@ -2,15 +2,18 @@
 <html>
 <head>
 <meta charset="utf-8"/>
-<title>前台登录</title>
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<title>后台登录</title>
 <meta name="author" content="DeathGhost" />
 <link rel="stylesheet" type="text/css" href="/login/css/style.css" />
 <style>
 body{height:100%;background:#16a085;overflow:hidden;}
 canvas{z-index:-1;position:absolute;}
 </style>
+<<<<<<< HEAD
  <script src="/login/js/jquery.js"></script>
+=======
+<script src="/login/js/jquery.js"></script>
+>>>>>>> 18f9429fb3499504ec58e7357e0d7e3fefc78116
 <script src="/login/js/verificationNumbers.js"></script>
 <script src="/login/js/Particleground.js"></script>
 <script>
@@ -66,7 +69,7 @@ $(document).ready(function() {
                 data:data,
                 dataType:"json",
                 success:function(res){
-                    console.log(res);
+                    // console.log(res);
                     if(res.status=="true"){
                         alert(res.msg);
                         window.location.href=res.result;
@@ -79,5 +82,8 @@ $(document).ready(function() {
     })
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 </script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 18f9429fb3499504ec58e7357e0d7e3fefc78116
 </html>

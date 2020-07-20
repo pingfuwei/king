@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\AdminModel\\Admin' => $baseDir . '/app/AdminModel/Admin.php',
+    'App\\AdminModel\\Category' => $baseDir . '/app/AdminModel/Category.php',
+    'App\\AdminModel\\vipModel' => $baseDir . '/app/AdminModel/vipModel.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -15,7 +18,13 @@ return array(
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\admin\\AdminController' => $baseDir . '/app/Http/Controllers/admin/AdminController.php',
+    'App\\Http\\Controllers\\admin\\CategoryController' => $baseDir . '/app/Http/Controllers/admin/CategoryController.php',
+    'App\\Http\\Controllers\\admin\\IndexController' => $baseDir . '/app/Http/Controllers/admin/IndexController.php',
+    'App\\Http\\Controllers\\admin\\LoginController' => $baseDir . '/app/Http/Controllers/admin/LoginController.php',
+    'App\\Http\\Controllers\\admin\\VipController' => $baseDir . '/app/Http/Controllers/admin/VipController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
+    'App\\Http\\Middleware\\AdminLogin' => $baseDir . '/app/Http/Middleware/AdminLogin.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

@@ -25,6 +25,7 @@ class ComposerStaticInitd14812d6632c614b966d7ea74052aa10
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'b6ec61354e97f32c0ae683041c78392a' => __DIR__ . '/..' . '/scrivo/highlight.php/HighlightUtilities/functions.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
+        'fdb3b5f01b3ed818a713c5450349237f' => __DIR__ . '/../..' . '/app/Helpers/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -411,6 +412,9 @@ class ComposerStaticInitd14812d6632c614b966d7ea74052aa10
     );
 
     public static $classMap = array (
+        'App\\AdminModel\\Admin' => __DIR__ . '/../..' . '/app/AdminModel/Admin.php',
+        'App\\AdminModel\\Category' => __DIR__ . '/../..' . '/app/AdminModel/Category.php',
+        'App\\AdminModel\\vipModel' => __DIR__ . '/../..' . '/app/AdminModel/vipModel.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -420,7 +424,13 @@ class ComposerStaticInitd14812d6632c614b966d7ea74052aa10
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\admin\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/AdminController.php',
+        'App\\Http\\Controllers\\admin\\CategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/CategoryController.php',
+        'App\\Http\\Controllers\\admin\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/IndexController.php',
+        'App\\Http\\Controllers\\admin\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/LoginController.php',
+        'App\\Http\\Controllers\\admin\\VipController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/VipController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
+        'App\\Http\\Middleware\\AdminLogin' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminLogin.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',

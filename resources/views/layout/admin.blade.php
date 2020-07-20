@@ -351,6 +351,7 @@
                             </a>
                         </li>
                         <li id="admin-login">
+                                <a href="{{url('admin/vip/index')}}">
                             <a href="{{url('admin/vip/index')}}" >
                                 <i class="fa fa-circle-o"></i> VIP管理
                             </a>
@@ -360,21 +361,20 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
-                        <span>品优购快报管理</span>
+                        <span>分类管理</span>
                         <span class="pull-right-container">
-				       			<i class="fa fa-angle-left pull-right"></i>
-				   		 	</span>
+                       			<i class="fa fa-angle-left pull-right"></i>
+                   		 	</span>
                     </a>
                     <ul class="treeview-menu">
-
                         <li id="admin-login">
-                            <a href="/admin/news/create" >
-                                <i class="fa fa-circle-o"></i> 品优购快报添加
+                            <a href="{{url('/admin/category/create')}}">
+                                <i class="fa fa-circle-o"></i> 分类添加
                             </a>
                         </li>
                         <li id="admin-login">
-                            <a href="/admin/news/index" >
-                                <i class="fa fa-circle-o"></i> 品优购快报列表
+                            <a href="{{url('/admin/category/index')}}">
+                                <i class="fa fa-circle-o"></i> 分类展示
                             </a>
                         </li>
                     </ul>
@@ -401,6 +401,29 @@
                         </li>
                     </ul>
                 </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>品优购快报管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                            <a href="/admin/news/create" >
+                                <i class="fa fa-circle-o"></i> 品优购添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="/admin/news/index" >
+                                <i class="fa fa-circle-o"></i> 品优购展示
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- 菜单 /-->
 
             </ul>

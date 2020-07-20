@@ -7,7 +7,7 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>商品编辑</title>
+    <title>品牌编辑</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
   
@@ -42,7 +42,7 @@
                         <!--tab头-->
                         <ul class="nav nav-tabs">                       		
                             <li class="active">
-                                <a href="#home" data-toggle="tab">商品基本信息</a>                                                        
+                                <a href="#home" data-toggle="tab">品牌基本信息</a>
                             </li>                   
                         </ul>
                         <!--tab头/-->
