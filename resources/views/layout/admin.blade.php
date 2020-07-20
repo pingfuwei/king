@@ -364,7 +364,11 @@
                             </a>
                         </li>
                         <li id="admin-login">
+<<<<<<< HEAD
+                            <a href="{{url('admin/vip/index')}}">
+=======
                             <a href="{{url('admin/vip/index')}}" >
+>>>>>>> 87d188cb0fd213f6021d27037f6e1d5910f9fd88
                                 <i class="fa fa-circle-o"></i> VIP管理
                             </a>
                         </li>
@@ -373,14 +377,30 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
+<<<<<<< HEAD
+                        <span>分类管理</span>
+                        <span class="pull-right-container">
+                       			<i class="fa fa-angle-left pull-right"></i>
+                   		 	</span>
+=======
                         <span>品优购快报管理</span>
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
 				   		 	</span>
+>>>>>>> 87d188cb0fd213f6021d27037f6e1d5910f9fd88
                     </a>
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
+<<<<<<< HEAD
+                            <a href="{{url('/admin/category/create')}}">
+                                <i class="fa fa-circle-o"></i> 分类添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="{{url('/admin/category/index')}}">
+                                <i class="fa fa-circle-o"></i> 分类管理
+=======
                             <a href="/admin/news/create" target="iframe">
                                 <i class="fa fa-circle-o"></i> 品优购快报添加
                             </a>
@@ -388,6 +408,7 @@
                         <li id="admin-login">
                             <a href="/admin/news/index" target="iframe">
                                 <i class="fa fa-circle-o"></i> 品优购快报列表
+>>>>>>> 87d188cb0fd213f6021d27037f6e1d5910f9fd88
                             </a>
                         </li>
                     </ul>

@@ -2,8 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8"/>
-<title>前台登录</title>
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<title>后台登录</title>
 <meta name="author" content="DeathGhost" />
 <link rel="stylesheet" type="text/css" href="/login/css/style.css" />
 <style>
@@ -21,10 +20,8 @@ $(document).ready(function() {
     lineColor: '#5cbdaa'
   });
   //验证码
-  createCode();
   //测试提交，对接程序删除即可
   $(".submit_btn").click(function(){
-	  location.href="index.html";
 	  });
 });
 </script>
@@ -55,7 +52,10 @@ $(document).ready(function() {
 </dl>
 </div>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+>>>>>>> 18f9429fb3499504ec58e7357e0d7e3fefc78116
 <script>
     $(function(){
         $(document).on("click","#but",function(){
@@ -69,7 +69,7 @@ $(document).ready(function() {
                 data:data,
                 dataType:"json",
                 success:function(res){
-                    console.log(res);
+                    // console.log(res);
                     if(res.status=="true"){
                         alert(res.msg);
                         location.href="admin/index";
@@ -83,3 +83,4 @@ $(document).ready(function() {
     })
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 </script>
+</html>

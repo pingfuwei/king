@@ -33,7 +33,7 @@
 
             <!-- 正文区域 -->
             <section class="content">
-                <form action="/admin/admin/createDo" method="post">
+                <form action="/admin/category/createDo" method="post">
                 @csrf
                 <div class="box-body">
 
@@ -43,7 +43,7 @@
                         <!--tab头-->
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a href="#home" data-toggle="tab">商品基本信息</a>
+                                <a href="#home" data-toggle="tab">分类基本信息</a>
                             </li>
                         </ul>
                         <!--tab头/-->
@@ -55,17 +55,21 @@
                             <div class="tab-pane active" id="home">
                                 <div class="row data-type">
 
-		                           <div class="col-md-2 title">管理员名称</div>
+		                           <div class="col-md-2 title">分类名称</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control" name="admin_name"    placeholder="管理员名称" value="">
+		                               <input type="text" class="form-control" name="cate_name"    placeholder="分类名称" value="">
 		                           </div>
                                 </div>
                                 <div class="row data-type">
-
-                                   <div class="col-md-2 title">管理员密码</div>
-                                   <div class="col-md-10 data">
-                                       <input type="password" class="form-control" name="admin_pwd"   placeholder="管理员密码" value="">
-                                   </div>
+                                <div class="col-md-2 title">父级分类</div>
+                                <div class="col-md-10 data">
+                                   <select class="form-control" name="p_id">
+                                       <option value="0">--顶级分类--</option>
+                                       @foreach($cate as $itme)
+                                       <option value="{{$itme->cate_id}}">{{$itme->cate_name}}</option>
+                                       @endforeach
+                                   </select>
+                                </div>
                                 </div>
                             </div>
 
@@ -77,8 +81,6 @@
                   </form>
 
             </section>
-
-
 
 
             <!-- 正文区域 /-->
