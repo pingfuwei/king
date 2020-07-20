@@ -18,10 +18,10 @@
 //->middleware("is_login")->
 Route::prefix("admin")->group(function (){//后台
     Route::any('index','admin\IndexController@index');//首页
-        Route::prefix("admin")->group(function (){//后台登陆
-            Route::any('create','admin\AdminController@create');//用户添加
-            Route::any('createDo','admin\AdminController@createDo');//用户添加
-            Route::any('index','admin\AdminController@index');//用户添加
+        Route::prefix("brand")->group(function (){//品牌模块
+            Route::any('create','admin\BrandController@create');//品牌添加页面
+            Route::any('createDo','admin\BrandController@createDo');//品牌添加
+            Route::any('index','admin\BrandController@index');//用户展示
 
         });
 

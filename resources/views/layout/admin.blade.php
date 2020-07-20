@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="/plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="/plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="/css/style.css">
-
+    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    
 
 
     <script type="text/javascript">
@@ -375,5 +376,5 @@
 
 
 </body>
-
+    <script src="/plugins/adminLTE/js/app.min.js"></script>
 </html>
