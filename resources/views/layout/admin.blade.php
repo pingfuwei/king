@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -318,26 +319,26 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
-<<<<<<< HEAD
+
                             <a href="/admin/admin/Do" target="iframe">
-=======
+
                             <a href="/admin/admin/create">
->>>>>>> 4b667345a15e2062180cc0d7710ff71d6bcc0d79
+
                                 <i class="fa fa-circle-o"></i> 管理员添加
                             </a>
                         </li>
                         <li id="admin-login">
-<<<<<<< HEAD
-                            <a href="/admin/admin/index" target="iframe">
-=======
+
                             <a href="/admin/admin/index">
->>>>>>> 4b667345a15e2062180cc0d7710ff71d6bcc0d79
+
+                            <a href="/admin/admin/index">
+
                                 <i class="fa fa-circle-o"></i> 管理员展示
                             </a>
                         </li>
                     </ul>
                 </li>
->>>>>>> 1ab5651ffff020601f826840e0fedce4bcff78d4
+
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
@@ -349,12 +350,12 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
-                            <a href="{{url('admin/vip/create')}}" target="iframe">
+                            <a href="{{url('admin/vip/create')}}">
                                 <i class="fa fa-circle-o"></i> VIP添加
                             </a>
                         </li>
                         <li id="admin-login">
-                            <a href="{{url('admin/vip/index')}}" target="iframe">
+                            <a href="{{url('admin/vip/index')}}" >
                                 <i class="fa fa-circle-o"></i> VIP管理
                             </a>
                         </li>
@@ -385,10 +386,7 @@
 
 </div>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 1ab5651ffff020601f826840e0fedce4bcff78d4
 </body>
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
@@ -396,9 +394,9 @@
     $.widget.bridge('uibutton', $.ui.button);
 </script>
 <script src="/plugins/adminLTE/js/app.min.js"></script>
-<<<<<<< HEAD
+
 
 </html>
-=======
+
 </html>
->>>>>>> 1ab5651ffff020601f826840e0fedce4bcff78d4
+
