@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+//后台路由
+//->middleware("is_login")->
+Route::prefix("admin")->group(function (){
+    Route::any('index','admin\IndexController@index');//首页
+    });
