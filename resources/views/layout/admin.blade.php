@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -67,7 +67,7 @@
                                         <!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                <img src="/img/110.jpg" class="img-circle" alt="User Image">
                                             </div>
                                             <h4>
                                                 系统消息
@@ -252,13 +252,13 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <img src="/img/110.jpg" class="user-image" alt="User Image">
                             <span class="hidden-xs">chendahai</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <img src="/img/110.jpg" class="img-circle" alt="User Image">
 
                                 <p>
                                     chendahai - 陈大海
@@ -291,7 +291,7 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="/img/110.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
                     <p> chendahai</p>
@@ -303,7 +303,41 @@
                 <li id="admin-index"><a href="index.html"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
 
                 <!-- 菜单 -->
+<<<<<<< HEAD
 
+=======
+                <li class="treeview">
+                    <a href="#">
+
+                        <i class="fa fa-folder"></i>
+                        <span>管理员管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+<<<<<<< HEAD
+                            <a href="/admin/admin/Do" target="iframe">
+=======
+                            <a href="/admin/admin/create">
+>>>>>>> 4b667345a15e2062180cc0d7710ff71d6bcc0d79
+                                <i class="fa fa-circle-o"></i> 管理员添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+<<<<<<< HEAD
+                            <a href="/admin/admin/index" target="iframe">
+=======
+                            <a href="/admin/admin/index">
+>>>>>>> 4b667345a15e2062180cc0d7710ff71d6bcc0d79
+                                <i class="fa fa-circle-o"></i> 管理员展示
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+>>>>>>> 1ab5651ffff020601f826840e0fedce4bcff78d4
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder"></i>
@@ -351,6 +385,10 @@
 
 </div>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1ab5651ffff020601f826840e0fedce4bcff78d4
 </body>
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
@@ -358,5 +396,9 @@
     $.widget.bridge('uibutton', $.ui.button);
 </script>
 <script src="/plugins/adminLTE/js/app.min.js"></script>
+<<<<<<< HEAD
 
 </html>
+=======
+</html>
+>>>>>>> 1ab5651ffff020601f826840e0fedce4bcff78d4
