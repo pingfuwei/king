@@ -16,8 +16,13 @@
 //});
 //后台路由
 //->middleware("is_login")->
-Route::prefix("admin")->group(function (){//后台
+Route::prefix("admin")->group(function(){
+    Route::get("login","admin\LoginController@login");//登录
+    Route::any("loginis","admin\LoginController@loginis");//登录执行
+});
+Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
     Route::any('index','admin\IndexController@index');//首页
+
 
     Route::prefix("vip")->group(function (){
         Route::any('/create','admin\VipController@create');//vip添加
@@ -33,4 +38,8 @@ Route::prefix("admin")->group(function (){//后台
         });
 
 
+
+
+
     });
+

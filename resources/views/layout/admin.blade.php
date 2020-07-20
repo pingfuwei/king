@@ -304,9 +304,6 @@
                 <li id="admin-index"><a href="index.html"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
 
                 <!-- 菜单 -->
-<<<<<<< HEAD
-
-=======
                 <li class="treeview">
                     <a href="#">
 
@@ -320,8 +317,13 @@
 
                         <li id="admin-login">
 
+
                             <a href="/admin/admin/Do" target="iframe">
 
+                            <a href="/admin/admin/create">
+
+
+                            <a href="/admin/admin/Do" target="iframe">
                             <a href="/admin/admin/create">
 
                                 <i class="fa fa-circle-o"></i> 管理员添加
@@ -329,8 +331,13 @@
                         </li>
                         <li id="admin-login">
 
+
                             <a href="/admin/admin/index">
 
+                            <a href="/admin/admin/index">
+
+
+                            <a href="/admin/admin/index" target="iframe">
                             <a href="/admin/admin/index">
 
                                 <i class="fa fa-circle-o"></i> 管理员展示
@@ -394,7 +401,10 @@
     $.widget.bridge('uibutton', $.ui.button);
 </script>
 <script src="/plugins/adminLTE/js/app.min.js"></script>
+<<<<<<< HEAD
 
+
+</html>
 
 </html>
 
