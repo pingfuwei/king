@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\AdminModel\NewsModel;
+use App\AdminModel\GoodsvalueModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class Goods_valController extends Controller
 {
     /*
-     * 品优购快报添加
+     * 商品属性值添加
      */
     public function create(){
-        return view('admin.news.create');
+        return view('admin.goods_val.create');
     }
     /*
-     * 品优购快报入库
+     * 商品属性值入库
      */
     public function createDo(Request $request){
         $data=$request->all();
-        $data['addtime']=time();
-        $newsmodel=new NewsModel();
-        $res=$newsmodel::insert($data);
+        $data['add_time']=time();
+        $goods_valuemodel=new GoodsvalueModel();
+        $res=$goods_valuemodel::insert($data);
         if($res){
             $message=[
                 'code'=>'000000',
@@ -42,41 +42,33 @@ class NewsController extends Controller
         return json_encode($message,JSON_UNESCAPED_UNICODE);
     }
     /*
-     * 品优购快报列表
+     * 商品属性值列表
      */
     public function index(Request $request){
-        $title=$request->post('title');
-        $is_show=$request->post('is_show')!==0?$request->post('is_show'):4;
-//        echo $title.$is_show;
-        $newsmodel=new NewsModel();
+        $goods_valuemodel=new GoodsvalueModel();
         $where[]=[
             'is_del','=',1
         ];
-        if(!empty($title)){
+        $goods_val_name=$request->post('goods_val_name');
+        if($goods_val_name){
             $where[]=[
-                'title','like',"%$title%"
+                'goods_val_name','like',"%$goods_val_name%"
             ];
         }
-        $is_show=intval($is_show);
-        if($is_show<2){
-            $where[]=[
-                'is_show','=',$is_show
-            ];
-        }
-        $res=$newsmodel::where($where)->paginate(3);
-        return view('admin.news.index',['res'=>$res,'title'=>$title,'is_show'=>$is_show]);
+        $res=$goods_valuemodel::where($where)->paginate(5);
+        return view('admin.goods_val.index',['res'=>$res,'goods_val_name'=>$goods_val_name]);
     }
     /*
-     * 品优购快报删除
+     * 商品属性值删除
      */
     public function del(Request $request){
-        $n_id=$request->post('n_id');
-//        dd($n_id);
-        $newsmodel=new NewsModel();
+        $goods_val_id=$request->post('goods_val_id');
+//        dd($goods_val_id);
+        $goods_valuemodel=new GoodsvalueModel();
         $where=[
-            ['n_id','=',$n_id]
+            ['goods_val_id','=',$goods_val_id]
         ];
-        $res=$newsmodel::where($where)->update(['is_del'=>0]);
+        $res=$goods_valuemodel::where($where)->update(['is_del'=>0]);
         if($res){
             $message=[
                 'code'=>'000000',
@@ -97,28 +89,27 @@ class NewsController extends Controller
         return json_encode($message,JSON_UNESCAPED_UNICODE);
     }
     /*
-     * 品优购快报修改
+     * 商品属性值修改
      */
-    public function upd($n_id){
-//        dd($n_id);
-        $newsmodel=new NewsModel();
+    public function upd($goods_val_id){
+        $goods_valuemodel=new GoodsvalueModel();
         $where=[
-            ['n_id','=',$n_id]
+            ['goods_val_id','=',$goods_val_id]
         ];
-        $res=$newsmodel::where($where)->first();
-        return view('admin.news.upd',['res'=>$res]);
+        $res=$goods_valuemodel::where($where)->first();
+        return view('admin.goods_val.upd',['res'=>$res]);
     }
     /*
-     * 品优购快报执行修改
+     * 商品属性值修改
      */
     public function updDo(Request $request){
         $data=$request->all();
-        $newsmodel=new NewsModel();
+        $goods_valuemodel=new GoodsvalueModel();
         $where=[
-            ['n_id','=',$data['n_id']]
+            ['goods_val_id','=',$data['goods_val_id']]
         ];
-        unset($data['n_id']);
-        $res=$newsmodel::where($where)->update($data);
+        unset($data['goods_val_id']);
+        $res=$goods_valuemodel::where($where)->update($data);
         if($res!==false){
             $message=[
                 'code'=>'000000',
@@ -139,10 +130,11 @@ class NewsController extends Controller
         return json_encode($message,JSON_UNESCAPED_UNICODE);
     }
     /*
-     * 品优购快报极点级改
+     * 商品属性值极点级改
      */
     public function updTo(Request $request){
         $data=$request->all();
+//        dd($data);
         $newsmodel=new NewsModel();
         $where=[
             ['n_id','=',$data['n_id']]

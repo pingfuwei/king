@@ -50,8 +50,8 @@
                 <td>{{$v->vip_name}}</td>
                 <td>{{$v->price}}</td>
                 <td class="text-center">
-                    <a href="javascript:;" class="btn bg-olive btn-xs">修改</a>
-                    <a href="javascript:;" class="btn bg-olive btn-xs">删除</a>
+                    <a href="{{url('admin/vip/upd',$v->vip_id)}}" class="btn bg-olive btn-xs">修改</a>
+                    <a href="javascript:;" data-id="{{$v->vip_id}}" class="del btn bg-olive btn-xs">删除</a>
                 </td>
             </tr>
                 @endforeach
@@ -68,6 +68,27 @@
 <!-- /.box-body -->
 
 </body>
-
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script>
+    $(".del").click(function(){
+        var vip_id= $(this).data("id");
+//       console.log(attr_id);
+        $.ajax({
+            url:"{{url('/admin/vip/del')}}",
+            type:'post',
+            data:{'vip_id':vip_id},
+            dataType:'json',
+            success:function(res){
+//                console.log(res);
+                if(res.code==200){
+                    alert(res.msg);
+                    location.href="{{url('admin/vip/index')}}"
+                }else{
+                    alert(res.msg);
+                }
+            }
+        })
+    })
+</script>
 </html>
 @endsection

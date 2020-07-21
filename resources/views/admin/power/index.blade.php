@@ -39,7 +39,6 @@
                 <th class="sorting_asc">ID</th>
                 <th class="sorting">权限名称</th>
                 <th class="sorting">URL</th>
-                <th class="sorting">是否删除</th>
                 <th class="sorting">添加时间</th>
                 <th class="text-center">操作</th>
             </tr>
@@ -51,10 +50,10 @@
                 <td>{{$v->power_id}}</td>
                 <td>{{$v->power_name}}</td>
                 <td>{{$v->power_url}}</td>
-                <td>@if($v->power_status==1)否@else 是 @endif</td>
                 <td>{{date("Y-m-d H:i:s",$v->power_time)}}</td>
                 <td class="text-center">
-                    <button type="button" class="btn bg-olive btn-xs">修改</button>
+                    <a href="{{url('admin/power/upd',$v->power_id)}}" class="btn bg-olive btn-xs">修改</a>
+                    <a href="javascript:;" data-id="{{$v->power_id}}" class="del btn bg-olive btn-xs">删除</a>
                 </td>
             </tr>
                 @endforeach
@@ -71,6 +70,28 @@
 <!-- /.box-body -->
 
 </body>
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script>
+    $(".del").click(function(){
+        var power_id= $(this).data("id");
+//       console.log(attr_id);
+        $.ajax({
+            url:"{{url('/admin/power/del')}}",
+            type:'post',
+            data:{'power_id':power_id},
+            dataType:'json',
+            success:function(res){
+//                console.log(res);
+                if(res.code==200){
+                    alert(res.msg);
+                    location.href="{{url('admin/power/index')}}"
+                }else{
+                    alert(res.msg);
+                }
+            }
+        })
+    })
+</script>
 
 </html>
 @endsection

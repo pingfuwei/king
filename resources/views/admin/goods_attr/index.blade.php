@@ -23,9 +23,9 @@
 <!-- .box-body -->
 
 <div class="box-header with-border">
-    <h3 class="box-title">角色列表</h3>
+    <h3 class="box-title">VIP列表</h3>
 </div>
-<button class="btn btn-default" ng-click="goListPage()"><a href="{{url('admin/role/create')}}">添加角色</a></button>
+
 <div class="box-body">
 
     <!-- 数据表格 -->
@@ -36,10 +36,9 @@
         <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
             <thead>
             <tr>
-                <th class="sorting_asc">ID</th>
-                <th class="sorting">角色名称</th>
+                <th class="sorting_asc">属性ID</th>
+                <th class="sorting">属性名称</th>
                 <th class="sorting">添加时间</th>
-                <th class="sorting">所有权限</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
@@ -47,20 +46,12 @@
             @foreach($data as $k=>$v)
             <tr>
 
-                <td>{{$v->role_id}}</td>
-                <td>{{$v->role_name}}</td>
-                <td>{{date("Y-m-d H:i:s",$v->role_time)}}</td>
-                <td>
-                @foreach($power as $kk=>$vv)
-                    @if($v->role_id==$vv->role_id)
-                        {{$vv->power_name}}
-                        @endif
-                @endforeach
-                </td>
+                <td>{{$v->attr_id}}</td>
+                <td>{{$v->attr_name}}</td>
+                <td>{{date('Y-m-d H:i:s',$v->add_time)}}</td>
                 <td class="text-center">
-                    <a href="{{url('admin/role/upd',$v->role_id)}}" class="btn bg-olive btn-xs">修改</a>
-                    <a href="javascript:;" data-id="{{$v->role_id}}" class="del btn bg-olive btn-xs">删除</a>
-                    <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('/admin/power/power',$v->role_id)}}">赋权限</a></button>
+                    <a href="{{url('admin/goods_attr/upd',$v->attr_id)}}" class="btn bg-olive btn-xs">修改</a>
+                    <a href="javascript:;" data-id="{{$v->attr_id}}" class="del btn bg-olive btn-xs">删除</a>
                 </td>
             </tr>
                 @endforeach
@@ -68,7 +59,7 @@
         </table>
         <!--数据列表/-->
 
-
+        <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('admin/goods_attr/create')}}">添加属性</a></button>
     </div>
     <!-- 数据表格 /-->
 
@@ -77,21 +68,23 @@
 <!-- /.box-body -->
 
 </body>
+
+
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script>
     $(".del").click(function(){
-        var role_id= $(this).data("id");
+//    alert(123);
+        var attr_id= $(this).data("id");
 //       console.log(attr_id);
         $.ajax({
-            url:"{{url('/admin/role/del')}}",
+            url:"{{url('/admin/goods_attr/del')}}",
             type:'post',
-            data:{'role_id':role_id},
+            data:{'attr_id':attr_id},
             dataType:'json',
             success:function(res){
-//                console.log(res);
                 if(res.code==200){
                     alert(res.msg);
-                    location.href="{{url('admin/role/index')}}"
+                    location.href="{{url('admin/goods_attr/index')}}"
                 }else{
                     alert(res.msg);
                 }
@@ -99,6 +92,5 @@
         })
     })
 </script>
-
 </html>
 @endsection

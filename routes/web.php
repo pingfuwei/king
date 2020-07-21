@@ -31,7 +31,9 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('/create','admin\VipController@create');//vip添加
             Route::any('/createDo','admin\VipController@createDo');//执行vip添加
             Route::any('/index','admin\VipController@index');//执行vip添加
-            Route::any('/upd','admin\VipController@upd');//vip修改
+            Route::any('/upd/{vip_id}','admin\VipController@upd');//vip修改
+            Route::any('/updDo','admin\VipController@updDo');//执行vip修改
+            Route::any('/del','admin\VipController@del');//执行vip删除
         });
         Route::prefix("brand")->group(function (){//品牌模块
             Route::any('create','admin\BrandController@create');//品牌添加页面
@@ -52,6 +54,9 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('/index','admin\DeveloperController@index');//列表展示
         Route::any('/role/{admin_id}','admin\DeveloperController@role');//用户添加角色
         Route::any('/roleDo','admin\DeveloperController@roleDo');//执行添加角色
+        Route::any('upd/{role_id}','admin\DeveloperController@roleupd');//角色修改
+        Route::any('updDo','admin\DeveloperController@roleupdDo');//执行角色修改
+        Route::any('del','admin\DeveloperController@roledel');//执行角色删除
          });
     Route::prefix("power")->group(function (){
         Route::any('/create','admin\DeveloperController@power_create');//权限添加
@@ -59,6 +64,9 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('/index','admin\DeveloperController@power_index');//列表展示
         Route::any('/power/{role_id}','admin\DeveloperController@power');//给角色赋权限
         Route::any('/powerDo','admin\DeveloperController@powerDo');//执行角色赋权限
+        Route::any('upd/{power_id}','admin\DeveloperController@upd');//权限修改
+        Route::any('updDo','admin\DeveloperController@updDo');//执行权限修改
+        Route::any('del','admin\DeveloperController@del');//执行权限删除
     });
     //品优购快报
         Route::prefix("news")->group(function (){
@@ -88,14 +96,26 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('create','admin\Goods_attrController@create');//商品添加属性
             Route::any('createDo','admin\Goods_attrController@createDo');//商品属性添加执行
             Route::any('index','admin\Goods_attrController@index');//商品属性展示
-            Route::any('upd','admin\Goods_attrController@upd');//商品属性修改
-
+            Route::any('upd/{attr_id}','admin\Goods_attrController@upd');//商品属性修改
+            Route::any('updDo','admin\Goods_attrController@updDo');//执行商品属性修改
+            Route::any('del','admin\Goods_attrController@del');//执行商品属性删除
         });
         Route::prefix("goods_val")->group(function (){//商品属性值
             Route::any('create','admin\Goods_valController@create');//商品属性值添加
             Route::any('createDo','admin\Goods_valController@createDo');//商品属性值添加执行
             Route::any('index','admin\Goods_valController@index');//商品属性值展示
-            Route::any('upd','admin\Goods_valController@upd');//商品属性值修改
+            Route::any('upd/{id}','admin\Goods_valController@upd');//商品属性值修改
+            Route::any('updDo','admin\Goods_valController@updDo');//商品属性值执行修改
+            Route::any('del','admin\Goods_valController@del');//商品属性值删除
+            Route::any('updTo','admin\Goods_valController@updTo');//商品属性值极点级改
+        });
+        Route::prefix("stock")->group(function (){//库存
+            Route::any('create','admin\StockController@create');//库存添加
+            Route::any('createDo','admin\StockController@createDo');//库存添加执行
+            Route::any('index','admin\StockController@index');//库存展示
+            Route::any('upd','admin\StockController@upd');//库存修改
+            Route::any('updDo','admin\StockController@updDo');//执行商品属性修改
+            Route::any('del','admin\StockController@del');//执行商品属性删除
         });
 });
 

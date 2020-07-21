@@ -2,25 +2,23 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\AdminModel\vipModel;
+use App\AdminModel\Goods_attrModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class VipController extends Controller
+class Goods_attrController extends Controller
 {
     public function create(){
-        return view("admin.vip.create");
+        return view('admin.goods_attr.create');
     }
     public function createDo(Request $request){
         $all=$request->all();
-        $vip_name=$all['vip_name'];
-        $price=$all['price'];
+        $attr_name=$all['attr_name'];
         $data=[
-            'vip_name'=>$vip_name,
-            'price'=>$price,
-            'vip_time'=>time()
+            'attr_name'=>$attr_name,
+            'add_time'=>time()
         ];
-        $res=vipModel::insert($data);
+        $res=Goods_attrModel::insert($data);
         if($res){
             return [
                 'code'=>200,
@@ -36,23 +34,21 @@ class VipController extends Controller
         }
     }
     public function index(){
-        $data=vipModel::get();
-        return view('admin.vip.index',['data'=>$data]);
+        $data=Goods_attrModel::get();
+        return view('admin.goods_attr.index',['data'=>$data]);
     }
-    public function upd($vip_id){
-        $data=vipModel::where('vip_id',$vip_id)->first();
-        return view('admin.vip.upd',['data'=>$data]);
+    public function upd($attr_id){
+        $data=Goods_attrModel::where('attr_id',$attr_id)->first();
+        return view('admin.goods_attr.upd',['data'=>$data]);
     }
     public function updDo(Request $request){
         $all=$request->all();
-        $vip_name=$all['vip_name'];
-        $price=$all['price'];
-        $vip_id=$all['vip_id'];
+        $attr_name=$all['attr_name'];
+        $attr_id=$all['attr_id'];
         $data=[
-            'vip_name'=>$vip_name,
-            'price'=>$price,
+            'attr_name'=>$attr_name,
         ];
-        $res=vipModel::where('vip_id',$vip_id)->update($data);
+        $res=Goods_attrModel::where('attr_id',$attr_id)->update($data);
         if($res){
             return [
                 'code'=>200,
@@ -68,8 +64,8 @@ class VipController extends Controller
         }
     }
     public function del(){
-        $vip_id=request()->post('vip_id');
-        $res=vipModel::where('vip_id',$vip_id)->delete();
+        $attr_id=request()->post('attr_id');
+        $res=Goods_attrModel::where('attr_id',$attr_id)->delete();
         if($res){
             return [
                 'code'=>200,
