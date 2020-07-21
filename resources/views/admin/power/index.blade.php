@@ -40,17 +40,18 @@
                 <th class="sorting">权限名称</th>
                 <th class="sorting">URL</th>
                 <th class="sorting">添加时间</th>
+                <th class="sorting">角色</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
             @foreach($data as $k=>$v)
             <tr>
-
                 <td>{{$v->power_id}}</td>
                 <td>{{$v->power_name}}</td>
                 <td>{{$v->power_url}}</td>
                 <td>{{date("Y-m-d H:i:s",$v->power_time)}}</td>
+                <td>{{rtrim($v->res,",")}}</td>
                 <td class="text-center">
                     <a href="{{url('admin/power/upd',$v->power_id)}}" class="btn bg-olive btn-xs">修改</a>
                     <a href="javascript:;" data-id="{{$v->power_id}}" class="del btn bg-olive btn-xs">删除</a>

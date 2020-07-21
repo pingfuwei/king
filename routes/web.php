@@ -89,6 +89,8 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('createDo','admin\GoodsController@createDo');//商品添加执行
             Route::any('index','admin\GoodsController@index');//商品展示
             Route::any('upd','admin\GoodsController@upd');//商品修改
+            Route::any('updates','admin\GoodsController@updates');//商品修改执行
+            Route::any('del','admin\GoodsController@del');//商品修改
         });
         Route::prefix("goods_attr")->group(function (){//商品属性
             Route::any('create','admin\Goods_attrController@create');//商品添加属性
@@ -118,3 +120,39 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::any("/", "index\Index@index");//首页
+Route::prefix("index")->group(function() {
+    Route::any("login", "index\LoginController@login");//登录
+    Route::prefix("reg")->group(function() {//注册
+        Route::any("reg", "index\LoginController@reg");//注册
+        Route::any("ajaxCode", "index\LoginController@ajaxCode");//验证码ajax
+    });
+
+});
