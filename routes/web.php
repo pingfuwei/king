@@ -96,7 +96,10 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('create','admin\Goods_valController@create');//商品属性值添加
             Route::any('createDo','admin\Goods_valController@createDo');//商品属性值添加执行
             Route::any('index','admin\Goods_valController@index');//商品属性值展示
-            Route::any('upd','admin\Goods_valController@upd');//商品属性值修改
+            Route::any('upd/{id}','admin\Goods_valController@upd');//商品属性值修改
+            Route::any('updDo','admin\Goods_valController@updDo');//商品属性值执行修改
+            Route::any('del','admin\Goods_valController@del');//商品属性值删除
+            Route::any('updTo','admin\Goods_valController@updTo');//商品属性值极点级改
         });
         Route::prefix("stock")->group(function (){//库存
             Route::any('create','admin\StockController@create');//库存添加
