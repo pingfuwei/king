@@ -12,10 +12,6 @@ canvas{z-index:-1;position:absolute;}
     <script src="/login/js/jquery.js"></script>
     <script src="/login/js/verificationNumbers.js"></script>
     <script src="/login/js/Particleground.js"></script>
- <script src="/login/js/jquery.js"></script>
-    <script src="/login/js/jquery.js"></script>
-    <script src="/login/js/verificationNumbers.js"></script>
-    <script src="/login/js/Particleground.js"></script>
 <script>
 $(document).ready(function() {
     //粒子背景特效

@@ -143,7 +143,6 @@ class NewsController extends Controller
      */
     public function updTo(Request $request){
         $data=$request->all();
-//        dd($data);
         $newsmodel=new NewsModel();
         $where=[
             ['n_id','=',$data['n_id']]
