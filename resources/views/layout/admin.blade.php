@@ -554,6 +554,26 @@
                                     </a>
                                 </li>
                             </ul>
+                            <a href="#">
+                                <i class="fa fa-folder"></i>
+                                <span>商品库存</span>
+                                <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li id="admin-login">
+                                    <a href="{{url('admin/stock/create')}}">
+                                        <i class="fa fa-circle-o"></i> 商品库存添加
+                                    </a>
+                                </li>
+                                <li id="admin-login">
+                                    <a href="{{url('admin/stock/index')}}" >
+                                        <i class="fa fa-circle-o"></i> 商品库存管理
+                                    </a>
+                                </li>
+                            </ul>
                     </ul>
                 </li>
                 <!-- 菜单 /-->

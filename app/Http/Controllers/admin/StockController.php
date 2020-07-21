@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use App\AdminModel\Goods_attrModel;
 use App\AdminModel\GoodsvalueModel;
@@ -20,7 +21,11 @@ class StockController extends Controller
         return view('admin.stock.create',['res'=>$res,'data'=>$data]);
     }
     public function createDo(){
-
+        $data=\request()->all();
+        $res=goods_stock::insert($data);
+        if($res){
+            echo "ok";
+        }
     }
     public function index(){
 
