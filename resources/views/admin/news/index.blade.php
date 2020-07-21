@@ -84,8 +84,6 @@
                     <span class="span_name">{{$v->title}}</span>
                     <input type="text" value="{{$v->title}}" style="display: none" class="inp"/>
                 </td>
-                <td>{{$v->desc}}</td>
-                <td>{{$v->title}}</td>
                 <td>{{date('Y-m-d H:i:s',$v->addtime)}}</td>
                 <td>{{$v->is_show==1?'√':'×'}}</td>
                 <td class="text-center" n_id="{{$v->n_id}}">
