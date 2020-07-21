@@ -72,8 +72,9 @@
 				                          <td>{{$v->brand_id}}</td>
 									      <td>{{$v->brand_name}}</td>
 									      <td>{{date('Y-m-d h:i:s',$v->time)}}</td>
-		                                  <td class="text-center">                                          
-		                                 	  <button type="button" class="btn bg-olive btn-xs">修改</button>                  
+		                                  <td class="text-center">
+                                              <button type="button"  id="upd" brand_id="{{$v->brand_id}}"class="btn bg-olive btn-xs">修改</button>
+                                              <button type="button" id="del" brand_id="{{$v->brand_id}}" class="btn bg-olive btn-xs">删除</button>
 		                                  </td>
 			                          </tr>
 			                          @endforeach
@@ -92,3 +93,30 @@
 </body>
 </html>
 @endsection
+<script src="/js/jquery.min.js"></script>
+<script>
+    $(function(){
+        $(document).on('click',"#del",function(){
+            var brand_id = $(this).attr('brand_id');
+            var data = {}
+            data.brand_id=brand_id;
+            $.ajax({
+                url:'del',
+                type:'get',
+                dataType:'json',
+                data:data,
+                success:function(msg){
+                    if(msg.essay==10000){
+                        window.location.reload();
+                    }else{
+                        alert('删除失败');
+                    }
+                }
+            })
+        });
+        $(document).on("click","#upd",function(){
+            var brand_id = $(this).attr('brand_id');
+            location.href="upd?brand_id="+brand_id;
+        })
+    })
+</script>
