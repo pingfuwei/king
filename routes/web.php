@@ -86,8 +86,9 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('create','admin\Goods_attrController@create');//商品添加属性
             Route::any('createDo','admin\Goods_attrController@createDo');//商品属性添加执行
             Route::any('index','admin\Goods_attrController@index');//商品属性展示
-            Route::any('upd','admin\Goods_attrController@upd');//商品属性修改
-
+            Route::any('upd/{attr_id}','admin\Goods_attrController@upd');//商品属性修改
+            Route::any('updDo','admin\Goods_attrController@updDo');//执行商品属性修改
+            Route::any('del','admin\Goods_attrController@del');//执行商品属性删除
         });
         Route::prefix("goods_val")->group(function (){//商品属性值
             Route::any('create','admin\Goods_valController@create');//商品属性值添加
