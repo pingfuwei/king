@@ -12,12 +12,6 @@ canvas{z-index:-1;position:absolute;}
     <script src="/login/js/jquery.js"></script>
     <script src="/login/js/verificationNumbers.js"></script>
     <script src="/login/js/Particleground.js"></script>
-
-<script src="/login/js/jquery.js"></script>
-<script src="/login/js/verificationNumbers.js"></script>
-<script src="/login/js/Particleground.js"></script>
-
-
 <script>
 $(document).ready(function() {
     //粒子背景特效
@@ -82,3 +76,4 @@ $(document).ready(function() {
     })
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 </script>
+</html>

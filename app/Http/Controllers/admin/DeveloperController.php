@@ -38,6 +38,7 @@ class DeveloperController extends Controller
         }
     }
     public function index(){
+<<<<<<< HEAD
         $data=RoleModel::get();
 //        dd($data);
         foreach ($data as $k=>$v){
@@ -49,6 +50,12 @@ class DeveloperController extends Controller
         }
 //        dd($data);
         return view('admin.role.index',['data'=>$data]);
+=======
+        $data=RoleModel::where('role_status',1)->get();
+        $power=RoleModel::join('role_power','role.role_id','=','role_power.role_id')->get();
+//        print_r($power);die;
+        return view('admin.role.index',['data'=>$data,'power'=>$power]);
+>>>>>>> 4a50272c608df7ee1fcaff57c56f5237fdc1cc2d
     }
     public function power_create(){
         return view('admin.power.create');
@@ -79,6 +86,7 @@ class DeveloperController extends Controller
         }
     }
     public function power_index(){
+<<<<<<< HEAD
         $data=PowerModel::get();
         foreach ($data as $k=>$v){
             $power_id=Role_PowerModel::where("power_id",$v->power_id)->get();
@@ -87,6 +95,9 @@ class DeveloperController extends Controller
                 $data[$k]["res"].=$role->role_name.",";
             }
         }
+=======
+        $data=PowerModel::where('power_status',1)->get();
+>>>>>>> 4a50272c608df7ee1fcaff57c56f5237fdc1cc2d
         return view('admin.power.index',['data'=>$data]);
     }
     public function role($admin_id){
@@ -167,6 +178,94 @@ class DeveloperController extends Controller
             return[
                 'code'=>'500',
                 'msg'=>'赋权限失败',
+                'data'=>$res
+            ];
+        }
+    }
+    public function upd($power_id){
+        $data=PowerModel::where('power_id',$power_id)->first();
+        return view('admin.power.upd',['data'=>$data]);
+    }
+    public function updDo(Request $request){
+        $all=$request->all();
+        $power_name=$all['power_name'];
+        $power_url=$all['power_url'];
+        $power_id=$all['power_id'];
+        $data=[
+            'power_name'=>$power_name,
+            'power_url'=>$power_url,
+        ];
+        $res=PowerModel::where('power_id',$power_id)->update($data);
+        if($res){
+            return [
+                'code'=>200,
+                'msg'=>"修改权限成功",
+                'data'=>$res
+            ];
+        }else{
+            return [
+                'code'=>500,
+                'msg'=>"修改权限失败",
+                'data'=>$res
+            ];
+        }
+    }
+    public function del(){
+        $power_id=request()->post('power_id');
+        $res=PowerModel::where('power_id',$power_id)->update(['power_status'=>0]);
+        if($res){
+            return [
+                'code'=>200,
+                'msg'=>"删除成功",
+                'data'=>$res
+            ];
+        }else{
+            return [
+                'code'=>500,
+                'msg'=>"删除失败",
+                'data'=>$res
+            ];
+        }
+    }
+    public function roleupd($role_id){
+        $data=RoleModel::where('role_id',$role_id)->first();
+        return view('admin.role.upd',['data'=>$data]);
+    }
+    public function roleupdDo(Request $request){
+        $all=$request->all();
+        $role_name=$all['role_name'];
+        $role_id=$all['role_id'];
+        $data=[
+            'role_name'=>$role_name,
+        ];
+        $res=RoleModel::where('role_id',$role_id)->update($data);
+        if($res){
+            return [
+                'code'=>200,
+                'msg'=>"角色修改成功",
+                'data'=>$res
+            ];
+        }else{
+            return [
+                'code'=>500,
+                'msg'=>"角色修改失败",
+                'data'=>$res
+            ];
+        }
+    }
+    public function roledel(){
+        $role_id=request()->post('role_id');
+        $res=RoleModel::where('role_id',$role_id)->update(['role_status'=>0]);
+        if($res){
+            return [
+                'code'=>200,
+                'msg'=>"删除成功",
+                'data'=>$res
+            ];
+        }else{
+            return [
+                'code'=>500,
+                'msg'=>"删除失败",
                 'data'=>$res
             ];
         }

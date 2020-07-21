@@ -38,7 +38,6 @@
             <tr>
                 <th class="sorting_asc">ID</th>
                 <th class="sorting">角色名称</th>
-                <th class="sorting">是否删除</th>
                 <th class="sorting">添加时间</th>
                 <th class="sorting">所有权限</th>
                 <th class="text-center">操作</th>
@@ -50,7 +49,6 @@
 
                 <td>{{$v->role_id}}</td>
                 <td>{{$v->role_name}}</td>
-                <td>@if($v->role_status==1)否@else 是 @endif</td>
                 <td>{{date("Y-m-d H:i:s",$v->role_time)}}</td>
                 <td>
                 {{--@foreach($power as $kk=>$vv)--}}
@@ -61,7 +59,8 @@
                     {{rtrim($v->res,",")}}
                 </td>
                 <td class="text-center">
-                    <button type="button" class="btn bg-olive btn-xs">修改</button>
+                    <a href="{{url('admin/role/upd',$v->role_id)}}" class="btn bg-olive btn-xs">修改</a>
+                    <a href="javascript:;" data-id="{{$v->role_id}}" class="del btn bg-olive btn-xs">删除</a>
                     <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('/admin/power/power',$v->role_id)}}">赋权限</a></button>
                 </td>
             </tr>
@@ -79,6 +78,28 @@
 <!-- /.box-body -->
 
 </body>
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script>
+    $(".del").click(function(){
+        var role_id= $(this).data("id");
+//       console.log(attr_id);
+        $.ajax({
+            url:"{{url('/admin/role/del')}}",
+            type:'post',
+            data:{'role_id':role_id},
+            dataType:'json',
+            success:function(res){
+//                console.log(res);
+                if(res.code==200){
+                    alert(res.msg);
+                    location.href="{{url('admin/role/index')}}"
+                }else{
+                    alert(res.msg);
+                }
+            }
+        })
+    })
+</script>
 
 </html>
 @endsection
