@@ -23,7 +23,7 @@
 <!-- .box-body -->
 
 <div class="box-header with-border">
-    <h3 class="box-title">品优购快报管理</h3>
+    <h3 class="box-title">商品属性值管理</h3>
 </div>
 
 <div class="box-body">
@@ -35,20 +35,15 @@
         <div class="pull-left">
             <div class="form-group form-inline">
                 <div class="btn-group">
-                    <a href="/admin/news/create"><button type="button" class="btn btn-default" title="新建"style="background-color:greenyellow" ><i class="fa fa-file-o"></i> 新建</button></a>
-                    <a href="/admin/news/index"><button type="button" class="btn btn-default" title="刷新" style="background-color:indianred"onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button></a>
+                    <a href="/admin/goods_val/create"><button type="button" class="btn btn-default" title="新建"style="background-color:greenyellow" ><i class="fa fa-file-o"></i> 新建</button></a>
+                    <a href="/admin/goods_val/index"><button type="button" class="btn btn-default" title="刷新" style="background-color:indianred"onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button></a>
                 </div>
             </div>
         </div>
         <div class="box-tools pull-right">
-            <form action="{{url('/admin/news/index')}}" method="post">
+            <form action="{{url('/admin/goods_val/index')}}" method="post">
                 <div class="has-feedback">
-                    状态：<select name="is_show">
-                        <option value="4" {{$is_show==4?'selected':''}}>全部</option>
-                        <option value="1" {{$is_show==1?'selected':''}}>展示</option>
-                        <option value="0" {{$is_show==0?'selected':''}}>不展示</option>
-                    </select>
-                    品优购快报名称：<input name="title"  placeholder="请输入要查找的标题"value="{{$title}}">
+                    商品属性值名称：<input name="goods_val_name"  placeholder="请输入要查找的标题"value="{{$goods_val_name}}">
                     <button class="btn btn-default chaxun" type="submit" style="background-color:orangered" >查询</button>
                 </div>
             </form>
@@ -59,40 +54,28 @@
         <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
             <thead>
             <tr>
-                <th class="sorting_asc">品优购快报ID</th>
-                <th class="sorting">品优购快报通知</th>
-                <th class="sorting">品优购快报详情</th>
-                <th class="sorting">品优购快报标题</th>
-                <th class="sorting">品优购快报添加时间</th>
-                <th class="sorting">是否展示</th>
+                <th class="sorting_asc">商品属性值ID</th>
+                <th class="sorting">商品属性值名称</th>
+                <th class="sorting">商品属性值添加时间</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
             @foreach($res as $k=>$v)
-            <tr n_id="{{$v->n_id}}">
-                <td>{{$v->n_id}}</td>
-                <td filed="notice">
-                    <span class="span_name">{{$v->notice}}</span>
-                    <input type="text" value="{{$v->notice}}" style="display: none" class="inp"/>
+            <tr n_id="{{$v->goods_val_id}}">
+                <td>{{$v->goods_val_id}}</td>
+                <td filed="goods_val_name">
+                    <span class="span_name">{{$v->goods_val_name}}</span>
+                    <input type="text" value="{{$v->goods_val_name}}" style="display: none" class="inp"/>
                 </td>
-                <td filed="desc">
-                    <span class="span_name">{{$v->desc}}</span>
-                    <input type="text" value="{{$v->desc}}" style="display: none" class="inp"/>
-                </td>
-                <td filed="title">
-                    <span class="span_name">{{$v->title}}</span>
-                    <input type="text" value="{{$v->title}}" style="display: none" class="inp"/>
-                </td>
-                <td>{{date('Y-m-d H:i:s',$v->addtime)}}</td>
-                <td>{{$v->is_show==1?'√':'×'}}</td>
-                <td class="text-center" n_id="{{$v->n_id}}">
-                    <a href="{{url('/admin/news/upd/'.$v->n_id)}}"><button type="button" class="btn bg-olive btn-xs upd">修改</button></a>
+                <td>{{date('Y-m-d H:i:s',$v->add_time)}}</td>
+                <td class="text-center" goods_val_id="{{$v->goods_val_id}}">
+                    <a href="{{url('/admin/goods_val/upd/'.$v->goods_val_id)}}"><button type="button" class="btn bg-olive btn-xs upd">修改</button></a>
                     <button type="button" class="btn btn-xs del" style="background-color:yellow">删除</button>
                 </td>
             </tr>
             @endforeach
-            <tr><td colspan="7">{{$res->appends(["is_show"=>$is_show,'title'=>$title])->links()}}</td></tr>
+            <tr><td colspan="7">{{$res->appends(['goods_val_name'=>$goods_val_name])->links()}}</td></tr>
             </tbody>
         </table>
         <!--数据列表/-->
@@ -109,9 +92,8 @@
             return false;
         }
         var data={};
-        data.n_id=$(this).parent('td').attr('n_id');
-//        alert(data);
-        url="/admin/news/del";
+        data.goods_val_id=$(this).parent('td').attr('goods_val_id');
+        url="/admin/goods_val/del";
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
         $.ajax({
             url:url,
@@ -122,7 +104,7 @@
                 console.log(res);
                 alert(res.result.message);
                 if(res.message=='success'){
-                    location.href="/admin/news/index";
+                    location.href="/admin/goods_val/index";
                 }
             }
         })
@@ -138,10 +120,10 @@
             var _this = $(this);
             var data={};
             data.value = _this.val();
-            data.n_id = _this.parents('tr').attr('n_id');
+            data.n_id = _this.parents('tr').attr('goods_val_id');
             data.field = _this.parent('td').attr('filed');
 //            console.log(data);
-            var url="/admin/news/updTo";
+            var url="/admin/goods_val/updTo";
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             $.ajax({
                 type:"post",
