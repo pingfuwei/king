@@ -305,6 +305,8 @@
                 <li class="header">菜单</li>
                 <li id="admin-index"><a href="/admin/indexs"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
 
+                <li id="admin-index"><a href="/admin/index"><i class="fa fa-dashboard"></i> <span>控制面板</span></a></li>
+
                 <!-- 菜单 -->
                 <li class="treeview">
                     <a href="#">
@@ -476,7 +478,84 @@
                         </li>
                     </ul>
                 </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>商品管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                    </a>
+                    <ul class="treeview-menu">
 
+                        <li id="admin-login">
+                            <a href="#">
+                                <i class="fa fa-folder"></i>
+                                <span>商品模块</span>
+                                <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li id="admin-login">
+                                    <a href="{{url('admin/goods/create')}}">
+                                        <i class="fa fa-circle-o"></i> 商品添加
+                                    </a>
+                                </li>
+                                <li id="admin-login">
+                                    <a href="{{url('admin/goods/index')}}" >
+                                        <i class="fa fa-circle-o"></i> 商品管理
+                                    </a>
+                                </li>
+                                <li id="admin-login">
+                                    <a href="{{url('admin/goods/upd')}}" >
+                                        <i class="fa fa-circle-o"></i> 商品修改
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#">
+                                <i class="fa fa-folder"></i>
+                                <span>商品属性</span>
+                                <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li id="admin-login">
+                                    <a href="{{url('admin/goods_attr/create')}}">
+                                        <i class="fa fa-circle-o"></i> 商品属性添加
+                                    </a>
+                                </li>
+                                <li id="admin-login">
+                                    <a href="{{url('admin/goods_attr/index')}}" >
+                                        <i class="fa fa-circle-o"></i> 商品属性管理
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#">
+                                <i class="fa fa-folder"></i>
+                                <span>商品属性值</span>
+                                <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li id="admin-login">
+                                    <a href="{{url('admin/goods_val/create')}}">
+                                        <i class="fa fa-circle-o"></i> 商品属性值添加
+                                    </a>
+                                </li>
+                                <li id="admin-login">
+                                    <a href="{{url('admin/goods_val/index')}}" >
+                                        <i class="fa fa-circle-o"></i> 商品属性值管理
+                                    </a>
+                                </li>
+                            </ul>
+                    </ul>
+                </li>
                 <!-- 菜单 /-->
 
             </ul>

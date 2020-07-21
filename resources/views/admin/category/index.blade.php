@@ -49,7 +49,9 @@
 			                          <tr>
                                           <td><input  type="checkbox"></td>
 				                          <td>{{$itme->cate_id}}</td>
-									      <td>{!!str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",$itme->level)!!}{{$itme->cate_name}}</td>
+									      <td>
+											  {!!str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",$itme->level)!!}{{$itme->cate_name}}
+										  </td>
 									      <td>{{date('Y-m-d H:i:s',$itme->cate_time)}}</td>
 		                                  <td class="text-center">
 		                                 	  <button type="button" class="btn bg-olive btn-xs">修改</button>
