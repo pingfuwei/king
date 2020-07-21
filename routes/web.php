@@ -31,7 +31,9 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('/create','admin\VipController@create');//vip添加
             Route::any('/createDo','admin\VipController@createDo');//执行vip添加
             Route::any('/index','admin\VipController@index');//执行vip添加
-            Route::any('/upd','admin\VipController@upd');//vip修改
+            Route::any('/upd/{vip_id}','admin\VipController@upd');//vip修改
+            Route::any('/updDo','admin\VipController@updDo');//执行vip修改
+            Route::any('/del','admin\VipController@del');//执行vip删除
         });
         Route::prefix("brand")->group(function (){//品牌模块
             Route::any('create','admin\BrandController@create');//品牌添加页面
@@ -95,6 +97,14 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('createDo','admin\Goods_valController@createDo');//商品属性值添加执行
             Route::any('index','admin\Goods_valController@index');//商品属性值展示
             Route::any('upd','admin\Goods_valController@upd');//商品属性值修改
+        });
+        Route::prefix("stock")->group(function (){//库存
+            Route::any('create','admin\StockController@create');//库存添加
+            Route::any('createDo','admin\StockController@createDo');//库存添加执行
+            Route::any('index','admin\StockController@index');//库存展示
+            Route::any('upd','admin\StockController@upd');//库存修改
+            Route::any('updDo','admin\StockController@updDo');//执行商品属性修改
+            Route::any('del','admin\StockController@del');//执行商品属性删除
         });
 });
 
