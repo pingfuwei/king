@@ -31,6 +31,43 @@
 
     // }
 
+    //文件上传方法
+    function Upload($img){
+        // dd($img);
+        //判断过程中是否有错误
+        if(request()->file($img)->isValid()){
+            //文件上传
+            $file = request()->file($img);
+            //将图片保存到文件里
+            $store_result = $file->store("uploads");
+            //将最后的文件信息返回
+            return $store_result;
+        }
+        exit('未获取到上传文件或上传过程出错');
+    }
+
+    // 多文件上传
+    function uploads($img){
+        //接收多图片信息
+        $file = request()->$img;
+        // dd($file);
+        //将图片信息循环
+        foreach($file as $k=>$v){
+            //判断循环后的每个文件过程中是否有错
+            if($v->isValid()){
+                //将每张图片信息循环得存进新位置
+                $store_result[$k] = $v->store("uploads");
+            }else{
+                //否则办错
+                $store_result[$k] = "未获取到上传文件或上传过程出错";
+            }
+            // dd($store_result);
+        }
+        // dd($store_result);
+        //将移动的新位置返回
+        return $store_result;
+    }
+
 
 
 ?>
