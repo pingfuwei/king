@@ -49,7 +49,10 @@ class DeveloperController extends Controller
         }
 //        dd($data);
         return view('admin.role.index',['data'=>$data]);
+<<<<<<< HEAD
 
+=======
+>>>>>>> a794337f6f1e57bc3e8f804206698690d73b4ac6
         $data=RoleModel::where('role_status',1)->get();
         $power=RoleModel::join('role_power','role.role_id','=','role_power.role_id')->get();
 //        print_r($power);die;
