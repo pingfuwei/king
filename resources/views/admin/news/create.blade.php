@@ -65,6 +65,7 @@
                             <input type="radio" name="is_show"  placeholder="标题" value="0">否
                         </div>
                     </div>
+                    <b><span id="span_name" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                 </div>
     </div>
     <div class="btn-toolbar list-toolbar">
@@ -85,11 +86,91 @@
 
 </script>
 <script>
+    $(document).on("blur","input[name='notice']",function() {
+        var data = {};
+        data.notice = $(this).val();
+        if (!data.notice) {
+            $("#span_name").show();
+            $("#span_name").text("通知不能为空");
+            return false;
+        }else{
+            $("#span_name").hide();
+        }
+    })
+    $(document).on("blur","input[name='desc']",function() {
+        var data = {};
+        data.desc = $(this).val();
+        if (!data.desc) {
+            $("#span_name").show();
+            $("#span_name").text("详情不能为空");
+            return false;
+        }else{
+            $("#span_name").hide();
+        }
+    })
+    $(document).on("blur","input[name='title']",function() {
+        var data = {};
+        data.title = $(this).val();
+        if (!data.title) {
+            $("#span_name").show();
+            $("#span_name").text("标题不能为空");
+            return false;
+        }else{
+            $("#span_name").hide();
+        }
+        var url = "/admin/news/unique";
+        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        $.ajax({
+            url: url,
+            data: data,
+            type: "post",
+            success: function (res) {
+                console.log(res);
+                if(res=="no"){
+                    $("#span_name").show();
+                    $("#span_name").text("该标题已存在");
+                }else{
+                    $("#span_name").html("<font color='green'>√</font>");
+                }
+            }
+        })
+    })
     $(document).on('click','#btn',function(){
         var data={};
+        var nameflag = true;
         data.notice=$("input[name='notice']").val();
+        if(!data.notice){
+            $("#span_name").text("通知不能为空");
+            return false;
+        }
         data.desc=$("input[name='desc']").val();
+        if(!data.desc){
+            $("#span_name").text("详情不能为空");
+            return false;
+        }
         data.title=$("input[name='title']").val();
+        if(!data.title){
+            $("#span_name").text("标题不能为空");
+            return false;
+        }
+        var url = "/admin/news/unique";
+        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        $.ajax({
+            url: url,
+            data: data,
+            type: "post",
+            async:false,
+            success: function (res) {
+                console.log(res);
+                if(res=="no"){
+                    $("#span_name").text("该标题已存在");
+                    nameflag = false;
+                }
+            }
+        })
+        if(!nameflag){
+            return false;
+        }
         data.is_show=$("input[name='is_show']:checked").val();
         var url="/admin/news/createDo";
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
@@ -99,10 +180,13 @@
             type:"post",
             dataType:'json',
             success:function(res){
-                console.log(res);
-                alert(res.result.message);
+//                console.log(res);
                 if(res.message=='success'){
                     location.href="/admin/news/index";
+                    alert(res.result.message);
+                }else{
+                    $("#span_name").show();
+                    $("#span_name").text(res.result.message);
                 }
             }
         })
