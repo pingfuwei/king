@@ -149,11 +149,13 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
 
 Route::any("/", "index\Index@index");//首页
 Route::prefix("index")->group(function() {
-    Route::any("login", "index\LoginController@login");//登录
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
         Route::any("regDo", "index\LoginController@regDo");//注册执行
         Route::any("ajaxCode", "index\LoginController@ajaxCode");//验证码ajax
     });
-
+    Route::prefix("login")->group(function() {//注册
+        Route::any("login", "index\LoginController@login");//登录
+        Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
+    });
 });

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <title>品优购，欢迎登录</title>
 
-    <link rel="stylesheet" type="text/css" href="css/webbase.css" />
-    <link rel="stylesheet" type="text/css" href="css/pages-login.css" />
+    <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
+    <link rel="stylesheet" type="text/css" href="/index/css/pages-login.css" />
 </head>
 
 <body>
@@ -36,15 +36,15 @@
                 <div class="tab-content tab-wraped">
                     <div id="index" class="tab-pane">
                         <p>二维码登录，暂为官网二维码</p>
-                        <img src="img/wx_cz.jpg" />
+                        <img src="/index/img/wx_cz.jpg" />
                     </div>
                     <div id="profile" class="tab-pane  active">
                         <form class="sui-form">
                             <div class="input-prepend"><span class="add-on loginname"></span>
-                                <input id="prependedInput" type="text" placeholder="邮箱/用户名/手机号" class="span2 input-xfat">
+                                <input id="prependedInput" type="text"  placeholder="用户名/手机号" class="span2 input-xfat user_name">
                             </div>
                             <div class="input-prepend"><span class="add-on loginpwd"></span>
-                                <input id="prependedInput" type="password" placeholder="请输入密码" class="span2 input-xfat">
+                                <input id="prependedInput" type="password" placeholder="请输入密码" class="span2 input-xfat user_pwd">
                             </div>
                             <div class="setting">
                                 <label class="checkbox inline">
@@ -54,16 +54,16 @@
                                 <span class="forget">忘记密码？</span>
                             </div>
                             <div class="logined">
-                                <a class="sui-btn btn-block btn-xlarge btn-danger" href="home-index.html" >登&nbsp;&nbsp;录</a>
+                                <a class="sui-btn btn-block btn-xlarge btn-danger" href="javascript:;" id="send" >登&nbsp;&nbsp;录</a>
                             </div>
                         </form>
                         <div class="otherlogin">
                             <div class="types">
                                 <ul>
-                                    <li><img src="img/qq.png" width="35px" height="35px" /></li>
-                                    <li><img src="img/sina.png" /></li>
-                                    <li><img src="img/ali.png" /></li>
-                                    <li><img src="img/weixin.png" /></li>
+                                    <li><img src="/index/img/qq.png" width="35px" height="35px" /></li>
+                                    <li><img src="/index/img/sina.png" /></li>
+                                    <li><img src="/index/img/ali.png" /></li>
+                                    <li><img src="/index/img/weixin.png" /></li>
                                 </ul>
                             </div>
                             <span class="register"><a href="/index/reg/reg" >立即注册</a></span>
@@ -91,11 +91,35 @@
     </div>
 </div>
 
-<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="js/plugins/jquery.easing/jquery.easing.min.js"></script>
-<script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
-<script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
-<script type="text/javascript" src="js/pages/login.js"></script>
+<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script>
+<script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script>
+<script type="text/javascript" src="/index/js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="/index/js/pages/login.js"></script>
 </body>
-
+<script>
+        $(function () {
+            $(document).on("click","#send",function () {
+                var user_name=$(".user_name").val()
+                var user_pwd=$(".user_pwd").val()
+                if(user_name===""){
+                    alert("账户不能为空")
+                    return
+                }
+                if(user_pwd===""){
+                    alert("密码不能为空")
+                    return
+                }
+                var data={user_name:user_name,user_pwd:user_pwd}
+                $.ajax({
+                    url:"/index/login/ajaxLogin",
+                    data:data,
+                    dataType:"json",
+                    success:function (res) {
+                        alert(res.font)
+                    }
+                })
+            })
+        })
+</script>
 </html>
