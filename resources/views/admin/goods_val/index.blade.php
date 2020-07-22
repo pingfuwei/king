@@ -62,7 +62,7 @@
             </thead>
             <tbody>
             @foreach($res as $k=>$v)
-            <tr n_id="{{$v->goods_val_id}}">
+            <tr goods_val_id="{{$v->goods_val_id}}">
                 <td>{{$v->goods_val_id}}</td>
                 <td filed="goods_val_name">
                     <span class="span_name">{{$v->goods_val_name}}</span>
@@ -116,11 +116,13 @@
             $(this).hide();
             var xd= _this.next().val(as).show();
         });
+    })
+    $(document).ready(function(){
         $('.inp').blur(function() {
             var _this = $(this);
             var data={};
             data.value = _this.val();
-            data.n_id = _this.parents('tr').attr('goods_val_id');
+            data.goods_val_id= _this.parents('tr').attr('goods_val_id');
             data.field = _this.parent('td').attr('filed');
 //            console.log(data);
             var url="/admin/goods_val/updTo";

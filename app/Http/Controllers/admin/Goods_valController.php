@@ -135,12 +135,12 @@ class Goods_valController extends Controller
     public function updTo(Request $request){
         $data=$request->all();
 //        dd($data);
-        $newsmodel=new NewsModel();
+        $goods_valuemodel=new GoodsvalueModel();
         $where=[
-            ['n_id','=',$data['n_id']]
+            ['goods_val_id','=',$data['goods_val_id']]
         ];
-        unset($data['n_id']);
-        $res=$newsmodel::where($where)->update([$data['field']=>$data['value']]);
+        unset($data['goods_val_id']);
+        $res=$goods_valuemodel::where($where)->update([$data['field']=>$data['value']]);
         if($res!==false){
             $message=[
                 'code'=>'000000',

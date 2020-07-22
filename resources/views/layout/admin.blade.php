@@ -344,17 +344,17 @@
                     </a>
                     <ul class="treeview-menu">
 
-                        <li id="admin-login">
+                        <li id="admin-login"class="treeview">
                              <a href="#">
                                 <i class="fa fa-folder"></i>
                                 <span>角色管理</span>
-                        <span class="pull-right-container">
+                                    <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
-				   		 	</span>
+				   		 	        </span>
                             </a>
-                            <ul class="treeview-menu">
+                            <ul class="treeview-menu" class="treeview-menu">
 
-                                <li id="admin-login">
+                                <li id="admin-login" >
                                     <a href="{{url('admin/role/create')}}">
                                         <i class="fa fa-circle-o"></i> 角色添加
                                     </a>
@@ -365,14 +365,16 @@
                                     </a>
                                 </li>
                             </ul>
+                            </li>
+                        <li>
                             <a href="#">
                                 <i class="fa fa-folder"></i>
                                 <span>权限管理</span>
-                        <span class="pull-right-container">
+                                    <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
-				   		 	</span>
+				   		 	        </span>
                             </a>
-                            <ul class="treeview-menu">
+                            <ul class="treeview-menu" class="treeview-menu">
 
                                 <li id="admin-login">
                                     <a href="{{url('admin/power/create')}}">
@@ -385,6 +387,7 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -514,6 +517,8 @@
                                     </a>
                                 </li>
                             </ul>
+                            </li>
+                        <li>
                             <a href="#">
                                 <i class="fa fa-folder"></i>
                                 <span>商品属性</span>
@@ -534,6 +539,8 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li>
                             <a href="#">
                                 <i class="fa fa-folder"></i>
                                 <span>商品属性值</span>
@@ -554,6 +561,8 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li>
                             <a href="#">
                                 <i class="fa fa-folder"></i>
                                 <span>商品库存</span>
@@ -574,6 +583,7 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
                     </ul>
                 </li>
                 <!-- 菜单 /-->
