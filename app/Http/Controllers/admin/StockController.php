@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\AdminModel\Goods_attrModel;
 use App\AdminModel\GoodsvalueModel;
 use App\AdminModel\goods_stock;
+use App\AdminModel\Goods;
 use Illuminate\Support\Facades\DB;
 class StockController extends Controller
 {
@@ -21,14 +22,27 @@ class StockController extends Controller
         return view('admin.stock.create',['res'=>$res,'data'=>$data]);
     }
     public function createDo(){
-        $data=\request()->all();
+        $data=request()->all();
         $res=goods_stock::insert($data);
         if($res){
-            echo "ok";
+            $data = [
+                'msg'=>true,
+                'error'=>10000,
+                'data'=>[]
+            ];
+        }else{
+            $data = [
+                'msg'=>true,
+                'error'=>10001,
+                'data'=>[]
+            ];
         }
-    }
+        return json_encode($data);exit;
+        }
     public function index(){
-
+        $data = goods_stock::leftjoin('shop_goods','shop_goods.goods_id','=','goods_stock.goods_id')->get();
+        //var_dump($data);exit;
+        return view('admin.stock.index',['data'=>$data]);
     }
     public function del(){
 
