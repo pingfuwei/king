@@ -47,9 +47,10 @@
                     <div class="row data-type">
                         <div class="col-md-2 title">属性值</div>
                         <div class="col-md-10 data">
-                            <input type="text" class="form-control"  name="goods_val_name"  placeholder="属性值" value="{{$res->goods_val_name}}">
+                            <input type="text" class="form-control"  name="goods_val_name"  placeholder="属性值"id="goods_val_name" value="{{$res->goods_val_name}}">
                             <input type="hidden" class="form-control"  name="goods_val_id"  placeholder="属性值" value="{{$res->goods_val_id}}">
                         </div>
+                        <b><span id="span_name" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                     </div>
                 </div>
     </div>
@@ -71,10 +72,57 @@
 
 </script>
 <script>
+    $(document).on("blur","#goods_val_name",function(){
+        var data={};
+        data.goods_val_name = $(this).val();
+        data.goods_val_id=$("input[name='goods_val_id']").val();
+        if(data.goods_val_name==""){
+            $("#span_name").text("属性值不能为空");
+            return false;
+        }
+        var url = "/admin/goods_val/unique";
+        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        $.ajax({
+            url: url,
+            data: data,
+            type: "post",
+            success: function (res) {
+                console.log(res);
+                if(res=="no"){
+                    $("#span_name").text("该属性值已存在");
+                }else{
+                    $("#span_name").html("<font color='green'>√</font>");
+                }
+            }
+        })
+    })
     $(document).on('click','#btn',function(){
         var data={};
+        var nameflag = true;
         data.goods_val_name=$("input[name='goods_val_name']").val();
         data.goods_val_id=$("input[name='goods_val_id']").val();
+        if(!data.goods_val_name){
+            $("#span_name").text("属性值不能为空");
+            return false;
+        }
+        var url = "/admin/goods_val/unique";
+        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        $.ajax({
+            url: url,
+            data: data,
+            type: "post",
+            async:false,
+            success: function (res) {
+                console.log(res);
+                if(res=="no"){
+                    $("#span_name").text("该属性值已存在");
+                    nameflag = false;
+                }
+            }
+        })
+        if(!nameflag){
+            return false;
+        }
         var url="/admin/goods_val/updDo";
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
         $.ajax({
@@ -83,10 +131,12 @@
             type:"post",
             dataType:'json',
             success:function(res){
-                console.log(res);
-                alert(res.result.message);
+//                console.log(res);
                 if(res.message=='success'){
+                    alert(res.result.message);
                     location.href="/admin/goods_val/index";
+                }else{
+                    $("#span_name").text(res.result.message);
                 }
             }
         })

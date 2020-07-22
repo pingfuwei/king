@@ -34,6 +34,8 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('/upd/{vip_id}','admin\VipController@upd');//vip修改
             Route::any('/updDo','admin\VipController@updDo');//执行vip修改
             Route::any('/del','admin\VipController@del');//执行vip删除
+            Route::any('/change','admin\VipController@change');//即点即改
+            Route::any('/ajaxuniq','admin\VipController@uniq');//唯一性验证
         });
         Route::prefix("brand")->group(function (){//品牌模块
             Route::any('create','admin\BrandController@create');//品牌添加页面
@@ -57,6 +59,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('upd/{role_id}','admin\DeveloperController@roleupd');//角色修改
         Route::any('updDo','admin\DeveloperController@roleupdDo');//执行角色修改
         Route::any('del','admin\DeveloperController@roledel');//执行角色删除
+        Route::any('change','admin\DeveloperController@rolechange');//即点即改
          });
     Route::prefix("power")->group(function (){
         Route::any('/create','admin\DeveloperController@power_create');//权限添加
@@ -67,6 +70,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('upd/{power_id}','admin\DeveloperController@upd');//权限修改
         Route::any('updDo','admin\DeveloperController@updDo');//执行权限修改
         Route::any('del','admin\DeveloperController@del');//执行权限删除
+        Route::any('change','admin\DeveloperController@powerchange');//执行权限删除
     });
     //品优购快报
         Route::prefix("news")->group(function (){
@@ -77,6 +81,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('upd/{id}','admin\NewsController@upd');//品优购快报修改页面
             Route::any('updDo','admin\NewsController@updDo');//品优购快报执行修改
             Route::any('updTo','admin\NewsController@updTo');//品优购快报即点即改
+            Route::any('unique','admin\NewsController@unique');//商品属性值唯一性
         });
         Route::prefix("category")->group(function (){//分类
             Route::any('create','admin\CategoryController@create');//分类添加
@@ -99,6 +104,8 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('upd/{attr_id}','admin\Goods_attrController@upd');//商品属性修改
             Route::any('updDo','admin\Goods_attrController@updDo');//执行商品属性修改
             Route::any('del','admin\Goods_attrController@del');//执行商品属性删除
+            Route::any('change','admin\Goods_attrController@change');//即点即改
+            Route::any('ajaxuniq','admin\Goods_attrController@uniq');//验证唯一性
         });
         Route::prefix("goods_val")->group(function (){//商品属性值
             Route::any('create','admin\Goods_valController@create');//商品属性值添加
@@ -108,6 +115,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('updDo','admin\Goods_valController@updDo');//商品属性值执行修改
             Route::any('del','admin\Goods_valController@del');//商品属性值删除
             Route::any('updTo','admin\Goods_valController@updTo');//商品属性值极点级改
+            Route::any('unique','admin\Goods_valController@unique');//商品属性值唯一性
         });
         Route::prefix("stock")->group(function (){//库存
             Route::any('create','admin\StockController@create');//库存添加

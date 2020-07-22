@@ -57,7 +57,9 @@
                         <div class="col-md-2 title">属性名称</div>
                         <div class="col-md-10 data">
                             <input type="text" class="form-control name"    placeholder="属性名称" name="attr_name">
+
                         </div>
+                        <p style="color:red;margin-left: 180px" class="msg"></p>
 
                     </div>
                 </div>
@@ -91,6 +93,35 @@
 </script>
 <script>
     $(".add").click(function(){
+        var flag=true;
+        var value=$(".name").val();
+//        console.log(value);return;
+        if(value==""){
+            $(".msg").text("属性名不为空");
+            return false;
+        }else{
+            $.ajax({
+                url: "/admin/goods_attr/ajaxuniq",
+                type: "get",
+                async:false,
+                data: {
+                    attr_name:value
+                },
+                success: function(res) {
+//                     console.log(res);
+                    if (res == 'no') {
+                        $(".msg").text("属性名已存在");
+                        flag = false;
+                    }else{
+                        $(".msg").text("");
+                    }
+                }
+            })
+
+        }
+        if(!flag){
+            return false;
+        }
         var attr_name=$(".name").val();
 //       console.log(attr_name);return;
         $.ajax({
@@ -107,6 +138,33 @@
                 }
             }
         })
+    })
+</script>
+<script>
+    $(".name").blur(function(){
+        var value=$(this).val();
+//        console.log(value);return;
+        if(value==""){
+            $(".msg").text("属性名不为空");
+        }else{
+            $.ajax({
+                url: "/admin/goods_attr/ajaxuniq",
+                type: "get",
+                sync:false,
+                data: {
+                    attr_name:value
+                },
+                success: function(res) {
+//                     console.log(res);
+                    if (res == 'no') {
+                        $(".msg").text("属性名已存在");
+                        return  false;
+                    }else{
+                        $(".msg").text("");
+                    }
+                }
+            })
+        }
     })
 </script>
 </body>

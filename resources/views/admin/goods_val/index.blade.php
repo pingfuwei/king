@@ -67,6 +67,7 @@
                 <td filed="goods_val_name">
                     <span class="span_name">{{$v->goods_val_name}}</span>
                     <input type="text" value="{{$v->goods_val_name}}" style="display: none" class="inp"/>
+                    <b><span id="span_name" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                 </td>
                 <td>{{date('Y-m-d H:i:s',$v->add_time)}}</td>
                 <td class="text-center" goods_val_id="{{$v->goods_val_id}}">
@@ -118,13 +119,39 @@
         });
     })
     $(document).ready(function(){
-        $('.inp').blur(function() {
+        $(document).on("blur",".inp", function () {
             var _this = $(this);
             var data={};
             data.value = _this.val();
             data.goods_val_id= _this.parents('tr').attr('goods_val_id');
+            if(!data.value){
+                $("#span_name").show();
+                $(this).next().children().text("属性值不能为空");
+                return false;
+            }else{
+                $(this).next().children().hide();
+            }
             data.field = _this.parent('td').attr('filed');
-//            console.log(data);
+            var nameflag = true;
+            var url = "/admin/goods_val/unique";
+            $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+            $.ajax({
+                url: url,
+                data: {'goods_val_name':data.value,'goods_val_id':data.goods_val_id},
+                type: "post",
+                async:false,
+                success: function (res) {
+                    console.log(res);
+                    if(res=="no"){
+                        $("#span_name").show();
+                        $("#span_name").text("该属性值已存在");
+                        nameflag = false;
+                    }
+                }
+            })
+            if(!nameflag){
+                return false;
+            }
             var url="/admin/goods_val/updTo";
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             $.ajax({

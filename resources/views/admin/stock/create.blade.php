@@ -51,9 +51,9 @@
                                 <tr>
                                     <td>
                                         <select class="form-control" name="goods_id" id="goods_id">
-                                            <option value="">选择商品---+</option>
+                                            <option value="" selected>选择商品---+</option>
                                             @foreach ($res as $k=>$v)
-                                            <option value="{{$v->goods_id}}">{{$v->goods_name}}</option>
+                                            <option value="{{$v->goods_id}}" id="goods_name">{{$v->goods_name}}</option>
                                             @endforeach
                                         </select>
                                     </td>
@@ -87,8 +87,8 @@
                 </div>
             </div>
             <div class="btn-toolbar list-toolbar" >
-                <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>添加</button>
-                <a href="/admin/news/index"><button class="btn btn-default" ng-click="goListPage()">查看列表</button></a>
+                <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>确定</button>
+                <a href="/admin/stock/del"><button class="btn btn-default" ng-click="goListPage()">查看列表</button></a>
             </div>
 
 </section>
@@ -111,7 +111,7 @@
            var stock=$("#stock").val()
            var price=$("#price").val()
            var goods_id=$("#goods_id option:selected").val();
-           alert(goods_id)
+           //alert(goods_id)
            var aa="";
            $("input[name='goods_val_name']:checked").each(function() {
                aa+=$(this).attr("attr_id")+":"+$(this).val()+","
@@ -122,10 +122,35 @@
                url:"/admin/stock/createDo",
                data:date,
                success:function (res) {
-                   alert(res)
+                    //console.log(res);false;
                }
            })
        });
+       $("#goods_id").on("change",function(){
+           var goods_id = $('option:selected').val();
+           var data={};
+           data.goods_id = goods_id;
+           //console.log(goods_id);
+           $.ajax({
+              url:'index',
+              type:'get',
+               dataType:'json',
+               data:data,
+               success:function(msg){
+                   if(msg){
+                       $("input[name='goods_val_name']").prop("checked","");
+                       var array = msg.split(',');
+                       $.each(array,function(k,v){
+                           console.log(v.substr(2));
+                           $("input[name='goods_val_name'][value="+v.substr(2)+"]").prop("checked","checked");
+                       })
+                   }else{
+                       $("input[name='goods_val_name']").prop("checked","");
+                   }
+
+               }
+           });
+       })
     });
 </script>
 @endsection
