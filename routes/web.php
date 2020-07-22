@@ -34,6 +34,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('/upd/{vip_id}','admin\VipController@upd');//vip修改
             Route::any('/updDo','admin\VipController@updDo');//执行vip修改
             Route::any('/del','admin\VipController@del');//执行vip删除
+            Route::any('/change','admin\VipController@change');//即点即改
         });
         Route::prefix("brand")->group(function (){//品牌模块
             Route::any('create','admin\BrandController@create');//品牌添加页面
@@ -57,6 +58,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('upd/{role_id}','admin\DeveloperController@roleupd');//角色修改
         Route::any('updDo','admin\DeveloperController@roleupdDo');//执行角色修改
         Route::any('del','admin\DeveloperController@roledel');//执行角色删除
+        Route::any('change','admin\DeveloperController@rolechange');//即点即改
          });
     Route::prefix("power")->group(function (){
         Route::any('/create','admin\DeveloperController@power_create');//权限添加
@@ -67,6 +69,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('upd/{power_id}','admin\DeveloperController@upd');//权限修改
         Route::any('updDo','admin\DeveloperController@updDo');//执行权限修改
         Route::any('del','admin\DeveloperController@del');//执行权限删除
+        Route::any('change','admin\DeveloperController@powerchange');//执行权限删除
     });
     //品优购快报
         Route::prefix("news")->group(function (){

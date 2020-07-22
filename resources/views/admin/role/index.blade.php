@@ -45,10 +45,13 @@
             </thead>
             <tbody>
             @foreach($data as $k=>$v)
-            <tr>
+            <tr role_id="{{$v->role_id}}">
 
                 <td>{{$v->role_id}}</td>
-                <td>{{$v->role_name}}</td>
+                <td field="role_name">
+                    <span class="span">{{$v->role_name}}</span>
+                    <input type="text" class="change" style="display: none;" value="{{$v->role_name}}">
+                </td>
                 <td>{{date("Y-m-d H:i:s",$v->role_time)}}</td>
                 <td>
                 {{--@foreach($power as $kk=>$vv)--}}
@@ -100,6 +103,39 @@
         })
     })
 </script>
+<script>
+    $(document).ready(function(){
+        $(".span").click(function(){
+            var _this=$(this);
+            var change=$(this).text();
+            _this.hide();
+            var aa= _this.next().val(change).show();
+        })
+        $(".change").blur(function(){
+            var _this = $(this);
+            var value = _this.val();
+            var role_id = _this.parents('tr').attr('role_id');
+            var field = _this.parent('td').attr('field');
+            $.ajax({
+                url:"{{url('/admin/role/change')}}",
+                data:{'value':value,'role_id':role_id,'field':field},
+                dataType:'json',
+                type:'post',
+                success:function(res){
+                    if(res.code){
+                        _this.hide();
+                        _this.prev().text(value).show();
+                        alert(res.msg);
+                    }else{
+                        alert(res.msg);
+                    }
+                }
+            })
 
+
+        })
+    })
+
+</script>
 </html>
 @endsection

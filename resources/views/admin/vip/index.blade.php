@@ -44,11 +44,17 @@
             </thead>
             <tbody>
             @foreach($data as $k=>$v)
-            <tr>
+            <tr vip_id="{{$v->vip_id}}">
 
                 <td>{{$v->vip_id}}</td>
-                <td>{{$v->vip_name}}</td>
-                <td>{{$v->price}}</td>
+                <td field="vip_name">
+                    <span class="span">{{$v->vip_name}}</span>
+                    <input type="text" class="change" style="display: none" value="{{$v->vip_name}}">
+                </td>
+                <td field="price">
+                    <span class="span">{{$v->price}}</span>
+                    <input type="text" class="change" style="display: none" value="{{$v->price}}">
+                </td>
                 <td class="text-center">
                     <a href="{{url('admin/vip/upd',$v->vip_id)}}" class="btn bg-olive btn-xs">修改</a>
                     <a href="javascript:;" data-id="{{$v->vip_id}}" class="del btn bg-olive btn-xs">删除</a>
@@ -89,6 +95,41 @@
             }
         })
     })
+</script>
+<script>
+    $(document).ready(function(){
+        $(".span").click(function(){
+            var _this=$(this);
+            var change=$(this).text();
+            _this.hide();
+            var aa= _this.next().val(change).show();
+        })
+        $(".change").blur(function(){
+            var _this = $(this);
+            var value = _this.val();
+            var vip_id = _this.parents('tr').attr('vip_id');
+            var field = _this.parent('td').attr('field');
+//            console.log(field);return;
+            $.ajax({
+                url:"{{url('/admin/vip/change')}}",
+                data:{'value':value,'vip_id':vip_id,'field':field},
+                dataType:'json',
+                type:'post',
+                success:function(res){
+                    if(res.code){
+                        _this.hide();
+                        _this.prev().text(value).show();
+                        alert(res.msg);
+                    }else{
+                        alert(res.msg);
+                    }
+                }
+            })
+
+
+        })
+    })
+
 </script>
 </html>
 @endsection

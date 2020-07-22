@@ -84,4 +84,24 @@ class VipController extends Controller
             ];
         }
     }
+    public function change(Request $request){
+        $all=$request->all();
+        $value=$all['value'];
+        $field=$all['field'];
+        $vip_id=$all['vip_id'];
+        $res=vipModel::where('vip_id',$vip_id)->update([$field=>$value]);
+        if($res){
+            return [
+                'code'=>200,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
+        }else{
+            return [
+                'code'=>500,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
+        }
+    }
 }
