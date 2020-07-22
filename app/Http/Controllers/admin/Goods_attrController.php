@@ -34,8 +34,13 @@ class Goods_attrController extends Controller
         }
     }
     public function index(){
-        $data=Goods_attrModel::get();
-        return view('admin.goods_attr.index',['data'=>$data]);
+        $attr_name=request()->get('attr_name');
+        $where=[];
+        if($attr_name){
+            $where[]=['attr_name','like',"%$attr_name%"];
+        }
+        $data=Goods_attrModel::where($where)->paginate(2);
+        return view('admin.goods_attr.index',['data'=>$data,'attr_name'=>$attr_name]);
     }
     public function upd($attr_id){
         $data=Goods_attrModel::where('attr_id',$attr_id)->first();
@@ -78,6 +83,36 @@ class Goods_attrController extends Controller
                 'msg'=>"删除失败",
                 'data'=>$res
             ];
+        }
+    }
+    public function change(Request $request){
+        $all=$request->all();
+        $value=$all['value'];
+        $field=$all['field'];
+        $attr_id=$all['attr_id'];
+        $res=Goods_attrModel::where('attr_id',$attr_id)->update([$field=>$value]);
+        if($res){
+            return [
+                'code'=>200,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
+        }else{
+            return [
+                'code'=>500,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
+        }
+    }
+    public function uniq(){
+//        echo 111;die;
+        $attr_name=request()->get('attr_name');
+        $res=Goods_attrModel::where('attr_name',$attr_name)->first();
+        if($res){
+            return "no";
+        }else{
+            return "ok";
         }
     }
 }

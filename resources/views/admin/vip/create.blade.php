@@ -58,7 +58,7 @@
                         <div class="col-md-10 data">
                             <input type="text" class="form-control name"    placeholder="vip名称" name="vip_name">
                         </div>
-
+                        <p style="color:red;margin-left: 180px" class="msg"></p>
                         <div class="col-md-2 title">价格</div>
                         <div class="col-md-10 data">
                             <div class="input-group">
@@ -66,6 +66,7 @@
                                 <input type="text" class="form-control price"  placeholder="价格" name="price">
                             </div>
                         </div>
+                        <p style="color:red;margin-left: 180px" id="msgs"></p>
 
 
                     </div>
@@ -111,9 +112,83 @@
 
 </script>
 <script>
+
+
+    $(".name").blur(function(){
+        var value=$(this).val();
+        if(value==""){
+            $(".msg").html("vip名称不为空");
+        }else{
+            $.ajax({
+                url: "/admin/vip/ajaxuniq",
+                type: "get",
+                async:false,
+                data: {
+                    vip_name:value
+                },
+                success: function(res) {
+                    if (res == 'no') {
+                        $(".msg").text("vip名称已存在");
+//                        alert(1);
+                        return  false;
+                    }else{
+                        $(".msg").text("");
+                    }
+                }
+            })
+        }
+
+})
+
+    $(".price").blur(function(){
+        var value=$(this).val();
+        if(value==""){
+            $("#msgs").text("vip价格不为空");
+            return false;
+        }else{
+            $("#msgs").text("")
+        }
+
+    })
     $(".add").click(function(){
+        var flag = true;
+            var value=$(".name").val();
+            if(value==""){
+                $(".msg").html("vip名称不为空");
+                return false;
+            }else{
+                $.ajax({
+                    url: "/admin/vip/ajaxuniq",
+                    type: "get",
+                    async:false,
+                    data: {
+                        vip_name:value
+                    },
+                    success: function(res) {
+                        if (res === 'no') {
+                            $(".msg").text("vip名称已存在");
+                            flag = false;
+                        }else{
+                            $(".msg").text("")
+                        }
+                    }
+                })
+
+            }
+        if(!flag){
+            return false;
+        }
+        var prices=$(".price").val();
+        if(prices==""){
+            $("#msgs").text("vip价格不为空");
+            return false;
+        }else{
+            $("#msgs").text("")
+        }
+//alert(2);return;
         var vip_name=$(".name").val();
         var price=$(".price").val();
+//        return
         $.ajax({
             url:"{{url('/admin/vip/createDo')}}",
             type:'post',
@@ -130,6 +205,8 @@
         })
     })
 </script>
+
+
 </body>
 
 </html>
