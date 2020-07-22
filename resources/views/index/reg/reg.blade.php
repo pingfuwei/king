@@ -51,7 +51,7 @@
                 <div class="control-group">
                     <label for="inputPassword" class="control-label">短信验证码：</label>
                     <div class="controls">
-                        <input type="text" placeholder="短信验证码" id="code" class="input-xfat input-xlarge">  <a href="#" id="getcode">获取短信验证码</a>
+                        <input type="text" placeholder="短信验证码" id="code" class="input-xfat input-xlarge"> <button type="button" class="btn btn-success"> <span  id="getcode">获取短信验证码</span></button>
                     </div>
                 </div>
 
@@ -99,6 +99,7 @@
 <script>
     $(function () {
         $(document).on("click","#button",function () {//注册点击事件
+            var pattern = /^1[34578]\d{9}$/;
             var user_name=$("#user_name").val()
             var user_pwd=$("#user_pwd").val()
             var user_pwds=$("#user_pwds").val()
@@ -119,23 +120,57 @@
             }else if(user_tel===""){
                 alert("手机号不能为空")
                 return
+            }else if(!pattern.test(user_tel)){
+                alert("手机号格式不对")
             }else if(user_code===""){
                 alert("验证码不能为空")
                 return
             }
             var date={user_name:user_name,user_pwd:user_pwd,user_tel:user_tel,user_code:user_code}
-        })
-        $(document).on("click","#getcode",function () {
-            var user_tel=$("#user_tel").val()
-                $("#getcode").html("60s");
             $.ajax({
-                url:"/index/reg/ajaxCode",
-                data:{user_tel:user_tel},
+                url:"/index/reg/regDo",
+                data:date,
                 success:function (res) {
                     alert(res)
                 }
             })
         })
+        $(document).on("click","#getcode",function () {
+            var user_tel=$("#user_tel").val()
+            var pattern = /^1[34578]\d{9}$/;
+            if(!pattern.test(user_tel)){
+                alert("格式不对")
+            }else{
+                $("#getcode").text("60s");//这个是吧span里面值改成5s
+                _t=setInterval(vals,1000);//定时器
+                $("#getcode").css("pointer-events", "none")//置灰
+            $.ajax({
+                url:"/index/reg/ajaxCode",
+                data:{user_tel:user_tel},
+                success:function (res) {
+                    console.log(res)
+                    if(res=="ok"){
+                        alert("发送成功")
+                    }
+                }
+            })
+            }
+        })
+        function vals() {
+            s=$("#getcode").text();
+            s=parseInt(s);
+            if(s<=0){
+                s=$("#getcode").text("获取验证码");
+                clearInterval(_t)
+                $("#getcode").css("pointer-events", "auto")
+            }else{
+                s=s-1;
+                s=$("#getcode").text(s+"s");
+                $("#getcode").css("pointer-events", "none")
+            }
+
+
+        }
     })
 </script>
 </html>

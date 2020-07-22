@@ -38,7 +38,6 @@ class DeveloperController extends Controller
         }
     }
     public function index(){
-<<<<<<< HEAD
         $data=RoleModel::get();
 //        dd($data);
         foreach ($data as $k=>$v){
@@ -50,12 +49,11 @@ class DeveloperController extends Controller
         }
 //        dd($data);
         return view('admin.role.index',['data'=>$data]);
-=======
+
         $data=RoleModel::where('role_status',1)->get();
         $power=RoleModel::join('role_power','role.role_id','=','role_power.role_id')->get();
 //        print_r($power);die;
         return view('admin.role.index',['data'=>$data,'power'=>$power]);
->>>>>>> 4a50272c608df7ee1fcaff57c56f5237fdc1cc2d
     }
     public function power_create(){
         return view('admin.power.create');
@@ -86,7 +84,6 @@ class DeveloperController extends Controller
         }
     }
     public function power_index(){
-<<<<<<< HEAD
         $data=PowerModel::get();
         foreach ($data as $k=>$v){
             $power_id=Role_PowerModel::where("power_id",$v->power_id)->get();
@@ -95,9 +92,7 @@ class DeveloperController extends Controller
                 $data[$k]["res"].=$role->role_name.",";
             }
         }
-=======
         $data=PowerModel::where('power_status',1)->get();
->>>>>>> 4a50272c608df7ee1fcaff57c56f5237fdc1cc2d
         return view('admin.power.index',['data'=>$data]);
     }
     public function role($admin_id){
