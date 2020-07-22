@@ -134,6 +134,8 @@
             $(this).hide();
             var xd= _this.next().val(as).show();
         });
+    })
+    $(document).ready(function(){
         $('.inp').blur(function() {
             var _this = $(this);
             var data={};

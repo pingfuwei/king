@@ -49,6 +49,7 @@ class LoginController extends Controller
         return $message;
     }
     public function indexs(){
+
         return view("admin.indexs");
     }
 }

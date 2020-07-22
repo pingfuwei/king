@@ -19,8 +19,29 @@ class Goods_valController extends Controller
      */
     public function createDo(Request $request){
         $data=$request->all();
+        if(!$data['goods_val_name']){
+            $message=[
+                'code'=>'000001',
+                'message'=>'error',
+                'result'=>[
+                    'message'=>'属性值不能为空',
+                ]
+            ];
+            return json_encode($message,JSON_UNESCAPED_UNICODE);
+        }
         $data['add_time']=time();
         $goods_valuemodel=new GoodsvalueModel();
+        $res=$goods_valuemodel::where('goods_val_name',$data['goods_val_name'])->first();
+        if($res){
+            $message=[
+                'code'=>'000001',
+                'message'=>'error',
+                'result'=>[
+                    'message'=>'属性值已存在',
+                ]
+            ];
+            return json_encode($message,JSON_UNESCAPED_UNICODE);
+        }
         $res=$goods_valuemodel::insert($data);
         if($res){
             $message=[
@@ -104,30 +125,58 @@ class Goods_valController extends Controller
      */
     public function updDo(Request $request){
         $data=$request->all();
-        $goods_valuemodel=new GoodsvalueModel();
-        $where=[
-            ['goods_val_id','=',$data['goods_val_id']]
-        ];
-        unset($data['goods_val_id']);
-        $res=$goods_valuemodel::where($where)->update($data);
-        if($res!==false){
+        if(!$data['goods_val_name']){
             $message=[
-                'code'=>'000000',
-                'message'=>'success',
+                'code'=>'000001',
+                'message'=>'error',
                 'result'=>[
-                    'message'=>'修改成功',
+                    'message'=>'属性值不能为空',
                 ]
             ];
+            return json_encode($message,JSON_UNESCAPED_UNICODE);
+        }
+        $goods_valuemodel = new GoodsvalueModel();
+        $where = [
+            ['goods_val_name', '=', $data['goods_val_name']],
+            ["is_del", "=", 1],
+            ['goods_val_id',"!=",$data['goods_val_id']]
+        ];
+        $res = $goods_valuemodel::where($where)->first();
+        if(!$res){
+            $goods_valuemodel=new GoodsvalueModel();
+            $where=[
+                ['goods_val_id','=',$data['goods_val_id']]
+            ];
+            unset($data['goods_val_id']);
+            $res=$goods_valuemodel::where($where)->update($data);
+            if($res!==false){
+                $message=[
+                    'code'=>'000000',
+                    'message'=>'success',
+                    'result'=>[
+                        'message'=>'修改成功',
+                    ]
+                ];
+            }else{
+                $message=[
+                    'code'=>'000001',
+                    'message'=>'error',
+                    'result'=>[
+                        'message'=>'修改失败',
+                    ]
+                ];
+            }
+            return json_encode($message,JSON_UNESCAPED_UNICODE);
         }else{
             $message=[
                 'code'=>'000001',
                 'message'=>'error',
                 'result'=>[
-                    'message'=>'修改失败',
+                    'message'=>'该属性值已存在',
                 ]
             ];
+            return json_encode($message,JSON_UNESCAPED_UNICODE);
         }
-        return json_encode($message,JSON_UNESCAPED_UNICODE);
     }
     /*
      * 商品属性值极点级改
@@ -135,12 +184,12 @@ class Goods_valController extends Controller
     public function updTo(Request $request){
         $data=$request->all();
 //        dd($data);
-        $newsmodel=new NewsModel();
+        $goods_valuemodel=new GoodsvalueModel();
         $where=[
-            ['n_id','=',$data['n_id']]
+            ['goods_val_id','=',$data['goods_val_id']]
         ];
-        unset($data['n_id']);
-        $res=$newsmodel::where($where)->update([$data['field']=>$data['value']]);
+        unset($data['goods_val_id']);
+        $res=$goods_valuemodel::where($where)->update([$data['field']=>$data['value']]);
         if($res!==false){
             $message=[
                 'code'=>'000000',
@@ -159,5 +208,32 @@ class Goods_valController extends Controller
             ];
         }
         return json_encode($message);
+    }
+    /*
+     * 商品属性值的唯一性
+     */
+    public function unique(Request $request){
+        $data=$request->all();
+        if(!empty($data['goods_val_id'])){
+            $goods_valuemodel = new GoodsvalueModel();
+            $where = [
+                ['goods_val_name', '=', $data['goods_val_name']],
+                ["is_del", "=", 1],
+                ['goods_val_id',"!=",$data['goods_val_id']]
+            ];
+            $res = $goods_valuemodel::where($where)->first();
+        }else {
+            $goods_valuemodel = new GoodsvalueModel();
+            $where = [
+                ['goods_val_name', '=', $data['goods_val_name']],
+                ["is_del", "=", 1]
+            ];
+            $res = $goods_valuemodel::where($where)->first();
+        }
+        if($res){
+           echo "no";
+        }else {
+            echo "ok";
+        }
     }
 }
