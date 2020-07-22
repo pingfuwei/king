@@ -81,6 +81,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('upd/{id}','admin\NewsController@upd');//品优购快报修改页面
             Route::any('updDo','admin\NewsController@updDo');//品优购快报执行修改
             Route::any('updTo','admin\NewsController@updTo');//品优购快报即点即改
+            Route::any('unique','admin\NewsController@unique');//商品属性值唯一性
         });
         Route::prefix("category")->group(function (){//分类
             Route::any('create','admin\CategoryController@create');//分类添加
@@ -114,6 +115,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('updDo','admin\Goods_valController@updDo');//商品属性值执行修改
             Route::any('del','admin\Goods_valController@del');//商品属性值删除
             Route::any('updTo','admin\Goods_valController@updTo');//商品属性值极点级改
+            Route::any('unique','admin\Goods_valController@unique');//商品属性值唯一性
         });
         Route::prefix("stock")->group(function (){//库存
             Route::any('create','admin\StockController@create');//库存添加
