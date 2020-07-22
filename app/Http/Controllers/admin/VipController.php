@@ -36,8 +36,13 @@ class VipController extends Controller
         }
     }
     public function index(){
-        $data=vipModel::get();
-        return view('admin.vip.index',['data'=>$data]);
+        $vip_name=request()->get('vip_name');
+        $where=[];
+        if($vip_name){
+            $where[]=['vip_name','like',"%$vip_name%"];
+        }
+        $data=vipModel::where($where)->paginate(2);
+        return view('admin.vip.index',['data'=>$data,'vip_name'=>$vip_name]);
     }
     public function upd($vip_id){
         $data=vipModel::where('vip_id',$vip_id)->first();
@@ -102,6 +107,15 @@ class VipController extends Controller
                 'msg'=>"修改成功",
                 'data'=>$res
             ];
+        }
+    }
+    public function uniq(){
+        $vip_name=request()->get('vip_name');
+        $res=vipModel::where('vip_name',$vip_name)->first();
+        if($res){
+            return "no";
+        }else{
+            return "ok";
         }
     }
 }

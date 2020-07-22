@@ -35,6 +35,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('/updDo','admin\VipController@updDo');//执行vip修改
             Route::any('/del','admin\VipController@del');//执行vip删除
             Route::any('/change','admin\VipController@change');//即点即改
+            Route::any('/ajaxuniq','admin\VipController@uniq');//唯一性验证
         });
         Route::prefix("brand")->group(function (){//品牌模块
             Route::any('create','admin\BrandController@create');//品牌添加页面
@@ -102,6 +103,8 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('upd/{attr_id}','admin\Goods_attrController@upd');//商品属性修改
             Route::any('updDo','admin\Goods_attrController@updDo');//执行商品属性修改
             Route::any('del','admin\Goods_attrController@del');//执行商品属性删除
+            Route::any('change','admin\Goods_attrController@change');//即点即改
+            Route::any('ajaxuniq','admin\Goods_attrController@uniq');//验证唯一性
         });
         Route::prefix("goods_val")->group(function (){//商品属性值
             Route::any('create','admin\Goods_valController@create');//商品属性值添加

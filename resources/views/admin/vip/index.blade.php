@@ -30,7 +30,14 @@
 
     <!-- 数据表格 -->
     <div class="table-box">
-
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+                <form action="/admin/vip/index">
+                    vip名称：<input type="text" name="vip_name" value="{{$vip_name??''}}">
+                    <button type="submit" class="btn btn-default" >查询</button>
+                </form>
+            </div>
+        </div>
 
         <!--数据列表-->
         <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
@@ -61,6 +68,7 @@
                 </td>
             </tr>
                 @endforeach
+            <tr><td colspan="16">{{$data->links()}}</td></tr>
             </tbody>
         </table>
         <!--数据列表/-->
