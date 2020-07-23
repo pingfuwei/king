@@ -16,6 +16,22 @@ class GoodsController extends Controller
         return view("admin.goods.create",compact("brand","cate"));
     }
 
+    //商品ajax验证唯一
+    public function ajaxuniq(Request $request){
+        // echo "123";
+        $goods_name = $request->get("goods_name");
+        $where = [
+            "goods_name"=>$goods_name,
+            "is_del"=>1
+        ];
+        $res = Goods::where($where)->first();
+        if($res){
+            echo "no";
+        }else{
+            echo "ok";
+        }
+    }
+
     //添加执行
     public function createDo(Request $request){
         $arr = $request->except("_token");
