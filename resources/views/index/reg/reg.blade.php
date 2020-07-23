@@ -20,7 +20,7 @@
     </div>
     <!--register-->
     <div class="registerArea">
-        <h3>注册新用户<span class="go">我有账号，去<a href="/index/login">登陆</a></span></h3>
+        <h3>注册新用户<span class="go">我有账号，去<a href="/index/login/login">登陆</a></span></h3>
         <div class="info">
             <form class="sui-form form-horizontal">
                 <div class="control-group">
@@ -126,18 +126,26 @@
                 alert("验证码不能为空")
                 return
             }
-            var date={user_name:user_name,user_pwd:user_pwd,user_tel:user_tel,user_code:user_code}
+            var date={user_name:user_name,user_pwd:user_pwd,user_tel:user_tel,code:user_code}
             $.ajax({
                 url:"/index/reg/regDo",
                 data:date,
+                dataType:"json",
                 success:function (res) {
-                    alert(res)
+                    alert(res.font)
+                    if(res.code==="000"){
+                        location.href="/index/login/login"
+                    }
                 }
             })
         })
         $(document).on("click","#getcode",function () {
             var user_tel=$("#user_tel").val()
             var pattern = /^1[34578]\d{9}$/;
+            if(user_tel===""){
+                alert("手机号必填")
+                return
+            }
             if(!pattern.test(user_tel)){
                 alert("格式不对")
             }else{

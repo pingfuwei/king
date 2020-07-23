@@ -125,6 +125,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('upd','admin\StockController@upd');//库存修改
             Route::any('updDo','admin\StockController@updDo');//执行商品属性修改
             Route::any('del','admin\StockController@del');//执行商品属性删除
+            Route::any('stockAjax','admin\StockController@stockAjax');//执行库存ajax
         });
 });
 
@@ -158,11 +159,13 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
 
 Route::any("/", "index\Index@index");//首页
 Route::prefix("index")->group(function() {
-    Route::any("login", "index\LoginController@login");//登录
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
         Route::any("regDo", "index\LoginController@regDo");//注册执行
         Route::any("ajaxCode", "index\LoginController@ajaxCode");//验证码ajax
     });
-
+    Route::prefix("login")->group(function() {//注册
+        Route::any("login", "index\LoginController@login");//登录
+        Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
+    });
 });
