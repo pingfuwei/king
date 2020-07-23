@@ -44,7 +44,7 @@
                 <!--表单内容-->
                 <div class="tab-pane active" id="home" >
                     <div class="row data-type" >
-                        <div class="col-md-2 title" >商品分类</div>
+                        <div class="col-md-2 title" >商品</div>
 
                         <div class="col-md-10  data" >
                             <table>
@@ -61,16 +61,6 @@
                             </table>
 
                         </div  >
-
-                        <div class="col-md-2  title" >库存</div>
-                        <div class="col-md-10 data">
-                            <input type="text" class="form-control" id="stock"  placeholder="库存">
-                        </div>
-
-                        <div class="col-md-2 title">价格</div>
-                        <div class="col-md-10 data">
-                            <input type="text" class="form-control" id="price"  placeholder="价格">
-                        </div>
                         @foreach ($data as $k=>$v)
                         <div id="aa" >
                             <div class="col-md-2 title" >{{$v->attr_name}}</div>
@@ -89,6 +79,8 @@
             <div class="btn-toolbar list-toolbar" >
                 <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>确定</button>
                 <a href="/admin/stock/del"><button class="btn btn-default" ng-click="goListPage()">查看列表</button></a>
+                <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>添加库存</button>
+
             </div>
 
 </section>
