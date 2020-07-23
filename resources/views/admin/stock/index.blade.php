@@ -73,9 +73,12 @@
                     <td>{{$v->stock_id}}</td>
                     <td>{{$v->goods_name}}</td>
                     <td>{{$v->stock}}</td>
-                    <td>{{$v->ability}}</td>
+                    <td>
+                        @foreach($v['ability'] as $d=>$f)
+                            {{$f}}
+                        @endforeach
+                    </td>
                     <td class="text-center">
-                        <button type="button"  id="upd" brand_id="{{$v->brand_id}}"class="btn bg-olive btn-xs">修改</button>
                         <button type="button" id="del" brand_id="{{$v->brand_id}}" class="btn bg-olive btn-xs">删除</button>
                     </td>
                 </tr>
