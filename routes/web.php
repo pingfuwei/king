@@ -124,6 +124,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('upd','admin\StockController@upd');//库存修改
             Route::any('updDo','admin\StockController@updDo');//执行商品属性修改
             Route::any('del','admin\StockController@del');//执行商品属性删除
+            Route::any('stockAjax','admin\StockController@stockAjax');//执行库存ajax
         });
 });
 
