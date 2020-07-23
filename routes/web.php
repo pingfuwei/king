@@ -42,6 +42,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('createDo','admin\BrandController@createDo');//品牌添加
             Route::any('index','admin\BrandController@index');//用户展示
             Route::any('upd','admin\BrandController@upd');//用户修改
+            Route::any('change','admin\BrandController@change');//即点即改
         });
         Route::prefix("admin")->group(function (){//后台登陆
             Route::any('create','admin\AdminController@create');//用户添加
