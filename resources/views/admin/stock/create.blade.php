@@ -39,45 +39,45 @@
         <!--tab页-->
         <div class="nav-tabs-custom">
             <!--tab内容-->
-            <div class="tab-content">
+            <div class="tab-content" >
 
                 <!--表单内容-->
-                <div class="tab-pane active" id="home">
-                    <div class="row data-type">
-                        <div class="col-md-2 title">商品分类</div>
+                <div class="tab-pane active" id="home" >
+                    <div class="row data-type" >
+                        <div class="col-md-2 title" >商品分类</div>
 
-                        <div class="col-md-10 data">
+                        <div class="col-md-10  data" >
                             <table>
                                 <tr>
                                     <td>
-                                        <select class="form-control" name="goods_id">
-                                            <option value="">选择商品---+</option>
+                                        <select class="form-control" name="goods_id" id="goods_id">
+                                            <option value="" selected>选择商品---+</option>
                                             @foreach ($res as $k=>$v)
-                                            <option value="{{$v->goods_id}}">{{$v->goods_name}}</option>
+                                            <option value="{{$v->goods_id}}" id="goods_name">{{$v->goods_name}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                 </tr>
                             </table>
 
-                        </div>
+                        </div  >
 
-                        <div class="col-md-2 title">库存</div>
+                        <div class="col-md-2  title" >库存</div>
                         <div class="col-md-10 data">
-                            <input type="text" class="form-control" name="desc"  placeholder="库存">
+                            <input type="text" class="form-control" id="stock"  placeholder="库存">
                         </div>
 
                         <div class="col-md-2 title">价格</div>
                         <div class="col-md-10 data">
-                            <input type="text" class="form-control" name="title"  placeholder="价格">
+                            <input type="text" class="form-control" id="price"  placeholder="价格">
                         </div>
                         @foreach ($data as $k=>$v)
-                        <div>
-                            <div class="col-md-2 title">{{$v->attr_name}}</div>
-                            <div class="col-md-10 data">
+                        <div id="aa" >
+                            <div class="col-md-2 title" >{{$v->attr_name}}</div>
+                            <div class="col-md-10 data" >
                                 @foreach ($v['data'] as $val)
-                                <span>
-                                    <input  type="checkbox" name="goods_val_name" id="attr_id" attr_id="{{$v->attr_id}}" value="{{$val->goods_val_id}}">{{$val->goods_val_name}}
+                                    <span >
+                                    <input  type="checkbox" name="goods_val_name" id="attr_id"  attr_id="{{$v->attr_id}}" value="{{$val->goods_val_id}}">{{$val->goods_val_name}}
                                 </span>
                                 @endforeach
                             </div>
@@ -86,9 +86,9 @@
                     </div>
                 </div>
             </div>
-            <div class="btn-toolbar list-toolbar">
-                <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>添加</button>
-                <a href="/admin/news/index"><button class="btn btn-default" ng-click="goListPage()">查看列表</button></a>
+            <div class="btn-toolbar list-toolbar" >
+                <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>确定</button>
+                <a href="/admin/stock/del"><button class="btn btn-default" ng-click="goListPage()">查看列表</button></a>
             </div>
 
 </section>
@@ -108,14 +108,49 @@
 <script>
     $(function(){
        $("#btn").click(function(){
-           // var data =$(this).parent().prev().children().attr('attr_id');
-           // console.log(data);return false;
-            var ret = $("input[name='goods_val_name']").attr('attr_id');
-alert(ret)
-            var  data =$('input[name="goods_val_name"]:checked').map(function(){return ret+":"+this.value}).get().join(',');
-            console.log(data);
-
+           var stock=$("#stock").val()
+           var price=$("#price").val()
+           var goods_id=$("#goods_id option:selected").val();
+           //alert(goods_id)
+           var aa="";
+           $("input[name='goods_val_name']:checked").each(function() {
+               aa+=$(this).attr("attr_id")+":"+$(this).val()+","
+           });
+           aa=aa.substr(0,aa.length-1)
+           var date={stock:stock,price:price,goods_id:goods_id,ability:aa}
+           $.ajax({
+               url:"/admin/stock/createDo",
+               data:date,
+               success:function (res) {
+                    //console.log(res);false;
+               }
+           })
        });
+       $("#goods_id").on("change",function(){
+           var goods_id = $('option:selected').val();
+           var data={};
+           data.goods_id = goods_id;
+           //console.log(goods_id);
+           $.ajax({
+              url:'index',
+              type:'get',
+               dataType:'json',
+               data:data,
+               success:function(msg){
+                   if(msg){
+                       $("input[name='goods_val_name']").prop("checked","");
+                       var array = msg.split(',');
+                       $.each(array,function(k,v){
+                           console.log(v.substr(2));
+                           $("input[name='goods_val_name'][value="+v.substr(2)+"]").prop("checked","checked");
+                       })
+                   }else{
+                       $("input[name='goods_val_name']").prop("checked","");
+                   }
+
+               }
+           });
+       })
     });
 </script>
 @endsection

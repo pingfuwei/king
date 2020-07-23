@@ -38,10 +38,28 @@ class DeveloperController extends Controller
         }
     }
     public function index(){
-        $data=RoleModel::where('role_status',1)->get();
-        $power=RoleModel::join('role_power','role.role_id','=','role_power.role_id')->get();
-//        print_r($power);die;
-        return view('admin.role.index',['data'=>$data,'power'=>$power]);
+        $role_name=request()->get('attr_name');
+        $where=[];
+        if($role_name){
+            $where[]=['role_name','like',"%$role_name%"];
+        }
+        $data=RoleModel::where('role_status',1)->where($where)->paginate(2);
+//        dd($data);
+        foreach ($data as $k=>$v){
+            $power_id=Role_PowerModel::where("role_id",$v->role_id)->get();
+            foreach ($power_id as $kk=>$vv){
+                $power_id=PowerModel::where("power_id",$vv->power_id)->first();
+                $data[$k]["res"].=$power_id->power_name.",";
+            }
+        }
+//        dd($data);
+        return view('admin.role.index',['data'=>$data,'role_name'=>$role_name]);
+//
+//        $data=RoleModel::where('role_status',1)->get();
+//        $power=RoleModel::join('role_power','role.role_id','=','role_power.role_id')->get();
+////        print_r($power);die;
+//        return view('admin.role.index',['data'=>$data,'power'=>$power]);
+
     }
     public function power_create(){
         return view('admin.power.create');
@@ -72,7 +90,20 @@ class DeveloperController extends Controller
         }
     }
     public function power_index(){
-        $data=PowerModel::where('power_status',1)->get();
+        $data=PowerModel::where('power_status',1)->paginate(3);
+        foreach ($data as $k=>$v){
+            $power_id=Role_PowerModel::where("power_id",$v->power_id)->get();
+            foreach ($power_id as $kk=>$vv){
+                $role=RoleModel::where("role_id",$vv->role_id)->first();
+                $data[$k]["res"].=$role->role_name.",";
+            }
+        }
+
+
+//        $data=PowerModel::where('power_status',1)->get();
+
+
+//        $data=PowerModel::where('power_status',1)->get();
         return view('admin.power.index',['data'=>$data]);
     }
     public function role($admin_id){
@@ -117,7 +148,7 @@ class DeveloperController extends Controller
         }
     }
     public function power($role_id){
-        $power=PowerModel::get();
+        $power=PowerModel::where('power_status',1)->get();
         return view('admin.power.power',['role_id'=>$role_id,'power'=>$power]);
     }
     public function powerDo(){
@@ -241,6 +272,46 @@ class DeveloperController extends Controller
             return [
                 'code'=>500,
                 'msg'=>"删除失败",
+                'data'=>$res
+            ];
+        }
+    }
+    public function rolechange(Request $request){
+        $all=$request->all();
+        $value=$all['value'];
+        $field=$all['field'];
+        $role_id=$all['role_id'];
+        $res=RoleModel::where('role_id',$role_id)->update([$field=>$value]);
+        if($res){
+            return [
+                'code'=>200,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
+        }else{
+            return [
+                'code'=>500,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
+        }
+    }
+    public function powerchange(Request $request){
+        $all=$request->all();
+        $value=$all['value'];
+        $field=$all['field'];
+        $power_id=$all['power_id'];
+        $res=PowerModel::where('power_id',$power_id)->update([$field=>$value]);
+        if($res){
+            return [
+                'code'=>200,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
+        }else{
+            return [
+                'code'=>500,
+                'msg'=>"修改成功",
                 'data'=>$res
             ];
         }

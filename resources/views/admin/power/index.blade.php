@@ -30,7 +30,14 @@
 
     <!-- 数据表格 -->
     <div class="table-box">
-
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+                <form action="/admin/power /index">
+                    角色名称：<input type="text" name="attr_name" value="{{$role_name??''}}">
+                    <button type="submit" class="btn btn-default" >查询</button>
+                </form>
+            </div>
+        </div>
 
         <!--数据列表-->
         <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
@@ -40,23 +47,28 @@
                 <th class="sorting">权限名称</th>
                 <th class="sorting">URL</th>
                 <th class="sorting">添加时间</th>
+                <th class="sorting">角色</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
             @foreach($data as $k=>$v)
-            <tr>
-
+            <tr power_id="{{$v->power_id}}">
                 <td>{{$v->power_id}}</td>
-                <td>{{$v->power_name}}</td>
+                <td field="power_name">
+                    <span class="span">{{$v->power_name}}</span>
+                    <input type="text" value="{{$v->power_name}}" class="change" style="display:none">
+                </td>
                 <td>{{$v->power_url}}</td>
                 <td>{{date("Y-m-d H:i:s",$v->power_time)}}</td>
+                <td>{{rtrim($v->res,",")}}</td>
                 <td class="text-center">
                     <a href="{{url('admin/power/upd',$v->power_id)}}" class="btn bg-olive btn-xs">修改</a>
                     <a href="javascript:;" data-id="{{$v->power_id}}" class="del btn bg-olive btn-xs">删除</a>
                 </td>
             </tr>
                 @endforeach
+            <tr><td colspan="16">{{$data->links()}}</td></tr>
             </tbody>
         </table>
         <!--数据列表/-->
@@ -92,6 +104,40 @@
         })
     })
 </script>
+<script>
+    $(document).ready(function(){
+        $(".span").click(function(){
+            var _this=$(this);
+            var change=$(this).text();
+            _this.hide();
+            var aa= _this.next().val(change).show();
+        })
+        $(".change").blur(function(){
+            var _this = $(this);
+            var value = _this.val();
+            var power_id = _this.parents('tr').attr('power_id');
+            var field = _this.parent('td').attr('field');
+            $.ajax({
+                url:"{{url('/admin/power/change')}}",
+                data:{'value':value,'power_id':power_id,'field':field},
+                dataType:'json',
+                type:'post',
+                success:function(res){
+//                    console.log(res);
+                    if(res.code){
+                        _this.hide();
+                        _this.prev().text(value).show();
+                        alert(res.msg);
+                    }else{
+                        alert(res.msg);
+                    }
+                }
+            })
 
+
+        })
+    })
+
+</script>
 </html>
 @endsection
