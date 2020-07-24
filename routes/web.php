@@ -24,8 +24,8 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any("indexs", "admin\LoginController@indexs");//首页照片
         Route::any('index','admin\IndexController@index');//首页
 });
-
-Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
+//->middleware("adminlogin")
+Route::prefix("admin")->group(function (){//后台
     Route::any('index','admin\IndexController@index');//首页
         Route::prefix("vip")->group(function (){
             Route::any('/create','admin\VipController@create');//vip添加
