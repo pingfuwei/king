@@ -169,14 +169,14 @@ class DeveloperController extends Controller
                 'time'=>time()
             ];
 //            if($power_id!==''){
-                $a=Role_PowerModel::where('role_id',$role_id)->where('power_id',$power_id)->first();
-                if($a){
-                    return[
-                        'code'=>'0001',
-                        'msg'=>'该角色已经有此权限',
-                        'data'=>$a
-                    ];
-                }
+//                $a=Role_PowerModel::where('role_id',$role_id)->where('power_id',$power_id)->first();
+//                if($a){
+//                    return[
+//                        'code'=>'0001',
+//                        'msg'=>'该角色已经有此权限',
+//                        'data'=>$a
+//                    ];
+//                }
 //            }
             $res=Role_PowerModel::insert($data);
 
@@ -356,17 +356,42 @@ class DeveloperController extends Controller
             return "ok";
         }
     }
-    public function changeuniq(Request $request){
-        $all=$request->all();
-        $power_id=$all['power_id'];
-        $power_name=$all['power_name'];
-        $field=$all['field'];
-        $res=PowerModel::where('power_name',$power_name)->first();
-        print_r($res);die;
+//    public function changeuniq(Request $request){
+//        $all=$request->all();
+//        $power_id=$all['power_id'];
+//        $power_name=$all['power_name'];
+//        $field=$all['field'];
+//        $res=PowerModel::where('power_name',$power_name)->first();
+//        print_r($res);die;
+//        if($res){
+//            return "no";
+//        }else{
+//            return "ok";
+//        }
+//    }
+    public function delpower($role_id){
+        $where=[
+            'role.role_id'=>$role_id,
+            'role_power.status'=>1
+        ];
+        $data=RoleModel::join('role_power','role_power.role_id','=','role.role_id')->join('power','power.power_id','=','role_power.power_id')->where($where)->get();
+        return view('admin.power.delpower',['data'=>$data]);
+    }
+    public function dels(){
+        $power_id=request()->post('power_id');
+        $res=Role_PowerModel::where('power_id',$power_id)->update(['status'=>0]);
         if($res){
-            return "no";
+            return [
+                'code'=>200,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
         }else{
-            return "ok";
+            return [
+                'code'=>500,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
         }
     }
 }

@@ -68,6 +68,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('/createDo','admin\DeveloperController@power_createDo');//执行权限添加
         Route::any('/index','admin\DeveloperController@power_index');//列表展示
         Route::any('/power/{role_id}','admin\DeveloperController@power');//给角色赋权限
+        Route::any('/delpower/{role_id}','admin\DeveloperController@delpower');//删除给角色的权限
         Route::any('/powerDo','admin\DeveloperController@powerDo');//执行角色赋权限
         Route::any('upd/{power_id}','admin\DeveloperController@upd');//权限修改
         Route::any('updDo','admin\DeveloperController@updDo');//执行权限修改
@@ -76,6 +77,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('ajaxuniq','admin\DeveloperController@poweruniq');//权限唯一
         Route::any('ajaxuniqurl','admin\DeveloperController@poweruniqurl');//权限唯一
         Route::any('uniq','admin\DeveloperController@changeuniq');//即点即改权限唯一
+        Route::any('dels','admin\DeveloperController@dels');//执行删除给用户的权限
     });
     //品优购快报
         Route::prefix("news")->group(function (){
