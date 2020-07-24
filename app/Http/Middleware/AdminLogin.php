@@ -16,9 +16,13 @@ class AdminLogin
     public function handle($request, Closure $next)
     {
         $adminuser = $request->session()->get("user");
+        $aa='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+//        echo $aa;
         if(!$adminuser){
             // echo "123";exit;
             return redirect("/admin/login");
+        }else{
+//            $data=
         }
         // echo "234";exit;
         return $next($request);
