@@ -79,7 +79,9 @@
 			                          <tr>
                                           <td><input  type="checkbox"></td>
 				                          <td>{{$itme->goods_id}}</td>
-									      <td>{{$itme->goods_name}}</td>
+									      <td attr_id="{{$itme->goods_id}}">
+                                            <span class="span_name">{{$itme->goods_name}}</span>
+                                          </td>
 				                          <td>{{$itme->cate_name}}</td>
 				                          <td>{{$itme->brand_name}}</td>
 				                          <td><img src="{{env('UPLOADS_URL')}}{{$itme->goods_img}}" width="35px" alt=""></td>
@@ -91,10 +93,10 @@
                                           </td>
 				                          <td>{{$itme->goods_num}}</td>
 				                          <td>{{$itme->goods_desc}}</td>
-				                          <td>{{$itme->is_show=="1" ? "√" : "×"}}</td>
-				                          <td>{{$itme->is_new=="1" ? "√" : "×"}}</td>
-				                          <td>{{$itme->is_up=="1" ? "√" : "×"}}</td>
-				                          <td>{{$itme->is_sell=="1" ? "√" : "×"}}</td>
+				                          <td goods_id="{{$itme->goods_id}}" class="hubei" status='{{$itme->is_show}}' filed="is_show">{{$itme->is_show=="1" ? "√" : "×"}}</td>
+				                          <td goods_id="{{$itme->goods_id}}" class="hubei" status='{{$itme->is_new}}' filed="is_new">{{$itme->is_new=="1" ? "√" : "×"}}</td>
+				                          <td goods_id="{{$itme->goods_id}}" class="hubei" status='{{$itme->is_up}}' filed="is_up">{{$itme->is_up=="1" ? "√" : "×"}}</td>
+				                          <td goods_id="{{$itme->goods_id}}" class="hubei" status='{{$itme->is_sell}}' filed="is_sell">{{$itme->is_sell=="1" ? "√" : "×"}}</td>
 				                          <td>{{$itme->goods_score}}</td>
 									      <td>{{date('Y-m-d H:i:s',$itme->addtime)}}</td>
 		                                  <td class="text-center">
@@ -117,6 +119,76 @@
                     <!-- /.box-body -->
 
 </body>
+
+<script src="/js/jquery.js"></script>
+<script>
+    $(function(){
+        $(document).on("click",".span_name",function(){
+            var name = $(this).text();
+            // console.log(name);
+            $(this).parent().html('<input type="text" class="input_name" value='+name+'> <b><span id="span_names" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>');
+        })
+        $(document).on("blur",".input_name",function(){
+            // alert("123");
+            var obj = $(this);
+            var new_name = $(this).val();
+            // alert(new_name);
+            var id = $(this).parent().attr("attr_id");
+            // alert(id);
+
+            var data = {};
+            data.new_name = new_name;
+            data.id = id;
+
+            // console.log(data);
+            if(new_name==""){
+                // alert("123");
+                $(this).next().children().text("商品名称不能为空");
+                return false;
+            }else{
+                $.get(
+                    "/admin/goods/ajaxNames",
+                    data,
+                    function(res){
+                        // console.log(res);
+                        if (res == 'no') {
+                            obj.next().children().text("商品名称已存在");
+                            return false;
+                        }else if(res=="oks"){
+                            obj.parent().html('<span class="span_name">'+new_name+'</span>');
+                            $(this).html(new_name);
+                        }else{
+                            $.get("/admin/goods/ajaxName",data,function(res){
+                                // console.log(res);
+                                if(res.status=="true"){
+                                    obj.parent().html('<span class="span_name">'+new_name+'</span>');
+                                    $(this).html(new_name);
+                                }
+                            },'json');
+                        }
+                    }
+                )
+            }
+
+
+        })
+        //是否即点即改
+            $(document).on("click",".hubei",function(){
+                var data = {};
+                data.goods_id = $(this).attr("goods_id");
+                data.status = $(this).attr("status");
+                data.filed = $(this).attr("filed");
+                var obj = $(this);
+                $.get("/admin/goods/ajaxji",data,function(res){
+                    // console.log(res);
+                    if(res.status=="true"){
+                        obj.attr("status",res.msg);
+                        obj.text(res.result);
+                    }
+                },"json")
+            })
+    })
+</script>
 
 </html>
 @endsection

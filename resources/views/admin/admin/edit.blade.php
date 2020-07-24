@@ -148,7 +148,6 @@
         //管理员阻止提交
         $(document).on("click","#but",function(){
             // alert(12);
-            var nameflag = true;
             //阻止管理员名称
             var admin_name = $("#admin_name").val();
             var admin_id = $("#admin_id").val();
@@ -171,47 +170,46 @@
                         if (res == 'no') {
                             $("#span_name").text("管理员名称已存在");
                             return  false;
-                        }
-                    }
-                })
-                if(!nameflag){
-                    return false;
-                }
-            }
-            //阻止管理员密码
-            var admin_pwd = $("#admin_pwd").val();
-            var pwd = /^\w{6,}$/;
-            // alert(admin_pwd);
-            if(admin_pwd==""){
-                $("#span_pwd").text("管理员密码不能为空");
-                return false;
-            }else if(!pwd.test(admin_pwd)){
-                $("#span_pwd").text("管理员密码格式不正确");
-                return false;
-            }else{
-                $.ajax({
-                    url: "/admin/admin/updDo",
-                    type: "post",
-                    sync:false,
-                    data: {
-                        admin_name:admin_name,
-                        admin_pwd:admin_pwd,
-                        admin_id:admin_id
-                    },
-                    dataType:"json",
-                    success: function(res) {
-                        // alert(123);
-                        // console.log(res);
-                        if(res.status=="true"){
-                            alert(res.msg);
-                            window.location.href=res.result;
                         }else{
-                            alert(res.msg);
+                            //阻止管理员密码
+                            var admin_pwd = $("#admin_pwd").val();
+                            var pwd = /^\w{6,}$/;
+                            // alert(admin_pwd);
+                            if(admin_pwd==""){
+                                $("#span_pwd").text("管理员密码不能为空");
+                                return false;
+                            }else if(!pwd.test(admin_pwd)){
+                                $("#span_pwd").text("管理员密码格式不正确");
+                                return false;
+                            }else{
+                                $.ajax({
+                                    url: "/admin/admin/updDo",
+                                    type: "post",
+                                    sync:false,
+                                    data: {
+                                        admin_name:admin_name,
+                                        admin_pwd:admin_pwd,
+                                        admin_id:admin_id
+                                    },
+                                    dataType:"json",
+                                    success: function(res) {
+                                        // alert(123);
+                                        // console.log(res);
+                                        if(res.status=="true"){
+                                            alert(res.msg);
+                                            window.location.href=res.result;
+                                        }else{
+                                            alert(res.msg);
+                                        }
+                            
+                                    }
+                                })
+                            }
                         }
-
                     }
                 })
             }
+            
         })
     })
 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});

@@ -86,6 +86,51 @@ class GoodsController extends Controller
         return view("admin.goods.index",compact("goods","brand","cate","cate_name","brand_name","goods_name"));
     }
 
+    //即点即改唯一性
+    public function ajaxNames(Request $request){
+        $arr = $request->all();
+        // dd($arr);
+        $goods_name = Goods::where("goods_id",$arr["id"])->value("goods_name");
+        // dd($goods_name);
+        if($goods_name==$arr["new_name"]){
+            echo "oks";
+        }else{
+            $admin = Goods::where("goods_name",$arr["new_name"])->first();
+            if($admin){
+                echo "no";
+            }else{
+                echo "ok";
+            }
+        }
+    }
+
+    //商品即点即改
+    public function ajaxName(Request $request){
+        $arr = $request->all();
+        // print_r($arr);exit;
+        $res = Goods::where("goods_id",$arr["id"])->update(["goods_name"=>$arr["new_name"]]);
+        if($res){
+            $message = $this->datacode("true","00000","修改成功");
+        }
+
+        echo json_encode($message);
+    }
+
+    //即点即改
+    public function ajaxji(Request $request){
+        $arr = $request->all();
+        $filed = $arr["filed"];
+        $status = $arr["status"]==1?2:1;
+        // print_r($status);exit;
+        $res = Goods::where("goods_id",$arr["goods_id"])->update([$filed=>$status]);
+        if($res){
+            $add = $arr["status"]==1?"×":"√";
+            $message = $this->datacode("true","00000",$status,$add);
+        }
+
+        echo json_encode($message);
+    }
+
     //商品修改
     public function upd(Request $request){
         $id = $request->all();
@@ -128,5 +173,15 @@ class GoodsController extends Controller
         }else{
             return redirect("/admin/goods/index");
         }
+    }
+
+    //商品提示信息
+    public function datacode($status="",$code=1,$msg="",$result=""){
+        $message = [];
+        $message["status"] = $status;
+        $message["code"] = $code;
+        $message["msg"] = $msg;
+        $message["result"] = $result;
+        return $message;
     }
 }

@@ -99,14 +99,14 @@
                                 <div class="row data-type">
                                 <div class="col-md-2 title">商品图片</div>
                                 <div class="col-md-10 data">
-		                               <input type="file" class="form-control" name="goods_img">
+		                               <input type="file" class="form-control" name="goods_img" id="goods_img">
                                 </div>
                                 </div>
 
                                 <div class="row data-type">
                                 <div class="col-md-2 title">商品相册</div>
                                 <div class="col-md-10 data">
-                                       <input type="file" class="form-control" multiple="multiple"  name="goods_imgs[]">
+                                       <input type="file" class="form-control" multiple="multiple"  name="goods_imgs[]" id="goods_imgs">
                                 </div>
                                 </div>
 
@@ -174,7 +174,7 @@
 
                    </div>
                   <div class="btn-toolbar list-toolbar">
-				      <button type="submit" class="btn btn-primary" ng-click="setEditorValue();save()"><i class="fa fa-save"></i>添加</button>
+				      <button type="submit" class="btn btn-primary" id="but" ng-click="setEditorValue();save()"><i class="fa fa-save"></i>添加</button>
 				  </div>
                   </form>
 
@@ -244,7 +244,7 @@
                 // alert(123);
                 $("#span_num").text("商品数量不能为空");
             }else if(!num.test(goods_num)){
-                $("#span_num").text("商品价格格式不正确");
+                $("#span_num").text("商品数量格式不正确");
             }else {
                 $("#span_num").html("<font color='green'>√</font>");
             }
@@ -260,18 +260,86 @@
                 $("#span_desc").html("<font color='green'>√</font>");
             }
         })
-        //验证数量
+        //验证积分
         $(document).on("blur","#goods_score",function(){
             // alert(123);
             var goods_score = $(this).val();
             var score = /^\d{1,}$/;
             if(goods_score==""){
                 // alert(123);
-                $("#span_score").text("商品数量不能为空");
+                $("#span_score").text("商品积分不能为空");
             }else if(!score.test(goods_score)){
-                $("#span_score").text("商品价格格式不正确");
+                $("#span_score").text("商品积分格式不正确");
             }else {
                 $("#span_score").html("<font color='green'>√</font>");
+            }
+        })
+
+        //验证阻止提交
+        $(document).on("click",".btn",function(){
+            //验证阻止商品名称
+            var nameflag = true;
+            var goods_name = $("#goods_name").val();
+            if(goods_name==""){
+                $("#span_name").text("商品名称不能为空");
+                return false;
+            }else{
+                $.ajax({
+                    url: "/admin/goods/ajaxuniq",
+                    type: "get",
+                    data: {
+                        goods_name:goods_name
+                    },
+                    success: function(res) {
+                        // console.log(res);
+                        if (res == 'no') {
+                            $("#span_name").text("商品名称已存在");
+                            nameflag = false;
+                        }
+                    }
+                })
+                if(!nameflag){
+                    return false;
+                }
+            }
+
+            //验证阻止商品价格
+            var goods_price = $("#goods_price").val();
+            var price = /((^[1-9]\d*)|^0)(\.\d{0,2}){0,1}$/;
+            if(goods_price==""){
+                // alert(123);
+                $("#span_price").text("商品价格不能为空");
+                return false;
+            }else if(!price.test(goods_price)){
+                $("#span_price").text("商品价格格式不正确");
+                return false;
+            }
+            //验证阻止商品数量
+            var goods_num = $("#goods_num").val();
+            var num = /^\d{1,}$/;
+            if(goods_num==""){
+                // alert(123);
+                $("#span_num").text("商品数量不能为空");
+                return false;
+            }else if(!num.test(goods_num)){
+                $("#span_num").text("商品数量格式不正确");
+                return false;
+            }
+            //验证阻止商品简介
+            //验证阻止商品积分
+            var goods_score = $("#goods_score").val();
+            // console.log(goods_score);
+            // var score = /^[0-9]*$/;
+            var goods_desc = $("#goods_desc").val();
+            if(goods_desc==""){
+                // alert(123);
+                $("#span_desc").text("商品简介不能为空");
+                return false;
+            }
+            if(!goods_score){
+                // alert(123);
+                $("#span_score").text("商品积分不能为空1");
+                return false;
             }
         })
     })

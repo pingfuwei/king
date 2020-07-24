@@ -105,6 +105,9 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
             Route::any('ajaxuniq','admin\GoodsController@ajaxuniq');//商品添加
             Route::any('createDo','admin\GoodsController@createDo');//商品添加执行
             Route::any('index','admin\GoodsController@index');//商品展示
+            Route::any('ajaxNames','admin\GoodsController@ajaxNames');//商品展示即点即改唯一
+            Route::any('ajaxName','admin\GoodsController@ajaxName');//商品展示即点即改
+            Route::any('ajaxji','admin\GoodsController@ajaxji');//商品展示即点即改是否
             Route::any('upd','admin\GoodsController@upd');//商品修改
             Route::any('updates','admin\GoodsController@updates');//商品修改执行
             Route::any('del','admin\GoodsController@del');//商品修改
@@ -180,4 +183,3 @@ Route::prefix("index")->group(function() {
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
     });
 });
->>>>>>> 7652748328450487c42661d4b7323de7d4fffdbe
