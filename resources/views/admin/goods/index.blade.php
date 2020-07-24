@@ -80,7 +80,7 @@
                                           <td><input  type="checkbox"></td>
 				                          <td>{{$itme->goods_id}}</td>
 									      <td attr_id="{{$itme->goods_id}}">
-                                            <span class="span_name">{{$itme->goods_name}}</span>
+                                            <span class="span_name"><a href="javascript:void(0)"title="{{$itme->goods_name}}">{{substr($itme->goods_name,0,18)}}...</a></span>
                                           </td>
 				                          <td>{{$itme->cate_name}}</td>
 				                          <td>{{$itme->brand_name}}</td>
@@ -92,7 +92,7 @@
                                                 @endforeach
                                           </td>
 				                          <td>{{$itme->goods_num}}</td>
-				                          <td>{{$itme->goods_desc}}</td>
+				                          <td><a href="javascript:void(0)"title="{{$itme->goods_desc}}">{{substr($itme->goods_desc,0,18)}}...</a></td>
 				                          <td goods_id="{{$itme->goods_id}}" class="hubei" status='{{$itme->is_show}}' filed="is_show">{{$itme->is_show=="1" ? "√" : "×"}}</td>
 				                          <td goods_id="{{$itme->goods_id}}" class="hubei" status='{{$itme->is_new}}' filed="is_new">{{$itme->is_new=="1" ? "√" : "×"}}</td>
 				                          <td goods_id="{{$itme->goods_id}}" class="hubei" status='{{$itme->is_up}}' filed="is_up">{{$itme->is_up=="1" ? "√" : "×"}}</td>
