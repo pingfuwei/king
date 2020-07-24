@@ -316,4 +316,22 @@ class DeveloperController extends Controller
             ];
         }
     }
+    public function uniq(){
+        $role_name=request()->get('role_name');
+        $res=RoleModel::where('role_name',$role_name)->first();
+        if($res){
+            return "no";
+        }else{
+            return "ok";
+        }
+    }
+    public function poweruniq(){
+        $power_name=request()->get('power_name');
+        $res=PowerModel::where('power_name',$power_name)->first();
+        if($res){
+            return "no";
+        }else{
+            return "ok";
+        }
+    }
 }
