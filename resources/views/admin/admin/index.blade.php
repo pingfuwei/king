@@ -57,10 +57,12 @@
 			                          <tr>
                                           <td><input  type="checkbox"></td>
 				                          <td>{{$itme->admin_id}}</td>
-									      <td>{{$itme->admin_name}}</td>
+									      <td attr_id="{{$itme->admin_id}}">
+                                            <span class="span_name">{{$itme->admin_name}}</span>
+                                          </td>
 									      <td>{{date("Y-m-d H:i:s",$itme->addtime)}}</td>
 		                                  <td class="text-center">
-		                                 	  <a href="/admin/admin/edit?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">修改</a>
+		                                 	  <a href="/admin/admin/upd?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">修改</a>
 		                                 	  <a href="/admin/admin/del?id={{$itme->admin_id}}" class="btn bg-olive btn-xs">删除</a>
 											  <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('/admin/role/role',$itme->admin_id)}}">添加角色</a></button>
 		                                   </td>
@@ -82,4 +84,58 @@
 </body>
 
 </html>
+<script src="/js/jquery.js"></script>
+<script>
+    $(function(){
+        $(document).on("click",".span_name",function(){
+            var name = $(this).text();
+            // console.log(name);
+            $(this).parent().html('<input type="text" class="input_name" value='+name+'> <b><span id="span_names" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>');
+        })
+        $(document).on("blur",".input_name",function(){
+            // alert("123");
+            var obj = $(this);
+            var new_name = $(this).val();
+            // alert(new_name);
+            var id = $(this).parent().attr("attr_id");
+            // alert(id);
+
+            var data = {};
+            data.new_name = new_name;
+            data.id = id;
+
+            // console.log(data);
+            if(new_name==""){
+                // alert("123");
+                $(this).next().children().text("管理员名称不能为空");
+                return false;
+            }else{
+                $.get(
+                    "/admin/admin/ajaxNames",
+                    data,
+                    function(res){
+                        // console.log(res);
+                        if (res == 'no') {
+                            obj.next().children().text("管理员名称已存在");
+                            return false;
+                        }else if(res=="oks"){
+                            obj.parent().html('<span class="span_name">'+new_name+'</span>');
+                            $(this).html(new_name);
+                        }else{
+                            $.get("/admin/admin/ajaxName",data,function(res){
+                                // console.log(res);
+                                if(res.status=="true"){
+                                    obj.parent().html('<span class="span_name">'+new_name+'</span>');
+                                    $(this).html(new_name);
+                                }
+                            },'json');
+                        }
+                    }
+                )
+            }
+
+
+        })
+    })
+</script>
 @endsection

@@ -100,10 +100,11 @@
         if(value==""){
             $(".msg").text("角色名不为空");
         }else{
+//            alert(1);
             $.ajax({
                 url: "/admin/role/ajaxuniq",
                 type: "get",
-                sync:false,
+                async:false,
                 data: {
                     role_name:value
                 },
@@ -111,6 +112,7 @@
 //                     console.log(res);
                     if (res == 'no') {
                         $(".msg").text("角色名已存在");
+//                        alert(1);
                         return  false;
                     }else{
                         $(".msg").text("");
@@ -123,16 +125,16 @@
 <script>
     $(".add").click(function(){
         var flag=true;
-        var value=$(this).val();
+        var value=$(".name").val();
 //        console.log(value);return;
         if(value==""){
             $(".msg").text("角色名不为空");
-            flag=false;
+            return false;
         }else{
             $.ajax({
                 url: "/admin/role/ajaxuniq",
                 type: "get",
-                sync:false,
+                async:false,
                 data: {
                     role_name:value
                 },
@@ -140,7 +142,7 @@
 //                     console.log(res);
                     if (res == 'no') {
                         $(".msg").text("角色名已存在");
-                        return  false;
+                        flag = false;
                     }else{
                         $(".msg").text("");
                     }
@@ -159,7 +161,7 @@
             success:function(res){
                 if(res.code==200){
                     alert(res.msg);
-                    {{--location.href="{{url('admin/role/index')}}"--}}
+                    location.href="{{url('admin/role/index')}}"
                 }else{
                     alert(res.msg);
                 }

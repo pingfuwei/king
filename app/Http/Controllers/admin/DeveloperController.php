@@ -46,10 +46,11 @@ class DeveloperController extends Controller
         $data=RoleModel::where('role_status',1)->where($where)->paginate(2);
 //        dd($data);
         foreach ($data as $k=>$v){
-            $power_id=Role_PowerModel::where("role_id",$v->role_id)->get();
+            $power_id=Role_PowerModel::where("role_id",$v->role_id)->where('status',1)->get();
             foreach ($power_id as $kk=>$vv){
                 $power_id=PowerModel::where("power_id",$vv->power_id)->first();
                 $data[$k]["res"].=$power_id->power_name.",";
+
             }
         }
 //        dd($data);
@@ -167,14 +168,16 @@ class DeveloperController extends Controller
                 'status'=>1,
                 'time'=>time()
             ];
-            $a=Role_PowerModel::where('role_id',$role_id)->where('power_id',$power_id)->first();
-            if($a){
-                return[
-                    'code'=>'0001',
-                    'msg'=>'该用户已经有此角色',
-                    'data'=>$a
-                ];
-            }
+//            if($power_id!==''){
+//                $a=Role_PowerModel::where('role_id',$role_id)->where('power_id',$power_id)->first();
+//                if($a){
+//                    return[
+//                        'code'=>'0001',
+//                        'msg'=>'该角色已经有此权限',
+//                        'data'=>$a
+//                    ];
+//                }
+//            }
             $res=Role_PowerModel::insert($data);
 
         }
@@ -225,18 +228,22 @@ class DeveloperController extends Controller
         $power_id=request()->post('power_id');
         $res=PowerModel::where('power_id',$power_id)->update(['power_status'=>0]);
         if($res){
-            return [
-                'code'=>200,
-                'msg'=>"删除成功",
-                'data'=>$res
-            ];
-        }else{
-            return [
-                'code'=>500,
-                'msg'=>"删除失败",
-                'data'=>$res
-            ];
+            $res=Role_PowerModel::where('power_id',$power_id)->update(['status'=>0]);
+            if($res){
+                return [
+                    'code'=>200,
+                    'msg'=>"删除成功",
+                    'data'=>$res
+                ];
+            }else{
+                return [
+                    'code'=>500,
+                    'msg'=>"删除失败",
+                    'data'=>$res
+                ];
+            }
         }
+
     }
     public function roleupd($role_id){
         $data=RoleModel::where('role_id',$role_id)->first();
@@ -324,6 +331,7 @@ class DeveloperController extends Controller
     public function uniq(){
         $role_name=request()->get('role_name');
         $res=RoleModel::where('role_name',$role_name)->first();
+//        dd($res);
         if($res){
             return "no";
         }else{
@@ -348,17 +356,42 @@ class DeveloperController extends Controller
             return "ok";
         }
     }
-    public function changeuniq(Request $request){
-        $all=$request->all();
-        $power_id=$all['power_id'];
-        $power_name=$all['power_name'];
-        $field=$all['field'];
-        $res=PowerModel::where('power_name',$power_name)->first();
-        print_r($res);die;
+//    public function changeuniq(Request $request){
+//        $all=$request->all();
+//        $power_id=$all['power_id'];
+//        $power_name=$all['power_name'];
+//        $field=$all['field'];
+//        $res=PowerModel::where('power_name',$power_name)->first();
+//        print_r($res);die;
+//        if($res){
+//            return "no";
+//        }else{
+//            return "ok";
+//        }
+//    }
+    public function delpower($role_id){
+        $where=[
+            'role.role_id'=>$role_id,
+            'role_power.status'=>1
+        ];
+        $data=RoleModel::join('role_power','role_power.role_id','=','role.role_id')->join('power','power.power_id','=','role_power.power_id')->where($where)->get();
+        return view('admin.power.delpower',['data'=>$data]);
+    }
+    public function dels(){
+        $power_id=request()->post('power_id');
+        $res=Role_PowerModel::where('power_id',$power_id)->update(['status'=>0]);
         if($res){
-            return "no";
+            return [
+                'code'=>200,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
         }else{
-            return "ok";
+            return [
+                'code'=>500,
+                'msg'=>"修改成功",
+                'data'=>$res
+            ];
         }
     }
 }

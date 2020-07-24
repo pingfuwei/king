@@ -57,7 +57,8 @@
 
 		                           <div class="col-md-2 title">分类名称</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control" name="cate_name" id="cate_name"   placeholder="分类名称" value="">
+                                       <input type="hidden" name="cate_id" id="cate_id" value="{{$category->cate_id}}">
+		                               <input type="text" class="form-control" name="cate_name" id="cate_name"   placeholder="分类名称" value="{{$category->cate_name}}">
 		                           </div>
                                        <b><span id="span_name" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                                 </div>
@@ -67,7 +68,7 @@
                                    <select class="form-control" name="p_id">
                                        <option value="0">--顶级分类--</option>
                                        @foreach($cate as $itme)
-                                       <option value="{{$itme->cate_id}}">{{$itme->cate_name}}</option>
+                                       <option value="{{$itme->cate_id}}"{{$category->p_id==$itme->cate_id ? "selected" : ""}}>{{$itme->cate_name}}</option>
                                        @endforeach
                                    </select>
                                 </div>
@@ -119,15 +120,17 @@
         $(document).on("blur","#cate_name",function(){
             // alert(123);
             var cate_name = $(this).val();
+            var cate_id = $("#cate_id").val();
             // alert(cate_name);
             if(cate_name==""){
                 $("#span_name").text("分类名称不能为空");
             }else{
                 $.ajax({
-                    url: "/admin/category/ajaxuniq",
+                    url: "/admin/category/ajaxNames",
                     type: "get",
                     data: {
-                        cate_name:cate_name
+                        new_name:cate_name,
+                        id:cate_id
                     },
                     success: function(res) {
                         // console.log(res);
@@ -144,16 +147,18 @@
         $(document).on("click","#but",function(){
             var p_id = $('select[name="p_id"]').val();
             var cate_name = $("#cate_name").val();
+            var cate_id = $("#cate_id").val();
             // alert(cate_name);
             if(cate_name==""){
                 $("#span_name").text("分类名称不能为空");
                 return false;
             }else{
                 $.ajax({
-                    url: "/admin/category/ajaxuniq",
+                    url: "/admin/category/ajaxNames",
                     type: "get",
                     data: {
-                        cate_name:cate_name
+                        new_name:cate_name,
+                        id:cate_id
                     },
                     success: function(res) {
                         // console.log(res);
@@ -162,11 +167,12 @@
                             return false;
                         }else{
                             $.ajax({
-                                url: "/admin/category/createDo",
+                                url: "/admin/category/updDo",
                                 type: "post",
                                 sync:false,
                                 data: {
                                     cate_name:cate_name,
+                                    cate_id:cate_id,
                                     p_id:p_id
                                 },
                                 dataType:"json",
