@@ -256,7 +256,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/img/110.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">chendahai</span>
+                            <span class="hidden-xs">{{session("user.admin_name")}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -264,7 +264,7 @@
                                 <img src="/img/110.jpg" class="img-circle" alt="User Image">
 
                                 <p>
-                                    chendahai - 陈大海
+                                    {{session('user.admin_name')}}
                                     <small>最后登录 11:20AM</small>
                                 </p>
                             </li>
@@ -275,7 +275,7 @@
                                     <a href="#" class="btn btn-default btn-flat">修改密码</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">注销</a>
+                                    <a href="/admin/exit" class="btn btn-default btn-flat">退出</a>
                                 </div>
                             </li>
                         </ul>
@@ -297,7 +297,7 @@
                     <img src="/img/110.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p> chendahai</p>
+                    <p>{{session("user.admin_name")}}</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
                 </div>
             </div>

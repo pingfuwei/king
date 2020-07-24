@@ -71,27 +71,26 @@
             <tbody>
             @foreach($res as $k=>$v)
             <tr n_id="{{$v->n_id}}">
-                <td>{{$v->n_id}}</td>
-                <td filed="notice">
+                <td style="width:10%">{{$v->n_id}}</td>
+                <td field="notice" style="width:10%">
                     <span class="span_name">{{$v->notice}}</span>
                     <input type="text" value="{{$v->notice}}" style="display: none" class="inp"/>
-                </td>
-                <td filed="desc">
-                    <span class="span_name">{{$v->desc}}</span>
+                </td >
+                <td field="desc" style="width:40%">
+                    <span class="span_name"><a href="javascript:;" title="{{$v->desc}}">{{mb_substr($v->desc,0,50) ."..."}}</a></span>
                     <input type="text" value="{{$v->desc}}" style="display: none" class="inp"/>
                 </td>
-                <td filed="title">
-                    <span class="span_name">{{$v->title}}</span>
+                <td field="title"style="width:10%">
+                    <span class="span_name"><a href="javascript:;" title="{{$v->title}}">{{mb_substr($v->title,0,10) ."..."}}</a></span>
                     <input type="text" value="{{$v->title}}" style="display: none" class="inp"/>
                 </td>
-                <td>{{$v->desc}}</td>
-                <td>{{$v->title}}</td>
-                <td>{{date('Y-m-d H:i:s',$v->addtime)}}</td>
+                <td style="width:13%">{{date('Y-m-d H:i:s',$v->addtime)}}</td>
                 <td>{{$v->is_show==1?'√':'×'}}</td>
-                <td class="text-center" n_id="{{$v->n_id}}">
+                <td class="text-center" n_id="{{$v->n_id}}" style="width:8%">
                     <a href="{{url('/admin/news/upd/'.$v->n_id)}}"><button type="button" class="btn bg-olive btn-xs upd">修改</button></a>
                     <button type="button" class="btn btn-xs del" style="background-color:yellow">删除</button>
                 </td>
+                <b><span id="span_name" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
             </tr>
             @endforeach
             <tr><td colspan="7">{{$res->appends(["is_show"=>$is_show,'title'=>$title])->links()}}</td></tr>
@@ -131,6 +130,8 @@
     })
     $(document).ready(function(){
         $(".span_name").click(function(){
+            $('input').hide();
+            $('span').show()
             var _this=$(this);
             var as=$(this).text();
             $(this).hide();
@@ -142,9 +143,43 @@
             var _this = $(this);
             var data={};
             data.value = _this.val();
-
             data.n_id = _this.parents('tr').attr('n_id');
             data.field = _this.parent('td').attr('field');
+            _this.prev("span").show();
+            _this.hide();
+            if(data.field=="notice"){
+                if(!data.value){
+                    $("#span_name").show();
+                    $("#span_name").text("通知不能为空");
+                    _this.prev("span").show();
+                    _this.hide();
+                    return false;
+                }else{
+                    $("#span_name").hide();
+                }
+            }
+            if(data.field=="desc"){
+                if(!data.value){
+                    $("#span_name").show();
+                    $("#span_name").text("详情不能为空");
+                    _this.prev("span").show();
+                    _this.hide();
+                    return false;
+                }else{
+                    $("#span_name").hide();
+                }
+            }
+            if(data.field=="title"){
+                if(!data.value){
+                    $("#span_name").show();
+                    $("#span_name").text("标题不能为空");
+                    _this.prev("span").show();
+                    _this.hide();
+                    return false;
+                }else{
+                    $("#span_name").hide();
+                }
+            }
             var url="/admin/news/updTo";
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             $.ajax({
@@ -157,7 +192,6 @@
                         _this.hide();
                         //console.log(as);
                         _this.prev().text(data.value).show();
-                        _this.prev().text(data.brand_url).show();
                         alert(res.result.message);
                     }else{
                         _this.hide();

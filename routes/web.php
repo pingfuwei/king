@@ -18,7 +18,7 @@
 Route::prefix("admin")->group(function() {
     Route::get("login", "admin\LoginController@login");//登录
     Route::any("loginis", "admin\LoginController@loginis");//登录执行
-
+    Route::any("exit", "admin\LoginController@exit");//退出登录
 });
 Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any("indexs", "admin\LoginController@indexs");//首页照片
@@ -66,6 +66,7 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('updDo','admin\DeveloperController@roleupdDo');//执行角色修改
         Route::any('del','admin\DeveloperController@roledel');//执行角色删除
         Route::any('change','admin\DeveloperController@rolechange');//即点即改
+        Route::any('ajaxuniq','admin\DeveloperController@uniq');//验证唯一性
          });
     Route::prefix("power")->group(function (){
         Route::any('/create','admin\DeveloperController@power_create');//权限添加
@@ -77,6 +78,9 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('updDo','admin\DeveloperController@updDo');//执行权限修改
         Route::any('del','admin\DeveloperController@del');//执行权限删除
         Route::any('change','admin\DeveloperController@powerchange');//执行权限删除
+        Route::any('ajaxuniq','admin\DeveloperController@poweruniq');//权限唯一
+        Route::any('ajaxuniqurl','admin\DeveloperController@poweruniqurl');//权限唯一
+        Route::any('uniq','admin\DeveloperController@changeuniq');//即点即改权限唯一
     });
     //品优购快报
         Route::prefix("news")->group(function (){

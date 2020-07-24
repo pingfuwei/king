@@ -58,6 +58,7 @@
                 <td field="role_name">
                     <span class="span">{{$v->role_name}}</span>
                     <input type="text" class="change" style="display: none;" value="{{$v->role_name}}">
+                    <b><span class="span" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                 </td>
                 <td>{{date("Y-m-d H:i:s",$v->role_time)}}</td>
                 <td>
@@ -122,6 +123,12 @@
         $(".change").blur(function(){
             var _this = $(this);
             var value = _this.val();
+            if(value==''){
+                $(this).next().children().text("角色名称不能为空");
+                return false;
+            }else{
+                $(this).next().children().hide();
+            }
             var role_id = _this.parents('tr').attr('role_id');
             var field = _this.parent('td').attr('field');
             $.ajax({

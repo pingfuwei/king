@@ -58,10 +58,12 @@
                         <div class="col-md-10 data">
                             <input type="text" class="form-control name"    placeholder="权限名称" name="power_name">
                         </div>
+                        <p style="color:red;margin-left: 180px" class="msg"></p>
                         <div class="col-md-2 title">URL</div>
                         <div class="col-md-10 data">
                             <input type="text" class="form-control url"    placeholder="url" name="power_url">
                         </div>
+                        <p style="color:red;margin-left: 180px" class="msgs"></p>
                     </div>
                 </div>
             </div>
@@ -97,7 +99,117 @@
 
 </script>
 <script>
+    $(".name").blur(function(){
+        var value=$(this).val();
+//        console.log(value);return;
+        if(value==""){
+            $(".msg").text("权限不为空");
+            return;
+        }else{
+            $.ajax({
+                url: "/admin/power/ajaxuniq",
+                type: "get",
+                sync:false,
+                data: {
+                    power_name:value
+                },
+                success: function(res) {
+//                     console.log(res);
+                    if (res == 'no') {
+                        $(".msg").text("权限已存在");
+                        return  false;
+                    }else{
+                        $(".msg").text("");
+                    }
+                }
+            })
+        }
+    })
+    $(".url").blur(function(){
+        var url=$(this).val();
+//        console.log(url);return;
+        if(url==""){
+            $(".msgs").text("url不能为空");
+            return;
+        }else{
+            $.ajax({
+                url: "/admin/power/ajaxuniqurl",
+                type: "get",
+                sync:false,
+                data: {
+                    power_url:url
+                },
+                success: function(res) {
+//                     console.log(res);
+                    if (res == 'no') {
+                        $(".msgs").text("url已存在");
+                        return  false;
+                    }else{
+                        $(".msgs").text("");
+                    }
+                }
+            })
+        }
+
+
+    })
+</script>
+<script>
     $(".add").click(function(){
+        var flag=true;
+        var value=$(".name").val();
+//        console.log(value);return;
+        if(value==""){
+            $(".msg").text("权限不为空");
+//            alert(1);
+            return false;
+        }else{
+            $.ajax({
+                url: "/admin/power/ajaxuniq",
+                type: "get",
+                async:false,
+                data: {
+                    power_name:value
+                },
+                success: function(res) {
+//                     console.log(res);
+                    if (res == 'no') {
+                        $(".msg").text("权限已存在");
+                        flag= false;
+                    }else{
+                        $(".msg").text("");
+                    }
+                }
+            })
+        }
+        var url=$(".url").val();
+//        console.log(url);return;
+        if(url==""){
+            $(".msgs").text("url不能为空");
+            flag=false;
+        }else{
+            $.ajax({
+                url: "/admin/power/ajaxuniqurl",
+                type: "get",
+                sync:false,
+                data: {
+                    power_url:url
+                },
+                success: function(res) {
+//                     console.log(res);
+                    if (res == 'no') {
+                        $(".msgs").text("url已存在");
+                        return  false;
+                    }else{
+                        $(".msgs").text("");
+                    }
+                }
+            })
+        }
+
+        if(!flag){
+            return false;
+        }
         var power_name=$(".name").val();
         var power_url=$(".url").val();
         $.ajax({
