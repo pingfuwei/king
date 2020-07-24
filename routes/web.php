@@ -18,7 +18,7 @@
 Route::prefix("admin")->group(function() {
     Route::get("login", "admin\LoginController@login");//登录
     Route::any("loginis", "admin\LoginController@loginis");//登录执行
-
+    Route::any("exit", "admin\LoginController@exit");//退出登录
 });
 Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any("indexs", "admin\LoginController@indexs");//首页照片

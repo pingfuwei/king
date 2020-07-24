@@ -142,18 +142,27 @@
         var nameflag = true;
         data.notice=$("input[name='notice']").val();
         if(!data.notice){
+            $("#span_name").show();
             $("#span_name").text("通知不能为空");
             return false;
+        }else{
+            $("#span_name").hide();
         }
         data.desc=$("input[name='desc']").val();
         if(!data.desc){
+            $("#span_name").show();
             $("#span_name").text("详情不能为空");
             return false;
+        }else{
+            $("#span_name").hide();
         }
         data.title=$("input[name='title']").val();
         if(!data.title){
+            $("#span_name").show();
             $("#span_name").text("标题不能为空");
             return false;
+        }else{
+            $("#span_name").hide();
         }
         data.n_id=$("input[name='n_id']").val();
         data.is_show=$("input[name='is_show']:checked").val();
@@ -167,8 +176,11 @@
             success: function (res) {
                 console.log(res);
                 if(res=="no"){
+                    $("#span_name").show();
                     $("#span_name").text("该标题已存在");
                     nameflag = false;
+                }else{
+                    $("#span_name").hide();
                 }
             }
         })
@@ -183,10 +195,12 @@
             type:"post",
             dataType:'json',
             success:function(res){
-                console.log(res);
-                alert(res.result.message);
                 if(res.message=='success'){
                     location.href="/admin/news/index";
+                    alert(res.result.message);
+                }else{
+                    $("#span_name").show();
+                    $("#span_name").text(res.result.message);
                 }
             }
         })
