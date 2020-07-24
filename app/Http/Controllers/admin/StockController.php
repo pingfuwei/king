@@ -100,4 +100,86 @@ class StockController extends Controller
     public function updDo(){
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    //执行库存ajax
+//    public function stockAjax(){
+//        $aa=\request()->all();
+//        $aa=explode(",",$aa["aa"]);
+//        $arr=[];
+////        $bb=Goods_attrModel::where("attr_id",$av[0])->first();
+////        $arr[$av[0]][$bb->attr_id]=$bb->attr_id;
+////        $arr[$av[0]]["font"]=$bb->attr_name;
+//        foreach ($aa as $k=>$v){
+//            $av=explode(":",$v);
+//            $bb=Goods_attrModel::where("attr_id",$av[0])->first();
+//
+//            $cc=GoodsvalueModel::where("goods_val_id",$av[1])->first();
+////            $arr["res"]=[$cc->goods_val_id=>$cc->goods_val_name];
+//            if(empty($arr["0"])){
+//                $arr["0"]=[$cc->goods_val_id=>$cc->goods_val_name];
+//            }else{
+//                $arr["0"]["ress"][]=[$cc->goods_val_id=>$cc->goods_val_name];
+//
+//            }
+////            if($arr["res"]){
+////                $arr["res"]["ress"][]=[$cc->goods_val_id=>$cc->goods_val_name];
+////            }
+////            var_dump($arr);die;
+////            if($arr[$av[0]]===$av[0]){
+////                $arr[$av[0]][]=[$cc->goods_val_id=>$cc->goods_val_name];
+////            }else{
+////                $arr[$av[0]][]=[$cc->goods_val_id=>$cc->goods_val_name];
+////            }
+//        }
+////        var_dump($arr);die;
+//        return $arr;
+//    }
 }

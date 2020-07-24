@@ -85,9 +85,14 @@
                         @endforeach
                     </div>
                 </div>
+                        <div id="hid" style="display: none">{{--头部--}}
+
+                        </div>{{--尾部--}}
+
+                <button type="button" class="btn btn-success" id="send" style="float: right">选择库存</button>
             </div>
             <div class="btn-toolbar list-toolbar" >
-                <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>确定</button>
+                <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>添加</button>
                 <a href="/admin/stock/del"><button class="btn btn-default" ng-click="goListPage()">查看列表</button></a>
             </div>
 
