@@ -354,6 +354,7 @@ class DeveloperController extends Controller
         $power_name=$all['power_name'];
         $field=$all['field'];
         $res=PowerModel::where('power_name',$power_name)->first();
+        print_r($res);die;
         if($res){
             return "no";
         }else{
