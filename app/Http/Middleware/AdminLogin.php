@@ -65,12 +65,8 @@ class AdminLogin
             if($aa==="true"){
                 return $next($request);
             }else{
-//                alert("您没有权限");
-                return redirect("/admin/index")->with("msg","您没有权限访问");
-                die;
+                echo "<script>alert('你没有权限');location.href='/admin/index'</script>";
             }
-            // echo "234";exit;
-//            return $next($request);
         }
     }
 }

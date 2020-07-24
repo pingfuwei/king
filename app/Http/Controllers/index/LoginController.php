@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\indexModel\User_code;
 use App\indexModel\User;
 use App\indexModel\GetJson;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 class LoginController extends Controller
 {
     //注册
@@ -119,11 +121,15 @@ class LoginController extends Controller
     }
     //登陆
     public function login(){
+//        echo \session("user_name");
         return view("index.login.login");
     }
     //登陆执行
     public function ajaxLogin(){
         $data=\request()->all();
+        if(count($data)!==3){
+            return GetJson::getJson("111","不能篡改内部参数");
+        }
         $where=["user_tel"=>$data["user_name"],"user_status"=>1];
         $user_tel=User::where($where)->first();
         $wheres=["user_name"=>$data["user_name"],"user_status"=>1];
@@ -133,14 +139,15 @@ class LoginController extends Controller
                 $count=$this->limits($user_tel->user_id);
                 return GetJson::getJson("111","$count");
             }
-            return GetJson::getJson("000","登陆成功");
+           return $this->Exemption($data["che"],$user_tel->user_name,$data['user_pwd']);
+//            return GetJson::getJson("000","登陆成功");
         }
         if($user_name){
             if($user_name->user_pwd!==md5($data["user_pwd"])){
                 $count=$this->limits($user_name->user_id);
                 return GetJson::getJson("111","$count");
             }
-            return GetJson::getJson("000","登陆成功");
+            return $this->Exemption($data["che"],$data['user_name'],$data['user_pwd']);
         }
         if(!$user_name || !$user_tel){
             return GetJson::getJson("111","账户或密码错误");
@@ -151,7 +158,7 @@ class LoginController extends Controller
         $where=["user_id"=>$user_id,"user_status"=>1];
         $user=User::where($where)->first();
         $time=strtotime(date("Y-m-d"),time());
-        if(($user->login_time-$time)<60*60*24 && $user->login_status<=3){
+        if(($user->login_time>$time) && $user->login_status<=3){
             if($user->login_status>=3){
                 $status=3;
             }else{
@@ -159,14 +166,34 @@ class LoginController extends Controller
             }
             $login_status=User::where("user_id",$user_id)->update(["login_status"=>$status,"login_time"=>time()]);
             if(3-$user->login_status!==0){
-                $counts=3-$user->login_status;
+                $counts="账户或密码错误今天还剩". 3-$user->login_status . "次";
             }else{
                 $counts="账户或密码错误今天次数用尽！！！";
             }
             return $counts;
         }else{
             $login_status=User::where("user_id",$user_id)->update(["login_status"=>1,"login_time"=>time()]);
-            return 3;
+            return $counts="账户或密码错误今天还剩3次";
+
+        }
+    }
+    //七天免登录
+    public function Exemption($che,$user_name,$user_pwd){
+        if($che==="2"){
+            if(\request()->cookie("user") && \request()->cookie("user_pwd")){
+                \session(["user_name"=>$user_name,"user_pwd"=>$user_pwd]);
+                return GetJson::getJson("000","登陆成功");
+            }else{
+                Cookie::queue("user",null);
+                Cookie::queue("user_pwd",null);
+                Cookie::queue("user",$user_name,60*24*7);
+                Cookie::queue("user_pwd",$user_pwd,60*24*7);
+                \session(["user_name"=>$user_name,"user_pwd"=>$user_pwd]);
+                return GetJson::getJson("000","登陆成功");
+            }
+            return GetJson::getJson("000","登陆成功");
+        }else{
+            return GetJson::getJson("000","登陆成功");
         }
     }
 }
