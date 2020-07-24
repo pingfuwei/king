@@ -73,7 +73,9 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         Route::any('updDo','admin\DeveloperController@updDo');//执行权限修改
         Route::any('del','admin\DeveloperController@del');//执行权限删除
         Route::any('change','admin\DeveloperController@powerchange');//执行权限删除
-        Route::any('ajaxuniq','admin\DeveloperController@poweruniq');//执行权限删除
+        Route::any('ajaxuniq','admin\DeveloperController@poweruniq');//权限唯一
+        Route::any('ajaxuniqurl','admin\DeveloperController@poweruniqurl');//权限唯一
+        Route::any('uniq','admin\DeveloperController@changeuniq');//即点即改权限唯一
     });
     //品优购快报
         Route::prefix("news")->group(function (){

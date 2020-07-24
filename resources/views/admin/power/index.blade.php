@@ -32,8 +32,8 @@
     <div class="table-box">
         <div class="box-tools pull-right">
             <div class="has-feedback">
-                <form action="/admin/power /index">
-                    角色名称：<input type="text" name="attr_name" value="{{$role_name??''}}">
+                <form action="/admin/power/index">
+                    权限名称：<input type="text" name="power_name" value="{{$power_name??''}}">
                     <button type="submit" class="btn btn-default" >查询</button>
                 </form>
             </div>
@@ -58,6 +58,7 @@
                 <td field="power_name">
                     <span class="span">{{$v->power_name}}</span>
                     <input type="text" value="{{$v->power_name}}" class="change" style="display:none">
+                    <p><span class="span" style="color: red; font-size: 16px; margin-left: 220px;"></span></p>
                 </td>
                 <td>{{$v->power_url}}</td>
                 <td>{{date("Y-m-d H:i:s",$v->power_time)}}</td>
@@ -115,8 +116,27 @@
         $(".change").blur(function(){
             var _this = $(this);
             var value = _this.val();
+            if(value==''){
+                $(this).next().children().text("权限名称不能为空");
+                return false;
+            }else{
+                $(this).next().children().hide();
+            }
             var power_id = _this.parents('tr').attr('power_id');
             var field = _this.parent('td').attr('field');
+            $.ajax({
+                url:"{{url('admin/power/uniq')}}",
+                data:{'power_id':power_id,'power_name':value,'field':field},
+                type:'post',
+                success:function(res){
+                    if (res == 'no') {
+                        $(this).next().children().text("权限名称已存在");
+                        return  false;
+                    }else{
+                        $(this).next().children().hide();
+                    }
+                }
+            })
             $.ajax({
                 url:"{{url('/admin/power/change')}}",
                 data:{'value':value,'power_id':power_id,'field':field},

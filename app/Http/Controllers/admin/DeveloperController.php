@@ -90,7 +90,12 @@ class DeveloperController extends Controller
         }
     }
     public function power_index(){
-        $data=PowerModel::where('power_status',1)->paginate(3);
+        $power_name=request()->get('power_name');
+        $where=[];
+        if($power_name){
+            $where[]=['power_name','like',"%$power_name%"];
+        }
+        $data=PowerModel::where('power_status',1)->where($where)->paginate(3);
         foreach ($data as $k=>$v){
             $power_id=Role_PowerModel::where("power_id",$v->power_id)->get();
             foreach ($power_id as $kk=>$vv){
@@ -104,7 +109,7 @@ class DeveloperController extends Controller
 
 
 //        $data=PowerModel::where('power_status',1)->get();
-        return view('admin.power.index',['data'=>$data]);
+        return view('admin.power.index',['data'=>$data,'power_name'=>$power_name]);
     }
     public function role($admin_id){
         $role=RoleModel::where(['role_status'=>1])->get();
@@ -327,6 +332,27 @@ class DeveloperController extends Controller
     }
     public function poweruniq(){
         $power_name=request()->get('power_name');
+        $res=PowerModel::where('power_name',$power_name)->first();
+        if($res){
+            return "no";
+        }else{
+            return "ok";
+        }
+    }
+    public function poweruniqurl(){
+        $power_url=request()->get('power_url');
+        $res=PowerModel::where('power_url',$power_url)->first();
+        if($res){
+            return "no";
+        }else{
+            return "ok";
+        }
+    }
+    public function changeuniq(Request $request){
+        $all=$request->all();
+        $power_id=$all['power_id'];
+        $power_name=$all['power_name'];
+        $field=$all['field'];
         $res=PowerModel::where('power_name',$power_name)->first();
         if($res){
             return "no";

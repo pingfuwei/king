@@ -104,6 +104,7 @@
 //        console.log(value);return;
         if(value==""){
             $(".msg").text("权限不为空");
+            return;
         }else{
             $.ajax({
                 url: "/admin/power/ajaxuniq",
@@ -124,15 +125,44 @@
             })
         }
     })
+    $(".url").blur(function(){
+        var url=$(this).val();
+//        console.log(url);return;
+        if(url==""){
+            $(".msgs").text("url不能为空");
+            return;
+        }else{
+            $.ajax({
+                url: "/admin/power/ajaxuniqurl",
+                type: "get",
+                sync:false,
+                data: {
+                    power_url:url
+                },
+                success: function(res) {
+//                     console.log(res);
+                    if (res == 'no') {
+                        $(".msgs").text("url已存在");
+                        return  false;
+                    }else{
+                        $(".msgs").text("");
+                    }
+                }
+            })
+        }
+
+
+    })
 </script>
 <script>
     $(".add").click(function(){
         var flag=true;
-        var value=$(this).val();
+        var value=$(".name").val();
 //        console.log(value);return;
         if(value==""){
             $(".msg").text("权限不为空");
-            flag=false;
+//            alert(1);
+            return false;
         }else{
             $.ajax({
                 url: "/admin/power/ajaxuniq",
@@ -152,6 +182,31 @@
                 }
             })
         }
+        var url=$(".url").val();
+//        console.log(url);return;
+        if(url==""){
+            $(".msgs").text("url不能为空");
+            flag=false;
+        }else{
+            $.ajax({
+                url: "/admin/power/ajaxuniqurl",
+                type: "get",
+                sync:false,
+                data: {
+                    power_url:url
+                },
+                success: function(res) {
+//                     console.log(res);
+                    if (res == 'no') {
+                        $(".msgs").text("url已存在");
+                        return  false;
+                    }else{
+                        $(".msgs").text("");
+                    }
+                }
+            })
+        }
+
         if(!flag){
             return false;
         }
