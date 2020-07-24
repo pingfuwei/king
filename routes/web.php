@@ -46,9 +46,14 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         });
         Route::prefix("admin")->group(function (){//后台登陆
             Route::any('create','admin\AdminController@create');//用户添加
+            Route::any('ajaxuniq','admin\AdminController@ajaxuniq');//用户Ajax判断
             Route::any('createDo','admin\AdminController@createDo');//用户添加
             Route::any('index','admin\AdminController@index');//用户添加
             Route::any('upd','admin\AdminController@upd');//用户修改
+            Route::any('updDo','admin\AdminController@updDo');//用户修改执行
+            Route::any('del','admin\AdminController@del');//用户修改执行
+            Route::any('ajaxName','admin\AdminController@ajaxName');//用户即点即改
+            Route::any('ajaxNames','admin\AdminController@ajaxNames');//用户即点即改
 
         });
     Route::prefix("role")->group(function (){
@@ -92,14 +97,23 @@ Route::prefix("admin")->middleware("adminlogin")->group(function (){//后台
         });
         Route::prefix("category")->group(function (){//分类
             Route::any('create','admin\CategoryController@create');//分类添加
+            Route::any('ajaxuniq','admin\CategoryController@ajaxuniq');//用户Ajax判断
             Route::any('createDo','admin\CategoryController@createDo');//分类添加执行
             Route::any('index','admin\CategoryController@index');//分类展示
+            Route::any('ajaxNames','admin\CategoryController@ajaxNames');//分类即点即改唯一性
+            Route::any('ajaxName','admin\CategoryController@ajaxName');//分类即点即改
             Route::any('upd','admin\CategoryController@upd');//分类修改
+            Route::any('updDo','admin\CategoryController@updDo');//分类修改执行
+            Route::any('del','admin\CategoryController@del');//分类修改执行
         });
         Route::prefix("goods")->group(function (){//商品
             Route::any('create','admin\GoodsController@create');//商品添加
+            Route::any('ajaxuniq','admin\GoodsController@ajaxuniq');//商品添加
             Route::any('createDo','admin\GoodsController@createDo');//商品添加执行
             Route::any('index','admin\GoodsController@index');//商品展示
+            Route::any('ajaxNames','admin\GoodsController@ajaxNames');//商品展示即点即改唯一
+            Route::any('ajaxName','admin\GoodsController@ajaxName');//商品展示即点即改
+            Route::any('ajaxji','admin\GoodsController@ajaxji');//商品展示即点即改是否
             Route::any('upd','admin\GoodsController@upd');//商品修改
             Route::any('updates','admin\GoodsController@updates');//商品修改执行
             Route::any('del','admin\GoodsController@del');//商品修改

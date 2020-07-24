@@ -20,7 +20,9 @@
 
 <body class="hold-transition skin-red sidebar-mini" >
   <!-- .box-body -->
-
+@if(session('msg'))
+<div class="alert alert-danger">{{session("msg")}}</div>
+@endif
                     <div class="box-header with-border">
                         <h3 class="box-title">分类管理</h3>
                     </div>
@@ -49,12 +51,15 @@
 			                          <tr>
                                           <td><input  type="checkbox"></td>
 				                          <td>{{$itme->cate_id}}</td>
-									      <td>
+									      <td attr_id="{{$itme->cate_id}}">
+                                              <span class="span_name">
 											  {!!str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",$itme->level)!!}{{$itme->cate_name}}
+                                              </span>
 										  </td>
 									      <td>{{date('Y-m-d H:i:s',$itme->cate_time)}}</td>
 		                                  <td class="text-center">
-		                                 	  <button type="button" class="btn bg-olive btn-xs">修改</button>
+		                                 	  <a href="/admin/category/upd?id={{$itme->cate_id}}" class="btn bg-olive btn-xs">修改</a>
+		                                 	  <a href="/admin/category/del?id={{$itme->cate_id}}" class="btn bg-olive btn-xs">删除</a>
 		                                  </td>
 			                          </tr>
                                       @endforeach
@@ -71,6 +76,61 @@
                     <!-- /.box-body -->
 
 </body>
+
+<script src="/js/jquery.js"></script>
+<script>
+    $(function(){
+        $(document).on("click",".span_name",function(){
+            var name = $(this).text();
+            // console.log(name);
+            $(this).parent().html('<input type="text" class="input_name" value='+name+'> <b><span id="span_names" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>');
+        })
+        $(document).on("blur",".input_name",function(){
+            // alert("123");
+            var obj = $(this);
+            var new_name = $(this).val();
+            // alert(new_name);
+            var id = $(this).parent().attr("attr_id");
+            // alert(id);
+
+            var data = {};
+            data.new_name = new_name;
+            data.id = id;
+
+            // console.log(data);
+            if(new_name==""){
+                // alert("123");
+                $(this).next().children().text("管理员名称不能为空");
+                return false;
+            }else{
+                $.get(
+                    "/admin/category/ajaxNames",
+                    data,
+                    function(res){
+                        // console.log(res);
+                        if (res == 'no') {
+                            obj.next().children().text("管理员名称已存在");
+                            return false;
+                        }else if(res=="oks"){
+                            obj.parent().html('<span class="span_name">'+new_name+'</span>');
+                            $(this).html(new_name);
+                        }else{
+                            $.get("/admin/category/ajaxName",data,function(res){
+                                // console.log(res);
+                                if(res.status=="true"){
+                                    obj.parent().html('<span class="span_name">'+new_name+'</span>');
+                                    $(this).html(new_name);
+                                }
+                            },'json');
+                        }
+                    }
+                )
+            }
+
+
+        })
+    })
+</script>
 
 </html>
 @endsection
