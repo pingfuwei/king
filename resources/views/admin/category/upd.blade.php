@@ -169,7 +169,7 @@
                             $.ajax({
                                 url: "/admin/category/updDo",
                                 type: "post",
-                                sync:false,
+                                async:false,
                                 data: {
                                     cate_name:cate_name,
                                     cate_id:cate_id,
