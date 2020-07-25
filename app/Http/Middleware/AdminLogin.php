@@ -24,6 +24,12 @@ class AdminLogin
         } else {
 //            $user_url=$request->path();
             $user_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+            $str=strpos ($user_url,"?");
+            if($str){
+                $len=strlen($user_url);
+                $user_url=substr($user_url,0,$str);
+            }
+
 //            echo $user_url;die;
             if($user_url == "http://www.king.com/admin/index" || $user_url == "http://www.king.com/admin/indexs"){
                 return $next($request);
