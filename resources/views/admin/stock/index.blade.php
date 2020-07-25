@@ -73,13 +73,9 @@
                     <td>{{$v->stock_id}}</td>
                     <td>{{$v->goods_name}}</td>
                     <td>{{$v->stock}}</td>
-                    <td>
-                        @foreach($v['ability'] as $d=>$f)
-                            {{$f}}
-                        @endforeach
-                    </td>
+                    <td>{{$v->data}}</td>
                     <td class="text-center">
-                        <button type="button" id="del" brand_id="{{$v->brand_id}}" class="btn bg-olive btn-xs">删除</button>
+                        <button type="button" id="del" stock_id="{{$v->stock_id}}" class="btn bg-olive btn-xs">删除</button>
                     </td>
                 </tr>
             @endforeach
@@ -99,3 +95,19 @@
 </html>
 @endsection
 <script src="/js/jquery.min.js"></script>
+<script>
+    $(function(){
+        $(document).on('click',"#del",function(){
+           var stock_id=$(this).attr('stock_id');
+            $.ajax({
+                url: 'updDo',
+                type: 'get',
+                dataType: 'defaul',
+                data: {stock_id: 'stock_id'},
+                success:function(msg){
+                    console.log(msg);
+                }
+            })
+        });
+    })
+</script>
