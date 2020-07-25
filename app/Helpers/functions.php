@@ -39,7 +39,8 @@
             //文件上传
             $file = request()->file($img);
             //将图片保存到文件里
-            $store_result = $file->store("uploads");
+            // $store_result = $file->store("/uploads");
+            $store_result = file_put_contents("/uploads",$file);
             //将最后的文件信息返回
             return $store_result;
         }
@@ -56,7 +57,7 @@
             //判断循环后的每个文件过程中是否有错
             if($v->isValid()){
                 //将每张图片信息循环得存进新位置
-                $store_result[$k] = $v->store("uploads");
+                $store_result[$k] = $v->store("/uploads");
             }else{
                 //否则办错
                 $store_result[$k] = "未获取到上传文件或上传过程出错";

@@ -84,11 +84,11 @@
                                           </td>
 				                          <td>{{$itme->cate_name}}</td>
 				                          <td>{{$itme->brand_name}}</td>
-				                          <td><img src="{{env('UPLOADS_URL')}}{{$itme->goods_img}}" width="35px" alt=""></td>
+				                          <td><img src={{"/".$itme->goods_img}} width="35px" alt=""></td>
 				                          <td>
                                                 @php $goods_imgs = explode("|",$itme["goods_imgs"]); @endphp
                                                 @foreach($goods_imgs as $vv)
-                                                <img src="{{env('UPLOADS_URL')}}{{$vv}}" width="35px" alt="">
+                                                <img src="{{"/".$vv}}" width="35px" alt="">
                                                 @endforeach
                                           </td>
 				                          <td>{{$itme->goods_num}}</td>
