@@ -152,33 +152,81 @@ class NewsController extends Controller
     /*
      * 品优购快报执行修改
      */
-    public function updDo(Request $request){
-        $data=$request->all();
-        $newsmodel=new NewsModel();
+    public function updDo(Request $request)
+    {
+        $data = $request->all();
+        if (!$data['notice']) {
+            $message = [
+                'code' => '000001',
+                'message' => 'error',
+                'result' => [
+                    'message' => '通知不能为空',
+                ]
+            ];
+            return json_encode($message, JSON_UNESCAPED_UNICODE);
+        }
+        if (!$data['desc']) {
+            $message = [
+                'code' => '000001',
+                'message' => 'error',
+                'result' => [
+                    'message' => '详情不能为空',
+                ]
+            ];
+            return json_encode($message, JSON_UNESCAPED_UNICODE);
+        }
+        if (!$data['title']) {
+            $message = [
+                'code' => '000001',
+                'message' => 'error',
+                'result' => [
+                    'message' => '标题不能为空',
+                ]
+            ];
+            return json_encode($message, JSON_UNESCAPED_UNICODE);
+        }
+        $newsmodel = new NewsModel();
         $where=[
-            ['n_id','=',$data['n_id']]
+            ['is_del','=',1],
+            ['title','=',$data['title']],
+            ['n_id','!=',$data['n_id']]
         ];
-        unset($data['n_id']);
-        $res=$newsmodel::where($where)->update($data);
-        if($res!==false){
-            $message=[
-                'code'=>'000000',
-                'message'=>'success',
-                'result'=>[
-                    'message'=>'修改成功',
+        $res=$newsmodel::where($where)->first();
+        if($res){
+            $message = [
+                'code' => '000001',
+                'message' => 'error',
+                'result' => [
+                    'message' => '该数据已存在',
                 ]
             ];
         }else{
-            $message=[
-                'code'=>'000001',
-                'message'=>'error',
-                'result'=>[
-                    'message'=>'修改失败',
-                ]
+            $where = [
+                ['n_id', '=', $data['n_id']]
             ];
+            unset($data['n_id']);
+            $res = $newsmodel::where($where)->update($data);
+            if ($res !== false) {
+                $message = [
+                    'code' => '000000',
+                    'message' => 'success',
+                    'result' => [
+                        'message' => '修改成功',
+                    ]
+                ];
+            } else {
+                $message = [
+                    'code' => '000001',
+                    'message' => 'error',
+                    'result' => [
+                        'message' => '修改失败',
+                    ]
+                ];
+            }
         }
         return json_encode($message,JSON_UNESCAPED_UNICODE);
     }
+    //mb_substr() ."..."
     /*
      * 品优购快报极点级改
      */

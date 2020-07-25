@@ -58,6 +58,7 @@
                 <td field="attr_name">
                     <span class="span">{{$v->attr_name}}</span>
                     <input type="text" class="change" value="{{$v->attr_name}}" style="display: none">
+                    <b><span class="span" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                 </td>
                 <td>{{date('Y-m-d H:i:s',$v->add_time)}}</td>
                 <td class="text-center">
@@ -116,6 +117,12 @@
         $(".change").blur(function(){
             var _this = $(this);
             var value = _this.val();
+            if(value==''){
+                $(this).next().children().text("属性名称不能为空");
+                return false;
+            }else{
+                $(this).next().children().hide();
+            }
             var attr_id = _this.parents('tr').attr('attr_id');
             var field = _this.parent('td').attr('field');
             $.ajax({
@@ -128,7 +135,9 @@
                     if(res.code){
                         _this.hide();
                         _this.prev().text(value).show();
-
+                        alert(res.msg);
+                    }else{
+                        alert(res.msg);
                     }
                 }
             })

@@ -52,4 +52,9 @@ class LoginController extends Controller
 
         return view("admin.indexs");
     }
+    //退出登陆
+    public function exit(){
+        session(['user'=>null]);
+        return view('admin.login');
+    }
 }

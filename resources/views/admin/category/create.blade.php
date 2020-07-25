@@ -33,7 +33,7 @@
 
             <!-- 正文区域 -->
             <section class="content">
-                <form action="/admin/category/createDo" method="post">
+                <form action="" method="post">
                 @csrf
                 <div class="box-body">
 
@@ -57,8 +57,9 @@
 
 		                           <div class="col-md-2 title">分类名称</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control" name="cate_name"    placeholder="分类名称" value="">
+		                               <input type="text" class="form-control" name="cate_name" id="cate_name"   placeholder="分类名称" value="">
 		                           </div>
+                                       <b><span id="span_name" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                                 </div>
                                 <div class="row data-type">
                                 <div class="col-md-2 title">父级分类</div>
@@ -76,7 +77,7 @@
 
                    </div>
                   <div class="btn-toolbar list-toolbar">
-				      <button type="submit" class="btn btn-primary" ng-click="setEditorValue();save()"><i class="fa fa-save"></i>添加</button>
+				      <button type="button" class="btn btn-primary" id="but" ng-click="setEditorValue();save()"><i class="fa fa-save"></i>添加</button>
 				  </div>
                   </form>
 
@@ -96,6 +97,99 @@
 </script>
 
 </body>
+
+<script type="text/javascript">
+
+	var editor;
+	KindEditor.ready(function(K) {
+		editor = K.create('textarea[name="content"]', {
+			allowFileManager : true
+		});
+	});
+
+</script>
+
+</body>
+
+<script src="/js/jquery.js"></script>
+<script>
+    $(function(){
+        // alert("123");
+        //分类名称
+        $(document).on("blur","#cate_name",function(){
+            // alert(123);
+            var cate_name = $(this).val();
+            // alert(cate_name);
+            if(cate_name==""){
+                $("#span_name").text("分类名称不能为空");
+            }else{
+                $.ajax({
+                    url: "/admin/category/ajaxuniq",
+                    type: "get",
+                    data: {
+                        cate_name:cate_name
+                    },
+                    success: function(res) {
+                        // console.log(res);
+                        if (res == 'no') {
+                            $("#span_name").text("管理员名称已存在");
+                        } else {
+                            $("#span_name").html("<font color='green'>√</font>");
+                        }
+                    }
+                })
+            }
+        })
+        //阻止提交提示
+        $(document).on("click","#but",function(){
+            var p_id = $('select[name="p_id"]').val();
+            var cate_name = $("#cate_name").val();
+            // alert(cate_name);
+            if(cate_name==""){
+                $("#span_name").text("分类名称不能为空");
+                return false;
+            }else{
+                $.ajax({
+                    url: "/admin/category/ajaxuniq",
+                    type: "get",
+                    data: {
+                        cate_name:cate_name
+                    },
+                    success: function(res) {
+                        // console.log(res);
+                        if (res == 'no') {
+                            $("#span_name").text("管理员名称已存在");
+                            return false;
+                        }else{
+                            $.ajax({
+                                url: "/admin/category/createDo",
+                                type: "post",
+                                sync:false,
+                                data: {
+                                    cate_name:cate_name,
+                                    p_id:p_id
+                                },
+                                dataType:"json",
+                                success: function(res) {
+                                    // alert(123);
+                                    // console.log(res);
+                                    if(res.status=="true"){
+                                        alert(res.msg);
+                                        window.location.href=res.result;
+                                    }else{
+                                        alert(res.msg);
+                                    }
+
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        })
+    })
+
+</script>
 
 </html>
 @endsection

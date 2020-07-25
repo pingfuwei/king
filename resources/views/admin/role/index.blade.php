@@ -58,20 +58,17 @@
                 <td field="role_name">
                     <span class="span">{{$v->role_name}}</span>
                     <input type="text" class="change" style="display: none;" value="{{$v->role_name}}">
+                    <b><span class="span" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                 </td>
                 <td>{{date("Y-m-d H:i:s",$v->role_time)}}</td>
                 <td>
-                {{--@foreach($power as $kk=>$vv)--}}
-                    {{--@if($v->role_id==$vv->role_id)--}}
-                        {{--{{$vv->power_name}}--}}
-                        {{--@endif--}}
-                {{--@endforeach--}}
                     {{rtrim($v->res,",")}}
                 </td>
                 <td class="text-center">
                     <a href="{{url('admin/role/upd',$v->role_id)}}" class="btn bg-olive btn-xs">修改</a>
                     <a href="javascript:;" data-id="{{$v->role_id}}" class="del btn bg-olive btn-xs">删除</a>
                     <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('/admin/power/power',$v->role_id)}}">赋权限</a></button>
+                    <button class="btn btn-default" ng-click="goListPage()"><a href="{{url('/admin/power/delpower',$v->role_id)}}">删除权限</a></button>
                 </td>
             </tr>
                 @endforeach
@@ -122,6 +119,12 @@
         $(".change").blur(function(){
             var _this = $(this);
             var value = _this.val();
+            if(value==''){
+                $(this).next().children().text("角色名称不能为空");
+                return false;
+            }else{
+                $(this).next().children().hide();
+            }
             var role_id = _this.parents('tr').attr('role_id');
             var field = _this.parent('td').attr('field');
             $.ajax({

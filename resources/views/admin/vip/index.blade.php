@@ -57,6 +57,7 @@
                 <td field="vip_name">
                     <span class="span">{{$v->vip_name}}</span>
                     <input type="text" class="change" style="display: none" value="{{$v->vip_name}}">
+                    <b><span class="span" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                 </td>
                 <td field="price">
                     <span class="span">{{$v->price}}</span>
@@ -115,6 +116,12 @@
         $(".change").blur(function(){
             var _this = $(this);
             var value = _this.val();
+            if(value==''){
+                $(this).next().children().text("VIP名称不能为空");
+                return false;
+            }else{
+                $(this).next().children().hide();
+            }
             var vip_id = _this.parents('tr').attr('vip_id');
             var field = _this.parent('td').attr('field');
 //            console.log(field);return;
@@ -139,5 +146,6 @@
     })
 
 </script>
+
 </html>
 @endsection

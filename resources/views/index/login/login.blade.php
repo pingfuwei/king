@@ -41,15 +41,15 @@
                     <div id="profile" class="tab-pane  active">
                         <form class="sui-form">
                             <div class="input-prepend"><span class="add-on loginname"></span>
-                                <input id="prependedInput" type="text"  placeholder="用户名/手机号" class="span2 input-xfat user_name">
+                                <input id="prependedInput" type="text" value="{{request()->cookie("user")}}"  placeholder="用户名/手机号" class="span2 input-xfat user_name">
                             </div>
                             <div class="input-prepend"><span class="add-on loginpwd"></span>
-                                <input id="prependedInput" type="password" placeholder="请输入密码" class="span2 input-xfat user_pwd">
+                                <input id="prependedInput" type="password" value="{{request()->cookie("user_pwd")}}" placeholder="请输入密码" class="span2 input-xfat user_pwd">
                             </div>
                             <div class="setting">
                                 <label class="checkbox inline">
-                                    <input name="m1" type="checkbox" value="2" checked="">
-                                    自动登录
+                                    <input name="m1" type="checkbox" id="che" value="2" checked="">
+                                    七天免登录
                                 </label>
                                 <span class="forget">忘记密码？</span>
                             </div>
@@ -102,6 +102,12 @@
             $(document).on("click","#send",function () {
                 var user_name=$(".user_name").val()
                 var user_pwd=$(".user_pwd").val()
+                var che=$("#che:checked").val()
+                if(che!==undefined){
+                    che =che;
+                }else{
+                    che=1
+                }
                 if(user_name===""){
                     alert("账户不能为空")
                     return
@@ -110,13 +116,16 @@
                     alert("密码不能为空")
                     return
                 }
-                var data={user_name:user_name,user_pwd:user_pwd}
+                var data={user_name:user_name,user_pwd:user_pwd,che:che}
                 $.ajax({
                     url:"/index/login/ajaxLogin",
                     data:data,
                     dataType:"json",
                     success:function (res) {
                         alert(res.font)
+                        if(res.code==="000"){
+                            location.href="http://www.king.com/"
+                        }
                     }
                 })
             })

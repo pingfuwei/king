@@ -58,6 +58,7 @@
                         <div class="col-md-10 data">
                             <input type="text" class="form-control name"    placeholder="角色名称" name="role_name">
                         </div>
+                        <p style="color:red;margin-left: 180px" class="msg"></p>
                     </div>
                 </div>
             </div>
@@ -93,7 +94,64 @@
 
 </script>
 <script>
+    $(".name").blur(function(){
+        var value=$(this).val();
+//        console.log(value);return;
+        if(value==""){
+            $(".msg").text("角色名不为空");
+        }else{
+//            alert(1);
+            $.ajax({
+                url: "/admin/role/ajaxuniq",
+                type: "get",
+                async:false,
+                data: {
+                    role_name:value
+                },
+                success: function(res) {
+//                     console.log(res);
+                    if (res == 'no') {
+                        $(".msg").text("角色名已存在");
+//                        alert(1);
+                        return  false;
+                    }else{
+                        $(".msg").text("");
+                    }
+                }
+            })
+        }
+    })
+</script>
+<script>
     $(".add").click(function(){
+        var flag=true;
+        var value=$(".name").val();
+//        console.log(value);return;
+        if(value==""){
+            $(".msg").text("角色名不为空");
+            return false;
+        }else{
+            $.ajax({
+                url: "/admin/role/ajaxuniq",
+                type: "get",
+                async:false,
+                data: {
+                    role_name:value
+                },
+                success: function(res) {
+//                     console.log(res);
+                    if (res == 'no') {
+                        $(".msg").text("角色名已存在");
+                        flag = false;
+                    }else{
+                        $(".msg").text("");
+                    }
+                }
+            })
+        }
+        if(!flag){
+            return false;
+        }
         var role_name=$(".name").val();
         $.ajax({
             url:"{{url('/admin/role/createDo')}}",
@@ -103,7 +161,7 @@
             success:function(res){
                 if(res.code==200){
                     alert(res.msg);
-                    {{--location.href="{{url('admin/role/index')}}"--}}
+                    location.href="{{url('admin/role/index')}}"
                 }else{
                     alert(res.msg);
                 }

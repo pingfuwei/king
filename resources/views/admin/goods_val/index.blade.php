@@ -112,6 +112,8 @@
     })
     $(document).ready(function(){
         $(".span_name").click(function(){
+            $('input').hide();
+            $('span').show()
             var _this=$(this);
             var as=$(this).text();
             $(this).hide();

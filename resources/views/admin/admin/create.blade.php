@@ -33,7 +33,7 @@
 
             <!-- 正文区域 -->
             <section class="content">
-                <form action="/admin/admin/createDo" method="post">
+                <form action="" method="post">
                 @csrf
                 <div class="box-body">
 
@@ -57,22 +57,24 @@
 
 		                           <div class="col-md-2 title">管理员名称</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control" name="admin_name"    placeholder="管理员名称" value="">
+		                               <input type="text" class="form-control" name="admin_name" id="admin_name"   placeholder="管理员名称" value="">
 		                           </div>
+                                       <b><span id="span_name" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                                 </div>
                                 <div class="row data-type">
 
                                    <div class="col-md-2 title">管理员密码</div>
                                    <div class="col-md-10 data">
-                                       <input type="password" class="form-control" name="admin_pwd"   placeholder="管理员密码" value="">
+                                       <input type="password" class="form-control" name="admin_pwd" id="admin_pwd"  placeholder="管理员密码" value="">
                                    </div>
+                                       <b><span id="span_pwd" style="color: red; font-size: 16px; margin-left: 220px;"></span></b>
                                 </div>
                             </div>
 
 
                    </div>
                   <div class="btn-toolbar list-toolbar">
-				      <button type="submit" class="btn btn-primary" ng-click="setEditorValue();save()"><i class="fa fa-save"></i>添加</button>
+				      <button type="button" class="btn btn-primary" id="but" ng-click="setEditorValue();save()"><i class="fa fa-save"></i>添加</button>
 				  </div>
                   </form>
 
@@ -94,6 +96,121 @@
 </script>
 
 </body>
+
+<script src="/js/jquery.js"></script>
+<script>
+    $(function(){
+        // alert("123");
+        //管理员名称
+        $(document).on("blur","#admin_name",function(){
+            // alert(123);
+            var admin_name = $(this).val();
+            // alert(admin_name);
+            if(admin_name==""){
+                $("#span_name").text("管理员名称不能为空");
+            }else{
+                $.ajax({
+                    url: "/admin/admin/ajaxuniq",
+                    type: "get",
+                    data: {
+                        admin_name:admin_name
+                    },
+                    success: function(res) {
+                        // console.log(res);
+                        if (res == 'no') {
+                            $("#span_name").text("管理员名称已存在");
+                        } else {
+                            $("#span_name").html("<font color='green'>√</font>");
+                        }
+                    }
+                })
+            }
+        })
+
+        //管理员密码验证
+        $(document).on("blur","#admin_pwd",function(){
+            // alert(123);
+            var admin_pwd = $(this).val();
+            var pwd = /^\w{6,}$/;
+            // alert(admin_pwd);
+            if(admin_pwd==""){
+                $("#span_pwd").text("管理员密码不能为空");
+            }else if(!pwd.test(admin_pwd)){
+                $("#span_pwd").text("管理员密码格式不正确");
+            }else{
+                $("#span_pwd").html("<font color='green'>√</font>");
+            }
+        })
+
+        //管理员阻止提交
+        $(document).on("click","#but",function(){
+            // alert(12);
+            var nameflag = true;
+            //阻止管理员名称
+            var admin_name = $("#admin_name").val();
+            // alert(admin_name);
+            if(admin_name==""){
+                $("#span_name").text("管理员名称不能为空");
+                return false;
+            }else{
+                // alert(123);
+                $.ajax({
+                    url: "/admin/admin/ajaxuniq",
+                    type: "get",
+                    sync:false,
+                    data: {
+                        admin_name:admin_name
+                    },
+                    success: function(res) {
+                        // alert(123);
+                        // console.log(res);
+                        if (res == 'no') {
+                            $("#span_name").text("管理员名称已存在");
+                            return  false;
+                        }
+                    }
+                })
+                if(!nameflag){
+                    return false;
+                }
+            }
+            //阻止管理员密码
+            var admin_pwd = $("#admin_pwd").val();
+            var pwd = /^\w{6,}$/;
+            // alert(admin_pwd);
+            if(admin_pwd==""){
+                $("#span_pwd").text("管理员密码不能为空");
+                return false;
+            }else if(!pwd.test(admin_pwd)){
+                $("#span_pwd").text("管理员密码格式不正确");
+                return false;
+            }else{
+                $.ajax({
+                    url: "/admin/admin/createDo",
+                    type: "post",
+                    sync:false,
+                    data: {
+                        admin_name:admin_name,
+                        admin_pwd:admin_pwd
+                    },
+                    dataType:"json",
+                    success: function(res) {
+                        // alert(123);
+                        console.log(res);
+                        if(res.status=="true"){
+                            alert(res.msg);
+                            window.location.href=res.result;
+                        }else{
+                            alert(res.msg);
+                        }
+
+                    }
+                })
+            }
+        })
+    })
+$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+</script>
 
 </html>
 @endsection
