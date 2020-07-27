@@ -188,4 +188,23 @@ Route::prefix("index")->group(function() {
         Route::any("login", "index\LoginController@login");//登录
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Route::prefix("persion")->group(function() {//个人中心
+        Route::any('sign','index\SignController@sign');//签到
+        Route::any('pers','index\SignController@pers');//展示个人信息
+        Route::any('personal','index\SignController@personal');//填写个人信息
+    });
 });
