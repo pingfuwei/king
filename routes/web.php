@@ -147,6 +147,15 @@ Route::prefix("admin")->group(function (){//后台
             Route::any('del','admin\StockController@del');//执行商品属性删除
             Route::any('stockAjax','admin\StockController@stockAjax');//执行库存ajax
         });
+    Route::prefix("dis")->group(function (){//优惠卷
+        Route::any('create','admin\DisController@create');//添加优惠卷
+        Route::any('createDo','admin\DisController@createDo');//执行添加
+        Route::any('index','admin\DisController@index');//优惠卷展示
+        Route::any('upd','admin\DisController@upd');//优惠卷修改
+        Route::any('updDo','admin\DisController@updDo');//执行优惠卷修改
+        Route::any('del','admin\DisController@del');//优惠卷删除
+        //Route::any('stockAjax','admin\StockController@stockAjax');//执行库存ajax
+    });
 });
 
 
