@@ -18,9 +18,9 @@
         <a href="" class="logo"></a>
     </div>
     <!--loginArea-->
-    <div class="loginArea">
+    <div class="loginArea" >
         <div class="py-container login">
-            <div class="loginform">
+            <div class="loginform forget">
                 <ul class="sui-nav nav-tabs tab-wraped">
                     <li>
                         <a href="#index" data-toggle="tab">
@@ -38,7 +38,7 @@
                         <p>二维码登录，暂为官网二维码</p>
                         <img src="/index/img/wx_cz.jpg" />
                     </div>
-                    <div id="profile" class="tab-pane  active">
+                    <div id="profile" class="tab-pane  active " >
                         <form class="sui-form">
                             <div class="input-prepend"><span class="add-on loginname"></span>
                                 <input id="prependedInput" type="text" value="{{request()->cookie("user")}}"  placeholder="用户名/手机号" class="span2 input-xfat user_name">
@@ -51,7 +51,7 @@
                                     <input name="m1" type="checkbox" id="che" value="2" checked="">
                                     七天免登录
                                 </label>
-                                <span class="forget">忘记密码？</span>
+                                <span class="forget"><a href="javascript:;" id="forget">忘记密码？</a></span>
                             </div>
                             <div class="logined">
                                 <a class="sui-btn btn-block btn-xlarge btn-danger" href="javascript:;" id="send" >登&nbsp;&nbsp;录</a>
@@ -67,6 +67,45 @@
                                 </ul>
                             </div>
                             <span class="register"><a href="/index/reg/reg" >立即注册</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{--=========================================================================忘记密码--}}
+            <div class="loginform logins" style="display: none">
+                <ul class="sui-nav nav-tabs tab-wraped" >
+                    <li>
+                        <a href="#profile" data-toggle="tab">
+                            <h3>修改密码</h3>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content tab-wraped">
+                    <div id="index" class="tab-pane">
+                        <p>二维码登录，暂为官网二维码</p>
+                        <img src="/index/img/wx_cz.jpg" />
+                    </div>
+                    <div id="profile" class="tab-pane  active" >
+                        <form class="sui-form">
+                            <div class="input-prepend"><span class="add-on loginname"></span>
+                                <input id="prependedInput" type="text"   placeholder="用户名/手机号" style="width: 225px;" class="span input-xfat user_tel">
+                                <input type="button" value="发送验证码" id="getcode" class="btn btn-success" style="width: 80px;height: 35px;">
+                            </div>
+                            <div class="input-prepend"><span class="add-on loginpwd"></span>
+                                <input id="prependedInput" type="password"  placeholder="验证码" class="span2 input-xfat codes">
+                            </div>
+                            <div class="input-prepend"><span class="add-on loginpwd"></span>
+                                <input id="prependedInput" type="password"  placeholder="请输入密码" class="span2 input-xfat user_pwds">
+                            </div>
+                            <div class="input-prepend"><span class="add-on loginpwd"></span>
+                                <input id="prependedInput" type="password"  placeholder="确认密码" class="span2 input-xfat user_pwdss">
+                            </div>
+                            <div class="logined">
+                                <a class="sui-btn btn-block btn-xlarge btn-danger" href="javascript:;" id="sendPas" >确认&nbsp;&nbsp;更改</a>
+                            </div>
+                        </form>
+                        <div class="otherlogin" >
+                            <span class="register" style="margin-top: -30px;"><a href="/index/login/login" >立即登陆</a></span>
                         </div>
                     </div>
                 </div>
@@ -129,6 +168,66 @@
                     }
                 })
             })
+            $(document).on("click","#forget",function () {
+                $(".forget").hide()
+                $(".logins").show()
+            })
+//            =======================================忘记密码js
+            $(document).on("click","#getcode",function () {
+                var user_tel=$(".user_tel").val()
+                var pattern = /^1[34578]\d{9}$/;
+                if(user_tel===""){
+                    alert("手机号必填")
+                    return
+                }
+                if(!pattern.test(user_tel)){
+                    alert("格式不对")
+                }else{
+                    $("#getcode").val("60s");//这个是吧span里面值改成5s
+                    _t=setInterval(vals,1000);//定时器
+                    $("#getcode").css("pointer-events", "none")//置灰
+                    $.ajax({
+                        url:"/index/login/ajaxCode",
+                        data:{user_tel:user_tel},
+                        success:function (res) {
+                            console.log(res)
+                            if(res=="ok"){
+                                alert("发送成功")
+                            }
+                        }
+                    })
+                }
+            })
+            $(document).on("click","#sendPas",function () {
+                alert(12)
+                var user_tel=$(".user_tel").val()
+                var codes=$(".codes").val()
+                var user_pwds=$(".user_pwds").val()
+                var user_pwdss=$(".user_pwdss").val()
+                var date={user_tel:user_tel,codes:codes,user_pwds:user_pwds}
+                if(user_tel===""){
+                    alert("")
+                }
+            })
+
+
+
+
+            function vals() {
+                s=$("#getcode").val();
+                s=parseInt(s);
+                if(s<=0){
+                    s=$("#getcode").val("获取验证码");
+                    clearInterval(_t)
+                    $("#getcode").css("pointer-events", "auto")
+                }else{
+                    s=s-1;
+                    s=$("#getcode").val(s+"s");
+                    $("#getcode").css("pointer-events", "none")
+                }
+
+
+            }
         })
 </script>
 </html>
