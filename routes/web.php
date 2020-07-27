@@ -187,6 +187,6 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("login")->group(function() {//登陆
         Route::any("login", "index\LoginController@login");//登录
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
-        Route::any("ajaxCode", "index\LoginController@ajaxCodes");//登录执行
+        Route::any("ajaxCode", "index\LoginController@ajaxCodes");//登录执行a
     });
 });
