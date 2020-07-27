@@ -79,11 +79,10 @@
 
                         </div>{{--尾部--}}
 
-                <button type="button" class="btn btn-success" id="send" style="float: right">选择库存</button>
             </div>
             <div class="btn-toolbar list-toolbar" >
-<<<<<<< HEAD
-                <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>确定</button>
+                <button class="btn btn-success" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>确定</button>
+
                 <a id="list" data-toggle="modal" class="btn btn-danger">查看列表</a>
             </div>
             <div class="modal-content" hidden>
@@ -106,10 +105,9 @@
                     <button class="btn btn-success" id="ti" data-dismiss="modal" aria-hidden="true">保存</button>
                     <button class="btn btn-default" id="yin" data-dismiss="modal" aria-hidden="true">关闭</button>
                 </div>
-=======
+
                 <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>添加</button>
                 <a href="/admin/stock/del"><button class="btn btn-default" ng-click="goListPage()">查看列表</button></a>
->>>>>>> e7aeb3ff7d3dd256a9c8674fcbe524df59b911b7
             </div>
 
 </section>
@@ -160,7 +158,7 @@
                         "<td name= 'sx' sx_id="+v.id.slice(0,v.id.length-1)+">"+v.ability+"</td> " +
                         "<td><input type='text' name='num' id='num' value=''></td> " +
                         "<td><input type='text' name='price' id='price' value=''> </td> "+
-                        "<td><input type='button' class='btn btn-primary but' value='确认' disabled> </td></tr> "
+                        "<td><input type='button' class='btn btn-primary but btn-success' value='确认' disabled> </td></tr> "
                    })
                    $("#shop_box").after(html);
                    $(".modal-content").show();
