@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://image.ka-cn.com/landing/css/reset.css?release_css=20200720" />
     <link rel="stylesheet" href="https://image.ka-cn.com/landing/css/landing_2019.css?release_css=20200720_2" />
     <link type="text/css" href="https://image.ka-cn.com/static/floating_cs/floating_cs.css?release_css=20200720" rel="stylesheet" />
+    <title>Bootstrap 实例 - 按钮选项</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/landing/js/jquery.min.js" ></script>
     <script type="text/javascript" src="/landing/js/func.js?release_js=20200720" ></script>
     <script type="text/javascript" src="/spgoods/js/common.js?release_js=20200720" ></script>
@@ -359,12 +363,12 @@
                 <p class="landing_title">选择面额</p>
                 <div class="landing_me " id="show1" >
                     @foreach($res as $v)
-                    <div class="landing_me_list " id="pin"  style="margin-left: 0;" >
+                    <div class="landing_me_list " id="pin" num="{{$v->price}}" style="margin-left: 0;" >
                         <div class="M_landingTips"></div>
                         <div class="landing_me_border" >
                             <p>
                                 <img src="/index/img/Logo.png" width="550" height="30">
-                                <span >{{$v->price}}元</span>
+                                <span id="num">{{$v->price}}元</span>
                             </p>
                             <div class="clear_both"></div>
                         </div>
@@ -391,8 +395,13 @@
                     </div>
                     <div class="landing_cz_center">
                         <label class="landing_cz_center_lab">
-
-                            <div class="clear_both"></div>
+                            <div class="clear_both" style="float: right;">
+                                <span style="margin-left: 200px; ">请选择时间</span>
+                                <input type="text" value="1" id="month" style="width: 50px;height: 40px;margin-top: 5px;" disabled>
+                                <button type="button" class="btn btn-primary" id="add">+</button>
+                                <button type="button" class="btn btn-warning" id="del">-</button>
+                                <h3 style="float: right;margin-left: 50px;margin-top: 20px;"><span style="color: red" id="price">￥0.00</span></h3>
+                            </div>
                         </label>
                         <div class="landing_cz_center_btn goodes_title"></div>
                     </div>
@@ -710,9 +719,38 @@
 <script src="/js/jquery.js"></script>
 <script>
     $(function () {
+        //加
+        $(document).on("click","#add",function () {
+            var num=$(".pin").attr("num")
+            if(num===undefined){
+                alert("选择充值商品")
+                return
+            }
+            var month=$("#month").val()
+            $("#month").val(parseInt(month)+1)
+            $("#price").html("￥"+parseInt(num)*(parseInt(month)+1))
+        })
+        //减
+        $(document).on("click","#del",function () {
+            var num=$(".pin").attr("num")
+            if(num===undefined){
+                alert("选择充值商品")
+                return
+            }
+            var month=$("#month").val()
+            if(parseInt(month)-1<=0){
+                alert("我也是有底线的！！！")
+                return
+            }
+            $("#month").val(parseInt(month)-1)
+            $("#price").html("￥"+parseInt(num)*(parseInt(month)-1))
+        })
         $(document).on("click","#pin",function () {
-            $("#pin").removeClass("pin");
+            $(".pin").removeClass("pin");
             $(this).addClass("pin")
+            var num=$(".pin").attr("num")
+            $("#month").val(1)
+            $("#price").html("￥"+num)
         })
         $(document).on("click",".send",function () {
             var vip=$(".pin").children().next().next().html()
