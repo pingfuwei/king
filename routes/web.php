@@ -147,6 +147,7 @@ Route::prefix("admin")->group(function (){//后台
             Route::any('del','admin\StockController@del');//执行商品属性删除
             Route::any('stockAjax','admin\StockController@stockAjax');//执行库存ajax
         });
+<<<<<<< HEAD
     Route::prefix("dis")->group(function (){//优惠卷
         Route::any('create','admin\DisController@create');//添加优惠卷
         Route::any('createDo','admin\DisController@createDo');//执行添加
@@ -156,6 +157,17 @@ Route::prefix("admin")->group(function (){//后台
         Route::any('del','admin\DisController@del');//优惠卷删除
         //Route::any('stockAjax','admin\StockController@stockAjax');//执行库存ajax
     });
+=======
+        Route::prefix("userdis")->group(function (){//库存
+            Route::any('create','admin\UserdisController@create');//库存添加
+            Route::any('createDo','admin\UserdisController@createDo');//库存添加执行
+            Route::any('index','admin\UserdisController@index');//库存展示
+            Route::any('upd','admin\UserdisController@upd');//库存修改
+            Route::any('updDo','admin\UserdisController@updDo');//执行商品属性修改
+            Route::any('del','admin\UserdisController@del');//执行商品属性删除
+            Route::any('stockAjax','admin\UserdisController@stockAjax');//执行库存ajax
+        });
+>>>>>>> 95f13ed3f54774f4d85847c1cf0d1eb4357d8ad2
 });
 
 
@@ -196,8 +208,16 @@ Route::prefix("index")->group(function() {
     Route::prefix("login")->group(function() {//注册
         Route::any("login", "index\LoginController@login");//登录
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
+<<<<<<< HEAD
     });
     Route::prefix("cate")->group(function() {//注册
         Route::any("index", "index\CateController@index");//登录
+=======
+        Route::any("ajaxCode", "index\LoginController@ajaxCodes");//登录执行a
+    });
+    Route::prefix("news")->group(function() {//注册
+        Route::any("one/{id}", "index\NewsController@one");//登录
+        Route::any("index", "index\NewsController@index");//登录执行
+>>>>>>> 95f13ed3f54774f4d85847c1cf0d1eb4357d8ad2
     });
 });
