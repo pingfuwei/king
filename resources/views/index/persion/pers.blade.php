@@ -12,31 +12,27 @@
                     <tr>
 
                         <th>用户名</th>
-                        <th>刘天天</th>
+                        <th>{{$data->user_name}}</th>
                     </tr>
                     <tr>
                         <th>地址</th>
-                        <th>北京 北京市 海淀区 上地街道东北旺西路8号中关村软件园9号楼</th>
+                        <th>{{$province}}{{$city}}{{$area}}</th>
                     </tr>
                     <tr>
                         <th>性别</th>
-                        <th>女</th>
+                        <th>{{$data->sex=="1" ? "男" : "女"}}</th>
                     </tr>
                     <tr>
                         <th>联系电话</th>
-                        <th>1218728173</th>
+                        <th>{{$data->tel}}</th>
                     </tr>
-                    <tr>
-                        <th>操作</th>
-                        <th>
-                            <a>删除</a>
-                            <a>修改</a>
-                        </th>
-                    </tr>
+
                     </thead>
+
                 </table>
             </div>
             <button><a href="{{url('index/persion/pers')}}">修改个人信息</a></button>
+            <button><a href="{{url('index/persion/sign')}}">签到</a></button>
             <!--新增地址弹出层-->
             <div  tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade edit" style="width:580px;">
                 <div class="modal-dialog">

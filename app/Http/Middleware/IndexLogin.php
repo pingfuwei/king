@@ -17,7 +17,16 @@ class IndexLogin
     {
         $user=$request->cookie("user");
         $user_pwd=$request->cookie("user_pwd");
+
+        if (!$user) {
+            return redirect("index/login/login");
+        } else {
+            return $next($request);
+        }
         \session(["user_name"=>$user,"user_pwd"=>$user_pwd]);
-        return $next($request);
+
+
+
+
     }
 }

@@ -178,7 +178,7 @@ Route::prefix("admin")->group(function (){//后台
 
 
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
-Route::prefix("index")->middleware("IndexLogin")->group(function() {
+Route::prefix("index")->group(function() {
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
         Route::any("regDo", "index\LoginController@regDo");//注册执行
@@ -204,8 +204,11 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
 
 
     Route::prefix("persion")->group(function() {//个人中心
-        Route::any('sign','index\SignController@sign');//签到
-        Route::any('pers','index\SignController@pers');//展示个人信息
-        Route::any('personal','index\SignController@personal');//填写个人信息
+        Route::any('sign','index\SignController@sign')->middleware("IndexLogin");//签到
+        Route::any('Dosign','index\SignController@Dosign');//签到
+        Route::any('pers','index\SignController@pers')->middleware("IndexLogin");//填写个人信息
+        Route::any('personal','index\SignController@personal')->middleware("IndexLogin");//展示个人信息
+        Route::any('area','index\SignController@area');//三级联动
+        Route::any('info','index\SignController@info');//添加用户信息
     });
 });
