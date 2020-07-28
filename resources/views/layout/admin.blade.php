@@ -413,6 +413,30 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>用户优惠券管理</span>
+                        <span class="pull-right-container">
+                       			<i class="fa fa-angle-left pull-right"></i>
+                   		 	</span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                            <a href="{{url('admin/userdis/create')}}">
+                                <i class="fa fa-circle-o"></i> 用户优惠券添加
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="{{url('admin/userdis/index')}}">
+
+                                <i class="fa fa-circle-o"></i> 用户优惠券管理
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="treeview">
                     <a href="/admin/news/index">
                         <i class="fa fa-folder"></i>
@@ -625,4 +649,3 @@
 
 
 </html>
-

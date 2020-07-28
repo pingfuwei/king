@@ -147,6 +147,15 @@ Route::prefix("admin")->group(function (){//后台
             Route::any('del','admin\StockController@del');//执行商品属性删除
             Route::any('stockAjax','admin\StockController@stockAjax');//执行库存ajax
         });
+        Route::prefix("userdis")->group(function (){//库存
+            Route::any('create','admin\UserdisController@create');//库存添加
+            Route::any('createDo','admin\UserdisController@createDo');//库存添加执行
+            Route::any('index','admin\UserdisController@index');//库存展示
+            Route::any('upd','admin\UserdisController@upd');//库存修改
+            Route::any('updDo','admin\UserdisController@updDo');//执行商品属性修改
+            Route::any('del','admin\UserdisController@del');//执行商品属性删除
+            Route::any('stockAjax','admin\UserdisController@stockAjax');//执行库存ajax
+        });
 });
 
 
