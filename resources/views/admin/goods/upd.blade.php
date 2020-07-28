@@ -374,7 +374,7 @@
                             if(!goods_score){
                                 // alert(123);
                                 $("#but").attr("disabled","");
-                                $("#span_score").text("商品积分不能为空1");
+                                $("#span_score").text("商品积分不能为空");
                                 return false;
                             }
                         }
