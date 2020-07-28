@@ -187,6 +187,14 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("login")->group(function() {//登陆
         Route::any("login", "index\LoginController@login");//登录
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
-        Route::any("ajaxCode", "index\LoginController@ajaxCodes");//登录执行a
+        Route::any("ajaxCode", "index\LoginController@ajaxCodes");//忘记密码短信ajax
+        Route::any("forgetPas", "index\LoginController@forgetPas");//忘记密码执行
+    });
+    Route::prefix("vip")->group(function() {//vip
+        Route::any("index", "index\VipController@index");//注册
+        Route::any("payAjax", "index\VipController@payAjax");//支付接口
+        Route::any("notify_url", "index\VipController@notify_url");//支付接口异步
+        Route::any("return_url", "index\VipController@return_url");//支付接口同步
+
     });
 });

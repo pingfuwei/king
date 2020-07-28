@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/index/css/pages-JD-index.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/widget-jquery.autocomplete.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/widget-cartPanelView.css" />
+
 </head>
 
 <body>
@@ -34,7 +35,7 @@
                         <li class="f-item space"></li>
                         <li class="f-item"><a href="home.html" target="_blank">我的品优购</a></li>
                         <li class="f-item space"></li>
-                        <li class="f-item">品优购会员</li>
+                        <li class="f-item"><a href="/index/vip/index">品优购会员</a></li>
                         <li class="f-item space"></li>
                         <li class="f-item">企业采购</li>
                         <li class="f-item space"></li>
