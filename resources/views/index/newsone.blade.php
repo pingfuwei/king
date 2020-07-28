@@ -52,7 +52,7 @@
                 <br>
                 <a href="/index/news/index" style="color: #999; margin-left: 760px;"><b style="font-size:18px; color: #303030;"> 更多热文 </b></a>
             </div>
-            <div style="width: 1200px; height: 100%; position: absolute;">
+            <div style="width: 1200px;">
                 <div style="width: 750px; padding-top:5px; background-color:white; height:100%; float: left;">
                 <div style="padding-left: 90px; padding-right: 90px; height: 500px;">
                 <h4>&nbsp; </h4>
@@ -69,7 +69,7 @@
                 </ul>
                 </div>
                 </div>
-                <div style="background-color:white; width: 400px; height: 555px; float: left; margin-left: 10px;">
+                <div style="background-color:white; width: 400px; height: 100%; float: left; margin-left: 10px;">
                     <div style="margin-left: 30px; margin-right: 32px; margin-top: 20px;">
                         <div>
                         <h4>&nbsp; </h4>
