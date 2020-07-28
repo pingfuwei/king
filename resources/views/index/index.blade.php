@@ -111,6 +111,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="item">
                         <h3><a href="">电脑、办公</a></h3>
                         <div class="item-list clearfix">
@@ -408,8 +409,8 @@
                         </div>
                         <div class="item">
                             <a href="http://baidu2.wypxj.com/">
-                                <img src="/index/img/banner2.jpg"  />
-                            </a>
+                                <img src="/index/img/banner2.jpg"  />vt
+                            </a>sresources/views/index/index.blade.php:414
                         </div>
                         <div class="item">
                             <a href="http://baidu2.wypxj.com/">
@@ -425,21 +426,23 @@
                     <h4><em class="fl">品优购快报</em><span class="fr tip">更多 ></span></h4>
                     <div class="clearix"></div>
                     <ul class="news-list unstyled">
-                        <li>
-                            <span class="bold">[特惠]</span>备战开学季 全民半价购数码
+                        @foreach($res as $k=>$v)
+                        <li n_id="{{$v->n_id}}">
+                            <a href="{{url('/index/news/one/'.$v->n_id)}}" class="addnews"><span class="bold">[{{$v->notice}}]</span>{{mb_substr($v->title,0,15)}}</a>
                         </li>
-                        <li>
-                            <span class="bold">[公告]</span>备战开学季 全民半价购数码
-                        </li>
-                        <li>
-                            <span class="bold">[特惠]</span>备战开学季 全民半价购数码
-                        </li>
-                        <li>
-                            <span class="bold">[公告]</span>备战开学季 全民半价购数码
-                        </li>
-                        <li>
-                            <span class="bold">[特惠]</span>备战开学季 全民半价购数码
-                        </li>
+                        @endforeach
+                        {{--<li>--}}
+                            {{--<span class="bold">[公告]</span>备战开学季 全民半价购数码--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<span class="bold">[特惠]</span>备战开学季 全民半价购数码--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<span class="bold">[公告]</span>备战开学季 全民半价购数码--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<span class="bold">[特惠]</span>备战开学季 全民半价购数码--}}
+                        {{--</li>--}}
                     </ul>
                 </div>
                 <ul class="yui3-g Lifeservice">
@@ -963,4 +966,31 @@
         </ul>
     </div>
 </div>
+{{--<script src="/js/jquery.js"></script>--}}
+{{--<script>--}}
+    {{--$(function(){--}}
+    {{--$(document).on('click','.addnews',function(){--}}
+        {{--var $this=$(this);--}}
+        {{--var data={};--}}
+        {{--data.n_id=$this.parent('li').attr('n_id');--}}
+{{--//            alert(data.n_id);--}}
+        {{--url="/index/news/one";--}}
+        {{--$.ajax({--}}
+            {{--url:url,--}}
+            {{--data:data,--}}
+            {{--type:"post",--}}
+            {{--dataType:'json',--}}
+                {{--success:function(res){--}}
+{{--//                    console.log(res);--}}
+                    {{--if(res.message=='success'){--}}
+                        {{--location.href="/admin/news/index";--}}
+                    {{--}else{--}}
+                        {{--alert(res.result.message);--}}
+                    {{--}--}}
+                {{--}--}}
+        {{--})--}}
+    {{--})--}}
+    {{--})--}}
+    {{--$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });--}}
+{{--</script>--}}
 @endsection

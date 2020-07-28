@@ -188,4 +188,8 @@ Route::prefix("index")->group(function() {
         Route::any("login", "index\LoginController@login");//登录
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
     });
+    Route::prefix("news")->group(function() {//注册
+        Route::any("one/{id}", "index\NewsController@one");//登录
+        Route::any("index", "index\NewsController@index");//登录执行
+    });
 });
