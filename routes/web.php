@@ -198,4 +198,8 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
         Route::any("ajaxCode", "index\LoginController@ajaxCodes");//登录执行a
     });
+    Route::prefix("news")->group(function() {//注册
+        Route::any("one/{id}", "index\NewsController@one");//登录
+        Route::any("index", "index\NewsController@index");//登录执行
+    });
 });
