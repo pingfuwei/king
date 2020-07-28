@@ -6,6 +6,9 @@
         <div class="yui3-g SortList ">{{--伸缩特效--}}
             <div class="yui3-u Left all-sort-list">
                 <div class="all-sort-list2">
+<<<<<<< HEAD
+                    @foreach ($ret as $value)
+=======
                     <div class="item bo">
                         <h3><a href="">图书、音像、数字商品</a></h3>
                         <div class="item-list clearfix">
@@ -111,6 +114,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="item">
                         <h3><a href="">电脑、办公</a></h3>
                         <div class="item-list clearfix">
@@ -295,101 +299,28 @@
                             </div>
                         </div>
                     </div>
+>>>>>>> 95f13ed3f54774f4d85847c1cf0d1eb4357d8ad2
                     <div class="item">
-                        <h3><a href="">运动健康</a></h3>
+                        <h3><a href="">
+                                {{$value['cate_name']}}
+                        </a></h3>
                         <div class="item-list clearfix">
                             <div class="subitem">
+                                @foreach ($value['son'] as $v)
                                 <dl class="fore1">
-                                    <dt><a href="">电子书7</a></dt>
-                                    <dd><em><a href="">免费</a></em><em><a href="">小说</a></em><em><a href="">励志与成功</a></em><em><a href="">婚恋/两性</a></em><em><a href="">文学</a></em><em><a href="">经管</a></em><em><a href="">畅读VIP</a></em></dd>
-                                </dl>
-                                <dl class="fore2">
-                                    <dt><a href="">数字音乐</a></dt>
-                                    <dd><em><a href="">通俗流行</a></em><em><a href="">古典音乐</a></em><em><a href="">摇滚说唱</a></em><em><a href="">爵士蓝调</a></em><em><a href="">乡村民谣</a></em><em><a href="">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="">音像</a></dt>
-                                    <dd><em><a href="">音乐</a></em><em><a href="">影视</a></em><em><a href="">教育音像</a></em><em><a href="">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="">小说</a></em><em><a href="">文学</a></em><em><a href="">青春文学</a></em><em><a href="">传记</a></em><em><a href="">艺术</a></em></dd>
-                                </dl>
-                            </div>
-                            <div class="cat-right">
-                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
-                                    <dt>推荐品牌出版商</dt>
+                                    <dt><a href="">{{$v['cate_name']}}</a></dt>
                                     <dd>
-                                        <ul>
-                                            <li>
-                                                <a href="">中华书局</a>
-                                            </li>
-                                            <li>
-                                                <a href="">人民邮电出版社</a>
-                                            </li>
-                                        </ul>
+                                        @foreach ($v['son'] as $j)
+                                        <em><a href="">{{$j['cate_name']}}</a></em>
+                                        @endforeach
                                     </dd>
                                 </dl>
+                                @endforeach
+                       
                             </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <h3><a href="">汽车用品</a></h3>
-                        <div class="item-list clearfix">
-                            <div class="subitem">
-                                <dl class="fore1">
-                                    <dt><a href="">电子书8</a></dt>
-                                    <dd><em><a href="">免费</a></em><em><a href="">小说</a></em><em><a href="">励志与成功</a></em><em><a href="">婚恋/两性</a></em><em><a href="">文学</a></em><em><a href="">经管</a></em><em><a href="">畅读VIP</a></em></dd>
-                                </dl>
-                                <dl class="fore2">
-                                    <dt><a href="">数字音乐</a></dt>
-                                    <dd><em><a href="">通俗流行</a></em><em><a href="">古典音乐</a></em><em><a href="">摇滚说唱</a></em><em><a href="">爵士蓝调</a></em><em><a href="">乡村民谣</a></em><em><a href="">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="">音像</a></dt>
-                                    <dd><em><a href="">音乐</a></em><em><a href="">影视</a></em><em><a href="">教育音像</a></em><em><a href="">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="">小说</a></em><em><a href="">文学</a></em><em><a href="">青春文学</a></em><em><a href="">传记</a></em><em><a href="">艺术</a></em></dd>
-                                </dl>
-                                <dl class="fore5">
-                                    <dt>人文社科</dt>
-                                    <dd><em><a href="">历史</a></em><em><a href="">心理学</a></em><em><a href="">政治/军事</a></em><em><a href="">国学/古籍</a></em><em><a href="">哲学/宗教</a></em><em><a href="">社会科学</a></em></dd>
-                                </dl>
-                                <dl class="fore6">
-                                    <dt>经管励志</dt>
-                                    <dd><em><a href="">经济</a></em><em><a href="">金融与投资</a></em><em><a href="">管理</a></em><em><a href="">励志与成功</a></em></dd>
-                                </dl>
-                                <dl class="fore7">
-                                    <dt>生活</dt>
-                                    <dd><em><a href="">家庭与育儿</a></em><em><a href="">旅游/地图</a></em><em><a href="">烹饪/美食</a></em><em><a href="">时尚/美妆</a></em><em><a href="">家居</a></em><em><a href="">婚恋与两性</a></em><em><a href="">娱乐/休闲</a></em><em><a href="">健身与保健</a></em><em><a href="">动漫/幽默</a></em><em><a href="">体育/运动</a></em></dd>
-                                </dl>
-                                <dl class="fore8">
-                                    <dt>科技</dt>
-                                    <dd><em><a href="">科普</a></em><em><a href="">IT</a></em><em><a href="">建筑</a></em><em><a href="">医学</a></em><em><a href="">工业技术</a></em><em><a href="">电子/通信</a></em><em><a href="">农林</a></em><em><a href="">科学与自然</a></em></dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <h3><a href="">彩票、旅行</a></h3>
-                    </div>
-                    <div class="item">
-                        <h3><a href="">理财、众筹</a></h3>
-                    </div>
-                    <div class="item">
-                        <h3><a href="">母婴、玩具</a></h3>
-                    </div>
-                    <div class="item">
-                        <h3><a href="">箱包</a></h3>
-                    </div>
-                    <div class="item">
-                        <h3><a href="">运动户外</a></h3>
-                    </div>
-                    <div class="item">
-                        <h3><a href="">箱包</a></h3>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="yui3-u Center banerArea">
@@ -408,8 +339,8 @@
                         </div>
                         <div class="item">
                             <a href="http://baidu2.wypxj.com/">
-                                <img src="/index/img/banner2.jpg"  />
-                            </a>
+                                <img src="/index/img/banner2.jpg"  />vt
+                            </a>sresources/views/index/index.blade.php:414
                         </div>
                         <div class="item">
                             <a href="http://baidu2.wypxj.com/">
@@ -425,21 +356,23 @@
                     <h4><em class="fl">品优购快报</em><span class="fr tip">更多 ></span></h4>
                     <div class="clearix"></div>
                     <ul class="news-list unstyled">
-                        <li>
-                            <span class="bold">[特惠]</span>备战开学季 全民半价购数码
+                        @foreach($res as $k=>$v)
+                        <li n_id="{{$v->n_id}}">
+                            <a href="{{url('/index/news/one/'.$v->n_id)}}" class="addnews"><span class="bold">[{{$v->notice}}]</span>{{mb_substr($v->title,0,15)}}</a>
                         </li>
-                        <li>
-                            <span class="bold">[公告]</span>备战开学季 全民半价购数码
-                        </li>
-                        <li>
-                            <span class="bold">[特惠]</span>备战开学季 全民半价购数码
-                        </li>
-                        <li>
-                            <span class="bold">[公告]</span>备战开学季 全民半价购数码
-                        </li>
-                        <li>
-                            <span class="bold">[特惠]</span>备战开学季 全民半价购数码
-                        </li>
+                        @endforeach
+                        {{--<li>--}}
+                            {{--<span class="bold">[公告]</span>备战开学季 全民半价购数码--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<span class="bold">[特惠]</span>备战开学季 全民半价购数码--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<span class="bold">[公告]</span>备战开学季 全民半价购数码--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<span class="bold">[特惠]</span>备战开学季 全民半价购数码--}}
+                        {{--</li>--}}
                     </ul>
                 </div>
                 <ul class="yui3-g Lifeservice">
@@ -963,4 +896,31 @@
         </ul>
     </div>
 </div>
+{{--<script src="/js/jquery.js"></script>--}}
+{{--<script>--}}
+    {{--$(function(){--}}
+    {{--$(document).on('click','.addnews',function(){--}}
+        {{--var $this=$(this);--}}
+        {{--var data={};--}}
+        {{--data.n_id=$this.parent('li').attr('n_id');--}}
+{{--//            alert(data.n_id);--}}
+        {{--url="/index/news/one";--}}
+        {{--$.ajax({--}}
+            {{--url:url,--}}
+            {{--data:data,--}}
+            {{--type:"post",--}}
+            {{--dataType:'json',--}}
+                {{--success:function(res){--}}
+{{--//                    console.log(res);--}}
+                    {{--if(res.message=='success'){--}}
+                        {{--location.href="/admin/news/index";--}}
+                    {{--}else{--}}
+                        {{--alert(res.result.message);--}}
+                    {{--}--}}
+                {{--}--}}
+        {{--})--}}
+    {{--})--}}
+    {{--})--}}
+    {{--$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });--}}
+{{--</script>--}}
 @endsection
