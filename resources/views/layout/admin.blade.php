@@ -511,11 +511,6 @@
                                         <i class="fa fa-circle-o"></i> 商品管理
                                     </a>
                                 </li>
-                                <li id="admin-login">
-                                    <a href="{{url('admin/goods/upd')}}" >
-                                        <i class="fa fa-circle-o"></i> 商品修改
-                                    </a>
-                                </li>
                             </ul>
                             </li>
                         <li>

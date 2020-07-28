@@ -39,8 +39,7 @@
             //文件上传
             $file = request()->file($img);
             //将图片保存到文件里
-            // $store_result = $file->store("/uploads");
-            $store_result = file_put_contents("/uploads",$file);
+             $store_result = $file->store("/uploads");
             //将最后的文件信息返回
             return $store_result;
         }

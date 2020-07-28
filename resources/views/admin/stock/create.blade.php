@@ -44,7 +44,7 @@
                 <!--表单内容-->
                 <div class="tab-pane active" id="home" >
                     <div class="row data-type" >
-                        <div class="col-md-2 title" >商品分类</div>
+                        <div class="col-md-2 title" >商品</div>
 
                         <div class="col-md-10  data" >
                             <table>
@@ -61,16 +61,6 @@
                             </table>
 
                         </div  >
-
-                        <div class="col-md-2  title" >库存</div>
-                        <div class="col-md-10 data">
-                            <input type="text" class="form-control" id="stock"  placeholder="库存">
-                        </div>
-
-                        <div class="col-md-2 title">价格</div>
-                        <div class="col-md-10 data">
-                            <input type="text" class="form-control" id="price"  placeholder="价格">
-                        </div>
                         @foreach ($data as $k=>$v)
                         <div id="aa" >
                             <div class="col-md-2 title" >{{$v->attr_name}}</div>
@@ -89,9 +79,33 @@
 
                         </div>{{--尾部--}}
 
-                <button type="button" class="btn btn-success" id="send" style="float: right">选择库存</button>
             </div>
             <div class="btn-toolbar list-toolbar" >
+                <button class="btn btn-success" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>确定</button>
+
+                <a id="list" data-toggle="modal" class="btn btn-danger">查看列表</a>
+            </div>
+            <div class="modal-content" hidden>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">库存</button>
+                    <h3 id="myModalLabel">库存添加</h3>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped"   width="800px">
+                        <tr id="shop_box">
+                            <td>商品</td>
+                            <td>属性</td>
+                            <td>库存</td>
+                            <td>价格</td>
+                            <td>操作</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="ti" data-dismiss="modal" aria-hidden="true">保存</button>
+                    <button class="btn btn-default" id="yin" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+
                 <button class="btn btn-primary" id="btn" ng-click="setEditorValue();save();"><i class="fa fa-save"></i>添加</button>
                 <a href="/admin/stock/del"><button class="btn btn-default" ng-click="goListPage()">查看列表</button></a>
             </div>
@@ -113,48 +127,101 @@
 <script>
     $(function(){
        $("#btn").click(function(){
-           var stock=$("#stock").val()
-           var price=$("#price").val()
-           var goods_id=$("#goods_id option:selected").val();
-           //alert(goods_id)
-           var aa="";
+           goods_id=$("#goods_id option:selected").val();
+           var str="";
+           var arr=[]
            $("input[name='goods_val_name']:checked").each(function() {
-               aa+=$(this).attr("attr_id")+":"+$(this).val()+","
+               if(arr.length===0){
+                   arr[$(this).attr("attr_id")]=$(this).val()+","
+               }else{
+                   if(arr[$(this).attr("attr_id")]===undefined){
+                       arr[$(this).attr("attr_id")]=$(this).val()+","
+                   }else{
+                       arr[$(this).attr("attr_id")]+=$(this).val()+","
+                   }
+               }
            });
-           aa=aa.substr(0,aa.length-1)
-           var date={stock:stock,price:price,goods_id:goods_id,ability:aa}
+           var date={goods_id:goods_id,ability:arr}
            $.ajax({
                url:"/admin/stock/createDo",
                data:date,
-               success:function (res) {
-                    //console.log(res);false;
+               dataType:"json",
+               success:function (msg) {
+                   alert(123);
+                   //console.log(msg);return
+                  goods_name =msg.msg;
+                   var html ="";
+                   $.each(msg.data,function(k,v){
+                       //console.log(v.ability);
+                    html +="<tr> "+
+                        "<td name='goods' goods_id="+goods_id+">"+goods_name+"</td> " +
+                        "<td name= 'sx' sx_id="+v.id.slice(0,v.id.length-1)+">"+v.ability+"</td> " +
+                        "<td><input type='text' name='num' id='num' value=''></td> " +
+                        "<td><input type='text' name='price' id='price' value=''> </td> "+
+                        "<td><input type='button' class='btn btn-primary but btn-success' value='确认' disabled> </td></tr> "
+                   })
+                   $("#shop_box").after(html);
+                   $(".modal-content").show();
                }
            })
        });
-       $("#goods_id").on("change",function(){
-           var goods_id = $('option:selected').val();
-           var data={};
-           data.goods_id = goods_id;
-           //console.log(goods_id);
-           $.ajax({
-              url:'index',
-              type:'get',
-               dataType:'json',
-               data:data,
-               success:function(msg){
-                   if(msg){
-                       $("input[name='goods_val_name']").prop("checked","");
-                       var array = msg.split(',');
-                       $.each(array,function(k,v){
-                           console.log(v.substr(2));
-                           $("input[name='goods_val_name'][value="+v.substr(2)+"]").prop("checked","checked");
-                       })
-                   }else{
-                       $("input[name='goods_val_name']").prop("checked","");
-                   }
+       $(document).on("click","#yin",function(){
+           $(".modal-content").hide();
+       });
 
-               }
-           });
+       $(document).on("click","#ti",function () {
+
+       })
+        var num=""
+        var price=""
+        var all=""
+        $(document).on("focus","#num",function () {//获取焦点
+            $(".but").attr("disabled","false")
+            $(this).parent().next().next().children().removeAttr("disabled")
+        })
+        $(document).on("focus","#price",function () {//获取焦点
+            $(".but").attr("disabled","false")
+            $(this).parent().next().children().removeAttr("disabled")
+        })
+        $(document).on("blur","#num",function () {
+            num=$(this).val()
+        })
+        $(document).on("blur","#price",function () {
+
+            price=$(this).val()
+        })
+        var str=""
+        $(document).on("click",".but",function () {
+            var ability = $(this).parent().prev().prev().prev().attr('sx_id');
+            alert(num)
+            if(num==="" || price===""){
+                alert("操作有误")
+                return
+            }
+            all=+num+"@"+price+"@"+ability+"|";
+            str+=all
+            console.log(str);return false;
+            num=""
+            price=""
+        })
+        $(document).on("click","#ti",function(){
+            var data={}
+            var goods_id = $("td[name='goods']").attr('goods_id');
+            str =str.slice(0,str.length-1)
+            data.ability=str;
+            data.goods_id = goods_id;
+            $.ajax({
+                url:"upd",
+                type:'get',
+                dataType:'json',
+                data:data,
+                success:function(msg){
+                    console.log(msg);
+                }
+            })
+        });
+       $(document).on("click","#list",function(){
+           location.href="index";
        })
     });
 </script>
