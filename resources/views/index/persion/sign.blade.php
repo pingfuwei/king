@@ -6,8 +6,10 @@
     <title>Document</title>
 </head>
 <body>
+<div style="background-image: url(/img/zzpic14120.jpg); width: 1300px; height: 600px" align="center">
+
 <h2 align="center">签到</h2>
-<h3>今天你的心情怎么样呢？</h3>
+<h2 style="color: #00a65a">今天你的心情怎么样呢？</h2>
 <input type="radio" value="face2.gif" name="face" checked="checked">
 <img border="0" src="/index/images/face2.gif">
 <input type="radio" value="face1.gif" name="face">
@@ -28,8 +30,10 @@
 <img border="0" src="/index/images/face9.gif">
 <input type="radio" value="face10.gif" name="face">
 <img border="0" src="/index/images/face10.gif"><br>
-<button class="btn">签到</button><br>
 
+    <font style="font-size: smaller;color:red" >签到可获得10积分哦！！！</font><br>
+    <button class="btn layui-btn" style="width: 50px; height: 40px; background: cadetblue;">签到</button><br>
+</div>
 </body>
 </html>
 <script src="/js/jquery.min.js"></script>
@@ -45,8 +49,13 @@
                       location.href="{{url('/')}}"
                   }else{
                       alert(res.msg);
+                      location.href="{{url('/')}}"
                   }
               }
         )
     })
 </script>
+
+
+
+

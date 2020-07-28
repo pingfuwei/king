@@ -17,6 +17,7 @@ class SignController extends Controller
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
         $user_id=$user['user_id'];
+
         $data=UserInfo::where('user_id',$user_id)->first();
         if($data){
             $province=Shop_Area::where('id',$data['province'])->value('name');
@@ -25,7 +26,8 @@ class SignController extends Controller
 
             return view('index.persion.pers',['data'=>$data,'province'=>$province,'city'=>$city,'area'=>$area]);
         }else{
-            echo "<script>alert('您还没有个人信息 请添加')</script>";
+            echo "<script>alert('您还没有个人信息 请添加');location.href='/index/persion/addpersion'</script>";
+
         }
 
     }
@@ -33,6 +35,9 @@ class SignController extends Controller
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
         $user_id=$user['user_id'];
+        if($user_id=''){
+            echo "<script>alert('您还没有登录 请登录');location.href='/index/login/login'</script>";die;
+        }
         $data=UserInfo::where('user_id',$user_id)->first();
         $privince=Shop_Area::where(['pid'=>0])->get();
         return view('index.persion.persion',['privince'=>$privince,'data'=>$data]);
@@ -78,25 +83,71 @@ class SignController extends Controller
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
         $user_id=$user['user_id'];
-        $data=[
-            'img'=>$img,
-            'user_id'=>$user_id,
-            'score'=>10,
-            'time'=>time()
-        ];
-        $res=SignModel::insert($data);
-        if($res){
-            return [
-                'code'=>'000',
-                'msg'=>"签到成功",
-                'data'=>$res
+        $check=SignModel::where('user_id',$user_id)->first();
+        if($check['time']-time()>86400){
+            $data=[
+                'img'=>$img,
+                'user_id'=>$user_id,
+                'score'=>10,
+                'time'=>time()
             ];
+            $res=SignModel::insert($data);
+            if($res){
+                return [
+                    'code'=>'000',
+                    'msg'=>"签到成功",
+                    'data'=>$res
+                ];
+            }else{
+                return [
+                    'code'=>'001',
+                    'msg'=>"签到失败",
+                    'data'=>$res
+                ];
+            }
         }else{
             return [
-                'code'=>'001',
-                'msg'=>"签到失败",
-                'data'=>$res
+                'code'=>'002',
+                'msg'=>"一天只能签到一次哦",
             ];
+        }
+
+    }
+    public function addpersion(){
+        $user_name=session('user_name');
+        $user=User::where('user_name',$user_name)->first();
+        $user_id=$user['user_id'];
+        $data=UserInfo::where('user_id',$user_id)->first();
+        $privince=Shop_Area::where(['pid'=>0])->get();
+        return view('index.persion.addpersion',['privince'=>$privince]);
+    }
+    public function persionDo(Request $request){
+        $all=$request->all();
+//        dd($all);
+        $name=$all['user_name'];
+        $sex=$all['sex'];
+        $province=$all['province'];
+        $city=$all['city'];
+        $area=$all['area'];
+        $tel=$all['tel'];
+        $user_name=session('user_name');
+        $user=User::where('user_name',$user_name)->first();
+        $user_id=$user['user_id'];
+        if($user_id==''){
+            echo "<script>alert('您还没有登录，请登录');location.href='/index/login/login'</script>";
+        }
+        $data=[
+            'user_id'=>$user_id,
+            'user_name'=>$name,
+            'sex'=>$sex,
+            'province'=>$province,
+            'city'=>$city,
+            'area'=>$area,
+            'tel'=>$tel,
+        ];
+        $res=UserInfo::insert($data);
+        if($res){
+            return redirect('index/persion/personal');
         }
     }
 }
