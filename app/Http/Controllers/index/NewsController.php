@@ -34,7 +34,12 @@ class NewsController extends Controller
         if($res){
             $goodsmodel=new Goods();
             $goods=$goodsmodel::where('goods_id',$res['goods_id'])->first();
-            return view('index.newsone',['res'=>$res,'goods'=>$goods]);
+            $wheret=[
+                ['notice','=',$res['notice']],
+                ['n_id','!=',$n_id]
+            ];
+            $news_info=$newsmodel::where($wheret)->limit(2)->get();
+            return view('index.newsone',['res'=>$res,'goods'=>$goods,'news_info'=>$news_info]);
         }else{
             $message = [
                 'code' => '000001',
