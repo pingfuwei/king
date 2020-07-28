@@ -191,7 +191,7 @@
 
                    </div>
                   <div class="btn-toolbar list-toolbar">
-				      <button type="button" id="but" class="btn btn-primary" ng-click="setEditorValue();save()"><i class="fa fa-save"></i>修改</button>
+				      <button type="submit" id="but" class="btn btn-primary" ng-click="setEditorValue();save()"><i class="fa fa-save"></i>修改</button>
 				  </div>
                   </form>
 
@@ -231,7 +231,7 @@
                         new_name:goods_name,id:goods_id
                     },
                     success: function(res) {
-                        console.log(res);
+                        // console.log(res);
                         if (res == 'no') {
                             // alert(1)
                             $("#but").attr("disabled","");
@@ -313,7 +313,7 @@
         $(document).on("click",".btn",function(){
             //验证阻止商品名称
             var goods_name = $("#goods_name").val();
-            var id = $("#goods_name").attr("goods_id");
+            var goods_id = $("#goods_name").attr("goods_id");
             if(goods_name==""){
                 $("#but").attr("disabled","");
                 $("#span_name").text("商品名称不能为空");
@@ -327,7 +327,7 @@
                         new_name:goods_name,id:goods_id
                     },
                     success: function(res) {
-                        console.log(res);
+                        // console.log(res);
                         if (res == 'no') {
                             $("#but").attr("disabled","");
                             $("#span_name").text("商品名称已存在");
