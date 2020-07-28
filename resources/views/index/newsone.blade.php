@@ -39,29 +39,31 @@
         <link href="//static.360buyimg.com/mtd/pc_new/jd_bulletin_pc/1.0.0/bulletin/detail.css" rel="stylesheet">
 
     </head>
-    <body>
+    <body style="overflow-x: hidden">
 
     <!--shortcut start-->
     <div id="o-header-2013"><div id="header-2013" style="display:none;"></div></div>
     <!--shortcut end-->
-    <div style="width:1517px;padding-left: 160px;background-color:#dddddd;">
-        <div style="width:800px;padding-bottom: 30px;">
-            <div style="padding-top:40px;padding-bottom: 20px;height: 50px;;background-color:#dddddd;">
-                <a href="/index/news/index">king快报</a>  &nbsp; &nbsp; &nbsp; <b style="font-size:12px;"> >&nbsp;&nbsp;{{$res->title}} </b>
+    <div style="width:100%; background-color:#dddddd;">
+        <div style="width: 1200px; margin: 0 auto; padding-bottom: 30px;">
+            <div style="padding-top:20px;padding-bottom: 15px;height: 50px;  background-color:#dddddd;">
+                <a href="/index/news/index" style="color: #999">king快报</a> &nbsp; <b style="font-size:12px; color: #303030;"> >&nbsp;&nbsp;{{$res->title}} </b>
             </div>
-            <div style="padding-top:5px;padding-left: 80px;background-color:white;">
+            <div style="width: 1200px; padding-top:5px;margin:0 auto; background-color:white; height:100%">
+                <div style="padding-left: 90px; padding-right: 90px; height: 500px;">
                 <h4>&nbsp; </h4>
                 <h4>&nbsp; </h4>
                 <h4>&nbsp; </h4>
                 <h2>{{$res->title}}</h2>
                 <h2>&nbsp; </h2>
-                <span style="font-size:20px;text-indent:2em;font-weight: normal;">&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;{{$res->desc}}</span>
+                <span style="font-size:16px; text-indent:2em; font-weight: normal;color: #999">&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;{{$res->desc}}</span>
                 <h2>&nbsp; </h2>
-                <ul class="yui3-g Recommend"style="background-color:white;">
+                <ul class="yui3-g Recommend" style="background-color:white;">
                     <li class="yui3-u-5-24">
-                        <a href="javascript:;" target="_blank"><img src="/{{$goods->goods_img}}" width="200px" height="100px"/></a>
+                        <a href="javascript:;" target="_blank"><img src={{env("UPLOADS_URL")}}{{$goods->goods_img}} width="200px"/></a>
                     </li>
                 </ul>
+                </div>
             </div>
         </div>
         <div>
