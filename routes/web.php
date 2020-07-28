@@ -196,6 +196,7 @@ Route::prefix("admin")->group(function (){//后台
 
 
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
+
 Route::prefix("index")->group(function() {
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册

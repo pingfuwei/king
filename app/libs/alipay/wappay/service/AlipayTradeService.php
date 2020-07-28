@@ -19,7 +19,8 @@ class AlipayTradeService {
     public $alipay_public_key;
 
     //商户私钥
-    public $private_key;
+//    public $private_key;
+    public $merchant_private_key;
 
     //应用id
     public $appid;
@@ -218,7 +219,7 @@ class AlipayTradeService {
     function check($arr){
         $aop = new \App\libs\alipay\aop\AopClient();
         $aop->alipayrsaPublicKey = $this->alipay_public_key;
-        $result = $aop->rsaCheckV1($arr, $this->alipay_public_key, $this->signtype);
+        $result = $aop->rsaCheckV2($arr, $this->alipay_public_key, $this->signtype);
         return $result;
     }
 
