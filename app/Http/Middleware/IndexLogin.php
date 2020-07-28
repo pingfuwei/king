@@ -15,18 +15,17 @@ class IndexLogin
      */
     public function handle($request, Closure $next)
     {
+        $url=$request->url();
         $user=$request->cookie("user");
         $user_pwd=$request->cookie("user_pwd");
-
-        if (!$user) {
-            return redirect("index/login/login");
-        } else {
-            return $next($request);
-        }
         \session(["user_name"=>$user,"user_pwd"=>$user_pwd]);
-
-
-
-
+        if($url==="http://www.king.com/index/persion/personal"){
+            if (!$user) {
+                echo "<script>alert('请登录');location.href='/index/login/login'</script>";die;
+            } else {
+                return $next($request);
+            }
+        }
+        return $next($request);
     }
 }
