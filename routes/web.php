@@ -195,21 +195,16 @@ Route::prefix("admin")->group(function (){//后台
 
 
 
-<<<<<<< HEAD
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
-=======
-Route::any("/", "index\Index@index");//首页
->>>>>>> 1f34c6261cef861001bd833c090ffe858c042966
 Route::prefix("index")->group(function() {
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
         Route::any("regDo", "index\LoginController@regDo");//注册执行
         Route::any("ajaxCode", "index\LoginController@ajaxCode");//验证码ajax
     });
-    Route::prefix("login")->group(function() {//注册
+    Route::prefix("login")->group(function() {//登陆
         Route::any("login", "index\LoginController@login");//登录
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
-<<<<<<< HEAD
         Route::any("ajaxCode", "index\LoginController@ajaxCodes");//忘记密码短信ajax
         Route::any("forgetPas", "index\LoginController@forgetPas");//忘记密码执行
     });
@@ -219,14 +214,10 @@ Route::prefix("index")->group(function() {
         Route::any("notify_url", "index\VipController@notify_url");//支付接口异步
         Route::any("return_url", "index\VipController@return_url");//支付接口同步
 
-=======
     });
-    Route::prefix("cate")->group(function() {//分类
-        Route::any("index", "index\CateController@index");//展示分类
-    });
-    Route::prefix("news")->group(function() {//注册
-        Route::any("one/{id}", "index\NewsController@one");//登录
-        Route::any("index", "index\NewsController@index");//登录执行
+    Route::prefix("news")->group(function() {//品优购
+        Route::any("one/{id}", "index\NewsController@one");//品优购快报详情
+        Route::any("index", "index\NewsController@index");//品优购列表
     });
 
 
@@ -249,6 +240,5 @@ Route::prefix("index")->group(function() {
         Route::any('personal','index\SignController@personal')->middleware("IndexLogin");//展示个人信息
         Route::any('area','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
->>>>>>> cea47e2483b37d0a4b3e56956ec37473d4817da6
     });
 });
