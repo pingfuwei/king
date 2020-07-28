@@ -147,6 +147,15 @@ Route::prefix("admin")->group(function (){//后台
             Route::any('del','admin\StockController@del');//执行商品属性删除
             Route::any('stockAjax','admin\StockController@stockAjax');//执行库存ajax
         });
+    Route::prefix("dis")->group(function (){//优惠卷
+        Route::any('create','admin\DisController@create');//添加优惠卷
+        Route::any('createDo','admin\DisController@createDo');//执行添加
+        Route::any('index','admin\DisController@index');//优惠卷展示
+        Route::any('upd','admin\DisController@upd');//优惠卷修改
+        Route::any('updDo','admin\DisController@updDo');//执行优惠卷修改
+        Route::any('del','admin\DisController@del');//优惠卷删除
+        //Route::any('stockAjax','admin\StockController@stockAjax');//执行库存ajax
+    });
         Route::prefix("userdis")->group(function (){//库存
             Route::any('create','admin\UserdisController@create');//库存添加
             Route::any('createDo','admin\UserdisController@createDo');//库存添加执行
@@ -187,7 +196,7 @@ Route::prefix("admin")->group(function (){//后台
 
 
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
-Route::prefix("index")->middleware("IndexLogin")->group(function() {
+Route::prefix("index")->group(function() {
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
         Route::any("regDo", "index\LoginController@regDo");//注册执行
@@ -196,10 +205,40 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("login")->group(function() {//登陆
         Route::any("login", "index\LoginController@login");//登录
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
-        Route::any("ajaxCode", "index\LoginController@ajaxCodes");//登录执行a
+        Route::any("ajaxCode", "index\LoginController@ajaxCodes");//忘记密码短信ajax
+        Route::any("forgetPas", "index\LoginController@forgetPas");//忘记密码执行
     });
-    Route::prefix("news")->group(function() {//注册
-        Route::any("one/{id}", "index\NewsController@one");//登录
-        Route::any("index", "index\NewsController@index");//登录执行
+    Route::prefix("vip")->group(function() {//vip
+        Route::any("index", "index\VipController@index");//注册
+        Route::any("payAjax", "index\VipController@payAjax");//支付接口
+        Route::any("notify_url", "index\VipController@notify_url");//支付接口异步
+        Route::any("return_url", "index\VipController@return_url");//支付接口同步
+
+    });
+    Route::prefix("news")->group(function() {//品优购
+        Route::any("one/{id}", "index\NewsController@one");//品优购快报详情
+        Route::any("index", "index\NewsController@index");//品优购列表
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Route::prefix("persion")->group(function() {//个人中心
+        Route::any('sign','index\SignController@sign')->middleware("IndexLogin");//签到
+        Route::any('Dosign','index\SignController@Dosign');//签到
+        Route::any('pers','index\SignController@pers')->middleware("IndexLogin");//填写个人信息
+        Route::any('personal','index\SignController@personal')->middleware("IndexLogin");//展示个人信息
+        Route::any('area','index\SignController@area');//三级联动
+        Route::any('info','index\SignController@info');//添加用户信息
     });
 });

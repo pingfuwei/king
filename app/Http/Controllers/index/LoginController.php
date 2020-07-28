@@ -36,7 +36,7 @@ class LoginController extends Controller
         if($tt->code!==$data["code"]){
             return GetJson::getJson("111","验证码有误 ");
         }
-        if((time()-$tt->time)>60*50){
+        if((time()-$tt->time)>60*5){
             return GetJson::getJson("111","验证码有效五分钟");
         }
         $wheres=["user_tel"=>$data["user_tel"],"user_status"=>0];
@@ -262,6 +262,28 @@ class LoginController extends Controller
     }
     //忘记密码执行
     public function forgetPas(){
-
+        $data=\request()->all();
+        $data["user_pwd"]=md5($data["user_pwds"]);
+        $data["code"]=intval($data["codes"]);
+        $data["user_time"]=time();
+        $data["user_status"]=1;
+        $tt=User_code::where("user_tel",$data["user_tel"])->first();
+        if(!$tt){
+            echo GetJson::getJson("111","此手机号没有用户");die;
+        }
+        if($tt->code!==$data["code"]){
+            return GetJson::getJson("111","验证码有误 ");
+        }
+        if((time()-$tt->time)>60*10){
+            return GetJson::getJson("111","验证码有效五分钟");
+        }
+        $wheres=["user_tel"=>$data["user_tel"],"user_status"=>1];
+        $users=User::where($wheres)->first();
+        if($users){
+            $res=User::where("user_tel",$data["user_tel"])->update(["user_pwd"=>$data["user_pwd"]]);
+            if($res!==false){
+                return GetJson::getJson("000","修改成功");
+            }
+        }
     }
 }

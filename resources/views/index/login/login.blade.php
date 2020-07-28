@@ -92,7 +92,7 @@
                                 <input type="button" value="发送验证码" id="getcode" class="btn btn-success" style="width: 80px;height: 35px;">
                             </div>
                             <div class="input-prepend"><span class="add-on loginpwd"></span>
-                                <input id="prependedInput" type="password"  placeholder="验证码" class="span2 input-xfat codes">
+                                <input id="prependedInput" type="text"  placeholder="验证码" class="span2 input-xfat codes">
                             </div>
                             <div class="input-prepend"><span class="add-on loginpwd"></span>
                                 <input id="prependedInput" type="password"  placeholder="请输入密码" class="span2 input-xfat user_pwds">
@@ -199,15 +199,44 @@
                 }
             })
             $(document).on("click","#sendPas",function () {
-                alert(12)
+                var pattern = /^1[34578]\d{9}$/;
                 var user_tel=$(".user_tel").val()
                 var codes=$(".codes").val()
                 var user_pwds=$(".user_pwds").val()
                 var user_pwdss=$(".user_pwdss").val()
                 var date={user_tel:user_tel,codes:codes,user_pwds:user_pwds}
                 if(user_tel===""){
-                    alert("")
+                    alert("手机号不能为空")
+                    return
+                }else if(!pattern.test(user_tel)){
+                    alert("手机号格式不对")
+                    return
                 }
+                if(codes===""){
+                    alert("验证码不能为空")
+                    return
+                }
+                if(user_pwds===""){
+                    alert("密码不能为空")
+                    return
+                }
+                if(user_pwdss===""){
+                    alert("确认密码不能为空")
+                    return
+                }
+                if(user_pwds!==user_pwdss){
+                    alert("两次密码不一致")
+                    return
+                }
+                $.ajax({
+                    url:"/index/login/forgetPas",
+                    data:date,
+                    dataType:"json",
+                    success:function (res) {
+                        alert(res.font)
+                    }
+                })
+
             })
 
 
