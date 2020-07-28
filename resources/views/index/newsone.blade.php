@@ -36,8 +36,6 @@
         <script type="text/javascript">pageConfig.wideVersion = true; </script>
         <script type="text/javascript" src="//static.360buyimg.com/mtd/pc/cms/js/o2_ua.min.js"></script>
 
-        <link href="//static.360buyimg.com/mtd/pc_new/jd_bulletin_pc/1.0.0/bulletin/detail.css" rel="stylesheet">
-
     </head>
     <body style="overflow-x: hidden">
 
@@ -62,9 +60,18 @@
                 <h2>&nbsp; </h2>
                 <span style="font-size:16px; text-indent:2em; font-weight: normal;color: #999">&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;{{$res->desc}}</span>
                 <h2>&nbsp; </h2>
-                <ul class="yui3-g Recommend" style="width: 750px; margin-left: -90px; background-color:white; margin-top: -15px;">
+                <ul class="yui3-g Recommend" style="width: 750px; margin-left: -90px; background-color:white; margin-top: 0px;">
                     <li class="yui3-u-5-24" style="margin-left: 90px;">
                         <a href="javascript:;" target="_blank"><img src={{env("UPLOADS_URL")}}{{$goods->goods_img}} width="200px"/></a>
+                    </li>
+                    <li class="yui3-u-5-24" style="margin-left: 30px; width: 300px; margin-top: 25px;">
+                        <a href="javascript:;" target="_blank" style="font-size: 12px;">{{$goods->goods_name}}</a>
+                        <br>
+                        <br>
+                        <b><a href="javascript:;" target="_blank" style="color: red;">￥：{{$goods->goods_price}}</a></b>
+                        <br>
+                        <h5>&nbsp;</h5>
+                        <button type="button" class="btn btn-danger">立即购买</button>
                     </li>
                 </ul>
                 </div>

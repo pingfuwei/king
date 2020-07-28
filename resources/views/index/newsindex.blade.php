@@ -67,6 +67,15 @@
                             <li class="yui3-u-5-24" style="margin-left: 90px;">
                                 <a href="javascript:;" target="_blank"><img src={{env("UPLOADS_URL")}}{{$v->goods_img}} width="200px"/></a>
                             </li>
+                            <li class="yui3-u-5-24" style="margin-left: 30px; width: 300px; margin-top: 25px;">
+                                <a href="javascript:;" target="_blank" style="font-size: 12px;">{{$v->goods_name}}</a>
+                                <br>
+                                <br>
+                                <b><a href="javascript:;" target="_blank" style="color: red;">￥：{{$v->goods_price}}</a></b>
+                                <br>
+                                <h5>&nbsp;</h5>
+                                <button type="button" class="btn btn-danger">立即购买</button>
+                            </li>
                         </ul>
                     </div>
                     @endforeach
