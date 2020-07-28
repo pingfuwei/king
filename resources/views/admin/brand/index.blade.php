@@ -62,7 +62,7 @@
 			                          <tr>
 										  <th class="sorting_asc">品牌ID</th>
 									      <th class="sorting">品牌名称</th>
-									      <th class="sorting">添加时间</th>								     						
+									      <th class="sorting">添加时间</th>
 					                      <th class="text-center">操作</th>
 			                          </tr>
 			                      </thead>

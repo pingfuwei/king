@@ -186,16 +186,18 @@ Route::prefix("admin")->group(function (){//后台
 
 
 
-Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
-Route::prefix("index")->middleware("IndexLogin")->group(function() {
+Route::any("/", "index\Index@index");//首页
+Route::prefix("index")->group(function() {
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
         Route::any("regDo", "index\LoginController@regDo");//注册执行
         Route::any("ajaxCode", "index\LoginController@ajaxCode");//验证码ajax
     });
-    Route::prefix("login")->group(function() {//登陆
+    Route::prefix("login")->group(function() {//注册
         Route::any("login", "index\LoginController@login");//登录
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
-        Route::any("ajaxCode", "index\LoginController@ajaxCodes");//登录执行
+    });
+    Route::prefix("cate")->group(function() {//注册
+        Route::any("index", "index\CateController@index");//登录
     });
 });
