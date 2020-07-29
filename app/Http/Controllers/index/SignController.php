@@ -8,6 +8,7 @@ use App\IndexModel\User;
 use App\IndexModel\Shop_Area;
 use App\IndexModel\UserInfo;
 use App\IndexModel\SignModel;
+use App\AdminModel\vipModel;
 class SignController extends Controller
 {
     public function sign(){
@@ -17,14 +18,15 @@ class SignController extends Controller
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
         $user_id=$user['user_id'];
-
+        $vipinfo=vipModel::leftjoin('user_vip','user_vip.vip_id','=','vip.vip_id')->where(['user_id'=>$user_id])->first();
+        //var_dump($vipinfo);exit;
         $data=UserInfo::where('user_id',$user_id)->first();
         if($data){
             $province=Shop_Area::where('id',$data['province'])->value('name');
             $city=Shop_Area::where('id',$data['city'])->value('name');
             $area=Shop_Area::where('id',$data['area'])->value('name');
 
-            return view('index.persion.pers',['data'=>$data,'province'=>$province,'city'=>$city,'area'=>$area]);
+            return view('index.persion.pers',['data'=>$data,'province'=>$province,'city'=>$city,'area'=>$area,'vipinfo'=>$vipinfo]);
         }else{
             echo "<script>alert('您还没有个人信息 请添加');location.href='/index/persion/addpersion'</script>";
 
@@ -35,9 +37,9 @@ class SignController extends Controller
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
         $user_id=$user['user_id'];
-        if($user_id=''){
-            echo "<script>alert('您还没有登录 请登录');location.href='/index/login/login'</script>";die;
-        }
+//        if($user_id=''){
+//            echo "<script>alert('您还没有登录 请登录');location.href='/index/login/login'</script>";die;
+//        }
         $data=UserInfo::where('user_id',$user_id)->first();
         $privince=Shop_Area::where(['pid'=>0])->get();
         return view('index.persion.persion',['privince'=>$privince,'data'=>$data]);
@@ -63,7 +65,9 @@ class SignController extends Controller
         $tel=$all['tel'];
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
+//
         $user_id=$user['user_id'];
+        $datas=UserInfo::where('user_id',$user_id)->first();
         $data=[
             'user_id'=>$user_id,
             'user_name'=>$name,
@@ -80,16 +84,28 @@ class SignController extends Controller
     }
     public function Dosign(){
         $img=request()->get('val');
+        $content=request()->get('content');
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
         $user_id=$user['user_id'];
+        $vipinfo=vipModel::leftjoin('user_vip','user_vip.vip_id','=','vip.vip_id')->where(['user_id'=>$user_id])->first();
+        if($vipinfo){
+            if($vipinfo['vip_name']=='vip'){
+                $score=10;
+            }else if($vipinfo['vip_name']=='svip'){
+                $score=15;
+            }
+        }else{
+            $score=5;
+        }
         $check=SignModel::where('user_id',$user_id)->first();
-        if($check['time']-time()>86400){
+        if(!empty($check)&&$check['time']-time()>86400){
             $data=[
                 'img'=>$img,
                 'user_id'=>$user_id,
-                'score'=>10,
-                'time'=>time()
+                'score'=>$score,
+                'time'=>time(),
+                'content'=>$content
             ];
             $res=SignModel::insert($data);
             if($res){
@@ -106,10 +122,35 @@ class SignController extends Controller
                 ];
             }
         }else{
-            return [
-                'code'=>'002',
-                'msg'=>"一天只能签到一次哦",
-            ];
+            if(empty($check)){
+                $data=[
+                    'img'=>$img,
+                    'user_id'=>$user_id,
+                    'score'=>$score,
+                    'time'=>time(),
+                    'content'=>$content
+                ];
+                $res=SignModel::insert($data);
+                if($res){
+                    return [
+                        'code'=>'000',
+                        'msg'=>"签到成功",
+                        'data'=>$res
+                    ];
+                }else{
+                    return [
+                        'code'=>'001',
+                        'msg'=>"签到失败",
+                        'data'=>$res
+                    ];
+                }
+            }else{
+                return [
+                    'code'=>'002',
+                    'msg'=>"一天只能签到一次哦",
+                ];
+            }
+
         }
 
     }

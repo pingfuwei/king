@@ -1,6 +1,29 @@
 @extends('layout.index')
 @section('content')
 <!--header-->
+<style>
+    .button {
+        display: inline-block;
+        padding: 10px 15px;
+        font-size: 10px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+    }
+    .button:hover {background-color: #3e8e41}
+
+    .button:active {
+        background-color: #3e8e41;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+</style>
 <div id="account">
     <div class="py-container">
         <div class="yui3-g home">
@@ -80,7 +103,7 @@
                                 <div class="control-group">
                                     <label for="sanwei" class="control-label"></label>
                                     <div class="controls">
-                                        <button  class="sui-btn btn-primary btn">提交</button>
+                                        <button  class="sui-btn btn-primary btn button">修改</button>
                                     </div>
                                 </div>
                             </form>
@@ -103,6 +126,7 @@
         </div>
     </div>
 </div>
+<script src="/layui/bootstrap.min.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script>
         $(document).on('change','select',function(){
@@ -117,7 +141,7 @@
                     function(res){
 //                        console.log(res);
                        if(res.code=='00000'){
-                          console.log(1);
+//                          console.log(1);
                            var str='<option>请选择</option>';
                            $.each(res.data,function(i,k){
                                str+='<option value='+ k.id+'>'+ k.name+'</option>';

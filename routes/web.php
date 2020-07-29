@@ -240,7 +240,7 @@ Route::prefix("index")->group(function() {
         Route::any('addpersion','index\SignController@addpersion')->middleware("IndexLogin");//填写个人信息
         Route::any('persionDo','index\SignController@persionDo');//执行添加个人信息
         Route::any('pers','index\SignController@pers')->middleware("IndexLogin");//修改个人信息
-        Route::any('personal','index\SignController@personal')->middleware("IndexLogin");//展示个人信息
+        Route::any('personal','index\SignController@personal');//展示个人信息
         Route::any('area','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
     });
