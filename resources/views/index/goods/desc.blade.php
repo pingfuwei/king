@@ -167,17 +167,14 @@
 							<div class="fl title">
 								<div class="control-group">
 									<div class="">
-										{{--<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" style="width: 30px;height: 30px;"/>--}}
-                                            {{--<button type="button" class="increment plus" style="width: 20px;">+</button>--}}
-                                            {{--<button type="button" class="increment mins" style="width: 20px;float: left;">-</button>--}}
                                         <input type="text" value="1" id="month" style="width: 50px;height: 40px;margin-top: 5px;" disabled>
-                                        <button type="button" class="btn btn-primary" id="add" style="margin-top: -16px;margin-left: -7px;width: 20px;height: 24px;">+</button>
-                                        <button type="button" class="btn btn-warning" id="del" style="float: right;margin-left: -62px;margin-top: -24px;height: 24px;">-</button>
+                                        <button type="button"  id="add" style="margin-top: -19px;margin-left: -7px;width: 20px;height: 23px;background: #f1f1f1;">+</button>
+                                        <button type="button"  id="del" style="float: right;margin-left: -62px;margin-top: 28px;height: 23px;width: 20px;background: #f1f1f1;outline: none;">-</button>
 									</div>
 
 								</div>
 							</div>
-							<div class="fl" >
+							<div class="fl" style="margin-top: 31px;">
 								<ul class="btn-choose unstyled">
 									<li>
 										<a href="cart.html" target="_blank" class="sui-btn  btn-danger addshopcar">加入购物车</a>
