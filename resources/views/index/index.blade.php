@@ -1,6 +1,7 @@
 @extends('layout.index')
 @section('content')
 <!--列表-->
+<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
 <div class="sort">
     <div class="py-container">
         <div class="yui3-g SortList ">{{--伸缩特效--}}

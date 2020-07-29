@@ -1,6 +1,8 @@
+﻿
+
+
 @extends('layout.index')
 @section('content')
-
 	<div class="py-container">
 		<div id="item">
 			<div class="crumb-wrap">
@@ -127,7 +129,7 @@
 								</dt>
 								<dd><a href="javascript:;" class="selected">公开版<span title="点击取消选择">&nbsp;</span>
 </a></dd>
-								<dd><a href="javascript:;">移动版</a></dd>							
+								<dd><a href="javascript:;">移动版</a></dd>
 							</dl>
 							<dl>
 								<dt>
@@ -137,7 +139,7 @@
 								</dt>
 								<dd><a href="javascript:;" class="selected">官方标配<span title="点击取消选择">&nbsp;</span>
 </a></dd>
-								<dd><a href="javascript:;">移动优惠版</a></dd>	
+								<dd><a href="javascript:;">移动优惠版</a></dd>
 								<dd><a href="javascript:;"  class="locked">电信优惠版</a></dd>
 							</dl>
 							<dl>
@@ -148,21 +150,21 @@
 								</dt>
 								<dd><a href="javascript:;" class="selected">保护套装<span title="点击取消选择">&nbsp;</span>
 </a></dd>
-								<dd><a href="javascript:;"  class="locked">充电套装</a></dd>	
-								
+								<dd><a href="javascript:;"  class="locked">充电套装</a></dd>
+
 							</dl>
-							
-							
+
+
 						</div>
-						
-						
-						
-						
-						
-						
-						
-						
-						
+
+
+
+
+
+
+
+
+
 						<div class="summary-wrap">
 							<div class="fl title">
 								<div class="control-group">
@@ -560,5 +562,26 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/index/js/model/cartModel.js"></script>
+	<script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script>
+	<script type="text/javascript" src="/index/js/plugins/jquery.jqzoom/zoom.js"></script>
+	<script type="text/javascript" src="/index/js/plugins/jquery.jqzoom/jquery.jqzoom.js"></script>
+	<script type="text/javascript">
+        $(function(){
+            $("#service").hover(function(){
+                $(".service").show();
+            },function(){
+                $(".service").hide();
+            });
+            $("#shopcar").hover(function(){
+                $("#shopcarlist").show();
+            },function(){
+                $("#shopcarlist").hide();
+            });
+
+        })
+	</script>
 
 @endsection
