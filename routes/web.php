@@ -218,7 +218,7 @@ Route::prefix("index")->group(function() {
     });
     Route::prefix("news")->group(function() {//品优购
         Route::any("one/{id}", "index\NewsController@one");//品优购快报详情
-        Route::any("index", "index\NewsController@index");//品优购列表
+        Route::any("index/{id}", "index\NewsController@index");//品优购列表
     });
 
 
