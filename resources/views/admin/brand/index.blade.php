@@ -19,7 +19,7 @@
 </head>
 <body class="hold-transition skin-red sidebar-mini" >
   <!-- .box-body -->
-                
+
                     <div class="box-header with-border">
                         <h3 class="box-title">商品管理</h3>
                     </div>
@@ -44,14 +44,14 @@
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
                                   状态：<select>
-                                         	<option value="">全部</option>      
-                                         	<option value="0">未申请</option>    
-                                         	<option value="1">申请中</option>    
-                                         	<option value="2">审核通过</option>    
-                                         	<option value="3">已驳回</option>                                     
+                                         	<option value="">全部</option>
+                                         	<option value="0">未申请</option>
+                                         	<option value="1">申请中</option>
+                                         	<option value="2">审核通过</option>
+                                         	<option value="3">已驳回</option>
                                         </select>
-							                  商品名称：<input >									
-									<button class="btn btn-default" >查询</button>                                    
+							                  商品名称：<input >
+									<button class="btn btn-default" >查询</button>
                                 </div>
                             </div>
                             <!--工具栏/-->
@@ -62,6 +62,7 @@
 			                          <tr>
 										  <th class="sorting_asc">品牌ID</th>
 									      <th class="sorting">品牌名称</th>
+									      <th class="sorting">品牌图片</th>
 									      <th class="sorting">添加时间</th>
 					                      <th class="text-center">操作</th>
 			                          </tr>
@@ -71,6 +72,7 @@
 			                          <tr>
 				                          <td>{{$v->brand_id}}</td>
 									      <td>{{$v->brand_name}}</td>
+                                          <td><img src={{env("UPLOADS_URL")}}{{$v->brand_img}} width="35px" alt=""></td>
 									      <td>{{date('Y-m-d h:i:s',$v->time)}}</td>
 		                                  <td class="text-center">
                                               <button type="button"  id="upd" brand_id="{{$v->brand_id}}"class="btn bg-olive btn-xs">修改</button>
@@ -80,16 +82,16 @@
 			                          @endforeach
 			                      </tbody>
 			                  </table>
-			                  <!--数据列表/-->                        
-							  
-							 
+			                  <!--数据列表/-->
+
+
                         </div>
                         <!-- 数据表格 /-->
-                        
-                        
+
+
                      </div>
                     <!-- /.box-body -->
-		
+
 </body>
 </html>
 @endsection

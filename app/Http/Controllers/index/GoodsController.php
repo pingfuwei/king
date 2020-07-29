@@ -35,6 +35,7 @@ class GoodsController extends Controller
             ];
             return json_encode($message,JSON_UNESCAPED_UNICODE);
         }else{
+            // dd($goods_info);
             return view('index.goods.desc',['goods'=>$goods_info]);
         }
     }

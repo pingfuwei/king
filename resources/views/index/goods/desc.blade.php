@@ -24,7 +24,7 @@
 					<div class="zoom">
 						<!--默认第一个预览-->
 						<div id="preview" class="spec-preview">
-							<span class="jqzoom"><img jqimg="/index/img/_/b1.png" src="/index/img/_/s1.png" /></span>
+							<span class="jqzoom"><img jqimg="{{env('UPLOADS_URL')}}{{$goods->goods_img}}" src="{{env('UPLOADS_URL')}}{{$goods->goods_img}}" width="412px" /></span>
 						</div>
 						<!--下方的缩略图-->
 						<div class="spec-scroll">
@@ -32,15 +32,10 @@
 							<!--左右按钮-->
 							<div class="items">
 								<ul>
-									<li><img src="/index/img/_/s1.png" bimg="/index/img/_/b1.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s2.png" bimg="/index/img/_/b2.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s3.png" bimg="/index/img/_/b3.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s1.png" bimg="/index/img/_/b1.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s2.png" bimg="/index/img/_/b2.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s3.png" bimg="/index/img/_/b3.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s1.png" bimg="/index/img/_/b1.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s2.png" bimg="/index/img/_/b2.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s3.png" bimg="/index/img/_/b3.png" onmousemove="preview(this)" /></li>
+                                        @php $goods_imgs = explode("|",$goods["goods_imgs"]); @endphp
+                                        @foreach($goods_imgs as $vv)
+                                        <li><img src="{{env('UPLOADS_URL')}}{{'/'.$vv}}" bimg="{{env('UPLOADS_URL')}}{{'/'.$vv}}" onmousemove="preview(this)" /></li>
+                                        @endforeach
 								</ul>
 							</div>
 							<a class="next">&gt;</a>
@@ -49,7 +44,7 @@
 				</div>
 				<div class="fr itemInfo-wrap">
 					<div class="sku-name">
-						<h4>Apple iPhone 6s（A1700）64G玫瑰金色 移动通信电信4G手机</h4>
+						<h4>{{$goods->goods_name}}</h4>
 					</div>
 					<div class="news"><span>推荐选择下方[移动优惠购],手机套餐齐搞定,不用换号,每月还有花费返</span></div>
 					<div class="summary">
@@ -59,7 +54,7 @@
 							</div>
 							<div class="fl price">
 								<i>¥</i>
-								<em>5299.00</em>
+								<em>{{$goods->goods_price}}</em>
 								<span>降价通知</span>
 							</div>
 							<div class="fr remark">
@@ -127,7 +122,7 @@
 								</dt>
 								<dd><a href="javascript:;" class="selected">公开版<span title="点击取消选择">&nbsp;</span>
 </a></dd>
-								<dd><a href="javascript:;">移动版</a></dd>							
+								<dd><a href="javascript:;">移动版</a></dd>
 							</dl>
 							<dl>
 								<dt>
@@ -137,7 +132,7 @@
 								</dt>
 								<dd><a href="javascript:;" class="selected">官方标配<span title="点击取消选择">&nbsp;</span>
 </a></dd>
-								<dd><a href="javascript:;">移动优惠版</a></dd>	
+								<dd><a href="javascript:;">移动优惠版</a></dd>
 								<dd><a href="javascript:;"  class="locked">电信优惠版</a></dd>
 							</dl>
 							<dl>
@@ -148,21 +143,21 @@
 								</dt>
 								<dd><a href="javascript:;" class="selected">保护套装<span title="点击取消选择">&nbsp;</span>
 </a></dd>
-								<dd><a href="javascript:;"  class="locked">充电套装</a></dd>	
-								
+								<dd><a href="javascript:;"  class="locked">充电套装</a></dd>
+
 							</dl>
-							
-							
+
+
 						</div>
-						
-						
-						
-						
-						
-						
-						
-						
-						
+
+
+
+
+
+
+
+
+
 						<div class="summary-wrap">
 							<div class="fl title">
 								<div class="control-group">
