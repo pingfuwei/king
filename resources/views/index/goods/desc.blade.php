@@ -1,6 +1,8 @@
+﻿
+
+
 @extends('layout.index')
 @section('content')
-
 	<div class="py-container">
 		<div id="item">
 			<div class="crumb-wrap">
@@ -555,5 +557,26 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/index/js/model/cartModel.js"></script>
+	<script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script>
+	<script type="text/javascript" src="/index/js/plugins/jquery.jqzoom/zoom.js"></script>
+	<script type="text/javascript" src="/index/js/plugins/jquery.jqzoom/jquery.jqzoom.js"></script>
+	<script type="text/javascript">
+        $(function(){
+            $("#service").hover(function(){
+                $(".service").show();
+            },function(){
+                $(".service").hide();
+            });
+            $("#shopcar").hover(function(){
+                $("#shopcarlist").show();
+            },function(){
+                $("#shopcarlist").hide();
+            });
+
+        })
+	</script>
 
 @endsection
