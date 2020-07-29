@@ -62,16 +62,16 @@
                 <h2>&nbsp; </h2>
                 <ul class="yui3-g Recommend" style="width: 750px; margin-left: -90px; background-color:white; margin-top: 0px;">
                     <li class="yui3-u-5-24" style="margin-left: 90px;">
-                        <a href="javascript:;" target="_blank"><img src={{env("UPLOADS_URL")}}{{$goods->goods_img}} width="200px"/></a>
+                        <a href="/index/goods/desc/?goods_id={{$goods->goods_id}}" target="_blank"><img src={{env("UPLOADS_URL")}}{{$goods->goods_img}} width="200px"/></a>
                     </li>
                     <li class="yui3-u-5-24" style="margin-left: 30px; width: 300px; margin-top: 25px;">
-                        <a href="javascript:;" target="_blank" style="font-size: 12px;">{{$goods->goods_name}}</a>
+                        <a href="/index/goods/desc/?goods_id={{$goods->goods_id}}" target="_blank" style="font-size: 12px;">{{$goods->goods_name}}</a>
                         <br>
                         <br>
-                        <b><a href="javascript:;" target="_blank" style="color: red;">￥：{{$goods->goods_price}}</a></b>
+                        <b><a href="/index/goods/desc/?goods_id={{$goods->goods_id}}" target="_blank" style="color: red;">￥：{{$goods->goods_price}}</a></b>
                         <br>
                         <h5>&nbsp;</h5>
-                        <button type="button" class="btn btn-danger">立即购买</button>
+                        <a href="/index/goods/desc/?goods_id={{$goods->goods_id}}"><button type="button" class="btn btn-danger">立即购买</button></a>
                     </li>
                 </ul>
                 </div>

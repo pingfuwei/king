@@ -7,6 +7,8 @@
     <title>品优购，优质！优质！</title>
     <link rel="icon" href="assets//index/img/favicon.ico">
 
+    <link rel="stylesheet" type="text/css" href="/index/css/pages-item.css" />
+    <link rel="stylesheet" type="text/css" href="/index/css/pages-zoom.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-JD-index.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/widget-jquery.autocomplete.css" />

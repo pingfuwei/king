@@ -220,7 +220,9 @@ Route::prefix("index")->group(function() {
         Route::any("one/{id}", "index\NewsController@one");//品优购快报详情
         Route::any("index/{id}", "index\NewsController@index");//品优购列表
     });
-
+    Route::prefix("goods")->group(function() {//商品
+        Route::any("desc", "index\GoodsController@desc");//单个商品详情
+    });
 
 
 
