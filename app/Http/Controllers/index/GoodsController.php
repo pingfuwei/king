@@ -46,6 +46,15 @@ class GoodsController extends Controller
             $arr=[];
             $arr1=[];
             $goods_stock=$stock_model::where($where)->get()->toArray();
+            $stock="";
+            foreach($goods_stock as $k=>$v){
+//                $stock=$v['stock'];
+                if($stock!==""){
+                    $stock=$stock+$v['stock'];
+                }else{
+                    $stock = $v['stock'];
+                }
+            }
             foreach($goods_stock as $k=>$v){
                 $ass=explode(':', $v['ability']);
 //                print_r($ass);
@@ -102,7 +111,7 @@ class GoodsController extends Controller
 //            print_r($goods_attr);
 //            print_r($goods_val);
 //            die;
-            return view('index.goods.desc',['goods'=>$goods_info,'goods_attr'=>$goods_attr,'goods_val'=>$goods_val]);
+            return view('index.goods.desc',['goods'=>$goods_info,'goods_attr'=>$goods_attr,'goods_val'=>$goods_val,'stock'=>$stock]);
         }
     }
     function cut_str($str,$sign,$number){
