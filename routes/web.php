@@ -251,7 +251,6 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('area','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
     });
-<<<<<<< HEAD
     Route::prefix("address")->group(function() {//地址
         Route::any('add','index\AddressController@add');//地址添加
         Route::any('addDo','index\AddressController@addDo');//执行地址添加
@@ -266,7 +265,6 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
 
     });
 
-=======
 
 
 
@@ -282,5 +280,4 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('top','index\CateController@top');//导航栏
         Route::any('list','index\CateController@list');//列表
     });
->>>>>>> a4429f44ce485ee0ceb8cb5d8dd6e8c30628a040
 });
