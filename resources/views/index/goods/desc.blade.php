@@ -623,6 +623,7 @@
                 $("#month").val(parseInt(buy_number));
             }
         })
+        
     </script>
 
 @endsection
