@@ -41,21 +41,34 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="active item">
-                            <a href="http://baidu2.wypxj.com/">
+                            <a href="/index/score/list">
                                 <img src="/index/img/banner1.jpg"  />
                             </a>
+<<<<<<< HEAD
+                        </div>
+                        {{--<div class="item">--}}
+                            {{--<a href="http://baidu2.wypxj.com/">--}}
+                                {{--<img src="/index/img/banner2.jpg"  />vt--}}
+                            {{--</a>sresources/views/index/index.blade.php:414--}}
+                        {{--</div>--}}
+                        {{--<div class="item">--}}
+                            {{--<a href="http://baidu2.wypxj.com/">--}}
+                                {{--<img src="/index/img/banner3.jpg"  />--}}
+                            {{--</a>--}}
+=======
                         </div>j
                         <div class="item">
                             <a href="http://baidu2.wypxj.com/">
-                                <img src="/index/img/banner2.jpg"  />vt
+                                <img src="/index/img/banner2.jpg"  />
                             </a>sresources/views/index/index.blade.php:414
                         </div>
                         <div class="item">
                             <a href="http://baidu2.wypxj.com/">
                                 <img src="/index/img/banner3.jpg"  />
                             </a>
+>>>>>>> 3522ef79d4ba629956b6359ed6b48e1c43ed8e3c
 
-                        </div>
+                        {{--</div>--}}
                     </div><a href="#myCarousel" data-slide="prev" class="carousel-control left">‹</a><a href="#myCarousel" data-slide="next" class="carousel-control right">›</a>
                 </div>
             </div>

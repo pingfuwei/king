@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+﻿@extends('layout.index')
+=======
 @extends('layout.index')
+>>>>>>> 3522ef79d4ba629956b6359ed6b48e1c43ed8e3c
 @section('content')
 	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
 	<div class="py-container">
@@ -582,6 +586,9 @@
         })
 
 	</script>
+<<<<<<< HEAD
+@endsection
+=======
     <script>
         //属性样式
         $(document).on("click",".attr_var",function(){
@@ -670,3 +677,4 @@
     </script>
 
 @endsection
+>>>>>>> 3522ef79d4ba629956b6359ed6b48e1c43ed8e3c

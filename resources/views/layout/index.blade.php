@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
@@ -12,11 +11,13 @@
     <link rel="stylesheet" type="text/css" href="/index/css/pages-JD-index.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/widget-jquery.autocomplete.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/widget-cartPanelView.css" />
+<<<<<<< HEAD
+=======
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-list.css" />
 
+>>>>>>> 3522ef79d4ba629956b6359ed6b48e1c43ed8e3c
 </head>
-
 <body>
 <!-- 头部栏位 -->
 <!--页面顶部-->
@@ -42,7 +43,6 @@
                         <li class="f-item space"></li>
                         <li class="f-item"><a href="/index/vip/index">品优购会员</a></li>
                         <li class="f-item space"></li>
-                        <li class="f-item">企业采购</li>
                         <li class="f-item space"></li>
                         <li class="f-item">关注品优购</li>
                         <li class="f-item space"></li>
@@ -74,7 +74,7 @@
                             <form action="" class="sui-form form-inline">
                                 <!--searchAutoComplete-->
                                 <div class="input-append">
-                                    <input type="text" id="autocomplete" type="text" class="input-error input-xxlarge" />
+                                    <input type="text" id="autocomplete"  style="height: 20px;" class="input-error input-xxlarge" />
                                     <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
                                 </div>
                             </form>
@@ -124,10 +124,7 @@
         </div>
     </div>
 </div>
-
-
 @yield('content')
-
 <!-- 底部栏位 -->
 <!--页面底部-->
 <div class="clearfix footer">
