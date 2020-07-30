@@ -38,7 +38,6 @@ class GoodsController extends Controller
             ];
             return json_encode($message,JSON_UNESCAPED_UNICODE);
         }else{
-<<<<<<< HEAD
             $stock_model=new goods_stock();
             $where=[
                 ['goods_id','=',$goods_info['goods_id']],
@@ -123,10 +122,8 @@ class GoodsController extends Controller
             }else{
                 return $array[$number];
             }
-=======
             // dd($goods_info);
             return view('index.goods.desc',['goods'=>$goods_info]);
->>>>>>> e0342b2c7d7475ac9fa1c75bad472e8d37ba8e7d
         }
     }
 }
