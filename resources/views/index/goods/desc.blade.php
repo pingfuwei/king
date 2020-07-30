@@ -1,4 +1,4 @@
-﻿
+
 
 
 @extends('layout.index')
@@ -164,7 +164,7 @@
 							<div class="fl title">
 								<div class="control-group">
 									<div class="">
-                                        <input type="text" value="1" id="month" style="width: 50px;height: 40px;margin-top: 5px;" disabled>
+                                        <input type="text" value="1" id="month" goods_num="{{$goods->goods_num}}" style="width: 50px;height: 40px;margin-top: 5px;" >
                                         <button type="button"  id="add" style="margin-top: -19px;margin-left: -7px;width: 20px;height: 23px;background: #f1f1f1;">+</button>
                                         <button type="button"  id="del" style="float: right;margin-left: -62px;margin-top: 28px;height: 23px;width: 20px;background: #f1f1f1;outline: none;">-</button>
 									</div>
@@ -578,5 +578,51 @@
 
         })
 	</script>
+    <script>
+        //加号
+        $(document).on("click","#add",function(){
+            // alert(123);
+            var buy_number = parseInt($("#month").val());
+            var goods_num = parseInt($("#month").attr("goods_num"));
+            // alert(buy_number);
+            if (buy_number >= goods_num) {
+                $("#month").val(goods_num);
+            } else {
+                buy_number += 1;
+                $("#month").val(buy_number);
+            }
+
+        })
+        //减号
+        $(document).on("click", "#del", function() {
+            // alert(123);
+            var buy_number = parseInt($("#month").val());
+            var goods_num = parseInt($("#month").attr("goods_num"));
+            if (buy_number <= 1) {
+                $("#month").val("1");
+            } else {
+                buy_number -= 1;
+                $("#month").val(buy_number);
+
+            }
+        })
+        //失去焦点
+        $(document).on("blur", "#month", function() {
+
+        var buy_number = parseInt($("#month").val());
+        var goods_num = parseInt($("#month").attr("goods_num"));
+
+            var ags = /^\d{1,4}$/;
+            if (buy_number == "") {
+                $("#month").val("1");
+            } else if (!ags.test(buy_number)) {
+                $("#month").val("1");
+            } else if (parseInt(buy_number) >= goods_num) {
+                $("#month").val(goods_num);
+            } else {
+                $("#month").val(parseInt(buy_number));
+            }
+        })
+    </script>
 
 @endsection
