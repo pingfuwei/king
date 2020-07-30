@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿@extends('layout.index')
+=======
+@extends('layout.index')
+>>>>>>> 3522ef79d4ba629956b6359ed6b48e1c43ed8e3c
 @section('content')
 	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
 	<div class="py-container">
@@ -24,7 +28,7 @@
 					<div class="zoom">
 						<!--默认第一个预览-->
 						<div id="preview" class="spec-preview">
-							<span class="jqzoom"><img jqimg="/index/img/_/b1.png" src="/index/img/_/s1.png" /></span>
+							<span class="jqzoom"><img jqimg="{{env('UPLOADS_URL')}}{{$goods->goods_img}}" src="{{env('UPLOADS_URL')}}{{$goods->goods_img}}" width="412px" /></span>
 						</div>
 						<!--下方的缩略图-->
 						<div class="spec-scroll">
@@ -32,15 +36,10 @@
 							<!--左右按钮-->
 							<div class="items">
 								<ul>
-									<li><img src="/index/img/_/s1.png" bimg="/index/img/_/b1.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s2.png" bimg="/index/img/_/b2.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s3.png" bimg="/index/img/_/b3.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s1.png" bimg="/index/img/_/b1.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s2.png" bimg="/index/img/_/b2.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s3.png" bimg="/index/img/_/b3.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s1.png" bimg="/index/img/_/b1.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s2.png" bimg="/index/img/_/b2.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s3.png" bimg="/index/img/_/b3.png" onmousemove="preview(this)" /></li>
+                                        @php $goods_imgs = explode("|",$goods["goods_imgs"]); @endphp
+                                        @foreach($goods_imgs as $vv)
+                                        <li><img src="{{env('UPLOADS_URL')}}{{'/'.$vv}}" bimg="{{env('UPLOADS_URL')}}{{'/'.$vv}}" onmousemove="preview(this)" /></li>
+                                        @endforeach
 								</ul>
 							</div>
 							<a class="next">&gt;</a>
@@ -49,7 +48,7 @@
 				</div>
 				<div class="fr itemInfo-wrap">
 					<div class="sku-name">
-						<h4>Apple iPhone 6s（A1700）64G玫瑰金色 移动通信电信4G手机</h4>
+						<h4>{{$goods->goods_name}}</h4>
 					</div>
 					<div class="news"><span>推荐选择下方[移动优惠购],手机套餐齐搞定,不用换号,每月还有花费返</span></div>
 					<div class="summary">
@@ -59,7 +58,7 @@
 							</div>
 							<div class="fl price">
 								<i>¥</i>
-								<em>5299.00</em>
+								<em>{{$goods->goods_price}}</em>
 								<span>降价通知</span>
 							</div>
 							<div class="fr remark">
@@ -97,60 +96,78 @@
 					</div>
 					<div class="clearfix choose">
 						<div id="specification" class="summary-wrap clearfix">
+							@foreach($goods_attr as $k=>$v)
 							<dl>
 								<dt>
 									<div class="fl title">
-									<i>选择颜色</i>
+									<i>{{$v->attr_name}}</i>
 								</div>
 								</dt>
-								<dd><a href="javascript:;" class="selected">金色<span title="点击取消选择">&nbsp;</span>
-</a></dd>
-								<dd><a href="javascript:;">银色</a></dd>
-								<dd><a href="javascript:;">黑色</a></dd>
+								{{--<dd><a href="javascript:;" class="selected">金色<span title="点击取消选择">&nbsp;</span></a></dd>--}}
+								{{--<dd><a href="javascript:;">银色</a></dd>--}}
+								@foreach($goods_val as $kk=>$vv)
+									@if($v['attr_id']==$vv['attr_id'])
+										<dd><a href="javascript:;" goods_id="{{$goods->goods_id}}" attr_id="{{$v->attr_id}}" goods_val_id="{{$vv['goods_val_id']}}" class="attr_var">
+                                        {{$vv['goods_val_name']}}
+                                        </a></dd>
+									@endif
+								@endforeach
 							</dl>
+							@endforeach
 							<dl>
 								<dt>
 									<div class="fl title">
-									<i>内存容量</i>
+									<i>库存</i>
 								</div>
+                                <span class="fl title">{{$stock}}</span>
 								</dt>
-								<dd><a href="javascript:;" class="selected">16G<span title="点击取消选择">&nbsp;</span>
-</a></dd>
-								<dd><a href="javascript:;">64G</a></dd>
-								<dd><a href="javascript:;" class="locked">128G</a></dd>
+								{{--<dd><a href="javascript:;" class="selected">16G<span title="点击取消选择">&nbsp;</span>--}}
+{{--</a></dd>--}}
+								{{--<dd><a href="javascript:;">64G</a></dd>--}}
 							</dl>
-							<dl>
-								<dt>
-									<div class="fl title">
-									<i>选择版本</i>
-								</div>
-								</dt>
-								<dd><a href="javascript:;" class="selected">公开版<span title="点击取消选择">&nbsp;</span>
-</a></dd>
-								<dd><a href="javascript:;">移动版</a></dd>
-							</dl>
-							<dl>
-								<dt>
-									<div class="fl title">
-									<i>购买方式</i>
-								</div>
-								</dt>
-								<dd><a href="javascript:;" class="selected">官方标配<span title="点击取消选择">&nbsp;</span>
-</a></dd>
-								<dd><a href="javascript:;">移动优惠版</a></dd>
-								<dd><a href="javascript:;"  class="locked">电信优惠版</a></dd>
-							</dl>
-							<dl>
-								<dt>
-									<div class="fl title">
-									<i>套　　装</i>
-								</div>
-								</dt>
-								<dd><a href="javascript:;" class="selected">保护套装<span title="点击取消选择">&nbsp;</span>
-</a></dd>
-								<dd><a href="javascript:;"  class="locked">充电套装</a></dd>
 
+
+							<dl>
+								<dt>
+									<div class="fl title">
+									<i>确认收货后返还积分</i>
+								</div>
+                                <span class="fl title">{{$goods->goods_score}}</span>
+								</dt>
 							</dl>
+
+							{{--<dl>--}}
+								{{--<dt>--}}
+									{{--<div class="fl title">--}}
+									{{--<i>选择版本</i>--}}
+								{{--</div>--}}
+								{{--</dt>--}}
+								{{--<dd><a href="javascript:;" class="selected">公开版<span title="点击取消选择">&nbsp;</span>--}}
+{{--</a></dd>--}}
+								{{--<dd><a href="javascript:;">移动版</a></dd>--}}
+							{{--</dl>--}}
+							{{--<dl>--}}
+								{{--<dt>--}}
+									{{--<div class="fl title">--}}
+									{{--<i>购买方式</i>--}}
+								{{--</div>--}}
+								{{--</dt>--}}
+								{{--<dd><a href="javascript:;" class="selected">官方标配<span title="点击取消选择">&nbsp;</span>--}}
+{{--</a></dd>--}}
+								{{--<dd><a href="javascript:;">移动优惠版</a></dd>--}}
+								{{--<dd><a href="javascript:;"  class="locked">电信优惠版</a></dd>--}}
+							{{--</dl>--}}
+							{{--<dl>--}}
+								{{--<dt>--}}
+									{{--<div class="fl title">--}}
+									{{--<i>套　　装</i>--}}
+								{{--</div>--}}
+								{{--</dt>--}}
+								{{--<dd><a href="javascript:;" class="selected">保护套装<span title="点击取消选择">&nbsp;</span>--}}
+{{--</a></dd>--}}
+								{{--<dd><a href="javascript:;"  class="locked">充电套装</a></dd>--}}
+
+							{{--</dl>--}}
 
 
 						</div>
@@ -167,7 +184,7 @@
 							<div class="fl title">
 								<div class="control-group">
 									<div class="">
-                                        <input type="text" value="1" id="month" style="width: 50px;height: 40px;margin-top: 5px;" disabled>
+                                        <input type="text" value="1" id="month" goods_num="{{$stock}}" style="width: 50px;height: 40px;margin-top: 5px;" >
                                         <button type="button"  id="add" style="margin-top: -19px;margin-left: -7px;width: 20px;height: 23px;background: #f1f1f1;">+</button>
                                         <button type="button"  id="del" style="float: right;margin-left: -62px;margin-top: 28px;height: 23px;width: 20px;background: #f1f1f1;outline: none;">-</button>
 									</div>
@@ -398,25 +415,13 @@
 						<div class="tab-content tab-wraped">
 							<div id="one" class="tab-pane active">
 								<ul class="goods-intro unstyled">
-									<li>分辨率：1920*1080(FHD)</li>
-									<li>后置摄像头：1200万像素</li>
-									<li>前置摄像头：500万像素</li>
-									<li>核 数：其他</li>
-									<li>频 率：以官网信息为准</li>
-									<li>品牌： Apple</li>
-									<li>商品名称：APPLEiPhone 6s Plus</li>
-									<li>商品编号：1861098</li>
-									<li>商品毛重：0.51kg</li>
-									<li>商品产地：中国大陆</li>
-									<li>热点：指纹识别，Apple Pay，金属机身，拍照神器</li>
-									<li>系统：苹果（IOS）</li>
-									<li>像素：1000-1600万</li>
-									<li>机身内存：64GB</li>
+									<li><b>{!!$goods->goods_desc!!}</b></li>
 								</ul>
-								<div class="intro-detail">
-									<img src="/index/img/_/intro01.png" />
-									<img src="/index/img/_/intro02.png" />
-									<img src="/index/img/_/intro03.png" />
+								<div class="intro-detail" style="text-align: center;">
+                                    @php $goods_imgs = explode("|",$goods["goods_imgs"]); @endphp
+                                    @foreach($goods_imgs as $vv)
+									<img src="{{env('UPLOADS_URL')}}{{'/'.$vv}}" width="600px"/>
+                                    @endforeach
 								</div>
 							</div>
 							<div id="two" class="tab-pane">
@@ -579,5 +584,74 @@
             });
 
         })
+
 	</script>
+<<<<<<< HEAD
 @endsection
+=======
+    <script>
+        //属性样式
+        $(document).on("click",".attr_var",function(){
+            // alert(123);
+            $(this).addClass("selected").append("<span title='点击取消选择'>&nbsp;</span>");
+            var add = $(this).parent().siblings().children().removeClass("selected");
+            // console.log(add);
+            var goods_val_id = $(this).attr("goods_val_id");
+            var attr_id = $(this).attr("attr_id");
+            var goods_id = $(this).attr("goods_id");
+			if(goods_id==""){
+				var goods_id = $(this).attr("goods_id");
+			}
+            console.log(attr_id);
+            console.log(goods_val_id);
+            console.log(goods_id);
+        })
+        //加号
+        $(document).on("click","#add",function(){
+            // alert(123);
+            var buy_number = parseInt($("#month").val());
+            var goods_num = parseInt($("#month").attr("goods_num"));
+            // alert(buy_number);
+            if (buy_number >= goods_num) {
+                $("#month").val(goods_num);
+            } else {
+                buy_number += 1;
+                $("#month").val(buy_number);
+            }
+
+        })
+        //减号
+        $(document).on("click", "#del", function() {
+            // alert(123);
+            var buy_number = parseInt($("#month").val());
+            var goods_num = parseInt($("#month").attr("goods_num"));
+            if (buy_number <= 1) {
+                $("#month").val("1");
+            } else {
+                buy_number -= 1;
+                $("#month").val(buy_number);
+
+            }
+        })
+        //失去焦点
+        $(document).on("blur", "#month", function() {
+
+        var buy_number = parseInt($("#month").val());
+        var goods_num = parseInt($("#month").attr("goods_num"));
+
+            var ags = /^\d{1,}$/;
+            if (buy_number == "") {
+                $("#month").val("1");
+            } else if (!ags.test(buy_number)) {
+                $("#month").val("1");
+            } else if (parseInt(buy_number) >= goods_num) {
+                $("#month").val(goods_num);
+            } else {
+                $("#month").val(parseInt(buy_number));
+            }
+        })
+
+    </script>
+
+@endsection
+>>>>>>> 3522ef79d4ba629956b6359ed6b48e1c43ed8e3c
