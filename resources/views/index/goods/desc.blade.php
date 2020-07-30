@@ -103,7 +103,9 @@
 								{{--<dd><a href="javascript:;">银色</a></dd>--}}
 								@foreach($goods_val as $kk=>$vv)
 									@if($v['attr_id']==$vv['attr_id'])
-										<dd><a class="selected" href="javascript:;">{{$vv['goods_val_name']}}</a></dd>
+										<dd><a href="javascript:;" attr_id="{{$vv['goods_val_id']}}" class="attr_var">
+                                        {{$vv['goods_val_name']}}
+                                        </a></dd>
 									@endif
 								@endforeach
 							</dl>
@@ -398,25 +400,13 @@
 						<div class="tab-content tab-wraped">
 							<div id="one" class="tab-pane active">
 								<ul class="goods-intro unstyled">
-									<li>分辨率：1920*1080(FHD)</li>
-									<li>后置摄像头：1200万像素</li>
-									<li>前置摄像头：500万像素</li>
-									<li>核 数：其他</li>
-									<li>频 率：以官网信息为准</li>
-									<li>品牌： Apple</li>
-									<li>商品名称：APPLEiPhone 6s Plus</li>
-									<li>商品编号：1861098</li>
-									<li>商品毛重：0.51kg</li>
-									<li>商品产地：中国大陆</li>
-									<li>热点：指纹识别，Apple Pay，金属机身，拍照神器</li>
-									<li>系统：苹果（IOS）</li>
-									<li>像素：1000-1600万</li>
-									<li>机身内存：64GB</li>
+									<li><b>{!!$goods->goods_desc!!}</b></li>
 								</ul>
-								<div class="intro-detail">
-									<img src="/index/img/_/intro01.png" />
-									<img src="/index/img/_/intro02.png" />
-									<img src="/index/img/_/intro03.png" />
+								<div class="intro-detail" style="text-align: center;">
+                                    @php $goods_imgs = explode("|",$goods["goods_imgs"]); @endphp
+                                    @foreach($goods_imgs as $vv)
+									<img src="{{env('UPLOADS_URL')}}{{'/'.$vv}}" width="600px"/>
+                                    @endforeach
 								</div>
 							</div>
 							<div id="two" class="tab-pane">
@@ -582,6 +572,15 @@
 
 	</script>
     <script>
+        //属性样式
+        $(document).on("click",".attr_var",function(){
+            // alert(123);
+            $(this).addClass("selected").append("<span title='点击取消选择'>&nbsp;</span>");
+            var add = $(this).parent().siblings().children().removeClass("selected");
+            // console.log(add);
+            var goods_val_id = $(this).attr("attr_id");
+            console.log(goods_val_id);
+        })
         //加号
         $(document).on("click","#add",function(){
             // alert(123);
