@@ -5,8 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <title>品优购，优质！优质！</title>
-    <link rel="icon" href="assets//index/img/favicon.ico">
-
+    <link rel="icon" href="/index/assets/index/img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/index/css/pages-item.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-zoom.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
@@ -427,7 +426,7 @@
     </div>
 </script>
 <!--侧栏面板结束-->
-<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
+{{--<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>--}}
 <script type="text/javascript">
     $(function(){
         $("#service").hover(function(){
