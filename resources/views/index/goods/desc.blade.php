@@ -1,8 +1,6 @@
-﻿
-
-
-@extends('layout.index')
+﻿@extends('layout.index')
 @section('content')
+	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
 	<div class="py-container">
 		<div id="item">
 			<div class="crumb-wrap">
@@ -562,7 +560,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="/index/js/model/cartModel.js"></script>
 	<script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script>
 	<script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script>
@@ -583,5 +580,4 @@
 
         })
 	</script>
-
 @endsection

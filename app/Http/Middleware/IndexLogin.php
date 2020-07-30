@@ -17,6 +17,7 @@ class IndexLogin
     {
         $url=$request->url();
         $user=$request->cookie("user");
+//        echo $user;die;
         $user_pwd=$request->cookie("user_pwd");
         \session(["user_name"=>$user,"user_pwd"=>$user_pwd]);
         if($url==="http://www.king.com/index/persion/personal"){
