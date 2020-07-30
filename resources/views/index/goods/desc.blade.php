@@ -110,7 +110,7 @@
 								{{--<dd><a href="javascript:;">银色</a></dd>--}}
 								@foreach($goods_val as $kk=>$vv)
 									@if($v['attr_id']==$vv['attr_id'])
-										<dd><a href="javascript:;">{{$vv['goods_val_name']}}</a></dd>
+										<dd><a class="selected" href="javascript:;">{{$vv['goods_val_name']}}</a></dd>
 									@endif
 								@endforeach
 							</dl>
@@ -587,6 +587,7 @@
             });
 
         })
+		
 	</script>
 
 @endsection
