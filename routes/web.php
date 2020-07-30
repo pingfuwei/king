@@ -222,6 +222,7 @@ Route::prefix("index")->group(function() {
     });
     Route::prefix("goods")->group(function() {//商品
         Route::any("desc", "index\GoodsController@desc");//单个商品详情
+        Route::any("price", "index\GoodsController@price");//单个属性商品的库存与单价
     });
 
 

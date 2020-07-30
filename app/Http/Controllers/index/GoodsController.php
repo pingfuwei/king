@@ -114,25 +114,76 @@ class GoodsController extends Controller
             return view('index.goods.desc',['goods'=>$goods_info,'goods_attr'=>$goods_attr,'goods_val'=>$goods_val,'stock'=>$stock]);
         }
     }
-    function cut_str($str,$sign,$number){
-        $array=explode($sign, $str);
-        $length=count($array);
-        if($number<0){
-            $new_array=array_reverse($array);
-            $abs_number=abs($number);
-            if($abs_number>$length){
-                return 'error';
-            }else{
-                return $new_array[$abs_number-1];
-            }
-        }else{
-            if($number>=$length){
-                return 'error';
-            }else{
-                return $array[$number];
-            }
-            // dd($goods_info);
-            return view('index.goods.desc',['goods'=>$goods_info]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    /*
+     * 获取该商品的该属性单价与库存
+     */
+    public function price(Request $request){
+//        接受全部数据
+        $data=$request->all();
+//        通过商品id查询该商品的全部属性
+        $where=[
+            ['goods_id','=',$data['goods_id']]
+        ];
+        $goods_stock_model=new goods_stock();
+//        这个商品的所有属性
+        $goods_stock=$goods_stock_model::where()->get();
+        foreach($goods_stock as $k=>$v){
+
         }
     }
 }

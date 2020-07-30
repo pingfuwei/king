@@ -592,6 +592,9 @@
             var goods_val_id = $(this).attr("goods_val_id");
             var attr_id = $(this).attr("attr_id");
             var goods_id = $(this).attr("goods_id");
+			if(goods_id==""){
+				var goods_id = $(this).attr("goods_id");
+			}
             console.log(attr_id);
             console.log(goods_val_id);
             console.log(goods_id);
