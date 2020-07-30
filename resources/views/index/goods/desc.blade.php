@@ -110,17 +110,17 @@
 								@endforeach
 							</dl>
 							@endforeach
-							{{--<dl>--}}
-								{{--<dt>--}}
-									{{--<div class="fl title">--}}
-									{{--<i>内存容量</i>--}}
-								{{--</div>--}}
-								{{--</dt>--}}
+							<dl>
+								<dt>
+									<div class="fl title">
+									<i>库存</i>
+								</div>
+								</dt>
 								{{--<dd><a href="javascript:;" class="selected">16G<span title="点击取消选择">&nbsp;</span>--}}
 {{--</a></dd>--}}
 								{{--<dd><a href="javascript:;">64G</a></dd>--}}
-								{{--<dd><a href="javascript:;" class="locked">128G</a></dd>--}}
-							{{--</dl>--}}
+								<span >{{$stock}}</span>
+							</dl>
 							{{--<dl>--}}
 								{{--<dt>--}}
 									{{--<div class="fl title">--}}
