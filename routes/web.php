@@ -244,4 +244,18 @@ Route::prefix("index")->group(function() {
         Route::any('area','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
     });
+    Route::prefix("address")->group(function() {//地址
+        Route::any('add','index\AddressController@add');//地址添加
+        Route::any('addDo','index\AddressController@addDo');//执行地址添加
+        Route::any('list','index\AddressController@list');//地址列表
+        Route::any('is_no/{address_id}','index\AddressController@is_no');//设为默认
+        Route::any('upd/{address_id}','index\AddressController@upd');//地址修改
+        Route::any('updDo','index\AddressController@updDo');//执行地址修改
+        Route::any('del/{address_id}','index\AddressController@del');//地址删除
+    });
+    Route::prefix("discount")->group(function() {//优惠券
+        Route::any('get','index\DiscountController@get');//领取优惠券
+
+    });
+
 });

@@ -9,12 +9,16 @@ use App\IndexModel\Shop_Area;
 use App\IndexModel\UserInfo;
 use App\IndexModel\SignModel;
 use App\AdminModel\vipModel;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
+
 class SignController extends Controller
 {
     public function sign(){
         return view('index.persion.sign');
     }
     public function personal(){
+//        return view('index.persion.list');
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
         $user_id=$user['user_id'];
@@ -26,7 +30,7 @@ class SignController extends Controller
             $city=Shop_Area::where('id',$data['city'])->value('name');
             $area=Shop_Area::where('id',$data['area'])->value('name');
 
-            return view('index.persion.pers',['data'=>$data,'province'=>$province,'city'=>$city,'area'=>$area,'vipinfo'=>$vipinfo]);
+            return view('index.persion.list',['data'=>$data,'province'=>$province,'city'=>$city,'area'=>$area,'vipinfo'=>$vipinfo]);
         }else{
             echo "<script>alert('您还没有个人信息 请添加');location.href='/index/persion/addpersion'</script>";
 
@@ -35,7 +39,9 @@ class SignController extends Controller
     }
     public function pers(){
         $user_name=session('user_name');
+//        echo $user_name;die;
         $user=User::where('user_name',$user_name)->first();
+//dd($user);
         $user_id=$user['user_id'];
 //        if($user_id=''){
 //            echo "<script>alert('您还没有登录 请登录');location.href='/index/login/login'</script>";die;
@@ -65,12 +71,23 @@ class SignController extends Controller
         $tel=$all['tel'];
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
-//
+
         $user_id=$user['user_id'];
+        $userss=User::where('user_id',$user_id)->update(['user_name'=>$name]);
+        if($userss!==false){
+            Cookie::queue("user",$name);
+            Cookie::queue("user_pwd",null);
+            session(["user_name"=>null]);
+            session(["user_name"=>$name]);
+//            echo session("user_name");
+//            echo 1;die;
+
+        }
+//        dd($user_id);die;
         $datas=UserInfo::where('user_id',$user_id)->first();
         $data=[
             'user_id'=>$user_id,
-            'user_name'=>$name,
+//            'user_name'=>$name,
             'sex'=>$sex,
             'province'=>$province,
             'city'=>$city,
@@ -78,7 +95,7 @@ class SignController extends Controller
             'tel'=>$tel,
         ];
         $res=UserInfo::where('user_id',$user_id)->update($data);
-        if($res){
+        if($res!==false){
             return redirect('index/persion/personal');
         }
     }
@@ -131,6 +148,7 @@ class SignController extends Controller
                     'content'=>$content
                 ];
                 $res=SignModel::insert($data);
+                UserInfo::where('user_id',$user_id)->insert(['score'=>$score]);
                 if($res){
                     return [
                         'code'=>'000',

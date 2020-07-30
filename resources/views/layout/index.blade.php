@@ -39,7 +39,6 @@
                         <li class="f-item space"></li>
                         <li class="f-item"><a href="/index/vip/index">品优购会员</a></li>
                         <li class="f-item space"></li>
-                        <li class="f-item">企业采购</li>
                         <li class="f-item space"></li>
                         <li class="f-item">关注品优购</li>
                         <li class="f-item space"></li>

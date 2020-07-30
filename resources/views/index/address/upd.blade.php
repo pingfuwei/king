@@ -1,40 +1,17 @@
 @extends('layout.index')
 @section('content')
-<!--header-->
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-    <title>设置-个人信息</title>
-    <link rel="icon" href="/index/img/favicon.ico">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <title>设置-个人信息</title>
+        <link rel="icon" href="/index/img/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
-    <link rel="stylesheet" type="text/css" href="/index/css/pages-seckillOrder.css" />
-</head>
-<style>
-    .button {
-        display: inline-block;
-        padding: 10px 15px;
-        font-size: 10px;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        outline: none;
-        color: #fff;
-        background-color: #4CAF50;
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 9px #999;
-    }
-    .button:hover {background-color: #3e8e41}
-
-    .button:active {
-        background-color: #3e8e41;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-    }
-</style>
+        <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
+        <link rel="stylesheet" type="text/css" href="/index/css/pages-seckillOrder.css" />
+    </head>
+        <!--header-->
 <div id="account">
     <div class="py-container">
         <div class="yui3-g home">
@@ -69,7 +46,7 @@
                     </dl>
                     <dl>
                         <dt><i>·</i> 设置</dt>
-                        <dd><a href="{{url('index/persion/personal')}}" class="list-active">个人信息</a></dd>
+                        <dd><a href="{{url('index/persion/personal')}}" >个人信息</a></dd>
                         <dd><a href="{{url('index/address/list')}}"  >地址管理</a></dd>
                         <dd><a href="home-setting-safe.html" >安全管理</a></dd>
                     </dl>
@@ -83,29 +60,11 @@
                     </ul>
                     <div class="tab-content ">
                         <div id="one" class=" active">
-                            <form  class="sui-form form-horizontal" action="{{url('index/persion/info')}}">
+                            <form  class="sui-form form-horizontal" action="{{url('index/address/updDo')}}" method="post">
                                 <div class="control-group">
-                                    <label for="inputName" class="control-label">昵称：</label>
+                                    <label for="inputName" class="control-label">姓名：</label>
                                     <div class="controls">
-                                        <input type="text" id="inputName" class="user_name" name="user_name" value="{{session("user_name")}}" placeholder="昵称">
-                                    <font color="red">！注意：修改用户名下次就要重新登录</font>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label for="inputGender" class="control-label">性别：</label>
-                                    <div class="controls">
-                                        <label data-toggle="radio" class="radio-pretty inline {{$data->sex=="1" ? "checked" : ""}}">
-                                            <input type="radio" name="sex" value="1"  {{$data->sex=="1" ? "checked" : ""}}><span>男</span>
-                                        </label>
-                                        <label data-toggle="radio" class="radio-pretty inline {{$data->sex=="2" ? "checked" : ""}}">
-                                            <input type="radio" name="sex" value="2"  {{$data->sex=="2" ? "checked" : ""}}><span>女</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label for="inputName" class="control-label">电话：</label>
-                                    <div class="controls">
-                                        <input type="text" id="inputName" class="tel" name="tel" placeholder="手机号" value="{{$data->tel}}">
+                                        <input type="text" id="inputName" class="tel" name="address_name" value="{{$data->address_name}}" placeholder="姓名">
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -118,20 +77,34 @@
 
                                                     <option>请选择</option>
                                                     @foreach($privince as $k=>$v)
-                                                     <option value="{{$v->id}}" {{$data->province==$v->id ? "selected" : ""}} >{{$v->name}}</option>
+                                                        <option value="{{$v->id}}" {{$data->province==$v->id ? "selected" : ""}} >{{$v->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select class="form-control" id="city" value="" name="city" {{$data->city==$v->id ? "selected" : ""}}><option>请选择</option></select>
-                                                <select class="form-control" id="qu" value="" name="area" {{$data->area==$v->id ? "selected" : ""}}><option>请选择</option></select>
+                                                <select class="form-control" id="city" value="" name="city" ><option>请选择</option></select>
+                                                <select class="form-control" id="qu" value="" name="area" ><option>请选择</option></select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="control-group">
+                                    <label for="inputName" class="control-label">详细地址：</label>
+                                    <div class="controls">
+                                        <textarea name="detail">{{$data->detail}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="inputName" class="control-label">电话：</label>
+                                    <div class="controls">
+                                        <input type="text" id="inputName" class="tel" name="tel" value="{{$data->tel}}" placeholder="手机号">
+                                        <input type="hidden" name="address_id" value="{{$data->address_id}}">
+                                    </div>
+                                </div>
+
 
                                 <div class="control-group">
                                     <label for="sanwei" class="control-label"></label>
                                     <div class="controls">
-                                        <button  class="sui-btn btn-primary btn button">修改</button>
+                                        <button  class="sui-btn btn-primary btn">修改</button>
                                     </div>
                                 </div>
                             </form>
@@ -154,39 +127,38 @@
         </div>
     </div>
 </div>
-<script src="/layui/bootstrap.min.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script>
-        $(document).on('change','select',function(){
+    $(document).on('change','select',function(){
 //            alert(123);
-            var id=$(this).val();
-            var obj=$(this);
+        var id=$(this).val();
+        var obj=$(this);
 //            alert(id);
-            obj.nextAll('select').html("<option value=''>请选择...</option>");
-            $.get(
-                    "{{url('/index/persion/area')}}",
-                    {'id':id},
-                    function(res){
+        obj.nextAll('select').html("<option value=''>请选择...</option>");
+        $.get(
+                "{{url('/index/persion/area')}}",
+                {'id':id},
+                function(res){
 //                        console.log(res);
-                       if(res.code=='00000'){
-//                          console.log(1);
-                           var str='<option>请选择</option>';
-                           $.each(res.data,function(i,k){
-                               str+='<option value='+ k.id+'>'+ k.name+'</option>';
-                           });
-                           obj.next('select').html(str);
-                       }
-                    },
-            'json'
-            )
-        })
+                    if(res.code=='00000'){
+                        console.log(1);
+                        var str='<option>请选择</option>';
+                        $.each(res.data,function(i,k){
+                            str+='<option value='+ k.id+'>'+ k.name+'</option>';
+                        });
+                        obj.next('select').html(str);
+                    }
+                },
+                'json'
+        )
+    })
 
 
 </script>
 {{--<script>--}}
-    {{--$(".btn").click(function(){--}}
-        {{--var name=$(".name").val();--}}
-        {{--console.log(name);--}}
-    {{--})--}}
+{{--$(".btn").click(function(){--}}
+{{--var name=$(".name").val();--}}
+{{--console.log(name);--}}
+{{--})--}}
 {{--</script>--}}
 @endsection

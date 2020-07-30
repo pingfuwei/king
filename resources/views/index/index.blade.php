@@ -46,7 +46,7 @@
                         </div>
                         <div class="item">
                             <a href="http://baidu2.wypxj.com/">
-                                <img src="/index/img/banner2.jpg"  />vt
+                                <img src="/index/img/banner2.jpg"  />
                             </a>sresources/views/index/index.blade.php:414
                         </div>
                         <div class="item">
