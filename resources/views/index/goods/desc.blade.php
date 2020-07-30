@@ -103,7 +103,7 @@
 								{{--<dd><a href="javascript:;">银色</a></dd>--}}
 								@foreach($goods_val as $kk=>$vv)
 									@if($v['attr_id']==$vv['attr_id'])
-										<dd><a href="javascript:;" attr_id="{{$vv['goods_val_id']}}" class="attr_var">
+										<dd><a href="javascript:;" goods_id="{{$goods->goods_id}}" attr_id="{{$v->attr_id}}" goods_val_id="{{$vv['goods_val_id']}}" class="attr_var">
                                         {{$vv['goods_val_name']}}
                                         </a></dd>
 									@endif
@@ -115,12 +115,23 @@
 									<div class="fl title">
 									<i>库存</i>
 								</div>
+                                <span class="fl title">{{$stock}}</span>
 								</dt>
 								{{--<dd><a href="javascript:;" class="selected">16G<span title="点击取消选择">&nbsp;</span>--}}
 {{--</a></dd>--}}
 								{{--<dd><a href="javascript:;">64G</a></dd>--}}
-								<span >{{$stock}}</span>
 							</dl>
+
+
+							<dl>
+								<dt>
+									<div class="fl title">
+									<i>积分</i>
+								</div>
+                                <span class="fl title">{{$goods->goods_score}}</span>
+								</dt>
+							</dl>
+
 							{{--<dl>--}}
 								{{--<dt>--}}
 									{{--<div class="fl title">--}}
@@ -169,7 +180,7 @@
 							<div class="fl title">
 								<div class="control-group">
 									<div class="">
-                                        <input type="text" value="1" id="month" goods_num="{{$goods->goods_num}}" style="width: 50px;height: 40px;margin-top: 5px;" >
+                                        <input type="text" value="1" id="month" goods_num="{{$stock}}" style="width: 50px;height: 40px;margin-top: 5px;" >
                                         <button type="button"  id="add" style="margin-top: -19px;margin-left: -7px;width: 20px;height: 23px;background: #f1f1f1;">+</button>
                                         <button type="button"  id="del" style="float: right;margin-left: -62px;margin-top: 28px;height: 23px;width: 20px;background: #f1f1f1;outline: none;">-</button>
 									</div>
@@ -578,8 +589,12 @@
             $(this).addClass("selected").append("<span title='点击取消选择'>&nbsp;</span>");
             var add = $(this).parent().siblings().children().removeClass("selected");
             // console.log(add);
-            var goods_val_id = $(this).attr("attr_id");
+            var goods_val_id = $(this).attr("goods_val_id");
+            var attr_id = $(this).attr("attr_id");
+            var goods_id = $(this).attr("goods_id");
+            console.log(attr_id);
             console.log(goods_val_id);
+            console.log(goods_id);
         })
         //加号
         $(document).on("click","#add",function(){
@@ -614,7 +629,7 @@
         var buy_number = parseInt($("#month").val());
         var goods_num = parseInt($("#month").attr("goods_num"));
 
-            var ags = /^\d{1,4}$/;
+            var ags = /^\d{1,}$/;
             if (buy_number == "") {
                 $("#month").val("1");
             } else if (!ags.test(buy_number)) {
