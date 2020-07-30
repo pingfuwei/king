@@ -9,17 +9,17 @@
                 <div class="all-sort-list2">
                     @foreach ($ret as $value)
                     <div class="item">
-                        <h3><a href="">
+                        <h3><a href="index/cate/list?cate_id={{$value['cate_id']}}">
                                 {{$value['cate_name']}}
                         </a></h3>
                         <div class="item-list clearfix">
                             <div class="subitem">
                                 @foreach ($value['son'] as $v)
                                 <dl class="fore1">
-                                    <dt><a href="">{{$v['cate_name']}}</a></dt>
+                                    <dt><a href="index/cate/list?cate_id={{$v['cate_id']}}">{{$v['cate_name']}}</a></dt>
                                     <dd>
                                         @foreach ($v['son'] as $j)
-                                        <em><a href="">{{$j['cate_name']}}</a></em>
+                                        <em><a href="index/cate/list?cate_id={{$j['cate_id']}}">{{$j['cate_name']}}</a></em>
                                         @endforeach
                                     </dd>
                                 </dl>
@@ -44,7 +44,7 @@
                             <a href="http://baidu2.wypxj.com/">
                                 <img src="/index/img/banner1.jpg"  />
                             </a>
-                        </div>
+                        </div>j
                         <div class="item">
                             <a href="http://baidu2.wypxj.com/">
                                 <img src="/index/img/banner2.jpg"  />vt
@@ -592,31 +592,23 @@
         </ul>
     </div>
 </div>
-{{--<script src="/js/jquery.js"></script>--}}
-{{--<script>--}}
-    {{--$(function(){--}}
-    {{--$(document).on('click','.addnews',function(){--}}
-        {{--var $this=$(this);--}}
-        {{--var data={};--}}
-        {{--data.n_id=$this.parent('li').attr('n_id');--}}
-{{--//            alert(data.n_id);--}}
-        {{--url="/index/news/one";--}}
-        {{--$.ajax({--}}
-            {{--url:url,--}}
-            {{--data:data,--}}
-            {{--type:"post",--}}
-            {{--dataType:'json',--}}
-                {{--success:function(res){--}}
-{{--//                    console.log(res);--}}
-                    {{--if(res.message=='success'){--}}
-                        {{--location.href="/admin/news/index";--}}
-                    {{--}else{--}}
-                        {{--alert(res.result.message);--}}
-                    {{--}--}}
-                {{--}--}}
-        {{--})--}}
-    {{--})--}}
-    {{--})--}}
-    {{--$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });--}}
-{{--</script>--}}
+<!-- <script>
+var me = new Vue({
+    el:"#a",
+    data:{
+      top:null,
+    },
+    mounted(){
+        var _this=this;
+        var data={};            
+        var url="/index/cate/top"
+          axios.post(url,data).then(function (msg){
+            console.log(msg);return;
+            _this.top=msg.data;
+          });
+    },
+    methods:{
+    }    
+ });  
+</script> -->
 @endsection
