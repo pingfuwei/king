@@ -126,7 +126,7 @@
 							<dl>
 								<dt>
 									<div class="fl title">
-									<i>积分</i>
+									<i>确认收货后返还积分</i>
 								</div>
                                 <span class="fl title">{{$goods->goods_score}}</span>
 								</dt>
