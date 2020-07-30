@@ -196,6 +196,7 @@ Route::prefix("admin")->group(function (){//后台
 
 
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
+
 Route::prefix("index")->group(function() {
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
@@ -217,9 +218,11 @@ Route::prefix("index")->group(function() {
     });
     Route::prefix("news")->group(function() {//品优购
         Route::any("one/{id}", "index\NewsController@one");//品优购快报详情
-        Route::any("index", "index\NewsController@index");//品优购列表
+        Route::any("index/{id}", "index\NewsController@index");//品优购列表
     });
-
+    Route::prefix("goods")->group(function() {//商品
+        Route::any("desc", "index\GoodsController@desc");//单个商品详情
+    });
 
 
 

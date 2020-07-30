@@ -36,36 +36,62 @@
         <script type="text/javascript">pageConfig.wideVersion = true; </script>
         <script type="text/javascript" src="//static.360buyimg.com/mtd/pc/cms/js/o2_ua.min.js"></script>
 
-        <link href="//static.360buyimg.com/mtd/pc_new/jd_bulletin_pc/1.0.0/bulletin/detail.css" rel="stylesheet">
-
     </head>
-    <body>
+    <body style="overflow-x: hidden">
 
     <!--shortcut start-->
     <div id="o-header-2013"><div id="header-2013" style="display:none;"></div></div>
     <!--shortcut end-->
-    <div style="width:1517px;padding-left: 160px;background-color:#dddddd;">
-        <div style="width:800px;padding-bottom: 30px;">
-            <div style="padding-top:40px;padding-bottom: 20px;height: 50px;;background-color:#dddddd;">
-                <a href="/index/news/index">king快报</a>  &nbsp; &nbsp; &nbsp; <b style="font-size:12px;"> >&nbsp;&nbsp;{{$res->title}} </b>
+    <div style="width:100%; background-color:#eee; height: 700px;">
+        <div style="width: 1200px; margin: 0 auto; padding-bottom: 30px;">
+            <div style="padding-top:20px;padding-bottom: 15px;height: 50px;">
+                <a href="{{url('/index/news/index/'.$res->n_id)}}" style="color: #999">king快报</a> &nbsp; <b style="font-size:12px; color: #303030;"> >&nbsp;&nbsp;{{$res->title}} </b>
+                <br>
+                <br>
+                <a href="{{url('/index/news/index/'.$res->n_id)}}" style="color: #999; margin-left: 760px;"><b style="font-size:18px; color: #303030;"> 更多{{$res->notice}} </b></a>
             </div>
-            <div style="padding-top:5px;padding-left: 80px;background-color:white;">
+            <div style="width: 1200px;">
+                <div style="width: 750px; padding-top:5px; background-color:white; height:100%; float: left;">
+                <div style="padding-left: 90px; padding-right: 90px; height: 500px;">
                 <h4>&nbsp; </h4>
                 <h4>&nbsp; </h4>
                 <h4>&nbsp; </h4>
                 <h2>{{$res->title}}</h2>
                 <h2>&nbsp; </h2>
-                <span style="font-size:20px;text-indent:2em;font-weight: normal;">&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;{{$res->desc}}</span>
+                <span style="font-size:16px; text-indent:2em; font-weight: normal;color: #999">&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;{{$res->desc}}</span>
                 <h2>&nbsp; </h2>
-                <ul class="yui3-g Recommend"style="background-color:white;">
-                    <li class="yui3-u-5-24">
-                        <a href="javascript:;" target="_blank"><img src="/{{$goods->goods_img}}" width="200px" height="100px"/></a>
+                <ul class="yui3-g Recommend" style="width: 750px; margin-left: -90px; background-color:white; margin-top: 0px;">
+                    <li class="yui3-u-5-24" style="margin-left: 90px;">
+                        <a href="/index/goods/desc/?goods_id={{$goods->goods_id}}" target="_blank"><img src={{env("UPLOADS_URL")}}{{$goods->goods_img}} width="200px"/></a>
+                    </li>
+                    <li class="yui3-u-5-24" style="margin-left: 30px; width: 300px; margin-top: 25px;">
+                        <a href="/index/goods/desc/?goods_id={{$goods->goods_id}}" target="_blank" style="font-size: 12px;">{{$goods->goods_name}}</a>
+                        <br>
+                        <br>
+                        <b><a href="/index/goods/desc/?goods_id={{$goods->goods_id}}" target="_blank" style="color: red;">￥：{{$goods->goods_price}}</a></b>
+                        <br>
+                        <h5>&nbsp;</h5>
+                        <a href="/index/goods/desc/?goods_id={{$goods->goods_id}}"><button type="button" class="btn btn-danger">立即购买</button></a>
                     </li>
                 </ul>
+                </div>
+                </div>
+                <div style="background-color:white; width: 400px; height: 100%; float: left; margin-left: 10px;">
+                    <div style="margin-left: 30px; margin-right: 32px; margin-top: 20px;">
+                        @foreach($news_info as $kk=>$vv)
+                        <div>
+                        <h4>&nbsp; </h4>
+                        <h4><a href="{{url('/index/news/one/'.$vv->n_id)}}">{{mb_substr($vv->title,0,24)}}</a></h4>
+                        <h6>&nbsp; </h6>
+                        <span style="font-size:12px; font-weight: normal;color: #999"><a href="{{url('/index/news/one/'.$vv->n_id)}}">{{mb_substr($vv->desc,0,84)}}</a></span>
+                        <h6>&nbsp; </h6>
+                        <hr>
+                        </div>
+                            @endforeach
+                    </div>
+                </div>
+                </div>
             </div>
-        </div>
-        <div>
-
         </div>
     </div>
 
