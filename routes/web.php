@@ -220,7 +220,10 @@ Route::prefix("index")->group(function() {
         Route::any("one/{id}", "index\NewsController@one");//品优购快报详情
         Route::any("index/{id}", "index\NewsController@index");//品优购列表
     });
-
+    Route::prefix("goods")->group(function() {//商品
+        Route::any("desc", "index\GoodsController@desc");//单个商品详情
+        Route::any("price", "index\GoodsController@price");//单个属性商品的库存与单价
+    });
 
 
 
@@ -244,6 +247,7 @@ Route::prefix("index")->group(function() {
         Route::any('area','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
     });
+<<<<<<< HEAD
     Route::prefix("address")->group(function() {//地址
         Route::any('add','index\AddressController@add');//地址添加
         Route::any('addDo','index\AddressController@addDo');//执行地址添加
@@ -258,4 +262,21 @@ Route::prefix("index")->group(function() {
 
     });
 
+=======
+
+
+
+
+
+
+
+
+
+
+
+    Route::prefix("cate")->group(function() {//个人中心
+        Route::any('top','index\CateController@top');//导航栏
+        Route::any('list','index\CateController@list');//列表
+    });
+>>>>>>> a4429f44ce485ee0ceb8cb5d8dd6e8c30628a040
 });

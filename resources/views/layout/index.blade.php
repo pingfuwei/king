@@ -1,16 +1,19 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <title>品优购，优质！优质！</title>
-    <link rel="icon" href="assets//index/img/favicon.ico">
-
+    <link rel="icon" href="/index/assets/index/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/index/css/pages-item.css" />
+    <link rel="stylesheet" type="text/css" href="/index/css/pages-zoom.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-JD-index.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/widget-jquery.autocomplete.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/widget-cartPanelView.css" />
+    <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
+    <link rel="stylesheet" type="text/css" href="/index/css/pages-list.css" />
 
 </head>
 
@@ -111,14 +114,7 @@
                     </div>
                     <div class="yui3-u Center navArea">
                         <ul class="nav">
-                            <li class="f-item">服装城</li>
-                            <li class="f-item">美妆馆</li>
-                            <li class="f-item">品优超市</li>
-                            <li class="f-item">全球购</li>
-                            <li class="f-item">闪购</li>
-                            <li class="f-item">团购</li>
-                            <li class="f-item">有趣</li>
-                            <li class="f-item"><a href="seckill-index.html" target="_blank">秒杀</a></li>
+                            <li class="f-item" v-for="v in top"><a :href="'/index/cate/list?cate_id='+v.cate_id" style="color: #000;" >@{{v.cate_name}}</a></li>
                         </ul>
                     </div>
                     <div class="yui3-u Right"></div>
@@ -424,7 +420,6 @@
     </div>
 </script>
 <!--侧栏面板结束-->
-<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript">
     $(function(){
         $("#service").hover(function(){
@@ -440,10 +435,10 @@
 
     })
 </script>
-<script type="text/javascript" src="/index/js/model/cartModel.js"></script>
+<!-- <script type="text/javascript" src="/index/js/model/cartModel.js"></script> -->
 <script type="text/javascript" src="/index/js/czFunction.js"></script>
-<script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script>
-<script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script>
+<!-- <script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script> -->
+<!-- <script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script> -->
 <script type="text/javascript" src="/index/js/pages/index.js"></script>
 <script type="text/javascript" src="/index/js/widget/cartPanelView.js"></script>
 <script type="text/javascript" src="/index/js/widget/jquery.autocomplete.js"></script>
@@ -452,3 +447,25 @@
 
 
 </html>
+<!-- <script src="/js/jquery.js"></script> -->
+<script src="/index/vue/axios.min.js"></script>
+<script src="/index/vue/vue.min.js"></script>
+<script>
+var me = new Vue({
+    el:".nav",
+    data:{
+      top:null,
+    },
+    mounted(){
+        var _this=this;
+        var data={};
+        var url="/index/cate/top"
+          axios.post(url,data).then(function (msg){
+            //console.log(msg);return;
+            _this.top=msg.data;
+          });
+    },
+    methods:{
+    }
+ });
+</script>

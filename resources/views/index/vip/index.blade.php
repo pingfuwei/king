@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>海外充值苹果id帐号_美国_加拿大_澳大利亚_英国apple手游id充值</title>
+    <title>品优购充值</title>
     <meta name="Keywords" content="英国充值苹果,英国苹果充值,英国苹果id充值,英国充值apple id,英国apple id充值,澳洲充值苹果,澳洲苹果充值,澳洲苹果id充值,澳洲充值apple id,澳洲apple id充值,澳大利亚充值苹果,澳大利亚苹果充值,澳大利亚充值苹果账号,澳大利亚苹果账号充值,澳大利亚充值苹果id,澳大利亚苹果id充值,澳大利亚充值apple id,澳大利亚apple id充值,加拿大充值苹果,加拿大苹果充值,加拿大苹果账号充值,加拿大苹果id充值,加拿大充值apple id,加拿大apple id充值,美国充值苹果,美国苹果充值,美国充值苹果账号,美国苹果账号充值,美国充值苹果id,美国苹果id充值,美国充值apple id,美国apple id充值,美国充值苹果手游,美国苹果手游充值,海外充值苹果,海外苹果充值,海外充值苹果账号,海外苹果账号充值,海外充值苹果id,海外苹果id充值,海外充值apple id,海外apple id充值,海外苹果手游充值" />
     <meta name="Description" content="英国充值苹果,英国苹果充值,英国苹果id充值,英国充值apple id,英国apple id充值,澳洲充值苹果,澳洲苹果充值,澳洲苹果id充值,澳洲充值apple id,澳洲apple id充值,澳大利亚充值苹果,澳大利亚苹果充值,澳大利亚充值苹果账号,澳大利亚苹果账号充值,澳大利亚充值苹果id,澳大利亚苹果id充值,澳大利亚充值apple id,澳大利亚apple id充值,加拿大充值苹果,加拿大苹果充值,加拿大苹果账号充值,加拿大苹果id充值,加拿大充值apple id,加拿大apple id充值,美国充值苹果,美国苹果充值,美国充值苹果账号,美国苹果账号充值,美国充值苹果id,美国苹果id充值,美国充值apple id,美国apple id充值,美国充值苹果手游,美国苹果手游充值,海外充值苹果,海外苹果充值,海外充值苹果账号,海外苹果账号充值,海外充值苹果id,海外苹果id充值,海外充值apple id,海外apple id充值,海外苹果手游充值" />
     <link rel="stylesheet" href="https://image.ka-cn.com/landing/css/reset.css?release_css=20200720" />
@@ -333,20 +333,14 @@
                 <input  type="hidden" id="other_id_val" value="">
 
                 <a name="content" href="#content"></a>
-                <p class="landing_title">选择充值地区</p>
+                <p class="landing_title">选择充值方式</p>
                 <div class="landing_tab">
-                    <div class="landing_btn choose-mode  selected js_img_hide" id="show_mode1" onclick="show_moneys(1, $(this));" need_count="1" _desc="登录代充，请备注密码或联系客服">
-                        中国区代充                            </div>
-                    <div class="landing_btn choose-mode  js_img_hide" id="show_mode2" onclick="show_moneys(2, $(this));" need_count="0" _desc="每天兑换金额限额5000元">
-                        中国区卡密                            </div>
+                    <div class="landing_btn choose-mode  selected js_img_hide" id="show_mode1" onclick="show_moneys(1, $(this));" need_count="1" _desc="支付宝支付">
+                        支付宝                          </div>
+                    <div class="landing_btn choose-mode  js_img_hide" id="show_mode2" onclick="show_moneys(2, $(this));" need_count="0" _desc="">
+                        微信                            </div>
                     <div class="landing_btn choose-mode  js_img_hide" id="show_mode3" onclick="show_moneys(3, $(this));" need_count="0" _desc="">
-                        加拿大卡密                            </div>
-                    <div class="landing_btn choose-mode  js_img_hide" id="show_mode4" onclick="show_moneys(4, $(this));" need_count="0" _desc="">
-                        日本区卡密                            </div>
-                    <div class="landing_btn choose-mode  js_img_hide" id="show_mode5" onclick="show_moneys(5, $(this));" need_count="0" _desc="">
-                        香港区卡密                            </div>
-                    <div class="landing_btn choose-mode  js_img_hide" id="show_mode6" onclick="show_moneys(6, $(this));" need_count="0" _desc="">
-                        美国区卡密                            </div>
+                        银行卡                            </div>
                     <p class="clear_both"></p>
 
                     <div class="landing_fixed landing_fixed_desc">
@@ -396,7 +390,7 @@
                     <div class="landing_cz_center">
                         <label class="landing_cz_center_lab">
                             <div class="clear_both" style="float: right;">
-                                <span style="margin-left: 200px; ">请选择时间</span>
+                                <span style="margin-left: 150px;font-size: 8px;">请选择（单位：月）</span>
                                 <input type="text" value="1" id="month" style="width: 50px;height: 40px;margin-top: 5px;" disabled>
                                 <button type="button" class="btn btn-primary" id="add">+</button>
                                 <button type="button" class="btn btn-warning" id="del">-</button>
@@ -754,11 +748,16 @@
         })
         $(document).on("click",".send",function () {
             var vip=$(".pin").children().next().next().html()
+            var month=$("#month").val()
             if(vip===undefined){
                 alert("选择充值商品")
                 return
             }
-            location.href="/index/vip/payAjax?vip_name="+vip
+            if(month===undefined){
+                alert("选择数量")
+                return
+            }
+            location.href="/index/vip/payAjax?vip_name="+vip+"&month="+month
         })
     })
 </script>

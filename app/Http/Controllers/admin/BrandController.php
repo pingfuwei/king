@@ -12,27 +12,19 @@ class BrandController extends Controller
     }
     //执行添加
     public function createDo(){
-    	$brand_name = request()->brand_name;
-    	$time = time();
-    	$data= [];
-    	//执行添加语句
-    	$data= ['brand_name' => $brand_name,'time' => $time];
+        $arr = request()->except("_token");
+        // dd($arr);
+        if(request()->hasFile("brand_img")){
+            $arr["brand_img"] = upload("brand_img");
+        }
+    	$arr["time"] = time();
     	//判断是否添加成功
-    	$res = brand::insert($data);
+    	$res = brand::insert($arr);
     	if($res){
-    		$data = [
-    			'msg'=>true,
-    			'error'=>10000,
-    			'data'=>[]
-    		];
+    		return redirect("/admin/brand/index");
     	}else{
-    		$data = [
-    			'msg'=>true,
-    			'error'=>10001,
-    			'data'=>[]
-    		];
+    		return redirect("/admin/brnad/create");
     	}
-    	return json_encode($data);exit;
 
 
     }
@@ -64,26 +56,18 @@ class BrandController extends Controller
         return view('admin.brand.upd',['data'=>$data]);
     }
     public function updDo(){
-        $brand_name = request() ->brand_name;
-        $brand_id = request() ->brand_id;
-        $data= [];
-        //执行添加语句
-        $data= ['brand_name' => $brand_name];
-        //判断是否修改成功
-        $res = brand::where('brand_id',$brand_id)->update($data);
-        if($res>=0){
-            $data = [
-                'msg'=>true,
-                'essay'=>10000,
-                'data'=>[]
-            ];
-        }else{
-            $data = [
-                'msg'=>true,
-                'essay'=>10001,
-                'data'=>[]
-            ];
+        $arr = request()->except("_token");
+        // dd($arr);
+        if(request()->hasFile("brand_img")){
+            $arr["brand_img"] = upload("brand_img");
         }
-        return json_encode($data);exit;
+        $arr["time"] = time();
+        //判断是否修改成功
+        $res = brand::where('brand_id',$arr["brand_id"])->update($arr);
+        if($res){
+        	return redirect("/admin/brand/index");
+        }else{
+        	return redirect("/admin/brnad/index");
+        }
     }
 }
