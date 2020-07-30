@@ -34,6 +34,9 @@
 <!-- 正文区域 -->
 <section class="content">
 
+        <form action="/admin/brand/createDo" method="post" enctype="multipart/form-data">
+        @csrf
+
     <div class="box-body">
 
         <!--tab页-->
@@ -59,6 +62,15 @@
                             <input type="hidden" name="brand_id" value="{{$data->brand_id}}">
                         </div>
                     </div>
+
+
+                    <div class="row data-type">
+                       <div class="col-md-2 title">品牌图片</div>
+                       <div class="col-md-5 data" style="height:70px;">
+                           <img src={{env("UPLOADS_URL")}}{{$data->brand_img}} width="20px" alt="">
+                           <input type="file" class="form-control" name="brand_img" value="">
+                       </div>
+                    </div>
                 </div>
 
 
@@ -76,6 +88,7 @@
         <button class="btn btn-primary" ng-click="setEditorValue();save()"><i class="fa fa-save"></i>修改</button>
         <button class="btn btn-default" ng-click="goListPage()">返回列表</button>
     </div>
+    </form>
 
 </section>
 <script type="text/javascript">
@@ -91,7 +104,7 @@
 </body>
 
 </html>
-<script>
+<!-- <script>
     $(function(){
         $(document).on("click",".btn-primary",function(){
             var data = {}
@@ -116,5 +129,5 @@
             })
         })
     })
-</script>
+</script> -->
 @endsection

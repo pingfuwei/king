@@ -244,4 +244,19 @@ Route::prefix("index")->group(function() {
         Route::any('area','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
     });
+
+
+
+
+
+
+
+
+
+
+
+    Route::prefix("cate")->group(function() {//个人中心
+        Route::any('top','index\CateController@top');//导航栏
+        Route::any('list','index\CateController@list');//列表
+    });
 });

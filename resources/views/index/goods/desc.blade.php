@@ -1,4 +1,4 @@
-﻿
+
 
 
 @extends('layout.index')
@@ -26,7 +26,7 @@
 					<div class="zoom">
 						<!--默认第一个预览-->
 						<div id="preview" class="spec-preview">
-							<span class="jqzoom"><img jqimg="/index/img/_/b1.png" src="/index/img/_/s1.png" /></span>
+							<span class="jqzoom"><img jqimg="{{env('UPLOADS_URL')}}{{$goods->goods_img}}" src="{{env('UPLOADS_URL')}}{{$goods->goods_img}}" width="412px" /></span>
 						</div>
 						<!--下方的缩略图-->
 						<div class="spec-scroll">
@@ -34,15 +34,10 @@
 							<!--左右按钮-->
 							<div class="items">
 								<ul>
-									<li><img src="/index/img/_/s1.png" bimg="/index/img/_/b1.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s2.png" bimg="/index/img/_/b2.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s3.png" bimg="/index/img/_/b3.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s1.png" bimg="/index/img/_/b1.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s2.png" bimg="/index/img/_/b2.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s3.png" bimg="/index/img/_/b3.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s1.png" bimg="/index/img/_/b1.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s2.png" bimg="/index/img/_/b2.png" onmousemove="preview(this)" /></li>
-									<li><img src="/index/img/_/s3.png" bimg="/index/img/_/b3.png" onmousemove="preview(this)" /></li>
+                                        @php $goods_imgs = explode("|",$goods["goods_imgs"]); @endphp
+                                        @foreach($goods_imgs as $vv)
+                                        <li><img src="{{env('UPLOADS_URL')}}{{'/'.$vv}}" bimg="{{env('UPLOADS_URL')}}{{'/'.$vv}}" onmousemove="preview(this)" /></li>
+                                        @endforeach
 								</ul>
 							</div>
 							<a class="next">&gt;</a>
@@ -51,7 +46,7 @@
 				</div>
 				<div class="fr itemInfo-wrap">
 					<div class="sku-name">
-						<h4>Apple iPhone 6s（A1700）64G玫瑰金色 移动通信电信4G手机</h4>
+						<h4>{{$goods->goods_name}}</h4>
 					</div>
 					<div class="news"><span>推荐选择下方[移动优惠购],手机套餐齐搞定,不用换号,每月还有花费返</span></div>
 					<div class="summary">
@@ -61,7 +56,7 @@
 							</div>
 							<div class="fl price">
 								<i>¥</i>
-								<em>5299.00</em>
+								<em>{{$goods->goods_price}}</em>
 								<span>降价通知</span>
 							</div>
 							<div class="fr remark">
@@ -174,7 +169,7 @@
 							<div class="fl title">
 								<div class="control-group">
 									<div class="">
-                                        <input type="text" value="1" id="month" style="width: 50px;height: 40px;margin-top: 5px;" disabled>
+                                        <input type="text" value="1" id="month" goods_num="{{$goods->goods_num}}" style="width: 50px;height: 40px;margin-top: 5px;" >
                                         <button type="button"  id="add" style="margin-top: -19px;margin-left: -7px;width: 20px;height: 23px;background: #f1f1f1;">+</button>
                                         <button type="button"  id="del" style="float: right;margin-left: -62px;margin-top: 28px;height: 23px;width: 20px;background: #f1f1f1;outline: none;">-</button>
 									</div>
@@ -589,5 +584,51 @@
         })
 		
 	</script>
+    <script>
+        //加号
+        $(document).on("click","#add",function(){
+            // alert(123);
+            var buy_number = parseInt($("#month").val());
+            var goods_num = parseInt($("#month").attr("goods_num"));
+            // alert(buy_number);
+            if (buy_number >= goods_num) {
+                $("#month").val(goods_num);
+            } else {
+                buy_number += 1;
+                $("#month").val(buy_number);
+            }
+
+        })
+        //减号
+        $(document).on("click", "#del", function() {
+            // alert(123);
+            var buy_number = parseInt($("#month").val());
+            var goods_num = parseInt($("#month").attr("goods_num"));
+            if (buy_number <= 1) {
+                $("#month").val("1");
+            } else {
+                buy_number -= 1;
+                $("#month").val(buy_number);
+
+            }
+        })
+        //失去焦点
+        $(document).on("blur", "#month", function() {
+
+        var buy_number = parseInt($("#month").val());
+        var goods_num = parseInt($("#month").attr("goods_num"));
+
+            var ags = /^\d{1,4}$/;
+            if (buy_number == "") {
+                $("#month").val("1");
+            } else if (!ags.test(buy_number)) {
+                $("#month").val("1");
+            } else if (parseInt(buy_number) >= goods_num) {
+                $("#month").val(goods_num);
+            } else {
+                $("#month").val(parseInt(buy_number));
+            }
+        })
+    </script>
 
 @endsection
