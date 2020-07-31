@@ -340,21 +340,20 @@
                         <span class="close-panel J-close" onclick="cartPanelView.tbar_panel_close('history');"></span>
                     </h3>
                     <div class="tbar-panel-main">
-                        <div class="tbar-panel-content J-panel-content">
-                            <div class="jt-history-wrap">
-                                <ul>
-                                    <!--<li class="jth-item">
-                                        <a href="#" class="img-wrap"> <img src=".portal//index/img/like_03.png" height="100" width="100" /> </a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
-                                        <a href="#" target="_blank" class="price">￥498.00</a>
-                                    </li>
-                                    <li class="jth-item">
-                                        <a href="#" class="img-wrap"> <img src="portal//index/img/like_02.png" height="100" width="100" /></a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
-                                        <a href="#" target="_blank" class="price">￥498.00</a>
-                                    </li>-->
-                                </ul>
-                                <a href="#" class="history-bottom-more" target="_blank">查看更多足迹商品 &gt;&gt;</a>
+                        <div class="tbar-panel-content J-panel-content" id="btn">
+                            <div class="jt-history-wrap but">
+                                    <ul>
+                                        @foreach($datas as $k=>$v)
+                                            <li class="jth-item">
+                                                <a href="#" class="img-wrap"> <img src="{{env("UPLOADS_URL")}}{{$v->goods_img}}" height="100" width="100" /> </a>
+                                                <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+                                                <a href="#" target="_blank" class="price">￥{{$v->goods_price}}</a>
+                                                <div height="10" width="100" style="background: plum"><a ><b class="del" his_id="{{$v->his_id}}" style="align-content: center">删除记录</b></a></div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <a href="#" class="history-bottom-more" target="_blank">查看更多足迹商品 &gt;&gt;</a>
+
                             </div>
                         </div>
                     </div>
@@ -463,4 +462,22 @@ var me = new Vue({
     methods:{
     }
  });
+</script>
+<script>
+    $(".del").click(function(){
+        var his_id=$(this).attr('his_id');
+        var _this=$(".but");
+        $.ajax({
+            url:"{{url('history/del')}}",
+            data:{'his_id':his_id},
+            type:'post',
+            dataType:'html',
+            success:function(res){
+
+                    $("#btn").html(res);
+                    return false;
+
+            }
+        })
+    })
 </script>

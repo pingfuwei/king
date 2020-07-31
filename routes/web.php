@@ -196,7 +196,7 @@ Route::prefix("admin")->group(function (){//后台
 
 
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
-
+Route::any("/history/del", "index\Index@del");//浏览历史记录删除
 Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
