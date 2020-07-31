@@ -114,7 +114,7 @@
                                 </div>
                                 </dt>
                                 @foreach($v as $kk=>$vv)
-                                <dd >
+                                <dd style="margin-top: 15px;">
                                     <a href="javascript:;" attr_val="{{$kk}}" class="at">
                                         {{$vv}}
                                         <input type="checkbox" id="che" attrr="{{$k}}" attr_val="{{$kk}}" style="display: none;">
@@ -550,7 +550,8 @@
             })
             $(document).on("click","#btn",function () {
                 var count=$("#count").attr("count")
-//                alert(count)
+                var goods_id="{{$goods["goods_id"]}}"
+                var scroe="{{$goods["goods_price"]*2}}"
                 var price=$("#price").html()
                 var str=""
                 $("#che:checked").each(function() {
@@ -568,11 +569,11 @@
                 }
                 $.ajax({
                     url:"/index/score/descAjax",
-                    data:{score:price,ability:str},
+                    data:{score:price,ability:str,goods_id:goods_id,scroe:scroe},
                     success:function (res) {
                         alert(res)
                         if(res==="添加成功"){
-
+                            location.href='/index/score/settlement'
                         }
                     }
                 })
