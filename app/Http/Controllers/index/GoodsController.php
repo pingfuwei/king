@@ -124,8 +124,15 @@ class GoodsController extends Controller
      */
     public function history($goods_id,$user_name){
         if($user_name){
+
+            $res=$this->saveHistoryDb($goods_id,$user_name);
+            // dd($res);
+        }else{
+            $this->saveHistorycookie($goods_id);
+
             $this->saveHistoryDb($goods_id,$user_name);
 //            dd($res);
+
         }
 //        else{
 //            $this->saveHistorycookie($goods_id);
@@ -229,7 +236,7 @@ class GoodsController extends Controller
 //        接受全部数据
         $data=$request->all();
         // dd($data);
-        $add = $data["attr_idone"].",".$data["goods_val_idone"].":".$data["attr_id"].",".$data["goods_val_id"];
+        $add = implode(":",$data["attr_id"]);
         // print_r($add);exit;
 //        通过商品id查询该商品的全部属性
         $where=[
@@ -249,5 +256,13 @@ class GoodsController extends Controller
                 return $info;
             }
         }
+    }
+
+    //sku属性值查询
+    public function select(Request $request){
+        $goods_val_id = $request->get("goods_val_id");
+        $goods_id = $request->get("goods_id");
+        $attr_id = $request->get("attr_id");
+        // dd($goods_id);
     }
 }

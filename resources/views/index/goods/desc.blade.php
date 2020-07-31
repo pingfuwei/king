@@ -1,8 +1,4 @@
 @extends('layout.index')
-<<<<<<< HEAD
-=======
-
->>>>>>> ece65819222794bf5e707e344783301d8f4056cd
 @section('content')
 	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
 	<div class="py-container">
@@ -25,6 +21,7 @@
 			<div class="product-info">
 				<div class="fl preview-wrap">
 					<!--放大镜效果-->
+
 					<div class="zoom">
 						<!--默认第一个预览-->
 						<div id="preview" class="spec-preview">
@@ -32,8 +29,7 @@
 						</div>
 						<!--下方的缩略图-->
 						<div class="spec-scroll">
-							<a class="prev">&lt;</a>
-							<!--左右按钮-->
+							<a class="prev">&lt;</a>///
 							<div class="items">
 								<ul>
                                         @php $goods_imgs = explode("|",$goods["goods_imgs"]); @endphp
@@ -58,7 +54,7 @@
 							</div>
 							<div class="fl price">
 								<i>¥</i>
-								<em>{{$goods->goods_price}}</em>
+								<em id="goods_price">{{$goods->goods_price}}</em>
 								<span>降价通知</span>
 							</div>
 							<div class="fr remark">
@@ -100,7 +96,7 @@
 							<dl>
 								<dt>
 									<div class="fl title">
-									<i>{{$v->attr_name}}</i>
+									<i class="attr_name">{{$v->attr_name}}</i>
 								</div>
 								</dt>
 								{{--<dd><a href="javascript:;" class="selected">金色<span title="点击取消选择">&nbsp;</span></a></dd>--}}
@@ -119,7 +115,7 @@
 									<div class="fl title">
 									<i>库存</i>
 								</div>
-                                <span class="fl title">{{$stock}}</span>
+                                <span class="fl title" id="stock">{{$stock}}</span>
 								</dt>
 								{{--<dd><a href="javascript:;" class="selected">16G<span title="点击取消选择">&nbsp;</span>--}}
 {{--</a></dd>--}}
@@ -593,38 +589,35 @@
             $(this).addClass("selected").append("<span title='点击取消选择'>&nbsp;</span>");
             var add = $(this).parent().siblings().children().removeClass("selected");
             // console.log(add);
-            var goods_val_idone = $(this).attr("goods_val_id");
-            var attr_idone = $(this).attr("attr_id");
-            $(document).on("click",".attr_var",function(){
-                // alert(123);
-                $(this).addClass("selected").append("<span title='点击取消选择'>&nbsp;</span>");
-                var add = $(this).parent().siblings().children().removeClass("selected");
-                // console.log(add);
-                var goods_val_id = $(this).attr("goods_val_id");
-                var attr_id = $(this).attr("attr_id");
-                var goods_id = $(this).attr("goods_id");
+            var goods_val_id = $(this).attr("goods_val_id");
+            var attr_id1 = $(this).attr("attr_id");
+            var goods_id = $(this).attr("goods_id");
 
-                // console.log(attr_id);
-                // console.log(goods_val_id);
-                // console.log(goods_id);
+            var attr_id = new Array();
+            $(".selected").each(function(){
+                // console.log($(this));
+                attr_id.push($(this).attr("attr_id")+","+$(this).attr("goods_val_id"));
+                // console.log($(this));
+            });
+            var selected = $(".selected").length;
+            var lenger = $(".attr_name").length;
+            // console.log(lenger);
+            if(selected==lenger){
                 $.get(
                     "/index/goods/price",
-                    {goods_val_id:goods_val_id,attr_id:attr_id,goods_id:goods_id,goods_val_idone:goods_val_idone,attr_idone:attr_idone},
+                    {attr_id:attr_id,goods_id:goods_id},
                     function(res){
-                        console.log(res);
+                        // console.log(res);
+                        if(res){
+                            $("#goods_price").text(res["price"]);
+                            $("#stock").text(res["stock"]);
+                        }else{
+                            alert("没有该库存");
+                        }
                     }
                 )
-            })
-            // console.log(attr_id);
-            // console.log(goods_val_id);
-            // console.log(goods_id);
-            // $.get(
-            //     "/index/goods/price",
-            //     {goods_val_id:goods_val_id,attr_id:attr_id,goods_id:goods_id},
-            //     function(res){
-            //         console.log(res);
-            //     }
-            // )
+            }
+
         })
         //加号
         $(document).on("click","#add",function(){

@@ -254,6 +254,7 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('info','index\SignController@info');//添加用户信息
     });
 
+
     Route::prefix("address")->group(function() {//地址
         Route::any('add','index\AddressController@add');//地址添加
         Route::any('addDo','index\AddressController@addDo');//执行地址添加
