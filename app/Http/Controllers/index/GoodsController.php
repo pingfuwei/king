@@ -221,10 +221,7 @@ class GoodsController extends Controller
 
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> aa02cfb8b02e83c1f3f2c270abf61ef83e095f20
     /*
      * 获取该商品的该属性单价与库存
      */
