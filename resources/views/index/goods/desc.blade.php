@@ -21,6 +21,7 @@
 			<div class="product-info">
 				<div class="fl preview-wrap">
 					<!--放大镜效果-->
+
 					<div class="zoom">
 						<!--默认第一个预览-->
 						<div id="preview" class="spec-preview">
@@ -28,8 +29,7 @@
 						</div>
 						<!--下方的缩略图-->
 						<div class="spec-scroll">
-							<a class="prev">&lt;</a>
-							<!--左右按钮-->
+							<a class="prev">&lt;</a>///
 							<div class="items">
 								<ul>
                                         @php $goods_imgs = explode("|",$goods["goods_imgs"]); @endphp
