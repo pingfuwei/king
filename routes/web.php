@@ -197,7 +197,7 @@ Route::prefix("admin")->group(function (){//后台
 
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
 
-Route::prefix("index")->group(function() {
+Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
         Route::any("regDo", "index\LoginController@regDo");//注册执行
@@ -224,7 +224,13 @@ Route::prefix("index")->group(function() {
         Route::any("desc", "index\GoodsController@desc");//单个商品详情
         Route::any("price", "index\GoodsController@price");//单个属性商品的库存与单价
     });
-
+    Route::prefix("score")->group(function() {//积分换购
+        Route::any("list", "index\Score@list");//积分换购展示
+        Route::any("desc", "index\Score@desc");//积分换购详情
+        Route::any("descAjax", "index\Score@descAjax");//积分换购详情ajax
+        Route::any("settlement", "index\Score@settlement");//结算
+        Route::any("addresAjax", "index\Score@addresAjax");//地址ajax
+    });
 
 
 

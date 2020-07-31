@@ -41,18 +41,8 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="active item">
-                            <a href="http://baidu2.wypxj.com/">
+                            <a href="/index/score/list">
                                 <img src="/index/img/banner1.jpg"  />
-                            </a>
-                        </div>j
-                        <div class="item">
-                            <a href="http://baidu2.wypxj.com/">
-                                <img src="/index/img/banner2.jpg"  />
-                            </a>sresources/views/index/index.blade.php:414
-                        </div>
-                        <div class="item">
-                            <a href="http://baidu2.wypxj.com/">
-                                <img src="/index/img/banner3.jpg"  />
                             </a>
 
                         </div>

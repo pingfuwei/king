@@ -6,7 +6,9 @@ use App\AdminModel\Goods;
 use App\AdminModel\Goods_attrModel;
 use App\AdminModel\goods_stock;
 use App\AdminModel\GoodsvalueModel;
+use App\AdminModel\HistoryModel;
 use App\Http\Controllers\Controller;
+use App\indexModel\User;
 use Illuminate\Http\Request;
 
 class GoodsController extends Controller
@@ -16,6 +18,9 @@ class GoodsController extends Controller
      */
     public function desc(Request $request){
         $goods_id=$request->get('goods_id');
+        //        游览历史记录、
+        $user_name = $request->session()->get("user_name");
+        $this->history($goods_id,$user_name);
         if(empty($goods_id)){
             $message = [
                 'code' => '000001',
@@ -114,6 +119,55 @@ class GoodsController extends Controller
             return view('index.goods.desc',['goods'=>$goods_info,'goods_attr'=>$goods_attr,'goods_val'=>$goods_val,'stock'=>$stock]);
         }
     }
+    /*
+     * 游览历史记录判断是否有用户登陆
+     */
+    public function history($goods_id,$user_name){
+        if($user_name){
+            $this->saveHistoryDb($goods_id,$user_name);
+//            dd($res);
+        }
+//        else{
+//            $this->saveHistorycookie($goods_id);
+//        }
+    }
+    /*
+     * 存储浏览历史记录---数据库
+     */
+    public function saveHistoryDb($goods_id,$user_name){
+        $usermodel=new User();
+        $user=$usermodel::where('user_name',$user_name)->first();
+        //把商品id 用户id 浏览时间入库
+//        $goodsmodel=new Goods();
+        $historymodel=new HistoryModel();
+        $where=[
+            ['goods_id','=',$goods_id],
+            ['is_del','=',1]
+        ];
+        $goods_info=$historymodel::where($where)->first();
+        if(empty($goods_info)){
+            $arr=['goods_id'=>$goods_id,'time'=>time(),'user_id'=>$user['user_id']];
+            $res=$historymodel::insert($arr);
+            return $res;
+        }else{
+            $data=[];
+            $data['time']=time();
+            $data['count']=$goods_info['count']+1;
+            $res=$historymodel::where($where)->update($data);
+            return $res;
+        }
+
+    }
+    /*
+     * 存储浏览历史记录---cookie
+     */
+//    public function saveHistorycookie($goods_id){
+//        $historyinfo=cookie('historyinfo');
+//        //把商品id 用户id 浏览时间存入cookie
+//        $historyinfo[]=['goods_id'=>$goods_id,'time'=>time()];
+//        // dump($arr);
+//        cookie('historyinfo',$historyinfo);
+//    }
 
 
 
@@ -168,22 +222,33 @@ class GoodsController extends Controller
 
 
 
-    
+
     /*
      * 获取该商品的该属性单价与库存
      */
     public function price(Request $request){
 //        接受全部数据
         $data=$request->all();
+        // dd($data);
+        $add = $data["attr_idone"].",".$data["goods_val_idone"].":".$data["attr_id"].",".$data["goods_val_id"];
+        // print_r($add);exit;
 //        通过商品id查询该商品的全部属性
         $where=[
-            ['goods_id','=',$data['goods_id']]
+            ['goods_id','=',$data['goods_id']],
+            ["is_del","=",1]
         ];
         $goods_stock_model=new goods_stock();
 //        这个商品的所有属性
-        $goods_stock=$goods_stock_model::where()->get();
+        $goods_stock=$goods_stock_model::where($where)->get();
+        // dd($goods_stock);
         foreach($goods_stock as $k=>$v){
-
+            $ability = $v["ability"];
+            if($add==$ability){
+                // print_r($ability);
+                $info = $goods_stock_model::where("ability",$ability)->first();
+                // print_r($info);
+                return $info;
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
@@ -16,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="/index/css/pages-list.css" />
 
 </head>
-
 <body>
 <!-- 头部栏位 -->
 <!--页面顶部-->
@@ -73,7 +71,7 @@
                             <form action="" class="sui-form form-inline">
                                 <!--searchAutoComplete-->
                                 <div class="input-append">
-                                    <input type="text" id="autocomplete" type="text" class="input-error input-xxlarge" />
+                                    <input type="text" id="autocomplete"  style="height: 20px;" class="input-error input-xxlarge" />
                                     <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
                                 </div>
                             </form>
@@ -123,10 +121,7 @@
         </div>
     </div>
 </div>
-
-
 @yield('content')
-
 <!-- 底部栏位 -->
 <!--页面底部-->
 <div class="clearfix footer">
