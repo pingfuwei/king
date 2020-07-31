@@ -221,21 +221,36 @@ class GoodsController extends Controller
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa02cfb8b02e83c1f3f2c270abf61ef83e095f20
     /*
      * 获取该商品的该属性单价与库存
      */
     public function price(Request $request){
 //        接受全部数据
         $data=$request->all();
+        // dd($data);
+        $add = $data["attr_idone"].",".$data["goods_val_idone"].":".$data["attr_id"].",".$data["goods_val_id"];
+        // print_r($add);exit;
 //        通过商品id查询该商品的全部属性
         $where=[
-            ['goods_id','=',$data['goods_id']]
+            ['goods_id','=',$data['goods_id']],
+            ["is_del","=",1]
         ];
         $goods_stock_model=new goods_stock();
 //        这个商品的所有属性
-        $goods_stock=$goods_stock_model::where()->get();
+        $goods_stock=$goods_stock_model::where($where)->get();
+        // dd($goods_stock);
         foreach($goods_stock as $k=>$v){
-
+            $ability = $v["ability"];
+            if($add==$ability){
+                // print_r($ability);
+                $info = $goods_stock_model::where("ability",$ability)->first();
+                // print_r($info);
+                return $info;
+            }
         }
     }
 }

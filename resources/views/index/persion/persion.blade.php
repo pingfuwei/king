@@ -1,6 +1,40 @@
 @extends('layout.index')
 @section('content')
 <!--header-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title>设置-个人信息</title>
+    <link rel="icon" href="/index/img/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
+    <link rel="stylesheet" type="text/css" href="/index/css/pages-seckillOrder.css" />
+</head>
+<style>
+    .button {
+        display: inline-block;
+        padding: 10px 15px;
+        font-size: 10px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+    }
+    .button:hover {background-color: #3e8e41}
+
+    .button:active {
+        background-color: #3e8e41;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+</style>
 <div id="account">
     <div class="py-container">
         <div class="yui3-g home">
@@ -8,20 +42,36 @@
             <div class="yui3-u-1-6 list">
 
                 <div class="person-info">
-                    <div class="person-photo"><img src="/index/img/_/photo.png" alt=""></div>
+                    <div class="person-photo"><img src="/img/king.jpg" alt=""></div>
                     <div class="person-account">
-                        <span class="name">Michelle</span>
+                        <span class="name">{{session("user_name")}}</span>
                         <span class="safe">账户安全</span>
                     </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="list-items">
-
+                    <dl>
+                        <dt><i>·</i> 订单中心</dt>
+                        <dd ><a href="home-index.html"   >我的订单</a></dd>
+                        <dd><a href="home-order-pay.html" >待付款</a></dd>
+                        <dd><a href="home-order-send.html"  >待发货</a></dd>
+                        <dd><a href="home-order-receive.html" >待收货</a></dd>
+                        <dd><a href="home-order-evaluate.html" >待评价</a></dd>
+                    </dl>
+                    <dl>
+                        <dt><i>·</i> 我的中心</dt>
+                        <dd><a href="home-person-collect.html" >我的收藏</a></dd>
+                        <dd><a href="home-person-footmark.html" >我的足迹</a></dd>
+                        <dd><a href="{{url('index/discount/get')}}" >我的优惠券</a></dd>
+                    </dl>
+                    <dl>
+                        <dt><i>·</i> 物流消息</dt>
+                    </dl>
                     <dl>
                         <dt><i>·</i> 设置</dt>
-                        <dd><a href="home-setting-info.html" class="list-active">个人信息</a></dd>
-                        <dd><a href="home-setting-address.html">地址管理</a></dd>
-                        <dd><a href="home-setting-safe.html">安全管理</a></dd>
+                        <dd><a href="{{url('index/persion/personal')}}" class="list-active">个人信息</a></dd>
+                        <dd><a href="{{url('index/address/list')}}"  >地址管理</a></dd>
+                        <dd><a href="home-setting-safe.html" >安全管理</a></dd>
                     </dl>
                 </div>
             </div>
@@ -37,17 +87,18 @@
                                 <div class="control-group">
                                     <label for="inputName" class="control-label">昵称：</label>
                                     <div class="controls">
-                                        <input type="text" id="inputName" class="user_name" name="user_name" value="{{$data->user_name}}" placeholder="昵称">
+                                        <input type="text" id="inputName" class="user_name" name="user_name" value="{{session("user_name")}}" placeholder="昵称">
+                                    <font color="red">！注意：修改用户名下次就要重新登录</font>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="inputGender" class="control-label">性别：</label>
                                     <div class="controls">
                                         <label data-toggle="radio" class="radio-pretty inline {{$data->sex=="1" ? "checked" : ""}}">
-                                            <input type="radio" name="sex" value="1"><span>男</span>
+                                            <input type="radio" name="sex" value="1"  {{$data->sex=="1" ? "checked" : ""}}><span>男</span>
                                         </label>
                                         <label data-toggle="radio" class="radio-pretty inline {{$data->sex=="2" ? "checked" : ""}}">
-                                            <input type="radio" name="sex" value="2"><span>女</span>
+                                            <input type="radio" name="sex" value="2"  {{$data->sex=="2" ? "checked" : ""}}><span>女</span>
                                         </label>
                                     </div>
                                 </div>
@@ -80,7 +131,7 @@
                                 <div class="control-group">
                                     <label for="sanwei" class="control-label"></label>
                                     <div class="controls">
-                                        <button  class="sui-btn btn-primary btn">提交</button>
+                                        <button  class="sui-btn btn-primary btn button">修改</button>
                                     </div>
                                 </div>
                             </form>
@@ -103,6 +154,7 @@
         </div>
     </div>
 </div>
+<script src="/layui/bootstrap.min.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script>
         $(document).on('change','select',function(){
@@ -117,7 +169,7 @@
                     function(res){
 //                        console.log(res);
                        if(res.code=='00000'){
-                          console.log(1);
+//                          console.log(1);
                            var str='<option>请选择</option>';
                            $.each(res.data,function(i,k){
                                str+='<option value='+ k.id+'>'+ k.name+'</option>';

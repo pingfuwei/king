@@ -1,6 +1,24 @@
 @extends('layout.index')
 @section('content')
     <br>
+    <style>
+        .button {
+            background-color: powderblue; /* Green */
+            border: none;
+            color: red;
+            padding: 10px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+
+        .button3 {border-radius: 8px;}
+
+    </style>
     <div class="yui3-u-5-6" style="margin-left: 220px">
         <div class="body userAddress">
             <div class="address-title">
@@ -26,13 +44,23 @@
                         <th>联系电话</th>
                         <th>{{$data->tel}}</th>
                     </tr>
-
+                    <tr>
+                        <th>会员</th>
+                        <th>
+                            @if($vipinfo)
+                                {{$vipinfo->vip_name}}
+                            @else
+                            普通用户
+                            @endif
+                        </th>
+                    </tr>
                     </thead>
 
                 </table>
             </div>
-            <button><a href="{{url('index/persion/pers')}}">修改个人信息</a></button>
-            <button><a href="{{url('index/persion/sign')}}">签到</a></button>
+            <script src="/layui/bootstrap.min.js"></script>
+            <button class="button button3"><a href="{{url('index/persion/pers')}}">修改个人信息</a></button>
+            <button class="button button3"><a href="{{url('index/persion/sign')}}">签到</a></button>
             <!--新增地址弹出层-->
             <div  tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade edit" style="width:580px;">
                 <div class="modal-dialog">

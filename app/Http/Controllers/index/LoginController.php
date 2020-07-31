@@ -147,7 +147,7 @@ class LoginController extends Controller
                 $count=$this->limits($user_name->user_id);
                 return GetJson::getJson("111","$count");
             }
-            return $this->Exemption($data["che"],$data['user_name'],$data['user_pwd']);
+            return $this->Exemption($data["che"],$user_name->user_name,$data['user_pwd']);
         }
         if(!$user_name || !$user_tel){
             return GetJson::getJson("111","账户或密码错误");
@@ -181,6 +181,14 @@ class LoginController extends Controller
     public function Exemption($che,$user_name,$user_pwd){
         if($che==="2"){
             if(\request()->cookie("user") && \request()->cookie("user_pwd")){
+                $ordId=User::where("user_name",\request()->cookie("user"))->first();
+                $newId=User::where("user_name",$user_name)->first();
+                if($ordId!=$newId){
+                    Cookie::queue("user",null);
+                    Cookie::queue("user_pwd",null);
+                    Cookie::queue("user",$user_name,60*24*7);
+                    Cookie::queue("user_pwd",$user_pwd,60*24*7);
+                }
                 \session(["user_name"=>$user_name,"user_pwd"=>$user_pwd]);
                 return GetJson::getJson("000","登陆成功");
             }else{
