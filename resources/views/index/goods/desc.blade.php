@@ -1,4 +1,8 @@
 @extends('layout.index')
+<<<<<<< HEAD
+=======
+
+>>>>>>> ece65819222794bf5e707e344783301d8f4056cd
 @section('content')
 	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
 	<div class="py-container">

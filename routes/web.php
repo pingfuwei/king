@@ -228,6 +228,8 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("list", "index\Score@list");//积分换购展示
         Route::any("desc", "index\Score@desc");//积分换购详情
         Route::any("descAjax", "index\Score@descAjax");//积分换购详情ajax
+        Route::any("settlement", "index\Score@settlement");//结算
+        Route::any("addresAjax", "index\Score@addresAjax");//地址ajax
     });
 
 

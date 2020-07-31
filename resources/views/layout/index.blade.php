@@ -11,12 +11,9 @@
     <link rel="stylesheet" type="text/css" href="/index/css/pages-JD-index.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/widget-jquery.autocomplete.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/widget-cartPanelView.css" />
-<<<<<<< HEAD
-=======
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-list.css" />
 
->>>>>>> 3522ef79d4ba629956b6359ed6b48e1c43ed8e3c
 </head>
 <body>
 <!-- 头部栏位 -->
