@@ -228,6 +228,8 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("list", "index\Score@list");//积分换购展示
         Route::any("desc", "index\Score@desc");//积分换购详情
         Route::any("descAjax", "index\Score@descAjax");//积分换购详情ajax
+        Route::any("settlement", "index\Score@settlement");//结算
+        Route::any("addresAjax", "index\Score@addresAjax");//地址ajax
     });
 
 
@@ -251,7 +253,10 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('area','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 285e1b27d7d28176acc98d510f5bf82b921a1e49
     Route::prefix("address")->group(function() {//地址
         Route::any('add','index\AddressController@add');//地址添加
         Route::any('addDo','index\AddressController@addDo');//执行地址添加

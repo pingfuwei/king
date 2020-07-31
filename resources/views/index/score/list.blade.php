@@ -29,7 +29,7 @@
                                     <a href="javascript:;" target="_blank" style="font-size: 12px;">{{$v->goods_name}}</a>
                                     <br>
                                     <br>
-                                    <b><a href="javascript:;" target="_blank" style="color: red;">积分：{{$v->goods_score}}</a></b>
+                                    <b><a href="javascript:;" target="_blank" style="color: red;">积分：{{$v->goods_price*2}}</a></b>
                                     <br>
                                     <h5>&nbsp;</h5>
                                     <a href="/index/score/desc?goods_id={{$v->goods_id}}" class="btn btn-danger">立即换购</a>
