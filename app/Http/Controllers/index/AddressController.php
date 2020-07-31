@@ -72,9 +72,12 @@ class AddressController extends Controller
        }
     }
     public function is_no($address_id){
-        $res=AddressModel::get();
+        $user_name=session('user_name');
+        $user=User::where('user_name',$user_name)->first();
+        $user_id=$user['user_id'];
+        $res=AddressModel::where('user_id',$user_id)->get();
         if($res['status'==1]){
-            DB::table('address')->update(['status'=>0]);
+            DB::table('address')->where('user_id',$user_id)->update(['status'=>0]);
         }
         $data=AddressModel::where('address_id',$address_id)->update(['status'=>1]);
         if($data){

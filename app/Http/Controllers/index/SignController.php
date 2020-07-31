@@ -116,7 +116,8 @@ class SignController extends Controller
             $score=5;
         }
         $check=SignModel::where('user_id',$user_id)->first();
-        if(!empty($check)&&$check['time']-time()>86400){
+//        dd($check);
+        if(!empty($check)&&($check['time']-time())>86400){
             $data=[
                 'img'=>$img,
                 'user_id'=>$user_id,
@@ -148,7 +149,7 @@ class SignController extends Controller
                     'content'=>$content
                 ];
                 $res=SignModel::insert($data);
-                UserInfo::where('user_id',$user_id)->insert(['score'=>$score]);
+//                UserInfo::where('user_id',$user_id)->insert(['score'=>$score]);
                 if($res){
                     return [
                         'code'=>'000',
@@ -169,7 +170,9 @@ class SignController extends Controller
                 ];
             }
 
+
         }
+
 
     }
     public function addpersion(){

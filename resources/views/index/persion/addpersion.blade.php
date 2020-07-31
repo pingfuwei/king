@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-seckillOrder.css" />
 </head>
+
 <div id="account">
     <div class="py-container">
         <div class="yui3-g home">
