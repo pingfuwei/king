@@ -124,11 +124,19 @@ class GoodsController extends Controller
      */
     public function history($goods_id,$user_name){
         if($user_name){
+
             $res=$this->saveHistoryDb($goods_id,$user_name);
             // dd($res);
         }else{
             $this->saveHistorycookie($goods_id);
+
+            $this->saveHistoryDb($goods_id,$user_name);
+//            dd($res);
+
         }
+//        else{
+//            $this->saveHistorycookie($goods_id);
+//        }
     }
     /*
      * 存储浏览历史记录---数据库
@@ -160,13 +168,13 @@ class GoodsController extends Controller
     /*
      * 存储浏览历史记录---cookie
      */
-    public function saveHistorycookie($goods_id){
-        $historyinfo=cookie('historyinfo');
-        //把商品id 用户id 浏览时间存入cookie
-        $historyinfo[]=['goods_id'=>$goods_id,'look_time'=>time()];
-        // dump($arr);
-        cookie('historyinfo',$historyinfo);
-    }
+//    public function saveHistorycookie($goods_id){
+//        $historyinfo=cookie('historyinfo');
+//        //把商品id 用户id 浏览时间存入cookie
+//        $historyinfo[]=['goods_id'=>$goods_id,'time'=>time()];
+//        // dump($arr);
+//        cookie('historyinfo',$historyinfo);
+//    }
 
 
 
