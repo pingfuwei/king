@@ -590,15 +590,38 @@
             $(this).addClass("selected").append("<span title='点击取消选择'>&nbsp;</span>");
             var add = $(this).parent().siblings().children().removeClass("selected");
             // console.log(add);
-            var goods_val_id = $(this).attr("goods_val_id");
-            var attr_id = $(this).attr("attr_id");
-            var goods_id = $(this).attr("goods_id");
-			if(goods_id==""){
-				var goods_id = $(this).attr("goods_id");
-			}
-            console.log(attr_id);
-            console.log(goods_val_id);
-            console.log(goods_id);
+            var goods_val_idone = $(this).attr("goods_val_id");
+            var attr_idone = $(this).attr("attr_id");
+            $(document).on("click",".attr_var",function(){
+                // alert(123);
+                $(this).addClass("selected").append("<span title='点击取消选择'>&nbsp;</span>");
+                var add = $(this).parent().siblings().children().removeClass("selected");
+                // console.log(add);
+                var goods_val_id = $(this).attr("goods_val_id");
+                var attr_id = $(this).attr("attr_id");
+                var goods_id = $(this).attr("goods_id");
+
+                // console.log(attr_id);
+                // console.log(goods_val_id);
+                // console.log(goods_id);
+                $.get(
+                    "/index/goods/price",
+                    {goods_val_id:goods_val_id,attr_id:attr_id,goods_id:goods_id,goods_val_idone:goods_val_idone,attr_idone:attr_idone},
+                    function(res){
+                        console.log(res);
+                    }
+                )
+            })
+            // console.log(attr_id);
+            // console.log(goods_val_id);
+            // console.log(goods_id);
+            // $.get(
+            //     "/index/goods/price",
+            //     {goods_val_id:goods_val_id,attr_id:attr_id,goods_id:goods_id},
+            //     function(res){
+            //         console.log(res);
+            //     }
+            // )
         })
         //加号
         $(document).on("click","#add",function(){
