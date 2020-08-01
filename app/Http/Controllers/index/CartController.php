@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\IndexModel\Cart;
 use App\IndexModel\User;
 use App\AdminModel\Goods;
-use App\AdminModel\goods_stock;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -48,14 +47,14 @@ class CartController extends Controller
         //dd($where);
         $cartmodel=new Cart();
         $cart_info=$cartmodel::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->where($where)->orderBy('time','desc')->get()->toArray();
-//        dd($cart_info);die;
+       // dd($cart_info);die;
         if($cart_info){
 //            echo 111;
             $where=[
                 ['ctock_id','=',$cart_info['goods_stick']]
             ];
             $goods_stockmodel=new goods_stock();
-            $stock_info=$
+            // $stock_info=$
             return view('index.cart.cartlist',['cart_info'=>$cart_info]);
         }else{
             $cart_info = [];
