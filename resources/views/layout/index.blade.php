@@ -14,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-list.css" />
 
+    <link rel="stylesheet" type="text/css" href="/index/css/pages-cart.css" />
+
 </head>
 <body>
 <!-- 头部栏位 -->
@@ -93,7 +95,7 @@
                         <div class="fr shopcar">
                             <div class="show-shopcar" id="shopcar">
                                 <span class="car"></span>
-                                <a class="sui-btn btn-default btn-xlarge" href="cart.html" target="_blank">
+                                <a class="sui-btn btn-default btn-xlarge" href="/index/cart/cartlist" target="_blank">
                                     <span>我的购物车</span>
                                     <i class="shopnum">0</i>
                                 </a>
@@ -289,7 +291,7 @@
                 <!-- 购物车 -->
                 <div style="visibility: hidden;" class="J-content toolbar-panel tbar-panel-cart toolbar-animate-out">
                     <h3 class="tbar-panel-header J-panel-header">
-                        <a href="" class="title"><i></i><em class="title">购物车</em></a>
+                        <a href="/index/cart/cartlist" class="title"><i></i><em class="title">购物车</em></a>
                         <span class="close-panel J-close" onclick="cartPanelView.tbar_panel_close('cart');" ></span>
                     </h3>
                     <div class="tbar-panel-main">
