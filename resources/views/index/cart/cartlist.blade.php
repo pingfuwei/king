@@ -194,8 +194,7 @@
 									</li>
 									<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>
 									<li class="yui3-u-1-8">
-										<a href="#none">删除</a><br />
-										<a href="#none">移到我的关注</a>
+										<a href="#none">删除</a>
 									</li>
 								</ul>
 							</div>
@@ -237,8 +236,8 @@
 				</div>
 				<div class="option">
 					<a href="#none">删除选中的商品</a>
-					<a href="#none">移到我的关注</a>
-					<a href="#none">清除下柜商品</a>
+					{{--<a href="#none">移到我的关注</a>--}}
+					{{--<a href="#none">清除下柜商品</a>--}}
 				</div>
 				<div class="toolbar">
 					<div class="chosed">已选择<span>0</span>件商品</div>
@@ -266,8 +265,8 @@
 							<span class="number">1</span>
 						</li>
 						<li class="yui3-u-1-8">
-							<a href="#none">重新购买</a>
-							<a href="#none">移到我的关注</a>
+							{{--<a href="#none">重新购买</a>--}}
+							{{--<a href="#none">移到我的关注</a>--}}
 						</li>
 					</ul>
 				</div>
