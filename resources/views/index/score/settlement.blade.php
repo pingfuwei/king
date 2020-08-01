@@ -1,9 +1,6 @@
 ﻿@extends('layout.index')
 @section('content')
 
-        <!DOCTYPE html>
-<html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
@@ -25,7 +22,7 @@
         <div class="checkout-steps">
             <!--收件人信息-->
             <div class="step-tit">
-                <h5>收件人信息<span><a data-toggle="modal" data-target=".edit" data-keyboard="false" class="newadd">新增收货地址</a></span></h5>
+                <h5>收件人信息<span><a  href="/index/address/add"  class="newadd">新增收货地址</a></span></h5>
             </div>
             <div class="step-cont">
                 <div class="addressInfo">
@@ -35,7 +32,7 @@
                             <div>
                                 {{--{{$v->status}}--}}
                                 {{--selected--}}
-                                <div class="con name aa {{$v->status==="1"?"selected":""}}"><a href="javascript:;" >{{$v->address_name}}<span title="点击取消选择">&nbsp;</a></div>
+                                <div class="con name aa {{$v->status==="1"?"selected bb":""}}" address="{{$v->address_id}}"><a href="javascript:;" >{{$v->address_name}}<span title="点击取消选择">&nbsp;</a></div>
                                 <div class="con address">{{$v->province}}{{$v->city}}{{$v->area}}:{{$v->detail}}<span>---{{$v->tel}}</span>
                                     {!!$v->status==="1"?"<span class='base' address='$v->address_id' style='display: none'>默认地址</span>":"<span class='base' address='$v->address_id'>默认地址</span>"!!}
                                     <span class="edittext"><a data-toggle="modal" data-target=".edit" data-keyboard="false" >编辑</a>&nbsp;&nbsp;<a href="javascript:;">删除</a></span>
@@ -116,8 +113,7 @@
                 </div>
                 <div class="step-cont">
                     <ul class="payType">
-                        <li class="selected">微信付款<span title="点击取消选择"></span></li>
-                        <li>货到付款<span title="点击取消选择"></span></li>
+                        <li class="selected">积分兑换<span title="点击取消选择"></span></li>
                     </ul>
                 </div>
                 <div class="hr"></div>
@@ -132,14 +128,14 @@
 
                                 <ul class="yui3-g">
                                     <li class="yui3-u-1-6">
-                                        <span><img src="/index/img/goods.png"/></span>
+                                        <span><img src="{{env('UPLOADS_URL')}}{{$goods->goods_img}}" width="100px;"height="50px;"/></span>
                                     </li>
                                     <li class="yui3-u-7-12">
-                                        <div class="desc">Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机硅胶透明防摔软壳 本色系列</div>
+                                        <div class="desc">{{$goods->goods_name}}</div>
                                         <div class="seven">7天无理由退货</div>
                                     </li>
                                     <li class="yui3-u-1-12">
-                                        <div class="price">￥5399.00</div>
+                                        <div class="price">积分：{{$goods->goods_price*2}}</div>
                                     </li>
                                     <li class="yui3-u-1-12">
                                         <div class="num">X1</div>
@@ -156,45 +152,25 @@
                 </div>
                 <div class="hr"></div>
             </div>
-            <div class="linkInfo">
-                <div class="step-tit">
-                    <h5>发票信息</h5>
-                </div>
-                <div class="step-cont">
-                    <span>普通发票（电子）</span>
-                    <span>个人</span>
-                    <span>明细</span>
-                </div>
-            </div>
-            <div class="cardInfo">
-                <div class="step-tit">
-                    <h5>使用优惠/抵用</h5>
-                </div>
-            </div>
+
+
         </div>
     </div>
     <div class="order-summary">
         <div class="static fr">
             <div class="list">
-                <span><i class="number">1</i>件商品，总商品金额</span>
-                <em class="allprice">¥5399.00</em>
-            </div>
-            <div class="list">
-                <span>返现：</span>
-                <em class="money">0.00</em>
-            </div>
-            <div class="list">
-                <span>运费：</span>
-                <em class="transport">0.00</em>
+                <span><i class="number">1</i>件商品，总商品积分</span>
+                <em class="allprice">{{$goods->goods_price*2}}</em>
             </div>
         </div>
     </div>
     <div class="clearfix trade">
-        <div class="fc-price">应付金额:　<span class="price">¥5399.00</span></div>
-        <div class="fc-receiverInfo">寄送至:北京市海淀区三环内 中关村软件园9号楼 收货人：某某某 159****3201</div>
+        <div class="fc-price">应付积分:　<span class="price">{{$goods->goods_price*2}}</span></div>
+        {{--<div class="fc-receiverInfo">寄送至:{{$v->province}}{{$v->city}}{{$v->area}}:{{$v->detail}}  收货人：某某某 159****3201</div>--}}
     </div>
+    {{--<span>---{{$v->tel}}</span>--}}
     <div class="submit">
-        <a class="sui-btn btn-danger btn-xlarge" href="pay.html">提交订单</a>
+        <a class="sui-btn btn-danger btn-xlarge" id="btn" href="javascrpt:;">提交订单</a>
     </div>
 </div>
 
@@ -216,9 +192,27 @@
                 success:function (res) {
                     if(res==="ok"){
                         $(".aa").removeClass("selected")
+                        $(".bb").removeClass("bb")
                         _this.parent().prev().addClass("selected");
+                        _this.parent().prev().addClass("bb");
                         $(".base").show()
                         _this.hide()
+                    }
+                }
+            })
+        })
+        $(document).on("click","#btn",function () {
+            var goods_id="{{$goods->goods_id}}"
+            var address_id=$(".bb").attr("address")
+            var score={{$goods->goods_price*2}}
+//            alert(score)
+            $.ajax({
+                url:"/index/score/settlementAjax",
+                data:{goods_id:goods_id,address_id:address_id,price:score},
+                success:function (res) {
+                    alert(res)
+                    if(res==="兑换成功"){
+                        location.href='http://www.king.com/'
                     }
                 }
             })

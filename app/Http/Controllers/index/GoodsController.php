@@ -16,19 +16,16 @@ class GoodsController extends Controller
     /*
      * 商品详情
      */
-<<<<<<< HEAD
-    public function desc(Request $request)
-    {
-        $goods_id = $request->get('goods_id');
-        if (empty($goods_id)) {
-=======
+//    public function desc(Request $request)
+//    {
+//        $goods_id = $request->get('goods_id');
+//        if (empty($goods_id)) {
     public function desc(Request $request){
         $goods_id=$request->get('goods_id');
         //        游览历史记录、
         $user_name = $request->session()->get("user_name");
         $this->history($goods_id,$user_name);
         if(empty($goods_id)){
->>>>>>> 27ba233d06a457c7da32e2a5425b4a332dd0da95
             $message = [
                 'code' => '000001',
                 'message' => 'error',
@@ -133,7 +130,7 @@ class GoodsController extends Controller
     public function history($goods_id,$user_name){
         if($user_name){
             $res=$this->saveHistoryDb($goods_id,$user_name);
-            dd($res);
+//            dd($res);
         }else{
             $this->saveHistorycookie($goods_id);
         }
@@ -229,10 +226,7 @@ class GoodsController extends Controller
 
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> aa02cfb8b02e83c1f3f2c270abf61ef83e095f20
     /*
      * 获取该商品的该属性单价与库存
      */
