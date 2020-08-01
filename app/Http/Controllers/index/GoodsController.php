@@ -158,7 +158,7 @@ class GoodsController extends Controller
         }
 
     }
-    /*
+    /*x
      * 存储浏览历史记录---cookie
      */
 //    public function saveHistorycookie($goods_id){
