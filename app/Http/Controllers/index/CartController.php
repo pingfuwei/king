@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\index;
 
+use App\AdminModel\goods_stock;
 use App\Http\Controllers\Controller;
 use App\IndexModel\Cart;
 use App\indexModel\User;
@@ -27,19 +28,36 @@ class CartController extends Controller
         }
         $usermodel=new User();
         $user=$usermodel::where('user_name',$user_name)->first();
+        if(empty($user)){
+            $message = [
+                'code' => '000001',
+                'message' => 'error',
+                'result' => [
+                    'message' =>"用户信息有误",
+                ]
+            ];
+            return json_encode($message,JSON_UNESCAPED_UNICODE);
+        }
+//        dd($user['user_id']);
         $where=[
             ['user_id','=',$user['user_id']],
-            ['is_del','=',1]
+            ['cart.is_del','=',1]
         ];
+        //dd($where);
         $cartmodel=new Cart();
-        $cart_info=$cartmodel::where($where)->arderBy('time','desc')->get();
+        $cart_info=$cartmodel::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->where($where)->orderBy('time','desc')->get()->toArray();
+//        dd($cart_info);die;
         if($cart_info){
-            echo 111;
-//            return view('index.cart.cartlist',['cart_info'=>$cart_info]);
+//            echo 111;
+            $where=[
+                ['ctock_id','=',$cart_info['goods_stick']]
+            ];
+            $goods_stockmodel=new goods_stock();
+            $stock_info=$
+            return view('index.cart.cartlist',['cart_info'=>$cart_info]);
         }else{
             $cart_info = [];
-            echo 222;
-//            return view('index.cart.cartlist',['cart_info'=>$cart_info]);
+            return view('index.cart.cartlist',['cart_info'=>$cart_info]);
         }
     }
     //购物车添加
