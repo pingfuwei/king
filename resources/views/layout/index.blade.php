@@ -94,7 +94,7 @@
                         <div class="fr shopcar">
                             <div class="show-shopcar" id="shopcar">
                                 <span class="car"></span>
-                                <a class="sui-btn btn-default btn-xlarge" href="cart.html" target="_blank">
+                                <a class="sui-btn btn-default btn-xlarge" href="/index/cart/cartlist" target="_blank">
                                     <span>我的购物车</span>
                                     <i class="shopnum">0</i>
                                 </a>
@@ -290,7 +290,7 @@
                 <!-- 购物车 -->
                 <div style="visibility: hidden;" class="J-content toolbar-panel tbar-panel-cart toolbar-animate-out">
                     <h3 class="tbar-panel-header J-panel-header">
-                        <a href="" class="title"><i></i><em class="title">购物车</em></a>
+                        <a href="/index/cart/cartlist" class="title"><i></i><em class="title">购物车</em></a>
                         <span class="close-panel J-close" onclick="cartPanelView.tbar_panel_close('cart');" ></span>
                     </h3>
                     <div class="tbar-panel-main">
@@ -341,21 +341,20 @@
                         <span class="close-panel J-close" onclick="cartPanelView.tbar_panel_close('history');"></span>
                     </h3>
                     <div class="tbar-panel-main">
-                        <div class="tbar-panel-content J-panel-content">
-                            <div class="jt-history-wrap">
-                                <ul>
-                                    <!--<li class="jth-item">
-                                        <a href="#" class="img-wrap"> <img src=".portal//index/img/like_03.png" height="100" width="100" /> </a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
-                                        <a href="#" target="_blank" class="price">￥498.00</a>
-                                    </li>
-                                    <li class="jth-item">
-                                        <a href="#" class="img-wrap"> <img src="portal//index/img/like_02.png" height="100" width="100" /></a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
-                                        <a href="#" target="_blank" class="price">￥498.00</a>
-                                    </li>-->
-                                </ul>
-                                <a href="#" class="history-bottom-more" target="_blank">查看更多足迹商品 &gt;&gt;</a>
+                        <div class="tbar-panel-content J-panel-content" id="btn">
+                            <div class="jt-history-wrap but">
+                                    <ul>
+
+                                            <li class="jth-item" v-for="v in history">
+                                                <a href="#" class="img-wrap"> <img v-bind:src="v.goods_img" height="100" width="100" /> </a>
+                                                <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+                                                <a href="#" target="_blank" class="price">￥@{{v.goods_price}}</a>
+                                                <div height="10" width="100" style="background: plum"><a ><b class="del" his_id="@{{v.his_id}}" style="align-content: center">删除记录</b></a></div>
+                                            </li>
+
+                                    </ul>
+                                    <a href="#" class="history-bottom-more" target="_blank">查看更多足迹商品 &gt;&gt;</a>
+
                             </div>
                         </div>
                     </div>
@@ -447,6 +446,27 @@
 <script src="/index/vue/axios.min.js"></script>
 <script src="/index/vue/vue.min.js"></script>
 <script>
+    var me = new Vue({
+        el:".but",
+        data:{
+            history:null,
+        },
+        mounted(){
+        var _this=this;
+        var data={
+
+        };
+        var url="/history/list"
+        axios.post(url,data).then(function (msg){
+//            console.log(msg.data);return;
+            _this.history=msg.data;
+        });
+    },
+    methods:{
+    }
+    });
+</script>
+<script>
 var me = new Vue({
     el:".nav",
     data:{
@@ -464,4 +484,24 @@ var me = new Vue({
     methods:{
     }
  });
+</script>
+<script>
+    $(document).on('click','.del',function(){
+//        alert(1);
+        var his_id=$(this).attr('his_id');
+        var _this=$(".but");
+        $.ajax({
+            url:"{{url('history/del')}}",
+            data:{'his_id':his_id},
+            type:'post',
+            dataType:'html',
+            success:function(res){
+
+                $("#btn").html(res);
+                return false;
+
+            }
+        })
+    })
+
 </script>
