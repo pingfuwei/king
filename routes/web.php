@@ -236,11 +236,10 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("addresAjax", "index\Score@addresAjax");//地址ajax
     });
 
-
-
-
-
-
+    Route::prefix("cart")->group(function() {//商品
+        Route::any("cartcreate", "index\CartController@cartcreate");//购物车添加
+        Route::any("cartlist", "index\CartController@cartlist");//购物车列表
+    });
 
 
 
@@ -257,6 +256,8 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('Consignment','index\SignController@Consignment');//代发货方法
         Route::any('Tobepaid','index\SignController@Tobepaid');//待付款方法
     });
+
+
     Route::prefix("address")->group(function() {//地址
         Route::any('add','index\AddressController@add');//地址添加
         Route::any('addDo','index\AddressController@addDo');//执行地址添加

@@ -16,10 +16,13 @@ class GoodsController extends Controller
     /*
      * 商品详情
      */
+<<<<<<< HEAD
 //    public function desc(Request $request)
 //    {
 //        $goods_id = $request->get('goods_id');
 //        if (empty($goods_id)) {
+=======
+>>>>>>> 7638e2f2977b9040ada4c0ea52afd3af4519a4ec
     public function desc(Request $request){
         $goods_id=$request->get('goods_id');
         //        游览历史记录、
@@ -30,52 +33,52 @@ class GoodsController extends Controller
                 'code' => '000001',
                 'message' => 'error',
                 'result' => [
-                    'message' => "缺少必要参数",
+                    'message' =>"缺少必要参数",
                 ]
             ];
-            return json_encode($message, JSON_UNESCAPED_UNICODE);
+            return json_encode($message,JSON_UNESCAPED_UNICODE);
         }
-        $goods_model = new Goods();
-        $goods_info = $goods_model::where('goods_id', $goods_id)->first();
-        if (empty($goods_info)) {
+        $goods_model=new Goods();
+        $goods_info=$goods_model::where('goods_id',$goods_id)->first();
+        if(empty($goods_info)){
             $message = [
                 'code' => '000001',
                 'message' => 'error',
                 'result' => [
-                    'message' => "参数有问题,请核对后再试",
+                    'message' =>"参数有问题,请核对后再试",
                 ]
             ];
-            return json_encode($message, JSON_UNESCAPED_UNICODE);
-        } else {
-            $stock_model = new goods_stock();
-            $where = [
-                ['goods_id', '=', $goods_info['goods_id']],
-                ['is_del', '=', 1]
+            return json_encode($message,JSON_UNESCAPED_UNICODE);
+        }else{
+            $stock_model=new goods_stock();
+            $where=[
+                ['goods_id','=',$goods_info['goods_id']],
+                ['is_del','=',1]
             ];
-            $arr = [];
-            $arr1 = [];
-            $goods_stock = $stock_model::where($where)->get()->toArray();
-            $stock = "";
-            foreach ($goods_stock as $k => $v) {
+            $arr=[];
+            $arr1=[];
+            $goods_stock=$stock_model::where($where)->get()->toArray();
+            $stock="";
+            foreach($goods_stock as $k=>$v){
 //                $stock=$v['stock'];
-                if ($stock !== "") {
-                    $stock = $stock + $v['stock'];
-                } else {
+                if($stock!==""){
+                    $stock=$stock+$v['stock'];
+                }else{
                     $stock = $v['stock'];
                 }
             }
-            foreach ($goods_stock as $k => $v) {
-                $ass = explode(':', $v['ability']);
+            foreach($goods_stock as $k=>$v){
+                $ass=explode(':', $v['ability']);
 //                print_r($ass);
-                foreach ($ass as $kk => $vv) {
-                    $asd = explode(',', $vv);
+                foreach($ass as $kk=>$vv){
+                    $asd=explode(',', $vv);
                     //根据下标查询属性和值 0 ：属性表  1 属性值
-                    foreach ($asd as $kkk => $vvv) {
+                    foreach($asd as $kkk=>$vvv){
 ////                        echo $kkk;
-                        if ($kkk == 0) {
-                            $arr[] = $vvv;
-                        } else {
-                            $arr1[] = $vvv;
+                        if($kkk==0){
+                            $arr[]=$vvv;
+                        }else{
+                            $arr1[]=$vvv;
                         }
 //                        if($kkk==0){
 //                            $goods_attrmodel=new Goods_attrModel();
@@ -93,20 +96,20 @@ class GoodsController extends Controller
             }
 //            print_r($goods_stock);
             //该商品的属性
-            $arr = array_unique($arr);
-            $goods_attr = [];
-            $goods_val = [];
-            foreach ($arr as $k => $v) {
-                $goods_attrmodel = new Goods_attrModel();
-                $goods_attr_info = $goods_attrmodel::where('attr_id', $v)->first();
-                $goods_attr[] = $goods_attr_info;
+            $arr=array_unique($arr);
+            $goods_attr=[];
+            $goods_val=[];
+            foreach($arr as  $k=>$v){
+                $goods_attrmodel=new Goods_attrModel();
+                $goods_attr_info=$goods_attrmodel::where('attr_id',$v)->first();
+                $goods_attr[]=$goods_attr_info;
             }
 //            print_r($goods_attr);
-            $arr1 = array_unique($arr1);
-            foreach ($arr1 as $k => $v) {
-                $goods_valmodel = new GoodsvalueModel();
-                $goods_val_info = $goods_valmodel::where('goods_val_id', $v)->first();
-                $goods_val[] = $goods_val_info;
+            $arr1=array_unique($arr1);
+            foreach($arr1 as $k=>$v){
+                $goods_valmodel=new GoodsvalueModel();
+                $goods_val_info=$goods_valmodel::where('goods_val_id',$v)->first();
+                $goods_val[]=$goods_val_info;
             }
 //            print_r($goods_val);
 //            print_r($goods_attr);die;
@@ -120,20 +123,31 @@ class GoodsController extends Controller
 //            print_r($goods_attr);
 //            print_r($goods_val);
 //            die;
-            return view('index.goods.desc', ['goods' => $goods_info, 'goods_attr' => $goods_attr, 'goods_val' => $goods_val, 'stock' => $stock]);
+            return view('index.goods.desc',['goods'=>$goods_info,'goods_attr'=>$goods_attr,'goods_val'=>$goods_val,'stock'=>$stock]);
         }
-
     }
     /*
      * 游览历史记录判断是否有用户登陆
      */
     public function history($goods_id,$user_name){
         if($user_name){
+
             $res=$this->saveHistoryDb($goods_id,$user_name);
+<<<<<<< HEAD
 //            dd($res);
+=======
+            // dd($res);
+>>>>>>> 7638e2f2977b9040ada4c0ea52afd3af4519a4ec
         }else{
             $this->saveHistorycookie($goods_id);
+
+            $this->saveHistoryDb($goods_id,$user_name);
+//            dd($res);
+
         }
+//        else{
+//            $this->saveHistorycookie($goods_id);
+//        }
     }
     /*
      * 存储浏览历史记录---数据库
@@ -162,16 +176,16 @@ class GoodsController extends Controller
         }
 
     }
-    /*
+    /*x
      * 存储浏览历史记录---cookie
      */
-    public function saveHistorycookie($goods_id){
-        $historyinfo=cookie('historyinfo');
-        //把商品id 用户id 浏览时间存入cookie
-        $historyinfo[]=['goods_id'=>$goods_id,'look_time'=>time()];
-        // dump($arr);
-        cookie('historyinfo',$historyinfo);
-    }
+//    public function saveHistorycookie($goods_id){
+//        $historyinfo=cookie('historyinfo');
+//        //把商品id 用户id 浏览时间存入cookie
+//        $historyinfo[]=['goods_id'=>$goods_id,'time'=>time()];
+//        // dump($arr);
+//        cookie('historyinfo',$historyinfo);
+//    }
 
 
 
@@ -234,7 +248,7 @@ class GoodsController extends Controller
 //        接受全部数据
         $data=$request->all();
         // dd($data);
-        $add = $data["attr_idone"].",".$data["goods_val_idone"].":".$data["attr_id"].",".$data["goods_val_id"];
+        $add = implode(":",$data["attr_id"]);
         // print_r($add);exit;
 //        通过商品id查询该商品的全部属性
         $where=[
@@ -254,5 +268,13 @@ class GoodsController extends Controller
                 return $info;
             }
         }
+    }
+
+    //sku属性值查询
+    public function select(Request $request){
+        $goods_val_id = $request->get("goods_val_id");
+        $goods_id = $request->get("goods_id");
+        $attr_id = $request->get("attr_id");
+        // dd($goods_id);
     }
 }
