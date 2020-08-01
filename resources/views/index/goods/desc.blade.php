@@ -190,7 +190,7 @@
 							<div class="fl" style="margin-top: 31px;">
 								<ul class="btn-choose unstyled">
 									<li>
-										<a href="cart.html" target="_blank" id="addcart" class="sui-btn  btn-danger addshopcar" disabled>加入购物车</a>
+										<a href="javascript:;"  id="addcart" goods_id="{{$goods->goods_id}}" class="sui-btn  btn-danger addshopcar" disabled>加入购物车</a>
 									</li>
 								</ul>
 							</div>
@@ -701,6 +701,33 @@
             }
 
         })
+
+        //加入购物车
+        $(document).on("click","#addcart",function(){
+            // alert(123)
+            var goods_id = $(this).attr("goods_id");
+            var buy_number = parseInt($("#month").val());
+            var goods_stick = new Array();
+            $(".selected").each(function(){
+                // console.log($(this));
+                goods_stick.push($(this).attr("attr_id")+","+$(this).attr("goods_val_id"));
+                // console.log($(this));
+            });
+            // alert(goods_stick);
+            $.ajax({
+                url:"/index/cart/cartcreate",
+                type:"post",
+                data: {
+                    goods_id:goods_id,
+                    buy_number:buy_number,
+                    goods_stick:goods_stick
+                },
+                success:function(res){
+                    console.log(res);
+                }
+            });
+        })
+$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
     </script>
 

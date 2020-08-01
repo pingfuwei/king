@@ -15,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="/index/css/pages-list.css" />
 
     <link rel="stylesheet" type="text/css" href="/index/css/pages-cart.css" />
-
 </head>
 <body>
 <!-- 头部栏位 -->
