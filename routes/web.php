@@ -232,11 +232,10 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("addresAjax", "index\Score@addresAjax");//地址ajax
     });
 
-
-
-
-
-
+    Route::prefix("cart")->group(function() {//商品
+        Route::any("cartcreate", "index\CartController@cartcreate");//购物车添加
+        Route::any("cartlist", "index\GoodsController@cartlist");//购物车列表
+    });
 
 
 
