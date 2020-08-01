@@ -180,7 +180,7 @@
 							<div class="fl title">
 								<div class="control-group">
 									<div class="">
-                                        <input type="text" value="1" id="month" goods_num="{{$stock}}" style="width: 50px;height: 40px;margin-top: 5px;" >
+                                        <input type="text" value="1" id="month" goods_num="{{$stock}}" style="width: 50px;height: 40px;margin-top: 5px;">
                                         <button type="button"  id="add" style="margin-top: -19px;margin-left: -7px;width: 20px;height: 23px;background: #f1f1f1;">+</button>
                                         <button type="button"  id="del" style="float: right;margin-left: -62px;margin-top: 28px;height: 23px;width: 20px;background: #f1f1f1;outline: none;">-</button>
 									</div>
@@ -190,7 +190,7 @@
 							<div class="fl" style="margin-top: 31px;">
 								<ul class="btn-choose unstyled">
 									<li>
-										<a href="cart.html" target="_blank" class="sui-btn  btn-danger addshopcar">加入购物车</a>
+										<a href="javascript:;"  id="addcart" goods_id="{{$goods->goods_id}}" class="sui-btn  btn-danger addshopcar" disabled>加入购物车</a>
 									</li>
 								</ul>
 							</div>
@@ -603,19 +603,53 @@
             var lenger = $(".attr_name").length;
             // console.log(lenger);
             if(selected==lenger){
-                $.get(
-                    "/index/goods/price",
-                    {attr_id:attr_id,goods_id:goods_id},
-                    function(res){
+                $.ajax({
+                    url: "/index/goods/price",
+                    type: "get",
+                    data: {
+                        attr_id:attr_id,goods_id:goods_id
+                    },
+                    async:false,
+                    success: function(res) {
                         // console.log(res);
                         if(res){
+                                // alert(123);
                             $("#goods_price").text(res["price"]);
                             $("#stock").text(res["stock"]);
+                            var buy_number = parseInt($("#month").val());
+                            if(buy_number>res["stock"]){
+                                // alert(123);
+                                $("#month").val("1");
+                                $("#month").removeAttr("disabled");
+                                $("#add").removeAttr("disabled");
+                                $("#del").removeAttr("disabled");
+                                $("#addcart").removeAttr("disabled");
+                            }
+                            if(buy_number="0"){
+                                // alert(123);
+                                $("#month").val("1");
+                                $("#month").removeAttr("disabled");
+                                $("#add").removeAttr("disabled");
+                                $("#del").removeAttr("disabled");
+                                $("#addcart").removeAttr("disabled");
+                            }
+
                         }else{
                             alert("没有该库存");
+                            $("#stock").text("0");
+                            var buy_number = parseInt($("#month").val());
+                            if(buy_number="0"){
+                                $("#month").val("0");
+                                $("#addcart").attr("disabled","");
+                                $("#month").attr("disabled","");
+                                $("#add").attr("disabled","");
+                                $("#del").attr("disabled","");
+                            }
+
                         }
                     }
-                )
+                })
+
             }
 
         })
@@ -623,8 +657,9 @@
         $(document).on("click","#add",function(){
             // alert(123);
             var buy_number = parseInt($("#month").val());
-            var goods_num = parseInt($("#month").attr("goods_num"));
-            // alert(buy_number);
+            var goods_num = parseInt($("#stock").text());
+            // alert(goods_num);
+            // return false;
             if (buy_number >= goods_num) {
                 $("#month").val(goods_num);
             } else {
@@ -637,7 +672,7 @@
         $(document).on("click", "#del", function() {
             // alert(123);
             var buy_number = parseInt($("#month").val());
-            var goods_num = parseInt($("#month").attr("goods_num"));
+            var goods_num = parseInt($("#stock").text());
             if (buy_number <= 1) {
                 $("#month").val("1");
             } else {
@@ -649,10 +684,12 @@
         //失去焦点
         $(document).on("blur", "#month", function() {
 
-        var buy_number = parseInt($("#month").val());
-        var goods_num = parseInt($("#month").attr("goods_num"));
+            var buy_number = parseInt($("#month").val());
+            var goods_num = parseInt($("#stock").text());
 
             var ags = /^\d{1,}$/;
+
+
             if (buy_number == "") {
                 $("#month").val("1");
             } else if (!ags.test(buy_number)) {
@@ -662,7 +699,35 @@
             } else {
                 $("#month").val(parseInt(buy_number));
             }
+
         })
+
+        //加入购物车
+        $(document).on("click","#addcart",function(){
+            // alert(123)
+            var goods_id = $(this).attr("goods_id");
+            var buy_number = parseInt($("#month").val());
+            var goods_stick = new Array();
+            $(".selected").each(function(){
+                // console.log($(this));
+                goods_stick.push($(this).attr("attr_id")+","+$(this).attr("goods_val_id"));
+                // console.log($(this));
+            });
+            // alert(goods_stick);
+            $.ajax({
+                url:"/index/cart/cartcreate",
+                type:"post",
+                data: {
+                    goods_id:goods_id,
+                    buy_number:buy_number,
+                    goods_stick:goods_stick
+                },
+                success:function(res){
+                    console.log(res);
+                }
+            });
+        })
+$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
     </script>
 

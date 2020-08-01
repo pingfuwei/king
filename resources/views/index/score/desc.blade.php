@@ -554,11 +554,12 @@
                 var scroe="{{$goods["goods_price"]*2}}"
                 var price=$("#price").html()
                 var str=""
-                $("#che:checked").each(function() {
+                $("input[checked='checked']").each(function() {
                     str+=$(this).attr("attrr")+","+$(this).attr("attr_val")+":"
                 });
                 str =str.slice(0,str.length-1)
                 var n=(str.split(':')).length-1;
+
                 if(str==""){
                     alert("请选择类型")
                     return
@@ -573,7 +574,7 @@
                     success:function (res) {
                         alert(res)
                         if(res==="添加成功"){
-                            location.href='/index/score/settlement'
+                            location.href='/index/score/settlement?goods_id='+goods_id
                         }
                     }
                 })

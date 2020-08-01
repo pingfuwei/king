@@ -16,6 +16,13 @@ class GoodsController extends Controller
     /*
      * 商品详情
      */
+<<<<<<< HEAD
+//    public function desc(Request $request)
+//    {
+//        $goods_id = $request->get('goods_id');
+//        if (empty($goods_id)) {
+=======
+>>>>>>> 7638e2f2977b9040ada4c0ea52afd3af4519a4ec
     public function desc(Request $request){
         $goods_id=$request->get('goods_id');
         //        游览历史记录、
@@ -126,7 +133,11 @@ class GoodsController extends Controller
         if($user_name){
 
             $res=$this->saveHistoryDb($goods_id,$user_name);
+<<<<<<< HEAD
+//            dd($res);
+=======
             // dd($res);
+>>>>>>> 7638e2f2977b9040ada4c0ea52afd3af4519a4ec
         }else{
             $this->saveHistorycookie($goods_id);
 
@@ -165,7 +176,7 @@ class GoodsController extends Controller
         }
 
     }
-    /*
+    /*x
      * 存储浏览历史记录---cookie
      */
 //    public function saveHistorycookie($goods_id){

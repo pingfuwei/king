@@ -165,6 +165,9 @@ Route::prefix("admin")->group(function (){//后台
             Route::any('del','admin\UserdisController@del');//执行商品属性删除
             Route::any('stockAjax','admin\UserdisController@stockAjax');//执行库存ajax
         });
+    Route::prefix("index")->group(function (){//控制面板
+        Route::any('list','admin\IndexController@list');//积分换购订单展示
+    });
 });
 
 
@@ -230,16 +233,14 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("desc", "index\Score@desc");//积分换购详情
         Route::any("descAjax", "index\Score@descAjax");//积分换购详情ajax
         Route::any("settlement", "index\Score@settlement");//结算
+        Route::any("settlementAjax", "index\Score@settlementAjax");//结算ajax
         Route::any("addresAjax", "index\Score@addresAjax");//地址ajax
     });
 
-
-
-
-
-
-
-
+    Route::prefix("cart")->group(function() {//商品
+        Route::any("cartcreate", "index\CartController@cartcreate");//购物车添加
+        Route::any("cartlist", "index\CartController@cartlist");//购物车列表
+    });
 
 
 
@@ -253,6 +254,8 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('personal','index\SignController@personal');//展示个人信息
         Route::any('area','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
+        Route::any('Consignment','index\SignController@Consignment');//代发货方法
+        Route::any('Tobepaid','index\SignController@Tobepaid');//待付款方法
     });
 
 

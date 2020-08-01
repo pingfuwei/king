@@ -11,7 +11,8 @@ use App\IndexModel\SignModel;
 use App\AdminModel\vipModel;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
-
+use App\indexModel\CartScroe;
+use App\AdminModel\Goods;
 class SignController extends Controller
 {
     public function sign(){
@@ -214,5 +215,39 @@ class SignController extends Controller
         if($res){
             return redirect('index/persion/personal');
         }
+    }
+    //代发货方法
+    public function Consignment(){
+        $name=session("user_name");
+        $user_id=User::where("user_name",$name)->first();
+        $where=[
+            "user_id"=>$user_id["user_id"],
+            "status"=>2
+        ];
+        $data=CartScroe::where($where)->get();
+        foreach ($data as $k=>$v){
+                $v->goods_id=Goods::where("goods_id",$v->goods_id)->first()->toArray();
+        }
+//        dd($data);
+        return view("index.persion.Consignment",["data"=>$data]);
+    }
+    //待付款方法
+    public function Tobepaid(){
+        $name=session("user_name");
+        $user_id=User::where("user_name",$name)->first();
+        $where=[
+            "user_id"=>$user_id["user_id"],
+            "status"=>1
+        ];
+        $data=CartScroe::where($where)->get();
+//        if(isset($data[0])){
+            foreach ($data as $k=>$v){
+                $v->goods_id=Goods::where("goods_id",$v->goods_id)->first()->toArray();
+            }
+//        }else{
+//            echo 11;die;
+//        }
+
+        return view("index.persion.Tobepaid",["data"=>$data]);
     }
 }
