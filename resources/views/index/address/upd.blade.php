@@ -76,12 +76,22 @@
                                                 <select class="form-control" id="province" name="province">
 
                                                     <option>请选择</option>
-                                                    @foreach($privince as $k=>$v)
-                                                        <option value="{{$v->id}}" {{$data->province==$v->id ? "selected" : ""}} >{{$v->name}}</option>
+                                                    @foreach($province as $k=>$v)
+                                                        <option value="{{$v['id']}}" {{$data["province"]==$v['id'] ? "selected" : ""}} >{{$v['name']}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select class="form-control" id="city" value="" name="city" ><option>请选择</option></select>
-                                                <select class="form-control" id="qu" value="" name="area" ><option>请选择</option></select>
+                                                <select class="form-control" id="city"   name="city" >
+                                                    <option>请选择</option>
+                                                    @foreach($city as $k=>$v)
+                                                        <option value="{{$v['id']}}" {{$data["city"]==$v['id'] ? "selected" : ""}}>{{$v['name']}}</option>
+                                                        @endforeach
+                                                </select>
+                                                <select class="form-control" id="qu"  name="area" >
+                                                    <option>请选择</option>
+                                                    @foreach($area as $k=>$v)
+                                                    <option value="{{$v['id']}}" {{$data["area"]==$v['id'] ? "selected" : ""}}>{{$v['name']}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

@@ -90,8 +90,25 @@ class AddressController extends Controller
     public function upd($address_id){
         $privince=Shop_Area::where(['pid'=>0])->get();
         $data=AddressModel::where('address_id',$address_id)->first();
-        return view('index.address.upd',['privince'=>$privince,'data'=>$data]);
+        $province = $this->area(0);
+        $city = $this->area($data["province"]);
+        $area = $this->area($data["city"]);
+
+//        dd($province);
+        return view('index.address.upd',['province'=>$province,'city'=>$city,'area'=>$area,'data'=>$data,"privince"=>$privince]);
     }
+
+    public static function area($id){
+//        echo $id;
+        $son=Shop_Area::where(['pid'=>$id])->get()->toArray();
+        return $son;
+//        return [
+//            'code'=>'00000',
+//            'data'=>$son
+//        ];
+
+    }
+
     //执行地址修改
     public function updDo(Request $request){
         $all=$request->all();

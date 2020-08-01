@@ -26,20 +26,24 @@ class Index extends Controller
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
         $user_id=$user['user_id'];
-        $wheres=[
-            'user_id'=>$user_id,
-            'history.is_del'=>1
-        ];
-        $datas=Goods::leftjoin('history','history.goods_id','=','shop_goods.goods_id')->where($wheres)->get();
-        //猜你喜欢列表展示
-        $likeinfo=[
-            ['user_id',$user_id],
-            ['history.is_del',1]
-        ];
-        $like=HistoryModel::leftjoin('shop_goods','shop_goods.goods_id','=','history.goods_id')->where($likeinfo)->orderBy('count','desc')->limit(6)->get();
-        //今日推荐
-        $referInfo=HistoryModel::leftjoin('shop_goods','shop_goods.goods_id','=','history.goods_id')->where(['history.is_del'=>1])->orderBy('count','desc')->limit(4)->get();
-        return view("index.index",compact("res","ret","datas","like","referInfo"));
+        if($user_id){
+            //猜你喜欢列表展示
+            $likeinfo=[
+                ['user_id',$user_id],
+                ['history.is_del',1]
+            ];
+            $like=HistoryModel::leftjoin('shop_goods','shop_goods.goods_id','=','history.goods_id')->where($likeinfo)->orderBy('count','desc')->limit(6)->get();
+            //今日推荐
+            $referInfo=HistoryModel::leftjoin('shop_goods','shop_goods.goods_id','=','history.goods_id')->where(['history.is_del'=>1])->orderBy('count','desc')->limit(4)->get();
+        }else {
+            //猜你喜欢列表展示
+
+            $like = HistoryModel::leftjoin('shop_goods', 'shop_goods.goods_id', '=', 'history.goods_id')->where('history.is_del', 1)->orderBy('count', 'desc')->limit(6)->get();
+            $referInfo=HistoryModel::leftjoin('shop_goods','shop_goods.goods_id','=','history.goods_id')->where(['history.is_del'=>1])->orderBy('count','desc')->limit(4)->get();
+
+        }
+
+        return view("index.index",compact("res","ret","like","referInfo"));
     }
     function gatCate3($array,$pid=0)//许海哲分类
     {
@@ -52,6 +56,25 @@ class Index extends Controller
         }
         return $info;
     }
+    //浏览历史记录列表
+    public function history(){
+        $user_name=session('user_name');
+        $user=User::where('user_name',$user_name)->first();
+        $user_id=$user['user_id'];
+//        echo $user_id;die;
+        $wheres=[
+            'user_id'=>$user_id,
+            'history.is_del'=>1
+        ];
+        $datas=Goods::leftjoin('history','history.goods_id','=','shop_goods.goods_id')->where($wheres)->get();
+//        dd($datas);
+        foreach($datas as $k=>$v){
+            $v['goods_img']=env('UPLOADS_URL').$v['goods_img'];
+        }
+//        var_dump($datas);die;
+        return $datas;
+    }
+    //历史记录删除
     public function del(){
         $his_id=request()->post('his_id');
         $user_name=session('user_name');

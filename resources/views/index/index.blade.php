@@ -148,8 +148,8 @@
                 </div>
             </li>
             @foreach($referInfo as $kk=>$vv)
-            <li class="yui3-u-5-24">
-                <a href="list.html" target="_blank"><img src="{{env("UPLOADS_URL")}}{{$vv->goods_img}}" width="160" height="250"/></a>
+            <li class="yui3-u-5-24" style="background: darkgray">
+                <a href="list.html" target="_blank"><img src="{{env("UPLOADS_URL")}}{{$vv->goods_img}}" width="163" height="248"/></a>
             </li>
             @endforeach
         </ul>

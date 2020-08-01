@@ -105,15 +105,18 @@ class SignController extends Controller
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
         $user_id=$user['user_id'];
+        if($user_id==''){
+            echo "<script>alert('请登录');location.href='/index/login/login'</script>";
+        }
         $vipinfo=vipModel::leftjoin('user_vip','user_vip.vip_id','=','vip.vip_id')->where(['user_id'=>$user_id])->first();
         if($vipinfo){
-            if($vipinfo['vip_name']=='vip'){
+            if($vipinfo['vip_name']=='至尊会员'){
                 $score=10;
-            }else if($vipinfo['vip_name']=='svip'){
-                $score=15;
+            }else{
+                $score=5;
             }
         }else{
-            $score=5;
+            echo "<script>alert('请登录');location.href='/index/login/login'</script>";
         }
         $check=SignModel::where('user_id',$user_id)->first();
 //        dd($check);
