@@ -128,7 +128,7 @@
 									<div class="fl title">
 									<i>确认收货后返还积分</i>
 								</div>
-                                <span class="fl title">{{$goods->goods_score}}</span>
+                                <span class="fl title" id="goods_score" goods_score="{{$goods->goods_score}}">{{$goods->goods_score}}</span>
 								</dt>
 							</dl>
 
@@ -592,6 +592,7 @@
             var goods_val_id = $(this).attr("goods_val_id");
             var attr_id1 = $(this).attr("attr_id");
             var goods_id = $(this).attr("goods_id");
+            var goods_score = parseInt($("#goods_score").attr("goods_score"));
 
             var attr_id = new Array();
             $(".selected").each(function(){
@@ -620,6 +621,8 @@
                             if(buy_number>res["stock"]){
                                 // alert(123);
                                 $("#month").val("1");
+                                var info = goods_score*1;
+                                $("#goods_score").text(info);
                                 $("#month").removeAttr("disabled");
                                 $("#add").removeAttr("disabled");
                                 $("#del").removeAttr("disabled");
@@ -628,6 +631,8 @@
                             if(buy_number="0"){
                                 // alert(123);
                                 $("#month").val("1");
+                                var info = goods_score*1;
+                                $("#goods_score").text(info);
                                 $("#month").removeAttr("disabled");
                                 $("#add").removeAttr("disabled");
                                 $("#del").removeAttr("disabled");
@@ -640,6 +645,8 @@
                             var buy_number = parseInt($("#month").val());
                             if(buy_number="0"){
                                 $("#month").val("0");
+                                var info = goods_score*0;
+                                $("#goods_score").text(info);
                                 $("#addcart").attr("disabled","");
                                 $("#month").attr("disabled","");
                                 $("#add").attr("disabled","");
@@ -658,13 +665,18 @@
             // alert(123);
             var buy_number = parseInt($("#month").val());
             var goods_num = parseInt($("#stock").text());
+            var goods_score = parseInt($("#goods_score").attr("goods_score"));
             // alert(goods_num);
             // return false;
             if (buy_number >= goods_num) {
                 $("#month").val(goods_num);
+                var info = goods_score*goods_num;
+                $("#goods_score").text(info);
             } else {
                 buy_number += 1;
                 $("#month").val(buy_number);
+                var info = goods_score*buy_number;
+                $("#goods_score").text(info);
             }
 
         })
@@ -673,11 +685,16 @@
             // alert(123);
             var buy_number = parseInt($("#month").val());
             var goods_num = parseInt($("#stock").text());
+            var goods_score = parseInt($("#goods_score").attr("goods_score"));
             if (buy_number <= 1) {
                 $("#month").val("1");
+                var info = goods_score*1;
+                $("#goods_score").text(info);
             } else {
                 buy_number -= 1;
                 $("#month").val(buy_number);
+                var info = goods_score*buy_number;
+                $("#goods_score").text(info);
 
             }
         })
@@ -686,18 +703,27 @@
 
             var buy_number = parseInt($("#month").val());
             var goods_num = parseInt($("#stock").text());
+            var goods_score = parseInt($("#goods_score").attr("goods_score"));
 
             var ags = /^\d{1,}$/;
 
 
             if (buy_number == "") {
                 $("#month").val("1");
+                var info = goods_score*1;
+                $("#goods_score").text(info);
             } else if (!ags.test(buy_number)) {
                 $("#month").val("1");
+                var info = goods_score*1;
+                $("#goods_score").text(info);
             } else if (parseInt(buy_number) >= goods_num) {
                 $("#month").val(goods_num);
+                var info = goods_score*goods_num;
+                $("#goods_score").text(info);
             } else {
                 $("#month").val(parseInt(buy_number));
+                var info = goods_score*buy_number;
+                $("#goods_score").text(info);
             }
 
         })
@@ -722,8 +748,15 @@
                     buy_number:buy_number,
                     goods_stick:goods_stick
                 },
+                dataType:"json",
                 success:function(res){
-                    console.log(res);
+                    // console.log(res);
+                    if(res.status=="true"){
+                        alert(res.msg);
+                        window.location.href=res.result;
+                    }else{
+                        alert(res.msg);
+                    }
                 }
             });
         })

@@ -1,4 +1,4 @@
- @extends('index.persion.index')
+@extends('index.persion.index')
  @section('contents')
         <!--右侧主内容-->
             <div class="yui3-u-5-6">

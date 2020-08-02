@@ -47,6 +47,7 @@
             "{{url('index/persion/Dosign')}}",
              {'val':val,'content':content},
               function(res){
+//                  console.log(res);return;
                   if(res.code=='000'){
                       alert(res.msg);
                       location.href="{{url('/')}}"

@@ -18,7 +18,7 @@
 			<div class="shortcut">
 			        <ul class="fl">
 			            <li class="f-item">品优购欢迎{{session("user_name")}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-			
+
 			            <li class="f-item">
 			                <a href="/index/login/login">登录</a>　<span>
 			                        <a href="/index/reg/reg">免费注册</a></span></li>
@@ -65,7 +65,7 @@
 		</div>
 		<!--All goods-->
 		<div class="allgoods">
-			<h4>全部商品<span>11</span></h4>
+			<h4>全部商品<span></span></h4>
 			<div class="cart-main">
 				<div class="yui3-g cart-th">
 					<div class="yui3-u-1-4"><input type="checkbox" name="" id="" value="" /> 全部</div>
@@ -76,152 +76,158 @@
 					<div class="yui3-u-1-8">操作</div>
 				</div>
 				<div class="cart-item-list">
-					<div class="cart-shop">
-						<input type="checkbox" name="" id="" value="" />
-						<span class="shopname self">传智自营</span>
-					</div>
-					<div class="cart-body">
-						<div class="cart-list">
-							<ul class="goods-list yui3-g">
-								<li class="yui3-u-1-24">
-									<input type="checkbox" name="" id="" value="" />
-								</li>
-								<li class="yui3-u-11-24">
-									<div class="good-item">
-										<div class="item-img"><img src="/index/img/goods.png" /></div>
-										<div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存
-											尺寸：13.3英寸</div>
-									</div>
-								</li>
+					{{--<div class="cart-shop">--}}
+						{{--<input type="checkbox" name="" id="" value="" />--}}
+						{{--<span class="shopname self">传智自营</span>--}}
+					{{--</div>--}}
+					{{--<div class="cart-body">--}}
+						{{--<div class="cart-list">--}}
+							{{--<ul class="goods-list yui3-g">--}}
+								{{--<li class="yui3-u-1-24">--}}
+									{{--<input type="checkbox" name="" id="" value="" />--}}
+								{{--</li>--}}
+								{{--<li class="yui3-u-11-24">--}}
+									{{--<div class="good-item">--}}
+										{{--<div class="item-img"><img src="/index/img/goods.png" /></div>--}}
+										{{--<div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存--}}
+											{{--尺寸：13.3英寸</div>--}}
+									{{--</div>--}}
+								{{--</li>--}}
 
-								<li class="yui3-u-1-8"><span class="price">8848.00</span></li>
-								<li class="yui3-u-1-8">
-									<a href="javascript:void(0)" class="increment mins">-</a>
-									<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />
-									<a href="javascript:void(0)" class="increment plus">+</a>
-								</li>
-								<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>
-								<li class="yui3-u-1-8">
-									<a href="#none">删除</a><br />
-									<a href="#none">移到我的关注</a>
-								</li>
-							</ul>
-						</div>
-						<div class="cart-list">
-							<ul class="goods-list yui3-g">
-								<li class="yui3-u-1-24">
-									<input type="checkbox" name="" id="" value="" />
-								</li>
-								<li class="yui3-u-11-24">
-									<div class="good-item">
-										<div class="item-img"><img src="/index/img/goods.png" /></div>
-										<div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存
-											尺寸：13.3英寸</div>
-									</div>
-								</li>
+								{{--<li class="yui3-u-1-8"><span class="price">8848.00</span></li>--}}
+								{{--<li class="yui3-u-1-8">--}}
+									{{--<a href="javascript:void(0)" class="increment mins">-</a>--}}
+									{{--<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />--}}
+									{{--<a href="javascript:void(0)" class="increment plus">+</a>--}}
+								{{--</li>--}}
+								{{--<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>--}}
+								{{--<li class="yui3-u-1-8">--}}
+									{{--<a href="#none">删除</a><br />--}}
+									{{--<a href="#none">移到我的关注</a>--}}
+								{{--</li>--}}
+							{{--</ul>--}}
+						{{--</div>--}}
+						{{--<div class="cart-list">--}}
+							{{--<ul class="goods-list yui3-g">--}}
+								{{--<li class="yui3-u-1-24">--}}
+									{{--<input type="checkbox" name="" id="" value="" />--}}
+								{{--</li>--}}
+								{{--<li class="yui3-u-11-24">--}}
+									{{--<div class="good-item">--}}
+										{{--<div class="item-img"><img src="/index/img/goods.png" /></div>--}}
+										{{--<div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存--}}
+											{{--尺寸：13.3英寸</div>--}}
+									{{--</div>--}}
+								{{--</li>--}}
 
-								<li class="yui3-u-1-8"><span class="price">8848.00</span></li>
-								<li class="yui3-u-1-8">
-									<a href="javascript:void(0)" class="increment mins">-</a>
-									<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />
-									<a href="javascript:void(0)" class="increment plus">+</a>
-								</li>
-								<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>
-								<li class="yui3-u-1-8">
-									<a href="#none">删除</a><br />
-									<a href="#none">移到我的关注</a>
-								</li>
-							</ul>
-						</div>
-						<div class="cart-list">
-							<ul class="goods-list yui3-g">
-								<li class="yui3-u-1-24">
-									<input type="checkbox" name="" id="" value="" />
-								</li>
-								<li class="yui3-u-11-24">
-									<div class="good-item">
-										<div class="item-img"><img src="/index/img/goods.png" /></div>
-										<div class="item-msg">
-											Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存
-											尺寸：13.3英寸
-										</div>
-									</div>
-								</li>
+								{{--<li class="yui3-u-1-8"><span class="price">8848.00</span></li>--}}
+								{{--<li class="yui3-u-1-8">--}}
+									{{--<a href="javascript:void(0)" class="increment mins">-</a>--}}
+									{{--<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />--}}
+									{{--<a href="javascript:void(0)" class="increment plus">+</a>--}}
+								{{--</li>--}}
+								{{--<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>--}}
+								{{--<li class="yui3-u-1-8">--}}
+									{{--<a href="#none">删除</a><br />--}}
+									{{--<a href="#none">移到我的关注</a>--}}
+								{{--</li>--}}
+							{{--</ul>--}}
+						{{--</div>--}}
+						{{--<div class="cart-list">--}}
+							{{--<ul class="goods-list yui3-g">--}}
+								{{--<li class="yui3-u-1-24">--}}
+									{{--<input type="checkbox" name="" id="" value="" />--}}
+								{{--</li>--}}
+								{{--<li class="yui3-u-11-24">--}}
+									{{--<div class="good-item">--}}
+										{{--<div class="item-img"><img src="/index/img/goods.png" /></div>--}}
+										{{--<div class="item-msg">--}}
+											{{--Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存--}}
+											{{--尺寸：13.3英寸--}}
+										{{--</div>--}}
+									{{--</div>--}}
+								{{--</li>--}}
 
-								<li class="yui3-u-1-8"><span class="price">8848.00</span></li>
-								<li class="yui3-u-1-8">
-									<a href="javascript:void(0)" class="increment mins">-</a>
-									<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />
-									<a href="javascript:void(0)" class="increment plus">+</a>
-								</li>
-								<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>
-								<li class="yui3-u-1-8">
-									<a href="#none">删除</a><br />
-									<a href="#none">移到我的关注</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+								{{--<li class="yui3-u-1-8"><span class="price">8848.00</span></li>--}}
+								{{--<li class="yui3-u-1-8">--}}
+									{{--<a href="javascript:void(0)" class="increment mins">-</a>--}}
+									{{--<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />--}}
+									{{--<a href="javascript:void(0)" class="increment plus">+</a>--}}
+								{{--</li>--}}
+								{{--<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>--}}
+								{{--<li class="yui3-u-1-8">--}}
+									{{--<a href="#none">删除</a><br />--}}
+									{{--<a href="#none">移到我的关注</a>--}}
+								{{--</li>--}}
+							{{--</ul>--}}
+						{{--</div>--}}
+					{{--</div>--}}
+				{{--</div>--}}
 				<div class="cart-item-list">
-					<div class="cart-shop">
-						<input type="checkbox" name="" id="" value="" />
-						<span class="shopname">神州数码专营店</span>
-					</div>
-					<div class="cart-body">
-						<div class="cart-list">
-							<ul class="goods-list yui3-g">
-								<li class="yui3-u-1-24">
-									<input type="checkbox" name="" id="" value="" />
-								</li>
-								<li class="yui3-u-11-24">
-									<div class="good-item">
-										<div class="item-img"><img src="/index/img/goods.png" /></div>
-										<div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存
-											尺寸：13.3英寸</div>
-									</div>
-								</li>
+					{{--<div class="cart-shop">--}}
+						{{--<input type="checkbox" name="" id="" value="" />--}}
+						{{--<span class="shopname">神州数码专营店</span>--}}
+					{{--</div>--}}
+					@if($cart_info==[])
+						<a href="/"><h3 style="text-align: center">亲，您购物车空空如也，请先先加入一些东西吧</h3></a>
+					@else
+						@foreach($cart_info as $k=>$v)
+						<div class="cart-body">
+							<div class="cart-list">
+								<ul class="goods-list yui3-g">
+									<li class="yui3-u-1-24">
+										<input type="checkbox" name="" id="" value="" />
+									</li>
+									<li class="yui3-u-11-24">
+										<div class="good-item">
+											<div class="item-img"><img jqimg="{{env('UPLOADS_URL')}}{{$v['goods_img']}}"src="{{env('UPLOADS_URL')}}{{$v['goods_img']}}" /></div>
+											<div class="item-msg">{{$v['goods_name']}}
+												尺寸：13.3英寸</div>
+										</div>
+									</li>
+									<li class="yui3-u-1-8"><span class="price">{{$v['price']}}</span></li>
+									<li class="yui3-u-1-8">
+									<li class="yui3-u-1-8"><span class="price">8848.00</span></li>
+									<li class="yui3-u-1-8" goods_num="">
+										<a href="javascript:void(0)" class="increment mins">-</a>
+										<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />
+										<a href="javascript:void(0)" class="increment plus">+</a>
+									</li>
+									<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>
+									<li class="yui3-u-1-8">
+										<a href="#none">删除</a>
+									</li>
+								</ul>
+							</div>
 
-								<li class="yui3-u-1-8"><span class="price">8848.00</span></li>
-								<li class="yui3-u-1-8">
-									<a href="javascript:void(0)" class="increment mins">-</a>
-									<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />
-									<a href="javascript:void(0)" class="increment plus">+</a>
-								</li>
-								<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>
-								<li class="yui3-u-1-8">
-									<a href="#none">删除</a><br />
-									<a href="#none">移到我的关注</a>
-								</li>
-							</ul>
-						</div>
-						<div class="cart-list">
-							<ul class="goods-list yui3-g">
-								<li class="yui3-u-1-24">
-									<input type="checkbox" name="" id="" value="" />
-								</li>
-								<li class="yui3-u-11-24">
-									<div class="good-item">
-										<div class="item-img"><img src="/index/img/goods.png" /></div>
-										<div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存
-											尺寸：13.3英寸</div>
-									</div>
-								</li>
+						{{--<div class="cart-list">--}}
+							{{--<ul class="goods-list yui3-g">--}}
+								{{--<li class="yui3-u-1-24">--}}
+									{{--<input type="checkbox" name="" id="" value="" />--}}
+								{{--</li>--}}
+								{{--<li class="yui3-u-11-24">--}}
+									{{--<div class="good-item">--}}
+										{{--<div class="item-img"><img src="/index/img/goods.png" /></div>--}}
+										{{--<div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存--}}
+											{{--尺寸：13.3英寸</div>--}}
+									{{--</div>--}}
+								{{--</li>--}}
 
-								<li class="yui3-u-1-8"><span class="price">8848.00</span></li>
-								<li class="yui3-u-1-8">
-									<a href="javascript:void(0)" class="increment mins">-</a>
-									<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />
-									<a href="javascript:void(0)" class="increment plus">+</a>
-								</li>
-								<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>
-								<li class="yui3-u-1-8">
-									<a href="#none">删除</a><br />
-									<a href="#none">移到我的关注</a>
-								</li>
-							</ul>
-						</div>
+								{{--<li class="yui3-u-1-8"><span class="price">8848.00</span></li>--}}
+								{{--<li class="yui3-u-1-8">--}}
+									{{--<a href="javascript:void(0)" class="increment mins">-</a>--}}
+									{{--<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />--}}
+									{{--<a href="javascript:void(0)" class="increment plus">+</a>--}}
+								{{--</li>--}}
+								{{--<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>--}}
+								{{--<li class="yui3-u-1-8">--}}
+									{{--<a href="#none">删除</a><br />--}}
+									{{--<a href="#none">移到我的关注</a>--}}
+								{{--</li>--}}
+							{{--</ul>--}}
+						{{--</div>--}}
 					</div>
+						@endforeach
 				</div>
 			</div>
 			<div class="cart-tool">
@@ -231,8 +237,8 @@
 				</div>
 				<div class="option">
 					<a href="#none">删除选中的商品</a>
-					<a href="#none">移到我的关注</a>
-					<a href="#none">清除下柜商品</a>
+					{{--<a href="#none">移到我的关注</a>--}}
+					{{--<a href="#none">清除下柜商品</a>--}}
 				</div>
 				<div class="toolbar">
 					<div class="chosed">已选择<span>0</span>件商品</div>
@@ -260,12 +266,13 @@
 							<span class="number">1</span>
 						</li>
 						<li class="yui3-u-1-8">
-							<a href="#none">重新购买</a>
-							<a href="#none">移到我的关注</a>
+							{{--<a href="#none">重新购买</a>--}}
+							{{--<a href="#none">移到我的关注</a>--}}
 						</li>
 					</ul>
 				</div>
 			</div>
+				@endif
 			<div class="liked">
 				<ul class="sui-nav nav-tabs">
 					<li class="active">
@@ -537,3 +544,15 @@
 </body>
 
 </html>
+<script>
+    $(function(){
+        // alert(123);
+        $(document).on("click",".plus",function(){
+            // alert(123);
+            var _this = $(this);
+            var itxt = _this.prev("input").val();
+            var goods_num = parseInt(_this.parent().attr("goods_num"));
+            console.log(goods_num);
+        })
+    })
+</script>

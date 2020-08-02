@@ -201,7 +201,8 @@ Route::prefix("admin")->group(function (){//后台
 
 
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
-
+Route::any("/history/list", "index\Index@history");//浏览历史记录
+Route::any("/history/del", "index\Index@del");//浏览历史记录删除
 Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
@@ -247,11 +248,11 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
 
 
     Route::prefix("persion")->group(function() {//个人中心
-        Route::any('sign','index\SignController@sign')->middleware("IndexLogin");//签到
+        Route::any('sign','index\SignController@sign');//签到
         Route::any('Dosign','index\SignController@Dosign');//签到
-        Route::any('addpersion','index\SignController@addpersion')->middleware("IndexLogin");//填写个人信息
+        Route::any('addpersion','index\SignController@addpersion');//填写个人信息
         Route::any('persionDo','index\SignController@persionDo');//执行添加个人信息
-        Route::any('pers','index\SignController@pers')->middleware("IndexLogin");//修改个人信息
+        Route::any('pers','index\SignController@pers');//修改个人信息
         Route::any('personal','index\SignController@personal');//展示个人信息
         Route::any('area','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
@@ -293,4 +294,5 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('top','index\CateController@top');//导航栏
         Route::any('list','index\CateController@list');//列表
     });
+
 });
