@@ -242,8 +242,8 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("cart")->group(function() {//商品
         Route::any("cartcreate", "index\CartController@cartcreate");//购物车添加
         Route::any("cartlist", "index\CartController@cartlist");//购物车列表
+        Route::any("cartdel", "index\CartController@cartdel");//购物车列表
     });
-
 
 
 

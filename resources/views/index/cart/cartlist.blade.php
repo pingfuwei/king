@@ -193,7 +193,7 @@
 									</li>
 									<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>
 									<li class="yui3-u-1-8">
-										<a href="#none">删除</a>
+										<a href="/index/cart/cartdel/?cart_id={{$v['cart_id']}}">删除</a>
 									</li>
 								</ul>
 							</div>
