@@ -243,9 +243,11 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("cartcreate", "index\CartController@cartcreate");//购物车添加
         Route::any("cartlist", "index\CartController@cartlist");//购物车列表
         Route::any("cartdel", "index\CartController@cartdel");//购物车列表
+        Route::any("total", "index\CartController@total");//购物车小计
+        Route::any("updnumber", "index\CartController@updnumber");//购物车购买数量
+
+
     });
-
-
 
     Route::prefix("persion")->group(function() {//个人中心
         Route::any('sign','index\SignController@sign');//签到

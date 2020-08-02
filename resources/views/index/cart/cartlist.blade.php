@@ -186,7 +186,7 @@
 										</div>
 									</li>
 									<li class="yui3-u-1-8"><span class="price">{{$v['price']}}</span></li>
-									<li class="yui3-u-1-8" goods_num="{{$v['stock']}}" stock_id="{{$v['stock_id']}}">
+									<li class="yui3-u-1-8" goods_num="{{$v['stock']}}" stock_id="{{$v['stock_id']}}" cart_id="{{$v["cart_id"]}}">
 										<a href="javascript:void(0)" class="increment mins">-</a>
 										<input autocomplete="off" type="text" value="{{$v['buy_number']}}" minnum="1" class="itxt" />
 										<a href="javascript:void(0)" class="increment plus">+</a>
@@ -552,7 +552,8 @@
             var buy_number = parseInt(_this.prev("input").val());
             var goods_num = parseInt(_this.parent().attr("goods_num"));
             var stock_id = _this.parent().attr("stock_id");
-            // console.log(stock_id);
+            var cart_id = _this.parent().attr("cart_id");
+            // console.log(cart_id);
             // console.log(goods_num);
             if (buy_number >= goods_num) {
                 _this.prev("input").val(goods_num);
@@ -561,6 +562,7 @@
                 _this.prev("input").val(buy_number);
             }
 
+            updnumber(buy_number,cart_id)
             total(_this,stock_id);
         })
         //减号
@@ -604,10 +606,24 @@
                 buy_num = parseInt(buy_number);
             }
         })
+        //修改购买数量
+        function updnumber(buy_number,cart_id){
+            $.get(
+                "/index/cart/updnumber", {
+                    cart_id: cart_id,
+                    buy_number:buy_number
+                },
+                function(res) {
+                    console.log(res);
+                    // _this.parents("td").next().text("￥" + res);
+                }
+            )
+        }
+        //小计
         function total(_this,stock_id){
             // console.log(stock_id);
-            $.get( //post方式
-                "/index/cart/total", { //传给控制器
+            $.get(
+                "/index/cart/total", {
                     stock_id: stock_id
                 },
                 function(res) {

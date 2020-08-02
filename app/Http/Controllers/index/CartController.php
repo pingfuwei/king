@@ -95,60 +95,60 @@ class CartController extends Controller
            }
            return json_encode($message,JSON_UNESCAPED_UNICODE);
        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //购物车添加
     public function cartcreate(Request $request){
         $arr = $request->all();
@@ -244,6 +244,19 @@ class CartController extends Controller
 
 
         echo json_encode($message);
+    }
+
+    //修改购买数量
+    public function updnumber(Request $request){
+        $arr = $request->all();
+        // dd($arr);
+    }
+
+    //小计
+    public function total(Request $request){
+        $stock_id = $request->get("stock_id");
+        $stock = goods_stock::where("stock_id",$stock_id)->first();
+        dd($stock);
     }
 
     //购物车提示信息
