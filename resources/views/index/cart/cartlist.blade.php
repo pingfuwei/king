@@ -18,7 +18,7 @@
 			<div class="shortcut">
 			        <ul class="fl">
 			            <li class="f-item">品优购欢迎{{session("user_name")}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-			
+
 			            <li class="f-item">
 			                <a href="/index/login/login">登录</a>　<span>
 			                        <a href="/index/reg/reg">免费注册</a></span></li>
@@ -65,7 +65,7 @@
 		</div>
 		<!--All goods-->
 		<div class="allgoods">
-			<h4>全部商品<span>11</span></h4>
+			<h4>全部商品<span>{{$count}}</span></h4>
 			<div class="cart-main">
 				<div class="yui3-g cart-th">
 					<div class="yui3-u-1-4"><input type="checkbox" name="" id="" value="" /> 全部</div>
@@ -185,9 +185,10 @@
 												尺寸：13.3英寸</div>
 										</div>
 									</li>
-
 									<li class="yui3-u-1-8"><span class="price">{{$v['price']}}</span></li>
 									<li class="yui3-u-1-8">
+									<li class="yui3-u-1-8"><span class="price">8848.00</span></li>
+									<li class="yui3-u-1-8" goods_num="{{$cart_info->stock}}">
 										<a href="javascript:void(0)" class="increment mins">-</a>
 										<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />
 										<a href="javascript:void(0)" class="increment plus">+</a>
@@ -543,3 +544,15 @@
 </body>
 
 </html>
+<script>
+    $(function(){
+        // alert(123);
+        $(document).on("click",".plus",function(){
+            // alert(123);
+            var _this = $(this);
+            var itxt = _this.prev("input").val();
+            var goods_num = parseInt(_this.parent().attr("goods_num"));
+            console.log(goods_num);
+        })
+    })
+</script>
