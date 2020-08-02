@@ -61,7 +61,7 @@ class CartController extends Controller
     /*
      * 购物车删除
      */
-       public function cartdel(Request $request){
+     public function cartdel(Request $request){
            $data=$request->all();
 //           dd($data);
            if(empty($data['cart_id'])){
@@ -94,8 +94,13 @@ class CartController extends Controller
                ];
            }
            return json_encode($message,JSON_UNESCAPED_UNICODE);
-       }
-        
+     }
+    /*
+     * 获取合计
+     */
+    public function getmonney(Request $request){
+
+    }
         
         
         
