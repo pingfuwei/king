@@ -245,6 +245,8 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("cartdel", "index\CartController@cartdel");//购物车列表
         Route::any("total", "index\CartController@total");//购物车小计
         Route::any("updnumber", "index\CartController@updnumber");//购物车购买数量
+        Route::any("getmonney", "index\CartController@getmonney");//购物车列表
+    });
 
 
     });
