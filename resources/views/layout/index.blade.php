@@ -1,6 +1,5 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
@@ -15,8 +14,8 @@
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-list.css" />
 
+    <link rel="stylesheet" type="text/css" href="/index/css/pages-cart.css" />
 </head>
-
 <body>
 <!-- 头部栏位 -->
 <!--页面顶部-->
@@ -42,7 +41,6 @@
                         <li class="f-item space"></li>
                         <li class="f-item"><a href="/index/vip/index">品优购会员</a></li>
                         <li class="f-item space"></li>
-                        <li class="f-item">企业采购</li>
                         <li class="f-item space"></li>
                         <li class="f-item">关注品优购</li>
                         <li class="f-item space"></li>
@@ -74,7 +72,7 @@
                             <form action="" class="sui-form form-inline">
                                 <!--searchAutoComplete-->
                                 <div class="input-append">
-                                    <input type="text" id="autocomplete" type="text" class="input-error input-xxlarge" />
+                                    <input type="text" id="autocomplete"  style="height: 20px;" class="input-error input-xxlarge" />
                                     <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
                                 </div>
                             </form>
@@ -96,7 +94,7 @@
                         <div class="fr shopcar">
                             <div class="show-shopcar" id="shopcar">
                                 <span class="car"></span>
-                                <a class="sui-btn btn-default btn-xlarge" href="cart.html" target="_blank">
+                                <a class="sui-btn btn-default btn-xlarge" href="/index/cart/cartlist" target="_blank">
                                     <span>我的购物车</span>
                                     <i class="shopnum">0</i>
                                 </a>
@@ -124,10 +122,7 @@
         </div>
     </div>
 </div>
-
-
 @yield('content')
-
 <!-- 底部栏位 -->
 <!--页面底部-->
 <div class="clearfix footer">
@@ -295,7 +290,7 @@
                 <!-- 购物车 -->
                 <div style="visibility: hidden;" class="J-content toolbar-panel tbar-panel-cart toolbar-animate-out">
                     <h3 class="tbar-panel-header J-panel-header">
-                        <a href="" class="title"><i></i><em class="title">购物车</em></a>
+                        <a href="/index/cart/cartlist" class="title"><i></i><em class="title">购物车</em></a>
                         <span class="close-panel J-close" onclick="cartPanelView.tbar_panel_close('cart');" ></span>
                     </h3>
                     <div class="tbar-panel-main">
@@ -346,21 +341,20 @@
                         <span class="close-panel J-close" onclick="cartPanelView.tbar_panel_close('history');"></span>
                     </h3>
                     <div class="tbar-panel-main">
-                        <div class="tbar-panel-content J-panel-content">
-                            <div class="jt-history-wrap">
-                                <ul>
-                                    <!--<li class="jth-item">
-                                        <a href="#" class="img-wrap"> <img src=".portal//index/img/like_03.png" height="100" width="100" /> </a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
-                                        <a href="#" target="_blank" class="price">￥498.00</a>
-                                    </li>
-                                    <li class="jth-item">
-                                        <a href="#" class="img-wrap"> <img src="portal//index/img/like_02.png" height="100" width="100" /></a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
-                                        <a href="#" target="_blank" class="price">￥498.00</a>
-                                    </li>-->
-                                </ul>
-                                <a href="#" class="history-bottom-more" target="_blank">查看更多足迹商品 &gt;&gt;</a>
+                        <div class="tbar-panel-content J-panel-content" id="btn">
+                            <div class="jt-history-wrap but">
+                                    <ul>
+
+                                            <li class="jth-item" v-for="v in history">
+                                                <a href="#" class="img-wrap"> <img v-bind:src="v.goods_img" height="100" width="100" /> </a>
+                                                <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+                                                <a href="#" target="_blank" class="price">￥@{{v.goods_price}}</a>
+                                                <div height="10" width="100" style="background: plum"><a ><b class="del" his_id="@{{v.his_id}}" style="align-content: center">删除记录</b></a></div>
+                                            </li>
+
+                                    </ul>
+                                    <a href="#" class="history-bottom-more" target="_blank">查看更多足迹商品 &gt;&gt;</a>
+
                             </div>
                         </div>
                     </div>
@@ -421,7 +415,6 @@
     </div>
 </script>
 <!--侧栏面板结束-->
-{{--<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>--}}
 <script type="text/javascript">
     $(function(){
         $("#service").hover(function(){
@@ -437,10 +430,10 @@
 
     })
 </script>
-<script type="text/javascript" src="/index/js/model/cartModel.js"></script>
+<!-- <script type="text/javascript" src="/index/js/model/cartModel.js"></script> -->
 <script type="text/javascript" src="/index/js/czFunction.js"></script>
-<script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script>
-<script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script>
+<!-- <script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script> -->
+<!-- <script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script> -->
 <script type="text/javascript" src="/index/js/pages/index.js"></script>
 <script type="text/javascript" src="/index/js/widget/cartPanelView.js"></script>
 <script type="text/javascript" src="/index/js/widget/jquery.autocomplete.js"></script>
@@ -449,9 +442,30 @@
 
 
 </html>
-<script src="/js/jquery.js"></script>
+<!-- <script src="/js/jquery.js"></script> -->
 <script src="/index/vue/axios.min.js"></script>
 <script src="/index/vue/vue.min.js"></script>
+<script>
+    var me = new Vue({
+        el:".but",
+        data:{
+            history:null,
+        },
+        mounted(){
+        var _this=this;
+        var data={
+
+        };
+        var url="/history/list"
+        axios.post(url,data).then(function (msg){
+//            console.log(msg.data);return;
+            _this.history=msg.data;
+        });
+    },
+    methods:{
+    }
+    });
+</script>
 <script>
 var me = new Vue({
     el:".nav",
@@ -460,7 +474,7 @@ var me = new Vue({
     },
     mounted(){
         var _this=this;
-        var data={};            
+        var data={};
         var url="/index/cate/top"
           axios.post(url,data).then(function (msg){
             //console.log(msg);return;
@@ -468,6 +482,26 @@ var me = new Vue({
           });
     },
     methods:{
-    }    
- });  
+    }
+ });
+</script>
+<script>
+    $(document).on('click','.del',function(){
+//        alert(1);
+        var his_id=$(this).attr('his_id');
+        var _this=$(".but");
+        $.ajax({
+            url:"{{url('history/del')}}",
+            data:{'his_id':his_id},
+            type:'post',
+            dataType:'html',
+            success:function(res){
+
+                $("#btn").html(res);
+                return false;
+
+            }
+        })
+    })
+
 </script>

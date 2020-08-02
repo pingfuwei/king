@@ -165,6 +165,11 @@ Route::prefix("admin")->group(function (){//后台
             Route::any('del','admin\UserdisController@del');//执行商品属性删除
             Route::any('stockAjax','admin\UserdisController@stockAjax');//执行库存ajax
         });
+    Route::prefix("index")->group(function (){//控制面板
+        Route::any('list','admin\IndexController@list');//积分换购订单展示
+        Route::any('listajax','admin\IndexController@listajax');//积分换购改状态ajax
+
+    });
 });
 
 
@@ -196,8 +201,9 @@ Route::prefix("admin")->group(function (){//后台
 
 
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
-
-Route::prefix("index")->group(function() {
+Route::any("/history/list", "index\Index@history");//浏览历史记录
+Route::any("/history/del", "index\Index@del");//浏览历史记录删除
+Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("reg")->group(function() {//注册
         Route::any("reg", "index\LoginController@reg");//注册
         Route::any("regDo", "index\LoginController@regDo");//注册执行
@@ -222,28 +228,60 @@ Route::prefix("index")->group(function() {
     });
     Route::prefix("goods")->group(function() {//商品
         Route::any("desc", "index\GoodsController@desc");//单个商品详情
+        Route::any("price", "index\GoodsController@price");//单个属性商品的库存与单价
+    });
+    Route::prefix("score")->group(function() {//积分换购
+        Route::any("list", "index\Score@list");//积分换购展示
+        Route::any("desc", "index\Score@desc");//积分换购详情
+        Route::any("descAjax", "index\Score@descAjax");//积分换购详情ajax
+        Route::any("settlement", "index\Score@settlement");//结算
+        Route::any("settlementAjax", "index\Score@settlementAjax");//结算ajax
+        Route::any("addresAjax", "index\Score@addresAjax");//地址ajax
     });
 
-
-
-
-
-
-
-
-
-
+    Route::prefix("cart")->group(function() {//商品
+        Route::any("cartcreate", "index\CartController@cartcreate");//购物车添加
+        Route::any("cartlist", "index\CartController@cartlist");//购物车列表
+        Route::any("cartdel", "index\CartController@cartdel");//购物车列表
+        Route::any("total", "index\CartController@total");//购物车小计
+        Route::any("updnumber", "index\CartController@updnumber");//购物车购买数量
+        Route::any("getmonney", "index\CartController@getmonney");//购物车结算
+    });
 
 
 
     Route::prefix("persion")->group(function() {//个人中心
-        Route::any('sign','index\SignController@sign')->middleware("IndexLogin");//签到
+        Route::any('sign','index\SignController@sign');//签到
         Route::any('Dosign','index\SignController@Dosign');//签到
-        Route::any('pers','index\SignController@pers')->middleware("IndexLogin");//填写个人信息
-        Route::any('personal','index\SignController@personal')->middleware("IndexLogin");//展示个人信息
+        Route::any('addpersion','index\SignController@addpersion');//填写个人信息
+        Route::any('persionDo','index\SignController@persionDo');//执行添加个人信息
+        Route::any('pers','index\SignController@pers');//修改个人信息
+        Route::any('personal','index\SignController@personal');//展示个人信息
         Route::any('area','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
+        Route::any('Consignment','index\SignController@Consignment');//代发货方法
+        Route::any('Tobepaid','index\SignController@Tobepaid');//待付款方法
+        Route::any('urgeScore','index\SignController@urgeScore');//催发货ajax
+        Route::any('gootbr','index\SignController@gootbr');//待收货的方法
+        Route::any('gootbrajax','index\SignController@gootbrajax');//待收货的ajax方法
+        Route::any('purchase','index\SignController@purchase');//我的购买历史方法
     });
+
+
+    Route::prefix("address")->group(function() {//地址
+        Route::any('add','index\AddressController@add');//地址添加
+        Route::any('addDo','index\AddressController@addDo');//执行地址添加
+        Route::any('list','index\AddressController@list');//地址列表
+        Route::any('is_no/{address_id}','index\AddressController@is_no');//设为默认
+        Route::any('upd/{address_id}','index\AddressController@upd');//地址修改
+        Route::any('updDo','index\AddressController@updDo');//执行地址修改
+        Route::any('del/{address_id}','index\AddressController@del');//地址删除
+    });
+    Route::prefix("discount")->group(function() {//优惠券
+        Route::any('get','index\DiscountController@get');//领取优惠券
+
+    });
+
 
 
 
@@ -259,4 +297,5 @@ Route::prefix("index")->group(function() {
         Route::any('top','index\CateController@top');//导航栏
         Route::any('list','index\CateController@list');//列表
     });
+
 });

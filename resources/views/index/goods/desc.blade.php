@@ -1,8 +1,6 @@
-
-
-
 @extends('layout.index')
 @section('content')
+	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
 	<div class="py-container">
 		<div id="item">
 			<div class="crumb-wrap">
@@ -23,6 +21,7 @@
 			<div class="product-info">
 				<div class="fl preview-wrap">
 					<!--放大镜效果-->
+
 					<div class="zoom">
 						<!--默认第一个预览-->
 						<div id="preview" class="spec-preview">
@@ -30,8 +29,7 @@
 						</div>
 						<!--下方的缩略图-->
 						<div class="spec-scroll">
-							<a class="prev">&lt;</a>
-							<!--左右按钮-->
+							<a class="prev">&lt;</a>///
 							<div class="items">
 								<ul>
                                         @php $goods_imgs = explode("|",$goods["goods_imgs"]); @endphp
@@ -56,7 +54,7 @@
 							</div>
 							<div class="fl price">
 								<i>¥</i>
-								<em>{{$goods->goods_price}}</em>
+								<em id="goods_price">{{$goods->goods_price}}</em>
 								<span>降价通知</span>
 							</div>
 							<div class="fr remark">
@@ -94,60 +92,78 @@
 					</div>
 					<div class="clearfix choose">
 						<div id="specification" class="summary-wrap clearfix">
+							@foreach($goods_attr as $k=>$v)
 							<dl>
 								<dt>
 									<div class="fl title">
-									<i>选择颜色</i>
+									<i class="attr_name">{{$v->attr_name}}</i>
 								</div>
 								</dt>
-								<dd><a href="javascript:;" class="selected">金色<span title="点击取消选择">&nbsp;</span>
-</a></dd>
-								<dd><a href="javascript:;">银色</a></dd>
-								<dd><a href="javascript:;">黑色</a></dd>
+								{{--<dd><a href="javascript:;" class="selected">金色<span title="点击取消选择">&nbsp;</span></a></dd>--}}
+								{{--<dd><a href="javascript:;">银色</a></dd>--}}
+								@foreach($goods_val as $kk=>$vv)
+									@if($v['attr_id']==$vv['attr_id'])
+										<dd><a href="javascript:;" goods_id="{{$goods->goods_id}}" attr_id="{{$v->attr_id}}" goods_val_id="{{$vv['goods_val_id']}}" class="attr_var">
+                                        {{$vv['goods_val_name']}}
+                                        </a></dd>
+									@endif
+								@endforeach
 							</dl>
+							@endforeach
 							<dl>
 								<dt>
 									<div class="fl title">
-									<i>内存容量</i>
+									<i>库存</i>
 								</div>
+                                <span class="fl title" id="stock">{{$stock}}</span>
 								</dt>
-								<dd><a href="javascript:;" class="selected">16G<span title="点击取消选择">&nbsp;</span>
-</a></dd>
-								<dd><a href="javascript:;">64G</a></dd>
-								<dd><a href="javascript:;" class="locked">128G</a></dd>
+								{{--<dd><a href="javascript:;" class="selected">16G<span title="点击取消选择">&nbsp;</span>--}}
+{{--</a></dd>--}}
+								{{--<dd><a href="javascript:;">64G</a></dd>--}}
 							</dl>
-							<dl>
-								<dt>
-									<div class="fl title">
-									<i>选择版本</i>
-								</div>
-								</dt>
-								<dd><a href="javascript:;" class="selected">公开版<span title="点击取消选择">&nbsp;</span>
-</a></dd>
-								<dd><a href="javascript:;">移动版</a></dd>
-							</dl>
-							<dl>
-								<dt>
-									<div class="fl title">
-									<i>购买方式</i>
-								</div>
-								</dt>
-								<dd><a href="javascript:;" class="selected">官方标配<span title="点击取消选择">&nbsp;</span>
-</a></dd>
-								<dd><a href="javascript:;">移动优惠版</a></dd>
-								<dd><a href="javascript:;"  class="locked">电信优惠版</a></dd>
-							</dl>
-							<dl>
-								<dt>
-									<div class="fl title">
-									<i>套　　装</i>
-								</div>
-								</dt>
-								<dd><a href="javascript:;" class="selected">保护套装<span title="点击取消选择">&nbsp;</span>
-</a></dd>
-								<dd><a href="javascript:;"  class="locked">充电套装</a></dd>
 
+
+							<dl>
+								<dt>
+									<div class="fl title">
+									<i>确认收货后返还积分</i>
+								</div>
+                                <span class="fl title" id="goods_score" goods_score="{{$goods->goods_score}}">{{$goods->goods_score}}</span>
+								</dt>
 							</dl>
+
+							{{--<dl>--}}
+								{{--<dt>--}}
+									{{--<div class="fl title">--}}
+									{{--<i>选择版本</i>--}}
+								{{--</div>--}}
+								{{--</dt>--}}
+								{{--<dd><a href="javascript:;" class="selected">公开版<span title="点击取消选择">&nbsp;</span>--}}
+{{--</a></dd>--}}
+								{{--<dd><a href="javascript:;">移动版</a></dd>--}}
+							{{--</dl>--}}
+							{{--<dl>--}}
+								{{--<dt>--}}
+									{{--<div class="fl title">--}}
+									{{--<i>购买方式</i>--}}
+								{{--</div>--}}
+								{{--</dt>--}}
+								{{--<dd><a href="javascript:;" class="selected">官方标配<span title="点击取消选择">&nbsp;</span>--}}
+{{--</a></dd>--}}
+								{{--<dd><a href="javascript:;">移动优惠版</a></dd>--}}
+								{{--<dd><a href="javascript:;"  class="locked">电信优惠版</a></dd>--}}
+							{{--</dl>--}}
+							{{--<dl>--}}
+								{{--<dt>--}}
+									{{--<div class="fl title">--}}
+									{{--<i>套　　装</i>--}}
+								{{--</div>--}}
+								{{--</dt>--}}
+								{{--<dd><a href="javascript:;" class="selected">保护套装<span title="点击取消选择">&nbsp;</span>--}}
+{{--</a></dd>--}}
+								{{--<dd><a href="javascript:;"  class="locked">充电套装</a></dd>--}}
+
+							{{--</dl>--}}
 
 
 						</div>
@@ -164,7 +180,7 @@
 							<div class="fl title">
 								<div class="control-group">
 									<div class="">
-                                        <input type="text" value="1" id="month" goods_num="{{$goods->goods_num}}" style="width: 50px;height: 40px;margin-top: 5px;" >
+                                        <input type="text" value="1" id="month" goods_num="{{$stock}}" style="width: 50px;height: 40px;margin-top: 5px;">
                                         <button type="button"  id="add" style="margin-top: -19px;margin-left: -7px;width: 20px;height: 23px;background: #f1f1f1;">+</button>
                                         <button type="button"  id="del" style="float: right;margin-left: -62px;margin-top: 28px;height: 23px;width: 20px;background: #f1f1f1;outline: none;">-</button>
 									</div>
@@ -174,7 +190,7 @@
 							<div class="fl" style="margin-top: 31px;">
 								<ul class="btn-choose unstyled">
 									<li>
-										<a href="cart.html" target="_blank" class="sui-btn  btn-danger addshopcar">加入购物车</a>
+										<a href="javascript:;"  id="addcart" goods_id="{{$goods->goods_id}}" class="sui-btn  btn-danger addshopcar" disabled>加入购物车</a>
 									</li>
 								</ul>
 							</div>
@@ -395,25 +411,13 @@
 						<div class="tab-content tab-wraped">
 							<div id="one" class="tab-pane active">
 								<ul class="goods-intro unstyled">
-									<li>分辨率：1920*1080(FHD)</li>
-									<li>后置摄像头：1200万像素</li>
-									<li>前置摄像头：500万像素</li>
-									<li>核 数：其他</li>
-									<li>频 率：以官网信息为准</li>
-									<li>品牌： Apple</li>
-									<li>商品名称：APPLEiPhone 6s Plus</li>
-									<li>商品编号：1861098</li>
-									<li>商品毛重：0.51kg</li>
-									<li>商品产地：中国大陆</li>
-									<li>热点：指纹识别，Apple Pay，金属机身，拍照神器</li>
-									<li>系统：苹果（IOS）</li>
-									<li>像素：1000-1600万</li>
-									<li>机身内存：64GB</li>
+									<li><b>{!!$goods->goods_desc!!}</b></li>
 								</ul>
-								<div class="intro-detail">
-									<img src="/index/img/_/intro01.png" />
-									<img src="/index/img/_/intro02.png" />
-									<img src="/index/img/_/intro03.png" />
+								<div class="intro-detail" style="text-align: center;">
+                                    @php $goods_imgs = explode("|",$goods["goods_imgs"]); @endphp
+                                    @foreach($goods_imgs as $vv)
+									<img src="{{env('UPLOADS_URL')}}{{'/'.$vv}}" width="600px"/>
+                                    @endforeach
 								</div>
 							</div>
 							<div id="two" class="tab-pane">
@@ -557,7 +561,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="/index/js/model/cartModel.js"></script>
 	<script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script>
 	<script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script>
@@ -577,19 +580,103 @@
             });
 
         })
+
 	</script>
     <script>
+        //属性样式
+        $(document).on("click",".attr_var",function(){
+            // alert(123);
+            $(this).addClass("selected").append("<span title='点击取消选择'>&nbsp;</span>");
+            var add = $(this).parent().siblings().children().removeClass("selected");
+            // console.log(add);
+            var goods_val_id = $(this).attr("goods_val_id");
+            var attr_id1 = $(this).attr("attr_id");
+            var goods_id = $(this).attr("goods_id");
+            var goods_score = parseInt($("#goods_score").attr("goods_score"));
+
+            var attr_id = new Array();
+            $(".selected").each(function(){
+                // console.log($(this));
+                attr_id.push($(this).attr("attr_id")+","+$(this).attr("goods_val_id"));
+                // console.log($(this));
+            });
+            var selected = $(".selected").length;
+            var lenger = $(".attr_name").length;
+            // console.log(lenger);
+            if(selected==lenger){
+                $.ajax({
+                    url: "/index/goods/price",
+                    type: "get",
+                    data: {
+                        attr_id:attr_id,goods_id:goods_id
+                    },
+                    async:false,
+                    success: function(res) {
+                        // console.log(res);
+                        if(res){
+                                // alert(123);
+                            $("#goods_price").text(res["price"]);
+                            $("#stock").text(res["stock"]);
+                            var buy_number = parseInt($("#month").val());
+                            if(buy_number>res["stock"]){
+                                // alert(123);
+                                $("#month").val("1");
+                                var info = goods_score*1;
+                                $("#goods_score").text(info);
+                                $("#month").removeAttr("disabled");
+                                $("#add").removeAttr("disabled");
+                                $("#del").removeAttr("disabled");
+                                $("#addcart").removeAttr("disabled");
+                            }
+                            if(buy_number="0"){
+                                // alert(123);
+                                $("#month").val("1");
+                                var info = goods_score*1;
+                                $("#goods_score").text(info);
+                                $("#month").removeAttr("disabled");
+                                $("#add").removeAttr("disabled");
+                                $("#del").removeAttr("disabled");
+                                $("#addcart").removeAttr("disabled");
+                            }
+
+                        }else{
+                            alert("没有该库存");
+                            $("#stock").text("0");
+                            var buy_number = parseInt($("#month").val());
+                            if(buy_number="0"){
+                                $("#month").val("0");
+                                var info = goods_score*0;
+                                $("#goods_score").text(info);
+                                $("#addcart").attr("disabled","");
+                                $("#month").attr("disabled","");
+                                $("#add").attr("disabled","");
+                                $("#del").attr("disabled","");
+                            }
+
+                        }
+                    }
+                })
+
+            }
+
+        })
         //加号
         $(document).on("click","#add",function(){
             // alert(123);
             var buy_number = parseInt($("#month").val());
-            var goods_num = parseInt($("#month").attr("goods_num"));
-            // alert(buy_number);
+            var goods_num = parseInt($("#stock").text());
+            var goods_score = parseInt($("#goods_score").attr("goods_score"));
+            // alert(goods_num);
+            // return false;
             if (buy_number >= goods_num) {
                 $("#month").val(goods_num);
+                var info = goods_score*goods_num;
+                $("#goods_score").text(info);
             } else {
                 buy_number += 1;
                 $("#month").val(buy_number);
+                var info = goods_score*buy_number;
+                $("#goods_score").text(info);
             }
 
         })
@@ -597,32 +684,84 @@
         $(document).on("click", "#del", function() {
             // alert(123);
             var buy_number = parseInt($("#month").val());
-            var goods_num = parseInt($("#month").attr("goods_num"));
+            var goods_num = parseInt($("#stock").text());
+            var goods_score = parseInt($("#goods_score").attr("goods_score"));
             if (buy_number <= 1) {
                 $("#month").val("1");
+                var info = goods_score*1;
+                $("#goods_score").text(info);
             } else {
                 buy_number -= 1;
                 $("#month").val(buy_number);
+                var info = goods_score*buy_number;
+                $("#goods_score").text(info);
 
             }
         })
         //失去焦点
         $(document).on("blur", "#month", function() {
 
-        var buy_number = parseInt($("#month").val());
-        var goods_num = parseInt($("#month").attr("goods_num"));
+            var buy_number = parseInt($("#month").val());
+            var goods_num = parseInt($("#stock").text());
+            var goods_score = parseInt($("#goods_score").attr("goods_score"));
 
-            var ags = /^\d{1,4}$/;
+            var ags = /^\d{1,}$/;
+
+
             if (buy_number == "") {
                 $("#month").val("1");
+                var info = goods_score*1;
+                $("#goods_score").text(info);
             } else if (!ags.test(buy_number)) {
                 $("#month").val("1");
+                var info = goods_score*1;
+                $("#goods_score").text(info);
             } else if (parseInt(buy_number) >= goods_num) {
                 $("#month").val(goods_num);
+                var info = goods_score*goods_num;
+                $("#goods_score").text(info);
             } else {
                 $("#month").val(parseInt(buy_number));
+                var info = goods_score*buy_number;
+                $("#goods_score").text(info);
             }
+
         })
+
+        //加入购物车
+        $(document).on("click","#addcart",function(){
+            // alert(123)
+            var goods_id = $(this).attr("goods_id");
+            var buy_number = parseInt($("#month").val());
+            var goods_stick = new Array();
+            $(".selected").each(function(){
+                // console.log($(this));
+                goods_stick.push($(this).attr("attr_id")+","+$(this).attr("goods_val_id"));
+                // console.log($(this));
+            });
+            // alert(goods_stick);
+            $.ajax({
+                url:"/index/cart/cartcreate",
+                type:"post",
+                data: {
+                    goods_id:goods_id,
+                    buy_number:buy_number,
+                    goods_stick:goods_stick
+                },
+                dataType:"json",
+                success:function(res){
+                    // console.log(res);
+                    if(res.status=="true"){
+                        alert(res.msg);
+                        window.location.href=res.result;
+                    }else{
+                        alert(res.msg);
+                    }
+                }
+            });
+        })
+$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+
     </script>
 
 @endsection
