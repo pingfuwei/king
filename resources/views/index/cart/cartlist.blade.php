@@ -185,7 +185,8 @@
 												尺寸：13.3英寸</div>
 										</div>
 									</li>
-
+									<li class="yui3-u-1-8"><span class="price">{{$v['price']}}</span></li>
+									<li class="yui3-u-1-8">
 									<li class="yui3-u-1-8"><span class="price">8848.00</span></li>
 									<li class="yui3-u-1-8" goods_num="">
 										<a href="javascript:void(0)" class="increment mins">-</a>
