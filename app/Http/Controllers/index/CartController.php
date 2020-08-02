@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\index;
 
+use App\AdminModel\Goods_attrModel;
 use App\AdminModel\goods_stock;
+use App\AdminModel\GoodsvalueModel;
 use App\Http\Controllers\Controller;
 use App\IndexModel\Cart;
 use App\IndexModel\User;
@@ -47,15 +49,200 @@ class CartController extends Controller
             //dd($where);
             $cartmodel=new Cart();
             $cart_info=$cartmodel::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->leftjoin('goods_stock','cart.stock_id','=','goods_stock.stock_id')->where($where)->orderBy('time','desc')->get()->toArray();
-           dd($cart_info);die;
+            $count = $cartmodel::where($where)->count();
+
+            foreach($cart_info as $k=>$v){
+//                dd($v);
+                $v["stoock"]=$v["stock"];
+//                dd($v);
+                $ass=explode(':', $v['ability']);
+                $v['stock']=$ass;
+//                dd($v);
+                foreach($v['stock'] as $kk=>$vv){
+                    $asd=explode(',', $vv);
+                    //根据下标查询属性和值 0 ：属性表  1 属性值
+                    $v['stock'][$kk]=$asd;
+                    foreach($v['stock'][$kk] as $kkk=>$vvv){
+////                        echo $kkk;
+//                        $vvv['val']=[];
+                        if($kkk==0){
+                            $goods_attrmodel=new Goods_attrModel();
+                            $goods_attr_info=$goods_attrmodel::where('attr_id',$vvv)->first();
+//                            $arr[]=$goods_attr_info;
+                            $v['stock'][$kk][$kkk]=$goods_attr_info['attr_name'];
+                        }else{
+                            $goods_valmodel=new GoodsvalueModel();
+                            $goods_val_info=$goods_valmodel::where('goods_val_id',$vvv)->first();
+//                            $arr1[]=$vvv;
+                            $v['stock'][$kk][$kkk]=$goods_val_info['goods_val_name'];
+//                            echo 123;
+                        }
+                    }
+                }
+                $cart_info[$k]=$v;
+//                dd($v);
+            }
+//            die;
+//         var_dump($cart_info);
             if($cart_info){
                 $goods_stockmodel=new goods_stock();
-                return view('index.cart.cartlist',['cart_info'=>$cart_info]);
+                return view('index.cart.cartlist',['cart_info'=>$cart_info,"count"=>$count]);
             }else{
                 $cart_info = [];
-                return view('index.cart.cartlist',['cart_info'=>$cart_info]);
+                return view('index.cart.cartlist',['cart_info'=>$cart_info,"count"=>$count]);
             }
         }
+    /*
+     * 购物车删除
+     */
+     public function cartdel(Request $request){
+           $data=$request->all();
+//           dd($data);
+           if(empty($data['cart_id'])){
+               $message = [
+                   'code' => '000001',
+                   'message' => 'error',
+                   'result' => [
+                       'message' =>"请规范您的操作",
+                   ]
+               ];
+               return json_encode($message,JSON_UNESCAPED_UNICODE);
+           }
+           $cartmodel=new Cart();
+           $res=$cartmodel::where('cart_id',$data['cart_id'])->update(['is_del'=>2]);
+           if($res){
+               $message = [
+                   'code' => '000000',
+                   'message' => 'success',
+                   'result' => [
+                       'message' =>"操作成功",
+                   ]
+               ];
+           }else{
+               $message = [
+                   'code' => '000001',
+                   'message' => 'error',
+                   'result' => [
+                       'message' =>"操作失败",
+                   ]
+               ];
+           }
+           return json_encode($message,JSON_UNESCAPED_UNICODE);
+       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+     * 获取合计
+     */
+    public function getmonney(Request $request){
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //购物车添加
     public function cartcreate(Request $request){
         $arr = $request->all();
@@ -151,6 +338,40 @@ class CartController extends Controller
 
 
         echo json_encode($message);
+    }
+
+    //修改购买数量
+    public function updnumber(Request $request){
+        $arr = $request->all();
+        // dd($arr);
+        $where = [
+            "cart_id"=>$arr["cart_id"],
+            "is_del"=>1
+        ];
+        $updnumber = Cart::where($where)->update(["buy_number"=>$arr["buy_number"]]);
+        if($updnumber){
+            $message = $this->datacode("true","00000","修改成功");
+        }else{
+            $message = $this->datacode("false","00001","修改失败");
+        }
+        echo json_encode($message);
+    }
+
+    //小计
+    public function total(Request $request){
+        $stock_id = $request->get("stock_id");
+        $where = [
+            "stock_id"=>$stock_id,
+            "is_del"=>1
+        ];
+        $price = goods_stock::where($where)->value("price");
+        // dd($price);
+        $wheres = [
+            "stock_id"=>$stock_id,
+            "is_del"=>1
+        ];
+        $buy_number = Cart::where($where)->value("buy_number");
+        echo $price*$buy_number;
     }
 
     //购物车提示信息

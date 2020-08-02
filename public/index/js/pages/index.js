@@ -87,23 +87,23 @@ $(function() {
 
 /*产品筛选*/
 $(function() {
-	$(".type-list li a").hover(
-		function() {
-			$(this).addClass("redhover");
-		},
-		function() {
-			$(this).removeClass("redhover");
-		}
-	);
+	// $(".type-list li a").hover(
+	// 	function() {
+	// 		$(this).addClass("redhover");
+	// 	},
+	// 	function() {
+	// 		$(this).removeClass("redhover");
+	// 	}
+	// );
 
-	$(".type-list li a").click(function() {
-		$(this).attr("class", "redhover");
-		$(".type-list li a").each(function() {
-			$(".type-list li a").not(".redhover").attr("class", "grayhover");
-		})
-		$(this).removeClass(".redhover");
-		alert(RetSelecteds());
-	})
+	// $(".type-list li a").click(function() {
+	// 	$(this).attr("class", "redhover");
+	// 	$(".type-list li a").each(function() {
+	// 		$(".type-list li a").not(".redhover").attr("class", "grayhover");
+	// 	})
+	// 	$(this).removeClass(".redhover");
+	// 	//alert(RetSelecteds());
+	// })
 
 });
 
