@@ -65,7 +65,7 @@
 		</div>
 		<!--All goods-->
 		<div class="allgoods">
-			<h4>全部商品<span></span></h4>
+			<h4>全部商品<span>{{$count}}</span></h4>
 			<div class="cart-main">
 				<div class="yui3-g cart-th">
 					<div class="yui3-u-1-4"><input type="checkbox" name="" id="" value="" /> 全部</div>
@@ -186,9 +186,7 @@
 										</div>
 									</li>
 									<li class="yui3-u-1-8"><span class="price">{{$v['price']}}</span></li>
-									<li class="yui3-u-1-8">
-									<li class="yui3-u-1-8"><span class="price">8848.00</span></li>
-									<li class="yui3-u-1-8" goods_num="">
+									<li class="yui3-u-1-8" goods_num="{{$v['stock']}}">
 										<a href="javascript:void(0)" class="increment mins">-</a>
 										<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />
 										<a href="javascript:void(0)" class="increment plus">+</a>
@@ -547,12 +545,39 @@
 <script>
     $(function(){
         // alert(123);
+        //加号
         $(document).on("click",".plus",function(){
             // alert(123);
             var _this = $(this);
-            var itxt = _this.prev("input").val();
+            var buy_number = parseInt(_this.prev("input").val());
             var goods_num = parseInt(_this.parent().attr("goods_num"));
-            console.log(goods_num);
+            // console.log(goods_num);
+            if (buy_number >= goods_num) {
+                //让文本框中显示库存值
+                _this.prev("input").val(goods_num);
+            } else {
+                //否则正常文本框中值加一
+                buy_number = buy_number + 1;
+                //在返回给文本框
+                _this.prev("input").val(buy_number);
+            }
         })
+        //减号
+        // $(document).on("click",".mins",function(){
+        //     // alert(123);
+        //     var _this = $(this);
+        //     var buy_number = parseInt(_this.next("input").val());
+        //     var goods_num = parseInt(_this.parent().attr("goods_num"));
+        //     // console.log(goods_num);
+        //     if (buy_number >= goods_num) {
+        //         //让文本框中显示库存值
+        //         _this.next("input").val(goods_num);
+        //     } else {
+        //         //否则正常文本框中值加一
+        //         buy_number = buy_number + 1;
+        //         //在返回给文本框
+        //         _this.next("input").val(buy_number);
+        //     }
+        // })
     })
 </script>
