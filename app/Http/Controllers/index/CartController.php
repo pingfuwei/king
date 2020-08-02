@@ -58,17 +58,43 @@ class CartController extends Controller
                 return view('index.cart.cartlist',['cart_info'=>$cart_info,"count"=>$count]);
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    /*
+     * 购物车删除
+     */
+       public function cartdel(Request $request){
+           $data=$request->all();
+//           dd($data);
+           if(empty($data['cart_id'])){
+               $message = [
+                   'code' => '000001',
+                   'message' => 'error',
+                   'result' => [
+                       'message' =>"请规范您的操作",
+                   ]
+               ];
+               return json_encode($message,JSON_UNESCAPED_UNICODE);
+           }
+           $cartmodel=new Cart();
+           $res=$cartmodel::where('cart_id',$data['cart_id'])->update(['is_del'=>2]);
+           if($res){
+               $message = [
+                   'code' => '000000',
+                   'message' => 'success',
+                   'result' => [
+                       'message' =>"操作成功",
+                   ]
+               ];
+           }else{
+               $message = [
+                   'code' => '000001',
+                   'message' => 'error',
+                   'result' => [
+                       'message' =>"操作失败",
+                   ]
+               ];
+           }
+           return json_encode($message,JSON_UNESCAPED_UNICODE);
+       }
         
         
         
