@@ -182,12 +182,23 @@
 									<li class="yui3-u-11-24">
 										<div class="good-item">
 											<div class="item-img"><img jqimg="{{env('UPLOADS_URL')}}{{$v['goods_img']}}"src="{{env('UPLOADS_URL')}}{{$v['goods_img']}}" /></div>
-											<div class="item-msg">{{$v['goods_name']}}
-												尺寸：13.3英寸</div>
+											<div class="item-msg">{{$v['goods_name']}}---
+												@if($v['stock']!=[])
+													@foreach($v['stock'] as $kk=>$vv)
+														@if($v['stock']!=[])
+															{{$vv[0]}}
+														:
+															{{$vv[1]}}
+														&nbsp;&nbsp;&nbsp;
+														@endif
+
+													@endforeach
+												@endif
+											</div>
 										</div>
 									</li>
 									<li class="yui3-u-1-8"><span class="price">{{$v['price']}}</span></li>
-									<li class="yui3-u-1-8" goods_num="{{$v['stock']}}" stock_id="{{$v['stock_id']}}" cart_id="{{$v["cart_id"]}}">
+									<li class="yui3-u-1-8" goods_num="{{$v['stoock']}}" stock_id="{{$v['stock_id']}}" cart_id="{{$v["cart_id"]}}">
 										<a href="javascript:void(0)" class="increment mins">-</a>
 										<input autocomplete="off" type="text" value="{{$v['buy_number']}}" minnum="1" class="itxt" />
 										<a href="javascript:void(0)" class="increment plus">+</a>

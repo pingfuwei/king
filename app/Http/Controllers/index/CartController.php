@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\index;
 
+use App\AdminModel\Goods_attrModel;
 use App\AdminModel\goods_stock;
+use App\AdminModel\GoodsvalueModel;
 use App\Http\Controllers\Controller;
 use App\IndexModel\Cart;
 use App\IndexModel\User;
@@ -48,8 +50,39 @@ class CartController extends Controller
             $cartmodel=new Cart();
             $cart_info=$cartmodel::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->leftjoin('goods_stock','cart.stock_id','=','goods_stock.stock_id')->where($where)->orderBy('time','desc')->get()->toArray();
             $count = $cartmodel::where($where)->count();
-            // dd($count);
-           dd($cart_info);die;
+            foreach($cart_info as $k=>$v){
+//                dd($v);
+                $v["stoock"]=$v["stock"];
+//                dd($v);
+                $ass=explode(':', $v['ability']);
+                $v['stock']=$ass;
+//                dd($v);
+                foreach($v['stock'] as $kk=>$vv){
+                    $asd=explode(',', $vv);
+                    //根据下标查询属性和值 0 ：属性表  1 属性值
+                    $v['stock'][$kk]=$asd;
+                    foreach($v['stock'][$kk] as $kkk=>$vvv){
+////                        echo $kkk;
+//                        $vvv['val']=[];
+                        if($kkk==0){
+                            $goods_attrmodel=new Goods_attrModel();
+                            $goods_attr_info=$goods_attrmodel::where('attr_id',$vvv)->first();
+//                            $arr[]=$goods_attr_info;
+                            $v['stock'][$kk][$kkk]=$goods_attr_info['attr_name'];
+                        }else{
+                            $goods_valmodel=new GoodsvalueModel();
+                            $goods_val_info=$goods_valmodel::where('goods_val_id',$vvv)->first();
+//                            $arr1[]=$vvv;
+                            $v['stock'][$kk][$kkk]=$goods_val_info['goods_val_name'];
+//                            echo 123;
+                        }
+                    }
+                }
+                $cart_info[$k]=$v;
+//                dd($v);
+            }
+//            die;
+//         var_dump($cart_info);
             if($cart_info){
                 $goods_stockmodel=new goods_stock();
                 return view('index.cart.cartlist',['cart_info'=>$cart_info,"count"=>$count]);
@@ -149,7 +182,7 @@ class CartController extends Controller
 
 
 
-     }
+
     /*
      * 获取合计
      */
