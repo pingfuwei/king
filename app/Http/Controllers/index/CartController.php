@@ -49,7 +49,7 @@ class CartController extends Controller
             $cart_info=$cartmodel::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->leftjoin('goods_stock','cart.stock_id','=','goods_stock.stock_id')->where($where)->orderBy('time','desc')->get()->toArray();
             $count = $cartmodel::where($where)->count();
             // dd($count);
-           // dd($cart_info);die;
+           dd($cart_info);die;
             if($cart_info){
                 $goods_stockmodel=new goods_stock();
                 return view('index.cart.cartlist',['cart_info'=>$cart_info,"count"=>$count]);
@@ -250,13 +250,34 @@ class CartController extends Controller
     public function updnumber(Request $request){
         $arr = $request->all();
         // dd($arr);
+        $where = [
+            "cart_id"=>$arr["cart_id"],
+            "is_del"=>1
+        ];
+        $updnumber = Cart::where($where)->update(["buy_number"=>$arr["buy_number"]]);
+        if($updnumber){
+            $message = $this->datacode("true","00000","修改成功");
+        }else{
+            $message = $this->datacode("false","00001","修改失败");
+        }
+        echo json_encode($message);
     }
 
     //小计
     public function total(Request $request){
         $stock_id = $request->get("stock_id");
-        $stock = goods_stock::where("stock_id",$stock_id)->first();
-        dd($stock);
+        $where = [
+            "stock_id"=>$stock_id,
+            "is_del"=>1
+        ];
+        $price = goods_stock::where($where)->value("price");
+        // dd($price);
+        $wheres = [
+            "stock_id"=>$stock_id,
+            "is_del"=>1
+        ];
+        $buy_number = Cart::where($where)->value("buy_number");
+        echo $price*$buy_number;
     }
 
     //购物车提示信息

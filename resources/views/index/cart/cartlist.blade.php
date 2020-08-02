@@ -562,7 +562,7 @@
                 _this.prev("input").val(buy_number);
             }
 
-            updnumber(buy_number,cart_id)
+            updnumber(buy_number,cart_id);
             total(_this,stock_id);
         })
         //减号
@@ -571,6 +571,8 @@
             var _this = $(this);
             var buy_number = parseInt(_this.next("input").val());
             var goods_num = parseInt(_this.parent().attr("goods_num"));
+            var stock_id = _this.parent().attr("stock_id");
+            var cart_id = _this.parent().attr("cart_id");
             // console.log(goods_num);
             if (buy_number <= 1) {
                 _this.next("input").val("1");
@@ -578,6 +580,8 @@
                 buy_number = buy_number - 1;
                 _this.next("input").val(buy_number);
             }
+            updnumber(buy_number,cart_id);
+            total(_this,stock_id);
         })
         //失去焦点
         $(document).on("blur",".itxt",function(){
@@ -586,6 +590,8 @@
             var buy_number = _this.val();
             var goods_num = parseInt(_this.parent().attr("goods_num"));
             // console.log(goods_num);
+            var stock_id = _this.parent().attr("stock_id");
+            var cart_id = _this.parent().attr("cart_id");
 
             //正则验证
             var ags = /^\d{1,}$/;
@@ -605,6 +611,8 @@
                 _this.val(parseInt(buy_number));
                 buy_num = parseInt(buy_number);
             }
+            updnumber(buy_number,cart_id);
+            total(_this,stock_id);
         })
         //修改购买数量
         function updnumber(buy_number,cart_id){
@@ -614,9 +622,12 @@
                     buy_number:buy_number
                 },
                 function(res) {
-                    console.log(res);
-                    // _this.parents("td").next().text("￥" + res);
-                }
+                    // console.log(res);
+                    if(res.status=="false"){
+                        alert(res.msg);
+                        return false;
+                    }
+                },'json'
             )
         }
         //小计
@@ -627,8 +638,8 @@
                     stock_id: stock_id
                 },
                 function(res) {
-                    console.log(res);
-                    // _this.parents("td").next().text("￥" + res);
+                    // console.log(res);
+                    _this.parents("li").next().children().text(res);
                 }
             )
         }
