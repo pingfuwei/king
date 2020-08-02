@@ -5,7 +5,8 @@ namespace App\Http\Controllers\index;
 use App\AdminModel\goods_stock;
 use App\Http\Controllers\Controller;
 use App\IndexModel\Cart;
-use App\indexModel\User;
+use App\IndexModel\User;
+use App\AdminModel\Goods;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -45,8 +46,8 @@ class CartController extends Controller
         ];
         //dd($where);
         $cartmodel=new Cart();
-        $cart_info=$cartmodel::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->leftjoin('goods_stock','cart.goods_stick','=','goods_stock.stock_id')->where($where)->orderBy('time','desc')->get()->toArray();
-//        dd($cart_info);die;
+        $cart_info=$cartmodel::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->where($where)->orderBy('time','desc')->get()->toArray();
+       // dd($cart_info);die;
         if($cart_info){
             $goods_stockmodel=new goods_stock();
             return view('index.cart.cartlist',['cart_info'=>$cart_info]);
