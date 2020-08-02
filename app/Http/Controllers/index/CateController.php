@@ -10,7 +10,7 @@ use App\AdminModel\brand;
 use App\AdminModel\goods_stock;
 use App\AdminModel\Goods_attrModel;
 use App\AdminModel\GoodsvalueModel;
-
+use Illuminate\Support\Facades\Redis;
 
 class CateController extends Controller
 {
@@ -19,10 +19,68 @@ class CateController extends Controller
         return $data;
     }
     public function list(){
+      $where =[];
+      $goods_id =[];  
       $cate_id = request()->cate_id;
-      $where=['cate_id'=>$cate_id,'is_del'=>1];
+      $brand_id = Request()->brand_id;
+      $attr = request()->attr;
+      $attr_where="";
+      if(!empty($attr)){
+          foreach ($attr as $key => $val) {
+            $attr_where .= $val.":";
+          } 
+            $attr_where = rtrim($attr_where,":");     
+      }
+
+
+
+
+
+      if(!empty($cate_id)){
+      Request()->session()->put('cate_id',$cate_id);  
+      //$where[] = ['cate_id','=',$cate_id];
+      $array = category::get();
+      // 获取当前分类之下的子子孙孙的ID
+      $cids = $this->gatCate2($array, $cate_id);
+       // 获取数组中的v值
+      $cate_id = array_values($cids);
+      request()->session()->put('cate_id',$cids);  
+      //var_dump($cids);exit;
+      }
+
+      if(empty($cate_id)){
+      $cate_id = request()->session()->get('cate_id');    
+      }
+
+
+
+
+
+
+      if($brand_id){
+      $where=[['brand_id','=',$brand_id],['is_del','=',1]];
+      }
+
+
+      if(($attr)){
+         $data = goods_stock::where("ability","like","%$attr_where%")->get('goods_id');
+          $goods_id = [];
+          foreach ($data as $k => $v) {
+          $goods_id[] = $v['goods_id'];          
+          }
+          $goods_id= array_unique($goods_id);
+      }
+
+
+
+
       //根据商品分类获取商品列表
-      $data = Goods::where($where)->get();
+      if(empty($attr)){
+        $data = Goods::where($where)->wherein('cate_id',$cate_id)->get();
+      }else{
+        $data = Goods::wherein('goods_id',$goods_id)->wherein('cate_id',$cate_id)->where($where)->get();  
+      }
+
       //获取所有的分类
       $form = Category::get();
       $form1 = $this->Ancestry($form,$cate_id);
@@ -62,19 +120,15 @@ class CateController extends Controller
     foreach ($arr3 as $key => $value) {
         $arr4 [] =$dat = Goods_attrModel::where('attr_id',$value)->get();
         foreach ($arr4 as $k => $val) {
-            $dat1 = GoodsvalueModel::where('attr_id',$val[0]['attr_id'])->select('goods_val_name')->get();
+            $dat1 = GoodsvalueModel::where('attr_id',$val[0]['attr_id'])->get();
             $val[0]['data']= $dat1;
         }
     }
-    // foreach ($arr4 as $key => $value) {
-    //     foreach ($value as $k => $v) {
-    //         foreach ($v['data']  as $i => $n) {
-    //             dd($n['goods_val_name']);
-    //         }
-    //     }
-    // }
-
+      if(request()->ajax()){
+      return view('index.cate.show',['data'=>$data]);
+      }else{
       return view('index.cate.list',['data'=>$data,'form1'=>$form1,'form2'=>$form2,'form3'=>$form3,'arr1'=>$arr1,'arr4'=>$arr4]);
+      }
     }
 
 
@@ -89,4 +143,16 @@ class CateController extends Controller
     }
     return $ancestry;
   }
+      function gatCate2($array,$pid=0)
+    {
+        static $ids=[];
+        $ids[$pid]=$pid;
+        foreach ($array as $k => $v) {
+           if ($v['p_id']==$pid) {
+               $ids[$v['cate_id']]=$v['cate_id'];
+               $this->gatCate2($array,$v['cate_id']);
+           }
+        }
+        return $ids;
+    }
 }
