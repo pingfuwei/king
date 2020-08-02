@@ -249,8 +249,6 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     });
 
 
-    });
-
     Route::prefix("persion")->group(function() {//个人中心
         Route::any('sign','index\SignController@sign');//签到
         Route::any('Dosign','index\SignController@Dosign');//签到

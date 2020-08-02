@@ -49,7 +49,7 @@ class CartController extends Controller
             $cart_info=$cartmodel::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->leftjoin('goods_stock','cart.stock_id','=','goods_stock.stock_id')->where($where)->orderBy('time','desc')->get()->toArray();
             $count = $cartmodel::where($where)->count();
             // dd($count);
-           dd($cart_info);die;
+           // dd($cart_info);die;
             if($cart_info){
                 $goods_stockmodel=new goods_stock();
                 return view('index.cart.cartlist',['cart_info'=>$cart_info,"count"=>$count]);
@@ -149,66 +149,66 @@ class CartController extends Controller
 
 
 
-     }
+
     /*
      * 获取合计
      */
     public function getmonney(Request $request){
 
     }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //购物车添加
     public function cartcreate(Request $request){
         $arr = $request->all();

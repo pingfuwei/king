@@ -9,6 +9,12 @@
 
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-cart.css" />
+
+    <style>
+    	.add{
+    		background-color: #f5f5f5;
+    	}
+    </style>
 </head>
 
 <body>
@@ -559,6 +565,11 @@
                 _this.prev("input").val(buy_number);
             }
 
+			background(_this);
+            _this.parent().prev().prev().prev().children().attr("checked","aa");
+            // _this.parent().attr("aa","bb");
+            // console.log(ass);
+            alert(1)
             updnumber(buy_number,cart_id);
             total(_this,stock_id);
         })
@@ -577,6 +588,8 @@
                 buy_number = buy_number - 1;
                 _this.next("input").val(buy_number);
             }
+
+            background(_this);
             updnumber(buy_number,cart_id);
             total(_this,stock_id);
         })
@@ -608,6 +621,8 @@
                 _this.val(parseInt(buy_number));
                 buy_num = parseInt(buy_number);
             }
+
+			background(_this);
             updnumber(buy_number,cart_id);
             total(_this,stock_id);
         })
@@ -680,7 +695,7 @@
 			getmonney();
 		}else{
 			// 重新获取总价
-			_this.parents("tr").removeClass("car_tr");
+			_this.parents("ul").removeClass("add");
 			getmonney();
 		}
 		//alert(_this);
@@ -690,11 +705,12 @@
 		// alert(1);
 		var _this=$(this);
 		var _checkbox=_this.prop("checked");
+            var _this = $(".check");
 		// console.log(_checkbox);
 		if (_checkbox==true) {
-			$("tr[cart_id]").addClass("car_tr");
+			background(_this);
 		} else {
-			$("tr[cart_id]").removeClass("car_tr");
+			_this.parents("ul").removeClass("add");
 		}
 		$('.check').prop("checked",_checkbox);
 		// 重新获取总价
@@ -772,15 +788,10 @@
 	}
 	// 封装当前行 背景色改变
 	function background(_this){
-		_this.parents("tr").addClass("car_tr");
+		_this.parents("ul").addClass("add");
 	}
 	// 封装当前行复选框 变为选中状态
 	function checkbox(_this){
 		_this.parents("tr").find('.check').prop("checked",true);
 	}
 </script>
-<style>
-	.car_tr{
-		background-color: red;
-	}
-</style>
