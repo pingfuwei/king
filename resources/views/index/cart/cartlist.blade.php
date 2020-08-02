@@ -187,7 +187,7 @@
 									</li>
 
 									<li class="yui3-u-1-8"><span class="price">8848.00</span></li>
-									<li class="yui3-u-1-8" goods_num="{{$cart_info->stock}}">
+									<li class="yui3-u-1-8" goods_num="">
 										<a href="javascript:void(0)" class="increment mins">-</a>
 										<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />
 										<a href="javascript:void(0)" class="increment plus">+</a>
