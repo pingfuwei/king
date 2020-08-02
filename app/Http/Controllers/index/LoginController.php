@@ -201,6 +201,11 @@ class LoginController extends Controller
             }
             return GetJson::getJson("000","登陆成功");
         }else{
+            Cookie::queue("user",null);
+            Cookie::queue("user_pwd",null);
+//            Cookie::queue("user",$user_name);
+//            Cookie::queue("user_pwd",$user_pwd);
+            \session(["user_name"=>$user_name,"user_pwd"=>$user_pwd]);
             return GetJson::getJson("000","登陆成功");
         }
     }
