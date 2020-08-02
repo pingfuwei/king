@@ -27,7 +27,7 @@
                                 {{--{{$v}}--}}
                             <div class="choose-title">
                                 <label data-toggle="checkbox" class="checkbox-pretty ">
-                                    <input type="checkbox" checked="checked"><span>2017-02-11 11:59　订单编号：{{$v->order}}  店铺：哇哈哈 <a>和我联系</a></span>
+                                    <input type="checkbox" checked="checked"><span>{{date("Y-m-d H:i:s",$v->addtime)}}　订单编号：{{$v->order}}  店铺：哇哈哈 <a>和我联系</a></span>
                                 </label>
                                 <a class="sui-btn btn-info share-btn">分享</a>
                             </div>
@@ -61,7 +61,11 @@
                                     </td>
                                     <td width="10%" class="center">
                                         <ul class="unstyled">
-                                            <li><a href="#" class="sui-btn btn-info">提醒发货</a></li>
+                                            @if(time()-$v->addtime>60*60*12)
+                                            <li><a href="javascript:;" id="sendScroe" order="{{$v->order}}" goods_id="{{$v->goods_id["goods_id"]}}" class="sui-btn btn-info">提醒发货</a></li>
+                                                @else
+                                                商家正在备货请等待---
+                                            @endif
                                         </ul>
                                     </td>
                                 </tr>
@@ -187,4 +191,25 @@
         </div>
     </div>
 </div>
+            <script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
+
+            <script>
+                $(function () {
+                    $(document).on("click","#sendScroe",function () {
+                        var goods_id=$(this).attr("goods_id")
+                        var order=$(this).attr("order")
+                        $.ajax({
+                            url:"/index/persion/urgeScore",
+                            data:{goods_id:goods_id,order:order},
+                            success:function (res) {
+                                if(res==="ok"){
+                                    alert("提醒成功---商家会尽快发货亲😙")
+                                }else{
+                                    alert(res)
+                                }
+                            }
+                        })
+                    })
+                })
+            </script>
 @endsection

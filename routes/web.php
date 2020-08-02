@@ -167,6 +167,8 @@ Route::prefix("admin")->group(function (){//后台
         });
     Route::prefix("index")->group(function (){//控制面板
         Route::any('list','admin\IndexController@list');//积分换购订单展示
+        Route::any('listajax','admin\IndexController@listajax');//积分换购改状态ajax
+
     });
 });
 
@@ -256,6 +258,10 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('info','index\SignController@info');//添加用户信息
         Route::any('Consignment','index\SignController@Consignment');//代发货方法
         Route::any('Tobepaid','index\SignController@Tobepaid');//待付款方法
+        Route::any('urgeScore','index\SignController@urgeScore');//催发货ajax
+        Route::any('gootbr','index\SignController@gootbr');//待收货的方法
+        Route::any('gootbrajax','index\SignController@gootbrajax');//待收货的ajax方法
+        Route::any('purchase','index\SignController@purchase');//我的购买历史方法
     });
 
 

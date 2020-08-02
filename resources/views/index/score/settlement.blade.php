@@ -204,11 +204,13 @@
         $(document).on("click","#btn",function () {
             var goods_id="{{$goods->goods_id}}"
             var address_id=$(".bb").attr("address")
-            var score={{$goods->goods_price*2}}
-//            alert(score)
+            var score="{{$goods->goods_price*2}}"
+                var ability="{{$goods->ability}}"
+//            alert(ability)
+//            return
             $.ajax({
                 url:"/index/score/settlementAjax",
-                data:{goods_id:goods_id,address_id:address_id,price:score},
+                data:{goods_id:goods_id,address_id:address_id,price:score,ability:ability},
                 success:function (res) {
                     alert(res)
                     if(res==="兑换成功"){

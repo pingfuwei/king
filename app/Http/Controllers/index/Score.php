@@ -58,7 +58,7 @@ class Score extends Controller
         if($userInfo["score"]<$data["score"]){
             echo "积分不够";die;
         }
-        $goods_stock=goods_stock::where("ability",$data["ability"])->first();
+        $goods_stock=goods_stock::where(["ability"=>$data["ability"],"goods_id"=>$data["goods_id"]])->first();
         if(empty($goods_stock)){
             echo "不能篡改数据";die;
         }
@@ -66,8 +66,8 @@ class Score extends Controller
             echo "库存不够请选择别的";die;
         }
         $where=[
-            "user_id"=>$user_id["user_id"],
-            "status"=>2,
+            ["user_id","=",$user_id["user_id"]],
+            ["status","<>",1],
         ];
         $result=CartScroe::where($where)->first();
         if($result){
@@ -109,15 +109,37 @@ class Score extends Controller
             $area=Shop_Area::where("id",$v->area)->pluck("name");
             $v["area"]=$area[0];
         }
+        $res=CartScroe::where(["goods_id"=>$goods_id,"user_id"=>$user_id["user_id"],"status"=>1])->first();
+        $goods["ability"]=$res["ability"];
+//        dd($goods);
         return view("index.score.settlement",["address"=>$address,"goods"=>$goods]);
     }
     //结算ajax
     public function settlementAjax(){
-        DB::beginTransaction();//开启一个事务
-
         $name=session("user_name");
+        $data=\request()->all();
         $user_id=User::where("user_name",$name)->first();
-            $data=\request()->all();
+        $userInfo=UserInfo::where("user_id",$user_id['user_id'])->first();
+        if($userInfo["score"]<$data["price"]){
+            echo "积分不够";die;
+        }
+        $goods_stock=goods_stock::where(["ability"=>$data["ability"],"goods_id"=>$data["goods_id"]])->first();
+        if(empty($goods_stock)){
+            echo "不能篡改数据";die;
+        }
+//        var_dump($goods_stock);die;
+        if($goods_stock["stock"]<1){
+            echo "库存不够---请联系卖家";die;
+        }
+        $where=[
+            ["user_id","=",$user_id["user_id"]],
+            ["status","<>",1],
+        ];
+        $result=CartScroe::where($where)->first();
+        if($result){
+            echo "本次活动一个用户只能兑换一次";die;
+        }
+        DB::beginTransaction();//开启一个事务
             $where=[
                 "user_id"=>$user_id["user_id"],
                 "goods_id"=>$data["goods_id"],

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use App\indexModel\CartScroe;
 use App\AdminModel\Goods;
+use App\indexModel\UrgeScore;
 class SignController extends Controller
 {
     public function sign(){
@@ -249,5 +250,73 @@ class SignController extends Controller
 //        }
 
         return view("index.persion.Tobepaid",["data"=>$data]);
+    }
+    //催货ajax
+    public function urgeScore(){
+        $user_name=session("user_name");
+        $user_id=User::where("user_name",$user_name)->first();
+        $data=\request()->all();
+        $data["user_id"]=$user_id["user_id"];
+        $data["addtime"]=time();
+        $data["status"]=1;
+        $user=UrgeScore::where(["user_id"=>$user_id["user_id"],"order"=>$data["order"],"goods_id"=>$data["goods_id"]])->first();
+//        echo time()-$user['addtime'];die;
+        if((time()-$user['addtime'])<60*5){
+
+            echo "不能连续提醒---请".ceil((300-(time()-$user['addtime']))/60)."分钟后再提醒";die;
+        }
+        if($user){
+            $res=UrgeScore::where(["user_id"=>$user_id["user_id"],"order"=>$data["order"],"goods_id"=>$data["goods_id"]])->update(['status'=>$user["status"]+1,"addtime"=>time()]);
+            if($res){
+                echo "ok";die;
+            }
+        }else{
+            $res=UrgeScore::insert($data);
+            if($res){
+                echo "ok";
+            }
+        }
+
+    }
+    //待收货方法
+    public function gootbr(){
+        $name=session("user_name");
+        $user_id=User::where("user_name",$name)->first();
+        $where=[
+            "user_id"=>$user_id["user_id"],
+            "status"=>3
+        ];
+        $data=CartScroe::where($where)->get();
+//        if(isset($data[0])){
+        foreach ($data as $k=>$v){
+            $v->goods_id=Goods::where("goods_id",$v->goods_id)->first()->toArray();
+        }
+        return view("index.persion.gootbr",["data"=>$data]);
+    }
+    //待收货ajax
+    public function gootbrajax(){
+        $user_name=session("user_name");
+        $user_id=User::where("user_name",$user_name)->first();
+        $data=\request()->all();
+        $res=CartScroe::where(["user_id"=>$user_id["user_id"],"goods_id"=>$data["goods_id"],"order"=>$data["order"],"status"=>3])->update(["status"=>4]);
+        if($res!==false){
+            echo "ok";
+        }else{
+            echo "服务器繁忙";
+        }
+    }
+    //我的购买历史
+    public function purchase(){
+        $name=session("user_name");
+        $user_id=User::where("user_name",$name)->first();
+        $where=[
+            "user_id"=>$user_id["user_id"],
+            "status"=>4
+        ];
+        $data=CartScroe::where($where)->get();
+        foreach ($data as $k=>$v){
+            $v->goods_id=Goods::where("goods_id",$v->goods_id)->first()->toArray();
+        }
+        return view("index.persion.purchase",["data"=>$data]);
     }
 }
