@@ -188,12 +188,12 @@
 									<li class="yui3-u-1-8"><span class="price">{{$v['price']}}</span></li>
 									<li class="yui3-u-1-8" goods_num="{{$v['stock']}}">
 										<a href="javascript:void(0)" class="increment mins">-</a>
-										<input autocomplete="off" type="text" value="1" minnum="1" class="itxt" />
+										<input autocomplete="off" type="text" value="{{$v['buy_number']}}" minnum="1" class="itxt" />
 										<a href="javascript:void(0)" class="increment plus">+</a>
 									</li>
-									<li class="yui3-u-1-8"><span class="sum">8848.00</span></li>
+									<li class="yui3-u-1-8"><span class="sum">{{$v['buy_number']*$v['price']}}</span></li>
 									<li class="yui3-u-1-8">
-										<a href="/index/cart/cartdel/?cart_id={{$v['cart_id']}}">删除</a>
+										<a href="javascript:;" class="del" cart_id="{{$v['cart_id']}}">删除</a>
 									</li>
 								</ul>
 							</div>
@@ -580,4 +580,29 @@
         //     }
         // })
     })
+</script>
+<script>
+	$(document).on('click','.del',function(){
+		if(!confirm("是否确定删除？")){
+			return false;
+		}
+		var data={};
+		data.cart_id=$(this).attr('cart_id');
+//        alert(data);
+		url="/index/cart/cartdel";
+		$.ajax({
+			url:url,
+			data:data,
+			type:"post",
+			dataType:'json',
+			success:function(res){
+//				console.log(res);
+				alert(res.result.message);
+				if(res.message=='success'){
+					location.href="/index/cart/cartlist";
+				}
+			}
+		})
+		$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+	})
 </script>
