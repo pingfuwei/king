@@ -149,7 +149,7 @@
             </li>
             @foreach($referInfo as $kk=>$vv)
             <li class="yui3-u-5-24" style="background: darkgray">
-                <a href="list.html" target="_blank"><img src="{{env("UPLOADS_URL")}}{{$vv->goods_img}}" width="163" height="248"/></a>
+                <a href="index/goods/desc?goods_id={{$vv->goods_id}}" target="_blank"><img src="{{env("UPLOADS_URL")}}{{$vv->goods_img}}" width="163" height="248"/></a>
             </li>
             @endforeach
         </ul>
@@ -169,7 +169,7 @@
                 <li class="yui3-u-1-6">
                     <dl class="picDl huozhe">
                         <dd>
-                            <a href="" class="pic"><img src="{{env("UPLOADS_URL")}}{{$v->goods_img}}" alt="" /></a>
+                            <a href="index/goods/desc?goods_id={{$v->goods_id}}" class="pic" goods_id="{{$v->goods_id}}"><img src="{{env("UPLOADS_URL")}}{{$v->goods_img}}" alt="" /></a>
                             <div class="like-text">
                                 <p>{{substr($v->goods_name,0,9)}}...</p>
                                 <h3>¥{{$v->goods_price}}</h3>

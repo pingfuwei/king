@@ -69,11 +69,7 @@
                                 </div>
                                 <div class="control-group">
                                     <label for="inputPassword" class="control-label">所在地：</label>
-                                    <div class="controls">
-                                        <div data-toggle="distpicker">
-                                            <div class="form-group area">
-
-                                                <select class="form-control" id="province" name="province">
+                                    <select class="form-control" id="province" name="province">
 
                                                     <option>请选择</option>
                                                     @foreach($province as $k=>$v)
@@ -92,9 +88,6 @@
                                                     <option value="{{$v['id']}}" {{$data["area"]==$v['id'] ? "selected" : ""}}>{{$v['name']}}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="inputName" class="control-label">详细地址：</label>
@@ -146,8 +139,7 @@
 //            alert(id);
         obj.nextAll('select').html("<option value=''>请选择...</option>");
         $.get(
-                "{{url('/index/persion/area')}}",
-                {'id':id},
+                "{{url('/index/address/area')}}/"+id,
                 function(res){
 //                        console.log(res);
                     if(res.code=='00000'){

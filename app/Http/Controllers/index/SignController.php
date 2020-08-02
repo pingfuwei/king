@@ -49,12 +49,21 @@ class SignController extends Controller
 //        }
         $data=UserInfo::where('user_id',$user_id)->first();
         $privince=Shop_Area::where(['pid'=>0])->get();
-        return view('index.persion.persion',['privince'=>$privince,'data'=>$data]);
+        $province1 = $this->area(0);
+//        dd($province);
+        $province = $province1["data"];
+//        dd($privince);
+        $city1 = $this->area($data["province"]);
+        $city = $city1["data"];
+//        dd($city);
+        $area1 = $this->area($data["city"]);
+        $area = $area1["data"];
+        return view('index.persion.persion',['privince'=>$privince,'data'=>$data,'province'=>$province,'city'=>$city,'area'=>$area]);
     }
-    public function area(){
-        $id=request()->get('id');
+    public static function area($id){
 //        echo $id;
         $son=Shop_Area::where(['pid'=>$id])->get()->toArray();
+//        return $son;
         return [
             'code'=>'00000',
             'data'=>$son
