@@ -186,7 +186,7 @@
 										</div>
 									</li>
 									<li class="yui3-u-1-8"><span class="price">{{$v['price']}}</span></li>
-									<li class="yui3-u-1-8" goods_num="{{$v['stock']}}">
+									<li class="yui3-u-1-8" goods_num="{{$v['stock']}}" stock_id="{{$v['stock_id']}}">
 										<a href="javascript:void(0)" class="increment mins">-</a>
 										<input autocomplete="off" type="text" value="{{$v['buy_number']}}" minnum="1" class="itxt" />
 										<a href="javascript:void(0)" class="increment plus">+</a>
@@ -551,34 +551,71 @@
             var _this = $(this);
             var buy_number = parseInt(_this.prev("input").val());
             var goods_num = parseInt(_this.parent().attr("goods_num"));
+            var stock_id = _this.parent().attr("stock_id");
+            // console.log(stock_id);
             // console.log(goods_num);
             if (buy_number >= goods_num) {
-                //让文本框中显示库存值
                 _this.prev("input").val(goods_num);
             } else {
-                //否则正常文本框中值加一
                 buy_number = buy_number + 1;
-                //在返回给文本框
                 _this.prev("input").val(buy_number);
             }
+
+            total(_this,stock_id);
         })
         //减号
-        // $(document).on("click",".mins",function(){
-        //     // alert(123);
-        //     var _this = $(this);
-        //     var buy_number = parseInt(_this.next("input").val());
-        //     var goods_num = parseInt(_this.parent().attr("goods_num"));
-        //     // console.log(goods_num);
-        //     if (buy_number >= goods_num) {
-        //         //让文本框中显示库存值
-        //         _this.next("input").val(goods_num);
-        //     } else {
-        //         //否则正常文本框中值加一
-        //         buy_number = buy_number + 1;
-        //         //在返回给文本框
-        //         _this.next("input").val(buy_number);
-        //     }
-        // })
+        $(document).on("click",".mins",function(){
+            // alert(123);
+            var _this = $(this);
+            var buy_number = parseInt(_this.next("input").val());
+            var goods_num = parseInt(_this.parent().attr("goods_num"));
+            // console.log(goods_num);
+            if (buy_number <= 1) {
+                _this.next("input").val("1");
+            } else {
+                buy_number = buy_number - 1;
+                _this.next("input").val(buy_number);
+            }
+        })
+        //失去焦点
+        $(document).on("blur",".itxt",function(){
+            // alert(123);
+            var _this = $(this);
+            var buy_number = _this.val();
+            var goods_num = parseInt(_this.parent().attr("goods_num"));
+            // console.log(goods_num);
+
+            //正则验证
+            var ags = /^\d{1,}$/;
+            if (buy_number == "") {
+                _this.val("1");
+                buy_number = 1;
+            } else if (buy_number <= 1) {
+                _this.val("1");
+                buy_number = 1;
+            } else if (!ags.test(buy_number)) {
+                _this.val("1");
+                buy_number = 1;
+            } else if (parseInt(buy_number) >= goods_num) {
+                _this.val(goods_num);
+                buy_number = goods_num;
+            } else {
+                _this.val(parseInt(buy_number));
+                buy_num = parseInt(buy_number);
+            }
+        })
+        function total(_this,stock_id){
+            // console.log(stock_id);
+            $.get( //post方式
+                "/index/cart/total", { //传给控制器
+                    stock_id: stock_id
+                },
+                function(res) {
+                    console.log(res);
+                    // _this.parents("td").next().text("￥" + res);
+                }
+            )
+        }
     })
 </script>
 <script>
