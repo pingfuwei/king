@@ -6,7 +6,7 @@
 			<div class="bread">
 				<ul class="fl sui-breadcrumb">
 					<li>
-						<a href="#">全部结果</a>
+						<a href="#">全部结果~~~</a>
 					</li>
 					@foreach ($form1 as $v)
 					<li class="active"><a href="/index/cate/list?cate_id={{$v['cate_id']}}" style="color: #000;" >{{$v['cate_name']}}</a></li>	
