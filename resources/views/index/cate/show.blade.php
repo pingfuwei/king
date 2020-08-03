@@ -26,7 +26,7 @@
 						<li class="yui3-u-1-5">
 							<div class="list-wrap">
 								<div class="p-img">
-									<a href="item.html" target="_blank"><img src="{{env('UPLOADS_URL')}}{{$val['goods_img']}}" width="500px" height="500px;"></a>
+									<a href="/index/goods/desc/?goods_id={{$val['goods_id']}}" target="_blank"><img src="{{env('UPLOADS_URL')}}{{$val['goods_img']}}" width="500px" height="500px;"></a>
 								</div>
 								<div class="price">
 									<strong>

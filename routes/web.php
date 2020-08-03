@@ -248,8 +248,7 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("getmonney", "index\CartController@getmonney");//购物车合计
         Route::any("account", "index\CartController@account");//点击结算
     });
-
-
+    
     Route::prefix("persion")->group(function() {//个人中心
         Route::any('sign','index\SignController@sign');//签到
         Route::any('Dosign','index\SignController@Dosign');//签到
@@ -257,7 +256,7 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('persionDo','index\SignController@persionDo');//执行添加个人信息
         Route::any('pers','index\SignController@pers');//修改个人信息
         Route::any('personal','index\SignController@personal');//展示个人信息
-        Route::any('area','index\SignController@area');//三级联动
+        Route::any('area/{id}','index\SignController@area');//三级联动
         Route::any('info','index\SignController@info');//添加用户信息
         Route::any('Consignment','index\SignController@Consignment');//代发货方法
         Route::any('Tobepaid','index\SignController@Tobepaid');//待付款方法
@@ -276,14 +275,12 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('upd/{address_id}','index\AddressController@upd');//地址修改
         Route::any('updDo','index\AddressController@updDo');//执行地址修改
         Route::any('del/{address_id}','index\AddressController@del');//地址删除
+        Route::any('area/{id}','index\AddressController@area');//三级联动
     });
     Route::prefix("discount")->group(function() {//优惠券
         Route::any('get','index\DiscountController@get');//领取优惠券
 
     });
-
-
-
 
 
 

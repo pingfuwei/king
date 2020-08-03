@@ -333,7 +333,7 @@ class CartController extends Controller
         }
         $user_name = $request->session()->get("user_name");
         $user_id = User::where("user_name",$user_name)->value("user_id");
-        // dd($user_name);
+//         var_dump($user_name);
         if($user_name){
             //获取属性库存
             $buy_num = goods_stock::where("stock_id",$arr["stock_id"])->value("stock");
@@ -393,11 +393,14 @@ class CartController extends Controller
                 $message = $this->datacode("false","00001","没有该属性值库存");
             }
 
+            return json_encode($message);
 
+        }else{
+          
+            $message = $this->datacode("false","00001","请您先登录");
         }
 
-
-        echo json_encode($message);
+        return json_encode($message);
     }
 
     //修改购买数量
@@ -420,18 +423,27 @@ class CartController extends Controller
     //小计
     public function total(Request $request){
         $stock_id = $request->get("stock_id");
+
+//        echo $stock_id;exit;
+        $cart_id = $request->get("cart_id");
+        $user_name = $request->session()->get("user_name");
+        $user_id = User::where("user_name",$user_name)->value("user_id");
+        // dd($user_id);
         $where = [
             "stock_id"=>$stock_id,
             "is_del"=>1
         ];
         $price = goods_stock::where($where)->value("price");
         // dd($price);
-        $wheres = [
-            "stock_id"=>$stock_id,
-            "is_del"=>1
-        ];
         $buy_number = Cart::where($where)->value("buy_number");
-        echo $price*$buy_number;
+//        echo $buy_number;exit;
+        $wheres = [
+            "cart_id"=>$cart_id,
+            "is_del"=>1,
+            "user_id"=>$user_id
+        ];
+        $buy_number = Cart::where($wheres)->value("buy_number");
+	        echo $price*$buy_number;
     }
 
     //购物车提示信息

@@ -19,6 +19,7 @@ class AddressController extends Controller
     public function addDo(Request $request){
         $all=$request->all();
         $province=$all['province'];
+
         $address_name=$all['address_name'];
         $city=$all['city'];
         $area=$all['area'];
@@ -90,22 +91,27 @@ class AddressController extends Controller
     public function upd($address_id){
         $privince=Shop_Area::where(['pid'=>0])->get();
         $data=AddressModel::where('address_id',$address_id)->first();
-        $province = $this->area(0);
-        $city = $this->area($data["province"]);
-        $area = $this->area($data["city"]);
-
+        $province1 = $this->area(0);
 //        dd($province);
+        $province = $province1["data"];
+//        dd($privince);
+        $city1 = $this->area($data["province"]);
+        $city = $city1["data"];
+        $area1 = $this->area($data["city"]);
+        $area = $area1["data"];
+
+//        dd($city);
         return view('index.address.upd',['province'=>$province,'city'=>$city,'area'=>$area,'data'=>$data,"privince"=>$privince]);
     }
 
     public static function area($id){
 //        echo $id;
         $son=Shop_Area::where(['pid'=>$id])->get()->toArray();
-        return $son;
-//        return [
-//            'code'=>'00000',
-//            'data'=>$son
-//        ];
+//        return $son;
+        return [
+            'code'=>'00000',
+            'data'=>$son
+        ];
 
     }
 
