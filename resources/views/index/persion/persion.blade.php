@@ -18,41 +18,42 @@
                                 </div>
                                 <div class="control-group">
                                     <label for="inputGender" class="control-label">性别：</label>
-                                    <div class="controls">
-                                        <label data-toggle="radio" class="radio-pretty inline {{$data->sex=="1" ? "checked" : ""}}">
+
                                             <input type="radio" name="sex" value="1"  {{$data->sex=="1" ? "checked" : ""}}><span>男</span>
-                                        </label>
-                                        <label data-toggle="radio" class="radio-pretty inline {{$data->sex=="2" ? "checked" : ""}}">
                                             <input type="radio" name="sex" value="2"  {{$data->sex=="2" ? "checked" : ""}}><span>女</span>
-                                        </label>
-                                    </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="inputName" class="control-label">电话：</label>
                                     <div class="controls">
                                         <input type="text" id="inputName" class="tel" name="tel" placeholder="手机号" value="{{$data->tel}}">
+                                        <b style="color: red"></b>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="inputPassword" class="control-label">所在地：</label>
-                                    <div class="controls">
-                                        <div data-toggle="distpicker">
-                                            <div class="form-group area">
+
+
 
                                                 <select class="form-control" id="province" name="province">
 
                                                     <option>请选择</option>
-                                                    @foreach($privince as $k=>$v)
-                                                     <option value="{{$v->id}}" {{$data->province==$v->id ? "selected" : ""}} >{{$v->name}}</option>
+                                                    @foreach($province as $k=>$v)
+                                                        <option value="{{$v['id']}}" {{$data["province"]==$v['id'] ? "selected" : ""}} >{{$v['name']}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select class="form-control" id="city" value="" name="city" {{$data->city==$v->id ? "selected" : ""}}><option>请选择</option></select>
-                                                <select class="form-control" id="qu" value="" name="area" {{$data->area==$v->id ? "selected" : ""}}><option>请选择</option></select>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                <select class="form-control" id="city"   name="city" >
+                                                    <option>请选择</option>
+                                                    @foreach($city as $k=>$v)
+                                                        <option value="{{$v['id']}}" {{$data["city"]==$v['id'] ? "selected" : ""}}>{{$v['name']}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <select class="form-control" id="qu"  name="area" >
+                                                    <option>请选择</option>
+                                                    @foreach($area as $k=>$v)
+                                                        <option value="{{$v['id']}}" {{$data["area"]==$v['id'] ? "selected" : ""}}>{{$v['name']}}</option>
+                                                    @endforeach
+                                                </select>
                                 </div>
-
                                 <div class="control-group">
                                     <label for="sanwei" class="control-label"></label>
                                     <div class="controls">
@@ -89,12 +90,12 @@
 //            alert(id);
             obj.nextAll('select').html("<option value=''>请选择...</option>");
             $.get(
-                    "{{url('/index/persion/area')}}",
-                    {'id':id},
+                    "{{url('/index/persion/area')}}/"+id,
                     function(res){
 //                        console.log(res);
                        if(res.code=='00000'){
-//                          console.log(1);
+//                          console.log(1);return;
+
                            var str='<option>请选择</option>';
                            $.each(res.data,function(i,k){
                                str+='<option value='+ k.id+'>'+ k.name+'</option>';
@@ -108,10 +109,65 @@
 
 
 </script>
-{{--<script>--}}
-    {{--$(".btn").click(function(){--}}
-        {{--var name=$(".name").val();--}}
-        {{--console.log(name);--}}
-    {{--})--}}
-{{--</script>--}}
+<script>
+    $(".user_name").blur(function(){
+//        console.log(1);return;
+        //清空错误信息
+        $(this).next().html('');
+        var user_name=$(this).val();
+        if(user_name==''){
+            $(this).next().html('用户名不能为空');
+            return;
+        }
+    })
+    $(".details").blur(function(){
+//        console.log(1);return;
+        //清空错误信息
+        $(this).next().html('');
+        var detail=$(this).val();
+//         console.log(detail);
+
+        if(detail==''){
+            $(this).next().html('详细地址不能为空');
+            return;
+        }
+    })
+    $(".tel").blur(function(){
+//        console.log(1);return;
+        //清空错误信息
+        $(this).next().html('');
+        var tel=$(this).val();
+//         console.log(detail);
+
+        if(tel==''){
+            $(this).next().html('手机号不能为空');
+            return;
+        }
+    })
+</script>
+<script>
+    $(".btn").click(function(){
+        var selectObj = document.getElementById("qu");
+        var city = document.getElementById("city");
+        var activecity = city.options[city.selectedIndex].value;
+        var province = document.getElementById("province");
+        var activeprovince = city.options[province.selectedIndex].value;
+        if (activeprovince == "请选择"){
+            alert ("请把您的所在地填写完整！");
+            province.focus();
+            return false;
+        }
+        if (activecity == "请选择"){
+            alert ("请把您的所在地填写完整！");
+            city.focus();
+            return false;
+        }
+        var activeIndex = selectObj.options[selectObj.selectedIndex].value;
+        if (activeIndex == "请选择"){
+            alert ("请把您的所在地填写完整！");
+            selectObj.focus();
+            return false;
+        }
+    })
+</script>
 @endsection

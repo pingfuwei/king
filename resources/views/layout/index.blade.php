@@ -346,9 +346,9 @@
                                     <ul>
 
                                             <li class="jth-item" v-for="v in history">
-                                                <a href="#" class="img-wrap"> <img v-bind:src="v.goods_img" height="100" width="100" /> </a>
+                                                <a :href="'/index/goods/desc?goods_id='+v.goods_id" class="img-wrap"> <img v-bind:src="v.goods_img" height="80" width="80" /> </a>
                                                 <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
-                                                <a href="#" target="_blank" class="price">￥@{{v.goods_price}}</a>
+                                                <a :href="'/index/goods/desc?goods_id='+v.goods_id" target="_blank" class="price">￥@{{v.goods_price}}</a>
                                                 <div height="10" width="100" style="background: plum"><a ><b class="del" his_id="@{{v.his_id}}" style="align-content: center">删除记录</b></a></div>
                                             </li>
 
@@ -447,6 +447,8 @@
 <script type="text/javascript" src="/index/js/widget/nav.js"></script>
 </body>
 
+
+</html>
 
 
 <script src="/index/vue/axios.min.js"></script>

@@ -580,6 +580,7 @@
             _this.parent().prev().prev().prev().children().attr("checked","aa");
             // _this.parent().attr("aa","bb");
             // console.log(ass);
+//            alert(1)
             // alert(1)
             updnumber(buy_number,cart_id);
             total(_this,stock_id,cart_id);
