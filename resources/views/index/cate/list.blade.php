@@ -6,7 +6,7 @@
 			<div class="bread">
 				<ul class="fl sui-breadcrumb">
 					<li>
-						<a href="#">全部结果</a>
+						<a href="#">全部结果~~~</a>
 					</li>
 					@foreach ($form1 as $v)
 					<li class="active"><a href="/index/cate/list?cate_id={{$v['cate_id']}}" style="color: #000;" >{{$v['cate_name']}}</a></li>	
@@ -108,7 +108,7 @@
 						<li class="yui3-u-1-5">
 							<div class="list-wrap">
 								<div class="p-img">
-									<a href="item.html" target="_blank"><img src="{{env('UPLOADS_URL')}}{{$val['goods_img']}}" width="500px" height="500px;"></a>
+									<a href="/index/goods/desc/?goods_id={{$val['goods_id']}}" target="_blank"><img src="{{env('UPLOADS_URL')}}{{$val['goods_img']}}" width="500px" height="500px;"></a>
 								</div>
 								<div class="price">
 									<strong>
