@@ -178,10 +178,10 @@
 						<a href="/"><h3 style="text-align: center">亲，您购物车空空如也，请先先加入一些东西吧</h3></a>
 					@else
 						@foreach($cart_info as $k=>$v)
-							<tr cart_id="{{$v['cart_id']}}">
+							<tr>
 						<div class="cart-body">
 							<div class="cart-list">
-								<ul class="goods-list yui3-g">
+								<ul class="goods-list yui3-g" cart_id="{{$v['cart_id']}}">
 									<li class="yui3-u-1-24">
 										<input type="checkbox" name="cart_id" class="check" value="{{$v['cart_id']}}" />
 									</li>
@@ -259,7 +259,7 @@
 						<span><em>已节省：</em><i>-¥20.00</i></span>
 					</div>
 					<div class="sumbtn">
-						<a class="sum-btn" href="getOrderInfo.html" target="_blank">结算</a>
+						<a class="sum-btn" href="javascript:;" target="_blank" id="account">结算</a>
 					</div>
 				</div>
 			</div>
@@ -764,26 +764,29 @@
 		getmonney();
 	})
 	//点击结算
-	$(document).on("click",'#okmonney',function(){
+	$(document).on("click",'#account',function(){
 		var box=$('.check:checked');
-		if (box.length<1) {
+//		console.log(box);
+//		return false;
+		if (box.length<0) {
 			alert('请至少选择一见商品');
 			return false;
 		}
-		goods_id='';
+		var cart_id='';
 		box.each(function(index){
-			goods_id+=$(this).parents('tr').attr('goods_id')+',';
+			cart_id+=$(this).val()+',';
 		})
-		var goods_id=goods_id.substr(0,goods_id.length-1);
-		// alert(goods_id);
-		location.href="{:url('cart/cart_settleed')}?goods_id="+goods_id;
+//		console.log(cart_id);return false;
+		var cart_id=cart_id.substr(0,cart_id.length-1);
+//		 alert(cart_id);
+		location.href="/index/cart/account?cart_id="+cart_id;
 	})
 	//  封装商品的总价
 	function getmonney(){
 		var cart_id='';
 		var box=$('.check:checked');//获取选中的复选框
 		box.each(function(index){
-			cart_id+=$(this).parents("tr").attr('cart_id')+',';   //给每个上面拼接一个,号  每个都拼接  用字符串连接一起
+			cart_id+=$(this).val()+',';   //给每个上面拼接一个,号  每个都拼接  用字符串连接一起
 		})
 		cart_id=cart_id.substr(0,cart_id.length-1); //截取长度减去1 控制用in查询 所以去一位就可以  //alert(goods_id);
 		$.ajax({

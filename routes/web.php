@@ -245,14 +245,11 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("cartdel", "index\CartController@cartdel");//购物车列表
         Route::any("total", "index\CartController@total");//购物车小计
         Route::any("updnumber", "index\CartController@updnumber");//购物车购买数量
-        Route::any("getmonney", "index\CartController@getmonney");//购物车结算
+        Route::any("getmonney", "index\CartController@getmonney");//购物车合计
+        Route::any("account", "index\CartController@account");//点击结算
     });
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 30a824eaa58edcb79078ec2ea82c51e3cb139c03
     Route::prefix("persion")->group(function() {//个人中心
         Route::any('sign','index\SignController@sign');//签到
         Route::any('Dosign','index\SignController@Dosign');//签到
