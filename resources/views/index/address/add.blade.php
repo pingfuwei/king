@@ -184,5 +184,28 @@
             return;
         }
     })
+    $(".btn").click(function(){
+        var selectObj = document.getElementById("qu");
+        var city = document.getElementById("city");
+        var activecity = city.options[city.selectedIndex].value;
+        var province = document.getElementById("province");
+        var activeprovince = city.options[province.selectedIndex].value;
+        if (activeprovince == "请选择"){
+            alert ("请把您的所在地填写完整！");
+            province.focus();
+            return false;
+        }
+        if (activecity == "请选择"){
+            alert ("请把您的所在地填写完整！");
+            city.focus();
+            return false;
+        }
+        var activeIndex = selectObj.options[selectObj.selectedIndex].value;
+        if (activeIndex == "请选择"){
+            alert ("请把您的所在地填写完整！");
+            selectObj.focus();
+            return false;
+        }
+    })
 </script>
 @endsection

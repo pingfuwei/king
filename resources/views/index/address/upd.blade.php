@@ -64,7 +64,8 @@
                                 <div class="control-group">
                                     <label for="inputName" class="control-label">姓名：</label>
                                     <div class="controls">
-                                        <input type="text" id="inputName" class="tel" name="address_name" value="{{$data->address_name}}" placeholder="姓名">
+                                        <input type="text" id="inputName" class="user_name" name="address_name" value="{{$data->address_name}}" placeholder="姓名">
+                                        <b style="color:red;"></b>
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -92,13 +93,15 @@
                                 <div class="control-group">
                                     <label for="inputName" class="control-label">详细地址：</label>
                                     <div class="controls">
-                                        <textarea name="detail">{{$data->detail}}</textarea>
+                                        <textarea name="detail" class="details">{{$data->detail}}</textarea>
+                                        <b style="color:red;"></b>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="inputName" class="control-label">电话：</label>
                                     <div class="controls">
                                         <input type="text" id="inputName" class="tel" name="tel" value="{{$data->tel}}" placeholder="手机号">
+                                        <b style="color:red;"></b>
                                         <input type="hidden" name="address_id" value="{{$data->address_id}}">
                                     </div>
                                 </div>
@@ -157,10 +160,63 @@
 
 
 </script>
-{{--<script>--}}
-{{--$(".btn").click(function(){--}}
-{{--var name=$(".name").val();--}}
-{{--console.log(name);--}}
-{{--})--}}
-{{--</script>--}}
+    <script>
+        $(".user_name").blur(function(){
+//        console.log(1);return;
+            //清空错误信息
+            $(this).next().html('');
+            var user_name=$(this).val();
+            if(user_name==''){
+                $(this).next().html('用户名不能为空');
+                return;
+            }
+        })
+        $(".details").blur(function(){
+//        console.log(1);return;
+            //清空错误信息
+            $(this).next().html('');
+            var detail=$(this).val();
+//         console.log(detail);
+
+            if(detail==''){
+                $(this).next().html('详细地址不能为空');
+                return;
+            }
+        })
+        $(".tel").blur(function(){
+//        console.log(1);return;
+            //清空错误信息
+            $(this).next().html('');
+            var tel=$(this).val();
+//         console.log(detail);
+
+            if(tel==''){
+                $(this).next().html('手机号不能为空');
+                return;
+            }
+        })
+        $(".btn").click(function(){
+            var selectObj = document.getElementById("qu");
+            var city = document.getElementById("city");
+            var activecity = city.options[city.selectedIndex].value;
+            var province = document.getElementById("province");
+            var activeprovince = city.options[province.selectedIndex].value;
+            if (activeprovince == "请选择"){
+                alert ("请把您的所在地填写完整！");
+                province.focus();
+                return false;
+            }
+            if (activecity == "请选择"){
+                alert ("请把您的所在地填写完整！");
+                city.focus();
+                return false;
+            }
+            var activeIndex = selectObj.options[selectObj.selectedIndex].value;
+            if (activeIndex == "请选择"){
+                alert ("请把您的所在地填写完整！");
+                selectObj.focus();
+                return false;
+            }
+        })
+    </script>
 @endsection

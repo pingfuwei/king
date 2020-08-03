@@ -44,6 +44,7 @@
                         <th>联系电话</th>
                         <th>{{$data->tel}}</th>
                     </tr>
+
                     <tr>
                         <th>会员</th>
                         <th>

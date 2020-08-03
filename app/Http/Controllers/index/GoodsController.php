@@ -16,7 +16,6 @@ class GoodsController extends Controller
     /*
      * 商品详情
      */
-
     public function desc(Request $request){
         $goods_id=$request->get('goods_id');
         //        游览历史记录、
@@ -127,7 +126,6 @@ class GoodsController extends Controller
         if($user_name){
 
             $res=$this->saveHistoryDb($goods_id,$user_name);
-
         }else{
             $this->saveHistorycookie($goods_id);
 

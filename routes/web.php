@@ -167,6 +167,8 @@ Route::prefix("admin")->group(function (){//后台
         });
     Route::prefix("index")->group(function (){//控制面板
         Route::any('list','admin\IndexController@list');//积分换购订单展示
+        Route::any('listajax','admin\IndexController@listajax');//积分换购改状态ajax
+
     });
 });
 
@@ -240,9 +242,11 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("cart")->group(function() {//商品
         Route::any("cartcreate", "index\CartController@cartcreate");//购物车添加
         Route::any("cartlist", "index\CartController@cartlist");//购物车列表
+        Route::any("cartdel", "index\CartController@cartdel");//购物车列表
+        Route::any("total", "index\CartController@total");//购物车小计
+        Route::any("updnumber", "index\CartController@updnumber");//购物车购买数量
+        Route::any("getmonney", "index\CartController@getmonney");//购物车结算
     });
-
-
 
 
     Route::prefix("persion")->group(function() {//个人中心
@@ -256,6 +260,10 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('info','index\SignController@info');//添加用户信息
         Route::any('Consignment','index\SignController@Consignment');//代发货方法
         Route::any('Tobepaid','index\SignController@Tobepaid');//待付款方法
+        Route::any('urgeScore','index\SignController@urgeScore');//催发货ajax
+        Route::any('gootbr','index\SignController@gootbr');//待收货的方法
+        Route::any('gootbrajax','index\SignController@gootbrajax');//待收货的ajax方法
+        Route::any('purchase','index\SignController@purchase');//我的购买历史方法
     });
 
 
@@ -273,9 +281,6 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('get','index\DiscountController@get');//领取优惠券
 
     });
-
-
-
 
 
 

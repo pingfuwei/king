@@ -43,10 +43,10 @@
     <div class="list-items">
         <dl>
             <dt><i>·</i> 订单中心</dt>
-            <dd ><a href="home-index.html"   >我的订单</a></dd>
+            <dd ><a href="/index/persion/purchase"   >我的购买历史</a></dd>
             <dd><a href="/index/persion/Tobepaid" >待付款</a></dd>
             <dd><a href="/index/persion/Consignment"  >待发货</a></dd>
-            <dd><a href="home-order-receive.html" >待收货</a></dd>
+            <dd><a href="/index/persion/gootbr" >待收货</a></dd>
             <dd><a href="home-order-evaluate.html" >待评价</a></dd>
         </dl>
         <dl>

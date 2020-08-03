@@ -12,7 +12,7 @@
 					<li class="active"><a href="/index/cate/list?cate_id={{$v['cate_id']}}" style="color: #000;" >{{$v['cate_name']}}</a></li>	
 					@endforeach					
 				</ul>
-				<ul class="tags-choose">
+<!-- 				<ul class="tags-choose">
 					<li class="tag">全网通<i class="sui-icon icon-tb-close"></i></li>
 					<li class="tag">63G<i class="sui-icon icon-tb-close"></i></li>
 				</ul>
@@ -21,7 +21,7 @@
 						<input type="text" />
 						<i class="sui-icon icon-touch-magnifier"></i>
 					</div>
-				</form>
+				</form> -->
 				<div class="clearfix"></div>
 			</div>
 			<!--selector-->
@@ -40,15 +40,20 @@
 					</div>
 					<div class="fl ext"></div>
 				</div>
+				<style>
+				#brand{
+					 border:2px solid red;
+				}	
+				</style>
 				<div class="type-wrap logo">
 					<div class="fl key brand">品牌</div>
 					<div class="value logos">
 						<ul class="logo-list">
 							@foreach ($arr1 as $val)
-							{{$val[0]['brand_name']}}
+							<li class="brand_id" brand_id="{{$val[0]['brand_id']}}"><img src={{env("UPLOADS_URL")}}{{$val[0]['brand_img']}}></li>
 							@endforeach
-<!-- 							<li><img src="/img/_/phone02.png" /></li>
- -->						</ul>
+							
+						</ul>
 					</div>
 					<div class="ext">
 						<a href="javascript:void(0);" class="sui-btn">多选</a>
@@ -62,7 +67,7 @@
 					<div class="fl value">
 						<ul class="type-list">
 							@foreach ($v['data']  as $i => $n)
-							<li>
+							<li id="goods_val" attr_id = "{{$v['attr_id']}}" goods_val_id="{{$n['goods_val_id']}}">
 								<a>{{$n['goods_val_name']}}</a>
 							</li>
 							@endforeach
@@ -130,36 +135,6 @@
 					</ul>
 				</div>
 				<div class="fr page">
-					<div class="sui-pagination pagination-large">
-						<ul>
-							<li class="prev disabled">
-								<a href="#">«上一页</a>
-							</li>
-							<li class="active">
-								<a href="#">1</a>
-							</li>
-							<li>
-								<a href="#">2</a>
-							</li>
-							<li>
-								<a href="#">3</a>
-							</li>
-							<li>
-								<a href="#">4</a>
-							</li>
-							<li>
-								<a href="#">5</a>
-							</li>
-							<li class="dotted"><span>...</span></li>
-							<li class="next">
-								<a href="#">下一页»</a>
-							</li>
-						</ul>
-						<div><span>共10页&nbsp;</span><span>
-      到第
-      <input type="text" class="page-num">
-      页 <button class="page-confirm" onclick="alert(1)">确定</button></span></div>
-					</div>
 				</div>
 			</div>
 			<!--hotsale-->
@@ -248,4 +223,68 @@
 			</div>
 		</div>
 	</div>
+	<script src="/js/jquery.min.js"></script>
+	<script>
+	$(function(){
+		$(document).on('click',".brand_id",function(){
+			if($(this).prop('id') == "brand"){
+				var brand_id = $("#brand").removeAttr("id");
+			}else{
+				$(this).prop('id','brand');
+			}
+			$(this).siblings().removeAttr("id");
+			var brand_id = $("#brand").attr('brand_id');
+			var data = {}
+			var attr = new Array();
+			$('.redhover').each(function(){
+				attr.push($(this).parent().attr('attr_id')+","+$(this).parent().attr('goods_val_id'));
+			});
+			data.attr = attr;
+			data.brand_id =brand_id;
+			//console.log(data);
+			$.ajax({
+				url: 'list',
+				type: 'get',
+				dataType: 'html',
+				data:data,
+				success:function(msg){
+				$(".details").html(msg);
+        		return false;
+				}
+			})
+		});
+
+
+		//grayhover
+		$(document).on('click',"#goods_val",function(){
+			console.log($(this).children().prop('class'));
+			if($(this).children().prop('class') == "redhover"){
+				$(this).children().removeClass('redhover');
+			}else{
+				$(this).children().addClass('redhover');
+			}
+
+			$(this).siblings().children().removeClass('redhover');
+			var attr = new Array();
+			$('.redhover').each(function(){
+				attr.push($(this).parent().attr('attr_id')+","+$(this).parent().attr('goods_val_id'));
+			});
+			var brand_id = $("#brand").attr('brand_id');
+			var data = {}
+		    data.attr = attr;
+		    data.brand_id = brand_id;
+		    console.log(attr);
+			$.ajax({
+				url: 'list',
+				type: 'get',
+				dataType: 'html',
+				data:data,
+				success:function(msg){
+				$(".details").html(msg);
+        		return false;
+				}
+			})
+		})
+	});	
+	</script>
 @endsection
