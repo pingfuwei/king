@@ -42,7 +42,7 @@
                     <div class="carousel-inner">
                         <div class="active item">
                             <a href="/index/score/list">
-                                <img src="/index/img/banner1.jpg"  />
+                                <img src="/index/img/jfhg.jpg" />
                             </a>
 
                         </div>
