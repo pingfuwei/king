@@ -430,10 +430,17 @@
 
     })
 </script>
+
 <!-- <script type="text/javascript" src="/index/js/model/cartModel.js"></script> -->
 <script type="text/javascript" src="/index/js/czFunction.js"></script>
 <!-- <script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script> -->
 <!-- <script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script> -->
+
+ <script type="text/javascript" src="/index/js/model/cartModel.js"></script>
+<script type="text/javascript" src="/index/js/czFunction.js"></script>
+ <script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script>
+ <script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script>
+
 <script type="text/javascript" src="/index/js/pages/index.js"></script>
 <script type="text/javascript" src="/index/js/widget/cartPanelView.js"></script>
 <script type="text/javascript" src="/index/js/widget/jquery.autocomplete.js"></script>
@@ -441,8 +448,7 @@
 </body>
 
 
-</html>
-<!-- <script src="/js/jquery.js"></script> -->
+
 <script src="/index/vue/axios.min.js"></script>
 <script src="/index/vue/vue.min.js"></script>
 <script>
