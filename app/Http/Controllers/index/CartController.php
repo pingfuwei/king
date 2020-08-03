@@ -273,7 +273,7 @@ class CartController extends Controller
         }
         $user_name = $request->session()->get("user_name");
         $user_id = User::where("user_name",$user_name)->value("user_id");
-        // dd($user_name);
+//         var_dump($user_name);
         if($user_name){
             //获取属性库存
             $buy_num = goods_stock::where("stock_id",$arr["stock_id"])->value("stock");
@@ -333,11 +333,13 @@ class CartController extends Controller
                 $message = $this->datacode("false","00001","没有该属性值库存");
             }
 
+            return json_encode($message);
 
+        }else{
+            return $this->datacode("false","00001","请去登陆---才能加入");
         }
 
-
-        echo json_encode($message);
+        return json_encode($message);
     }
 
     //修改购买数量
@@ -360,17 +362,15 @@ class CartController extends Controller
     //小计
     public function total(Request $request){
         $stock_id = $request->get("stock_id");
+//        echo $stock_id;exit;
         $where = [
             "stock_id"=>$stock_id,
             "is_del"=>1
         ];
         $price = goods_stock::where($where)->value("price");
         // dd($price);
-        $wheres = [
-            "stock_id"=>$stock_id,
-            "is_del"=>1
-        ];
         $buy_number = Cart::where($where)->value("buy_number");
+        echo $buy_number;exit;
         echo $price*$buy_number;
     }
 

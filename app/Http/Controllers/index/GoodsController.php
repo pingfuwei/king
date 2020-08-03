@@ -130,16 +130,16 @@ class GoodsController extends Controller
         if($user_name){
 
             $res=$this->saveHistoryDb($goods_id,$user_name);
-        }else{
-            $this->saveHistorycookie($goods_id);
-
-            $this->saveHistoryDb($goods_id,$user_name);
-//            dd($res);
-
-        }
+//        }else{
+////            $this->saveHistorycookie($goods_id);
+//
+//            $this->saveHistoryDb($goods_id,$user_name);
+////            dd($res);
+//
+//        }
 //        else{
 //            $this->saveHistorycookie($goods_id);
-//        }
+        }
     }
     /*
      * 存储浏览历史记录---数据库
