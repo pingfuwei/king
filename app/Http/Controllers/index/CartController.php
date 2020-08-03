@@ -334,6 +334,8 @@ class CartController extends Controller
             }
 
 
+        }else{
+            $message = $this->datacode("false","00001","请您先登录");
         }
 
 
@@ -360,6 +362,10 @@ class CartController extends Controller
     //小计
     public function total(Request $request){
         $stock_id = $request->get("stock_id");
+        $cart_id = $request->get("cart_id");
+        $user_name = $request->session()->get("user_name");
+        $user_id = User::where("user_name",$user_name)->value("user_id");
+        // dd($user_id);
         $where = [
             "stock_id"=>$stock_id,
             "is_del"=>1
@@ -367,10 +373,11 @@ class CartController extends Controller
         $price = goods_stock::where($where)->value("price");
         // dd($price);
         $wheres = [
-            "stock_id"=>$stock_id,
-            "is_del"=>1
+            "cart_id"=>$cart_id,
+            "is_del"=>1,
+            "user_id"=>$user_id
         ];
-        $buy_number = Cart::where($where)->value("buy_number");
+        $buy_number = Cart::where($wheres)->value("buy_number");
         echo $price*$buy_number;
     }
 

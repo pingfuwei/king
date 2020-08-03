@@ -580,9 +580,9 @@
             _this.parent().prev().prev().prev().children().attr("checked","aa");
             // _this.parent().attr("aa","bb");
             // console.log(ass);
-            alert(1)
+            // alert(1)
             updnumber(buy_number,cart_id);
-            total(_this,stock_id);
+            total(_this,stock_id,cart_id);
         })
         //减号
         $(document).on("click",".mins",function(){
@@ -602,7 +602,7 @@
 
             background(_this);
             updnumber(buy_number,cart_id);
-            total(_this,stock_id);
+            total(_this,stock_id,cart_id);
         })
         //失去焦点
         $(document).on("blur",".itxt",function(){
@@ -635,7 +635,7 @@
 
 			background(_this);
             updnumber(buy_number,cart_id);
-            total(_this,stock_id);
+            total(_this,stock_id,cart_id);
         })
         //修改购买数量
         function updnumber(buy_number,cart_id){
@@ -654,11 +654,12 @@
             )
         }
         //小计
-        function total(_this,stock_id){
+        function total(_this,stock_id,cart_id){
             // console.log(stock_id);
             $.get(
                 "/index/cart/total", {
-                    stock_id: stock_id
+                    stock_id: stock_id,
+                    cart_id:cart_id
                 },
                 function(res) {
                     // console.log(res);
