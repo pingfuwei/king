@@ -45,11 +45,12 @@
 					 border:2px solid red;
 				}	
 				</style>
-				<div class="type-wrap logo">
+				<div class="type-wrap logo" style="width: 1200.4px; height: 80.4px;" >
 					<div class="fl key brand">品牌</div>
 					<div class="value logos">
 						<ul class="logo-list">
 							@foreach ($arr1 as $val)
+								{{--{{dd($val[0]['brand_img'])}}--}}
 							<li class="brand_id" brand_id="{{$val[0]['brand_id']}}"><img src={{env("UPLOADS_URL")}}{{$val[0]['brand_img']}}></li>
 							@endforeach
 							

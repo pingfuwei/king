@@ -336,7 +336,8 @@ class CartController extends Controller
             return json_encode($message);
 
         }else{
-            return $this->datacode("false","00001","请去登陆---才能加入");
+          
+            $message = $this->datacode("false","00001","请您先登录");
         }
 
         return json_encode($message);
@@ -362,7 +363,12 @@ class CartController extends Controller
     //小计
     public function total(Request $request){
         $stock_id = $request->get("stock_id");
+
 //        echo $stock_id;exit;
+        $cart_id = $request->get("cart_id");
+        $user_name = $request->session()->get("user_name");
+        $user_id = User::where("user_name",$user_name)->value("user_id");
+        // dd($user_id);
         $where = [
             "stock_id"=>$stock_id,
             "is_del"=>1
@@ -370,8 +376,14 @@ class CartController extends Controller
         $price = goods_stock::where($where)->value("price");
         // dd($price);
         $buy_number = Cart::where($where)->value("buy_number");
-        echo $buy_number;exit;
-        echo $price*$buy_number;
+//        echo $buy_number;exit;
+        $wheres = [
+            "cart_id"=>$cart_id,
+            "is_del"=>1,
+            "user_id"=>$user_id
+        ];
+        $buy_number = Cart::where($wheres)->value("buy_number");
+	        echo $price*$buy_number;
     }
 
     //购物车提示信息
