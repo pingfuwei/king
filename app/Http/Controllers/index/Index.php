@@ -35,8 +35,11 @@ class Index extends Controller
             $likeinfos = HistoryModel::leftjoin('shop_goods', 'shop_goods.goods_id', '=', 'history.goods_id')->leftjoin('category','category.cate_id','=','shop_goods.goods_id')->where($likeinfo)->orderBy('count', 'desc')->first();
 //           dd($like);
             $goodsinfo=Goods::where('goods_id',$likeinfos['goods_id'])->first();
-            $like=Goods::where('cate_id',$goodsinfo['cate_id'])->limit(6)->get();//今日推荐
-            $referInfo=HistoryModel::leftjoin('shop_goods','shop_goods.goods_id','=','history.goods_id')->where(['history.is_del'=>1])->orderBy('count','desc')->limit(4)->get();
+            $like=Goods::where('cate_id',$goodsinfo['cate_id'])->limit(6)->get();
+            //今日推荐
+            $referInfos=HistoryModel::leftjoin('shop_goods','shop_goods.goods_id','=','history.goods_id')->leftjoin('category','category.cate_id','=','shop_goods.goods_id')->where($likeinfo)->orderBy('count','desc')->first();
+            $goodsinfos=Goods::where('goods_id',$referInfos['goods_id'])->first();
+            $referInfo=Goods::where('cate_id',$goodsinfos['cate_id'])->limit(4)->get();
         }else {
             //猜你喜欢列表展示
 
@@ -45,8 +48,9 @@ class Index extends Controller
             $goodsinfo=Goods::where('goods_id',$likeinfo['goods_id'])->first();
             $like=Goods::where('cate_id',$goodsinfo['cate_id'])->limit(6)->get();
 //            dd($cateinfo);
-            $referInfo=HistoryModel::leftjoin('shop_goods','shop_goods.goods_id','=','history.goods_id')->where(['history.is_del'=>1])->orderBy('count','desc')->limit(4)->get();
-
+            $referInfos=HistoryModel::leftjoin('shop_goods','shop_goods.goods_id','=','history.goods_id')->leftjoin('category','category.cate_id','=','shop_goods.goods_id')->where(['history.is_del'=>1])->orderBy('count','desc')->first();
+            $goodsinfos=Goods::where('goods_id',$referInfos['goods_id'])->first();
+            $referInfo=Goods::where('cate_id',$goodsinfos['cate_id'])->limit(4)->get();
         }
 
         return view("index.index",compact("res","ret","like","referInfo"));
