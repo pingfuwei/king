@@ -45,8 +45,8 @@
 					 border:2px solid red;
 				}	
 				</style>
-				<div class="type-wrap logo" style="width: 1200.4px; height: 80.4px;" >
-					<div class="fl key brand">品牌</div>
+				<div class="type-wrap " style="width: 1200.4px; height: 80.4px;" >
+					<div class="fl key brand" style="height: 100px;">品牌</div>
 					<div class="value logos">
 						<ul class="logo-list">
 							@foreach ($arr1 as $val)
@@ -57,8 +57,8 @@
 						</ul>
 					</div>
 					<div class="ext">
-						<a href="javascript:void(0);" class="sui-btn">多选</a>
-						<a href="javascript:void(0);">更多</a>
+						{{--<a href="javascript:void(0);" class="sui-btn">多选</a>--}}
+						{{--<a href="javascript:void(0);">更多</a>--}}
 					</div>
 				</div>
    				@foreach ($arr4 as $key => $value)
