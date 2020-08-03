@@ -129,6 +129,66 @@ class CartController extends Controller
            }
            return json_encode($message,JSON_UNESCAPED_UNICODE);
        }
+    /*
+     * 点击结算
+     */
+    public function account(Request $request){
+        $data=$request->all();
+        $cart_id_info=explode(',',$data['cart_id']);
+        if(empty($data['cart_id'])){
+            $message = [
+                'code' => '000001',
+                'message' => 'error',
+                'result' => [
+                    'message' =>"请规范您的操作",
+                ]
+            ];
+            return json_encode($message,JSON_UNESCAPED_UNICODE);
+        }
+        $arr=[];
+        foreach($cart_id_info as $k=>$v){
+//            print_r($k);
+            $k=[];
+            $cart_model=new Cart();
+            $where=[
+                ['cart_id','=',$v],
+                ['cart.is_del','=',1]
+            ];
+            $arr[$v]=$cart_model::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->leftjoin('goods_stock','cart.stock_id','=','goods_stock.stock_id')->orderBy('time','desc')->where($where)->first()->toArray();
+        }
+        foreach($arr as $k=>$v){
+//                dd($v);
+            $v["stoock"]=$v["stock"];
+//                dd($v);
+            $ass=explode(':', $v['ability']);
+            $v['stock']=$ass;
+//                dd($v);
+            foreach($v['stock'] as $kk=>$vv){
+                $asd=explode(',', $vv);
+                //根据下标查询属性和值 0 ：属性表  1 属性值
+                $v['stock'][$kk]=$asd;
+                foreach($v['stock'][$kk] as $kkk=>$vvv){
+////                        echo $kkk;
+//                        $vvv['val']=[];
+                    if($kkk==0){
+                        $goods_attrmodel=new Goods_attrModel();
+                        $goods_attr_info=$goods_attrmodel::where('attr_id',$vvv)->first();
+//                            $arr[]=$goods_attr_info;
+                        $v['stock'][$kk][$kkk]=$goods_attr_info['attr_name'];
+                    }else{
+                        $goods_valmodel=new GoodsvalueModel();
+                        $goods_val_info=$goods_valmodel::where('goods_val_id',$vvv)->first();
+//                            $arr1[]=$vvv;
+                        $v['stock'][$kk][$kkk]=$goods_val_info['goods_val_name'];
+//                            echo 123;
+                    }
+                }
+            }
+            $arr[$k]=$v;
+//                dd($v);
+        }
+        dd($arr);
+    }
 
 
 
