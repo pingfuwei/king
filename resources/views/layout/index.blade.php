@@ -326,18 +326,18 @@
                     </h3>
                     <div class="tbar-panel-main">
                         <div class="tbar-panel-content J-panel-content" id="btn">
-                            <div class="jt-history-wrap but">
+                            <div class="jt-history-wrap cart">
                                 <ul>
 
-                                    <li class="jth-item" v-for="v in history">
+                                    <li class="jth-item" v-for="v in cart">
                                         <a :href="'/index/goods/desc?goods_id='+v.goods_id" class="img-wrap"> <img v-bind:src="v.goods_img" height="80" width="80" /> </a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+                                        <a class="add-cart-button" href="'/index/goods/desc?goods_id='+v.goods_id" target="_blank">@{{v.goods_name}}</a>
                                         <a :href="'/index/goods/desc?goods_id='+v.goods_id" target="_blank" class="price">￥@{{v.goods_price}}</a>
                                         <div height="10" width="100" style="background: plum"><a ><b class="del" his_id="@{{v.his_id}}" style="align-content: center">删除记录</b></a></div>
                                     </li>
 
                                 </ul>
-                                <a href="#" class="history-bottom-more" target="_blank">查看更多足迹商品 &gt;&gt;</a>
+
 
                             </div>
                         </div>
