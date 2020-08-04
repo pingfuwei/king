@@ -299,4 +299,12 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any('list','index\CateController@list');//列表
     });
 
+
+
+
+    Route::prefix("store")->group(function() {//收藏
+        Route::any('add','index\StoreController@add');//添加收藏
+        Route::any('list','index\StoreController@list');//收藏列表
+    });
+
 });
