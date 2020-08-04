@@ -94,14 +94,11 @@
                         <div class="fr shopcar">
                             <div class="show-shopcar" id="shopcar">
                                 <span class="car"></span>
-                                <a class="sui-btn btn-default btn-xlarge" href="/index/cart/cartlist" target="_blank">
+                                <a class="sui-btn btn-default btn-xlarge count" href="/index/cart/cartlist" target="_blank">
                                     <span>我的购物车</span>
-                                    <i class="shopnum">0</i>
+                                    <i class="shopnum">@{{count}}</i>
                                 </a>
-                                <div class="clearfix shopcarlist" id="shopcarlist" style="display:none">
-                                    <p>"啊哦，你的购物车还没有商品哦！"</p>
-                                    <p>"啊哦，你的购物车还没有商品哦！"</p>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -330,10 +327,11 @@
                                 <ul>
 
                                     <li class="jth-item" v-for="v in cart">
-                                        <a :href="'/index/goods/desc?goods_id='+v.goods_id" class="img-wrap"> <img v-bind:src="v.goods_img" height="80" width="80" /> </a>
-                                        <a class="add-cart-button" href="'/index/goods/desc?goods_id='+v.goods_id" target="_blank">@{{v.goods_name}}</a>
-                                        <a :href="'/index/goods/desc?goods_id='+v.goods_id" target="_blank" class="price">￥@{{v.goods_price}}</a>
-                                        <div height="10" width="100" style="background: plum"><a ><b class="del" his_id="@{{v.his_id}}" style="align-content: center">删除记录</b></a></div>
+
+                                        <a :href="'/index/goods/desc?goods_id='+v.goods_id" class="img-wrap"> <img v-bind:src="v.goods_img" height="160" width="180" /> </a>
+                                        <div><a class="add-cart-button" href="#" target="_blank">@{{v.goods_name}}</a></div>
+                                        <a :href="'/index/goods/desc?goods_id='+v.goods_id" target="_blank" class="price" style="color: red">￥@{{v.goods_price}}</a>
+                                        <div height="10" width="100" style="background: plum; "><a ><b>-------</b></a></div>
                                     </li>
 
                                 </ul>
@@ -483,6 +481,28 @@
         axios.post(url,data).then(function (msg){
 //            console.log(msg.data);return;
             _this.cart=msg.data;
+        });
+    },
+    methods:{
+    }
+    });
+</script>
+{{--购物车--}}
+<script>
+    var me = new Vue({
+        el:".count",
+        data:{
+            count:null,
+        },
+        mounted(){
+        var _this=this;
+        var data={
+
+        };
+        var url="/cart/count"
+        axios.post(url,data).then(function (msg){
+//            console.log(msg.data);return;
+            _this.count=msg.data;
         });
     },
     methods:{
