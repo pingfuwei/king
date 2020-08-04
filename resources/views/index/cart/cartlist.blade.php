@@ -181,11 +181,8 @@
 							<tr>
 						<div class="cart-body">
 							<div class="cart-list">
-<<<<<<< HEAD
 								<ul class="goods-list yui3-g" stock_id="{{$v['stock_id']}}">
-=======
 								<ul class="goods-list yui3-g" cart_id="{{$v['cart_id']}}">
->>>>>>> cbff815988c5cb9c56f912b16596ce8f41bce024
 									<li class="yui3-u-1-24">
 										<input type="checkbox" name="cart_id" class="check" value="{{$v['cart_id']}}" />
 									</li>

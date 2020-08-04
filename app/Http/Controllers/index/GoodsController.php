@@ -219,7 +219,7 @@ class GoodsController extends Controller
             $like=Goods::where('cate_id',$goodsinfo['cate_id'])->limit(4)->get();
             $num=Goods::where('cate_id',$goodsinfo['cate_id'])->count();
         }
-        $data=Goods::leftjoin('history','history.goods_id','=','shop_goods.goods_id')->where($wheres)->get();
+        $data=Goods::leftjoin('history','history.goods_id','=','shop_goods.goods_id')->where($wheres)->limit(8)->get();
 
         return view('index.goods.gethistory',['data'=>$data,'like'=>$like,'num'=>$num]);
     }

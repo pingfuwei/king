@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\AdminModel\Category;
 use App\IndexModel\HistoryModel;
 use App\IndexModel\store;
+use App\IndexModel\Cart;
 
 class Index extends Controller
 {
@@ -102,7 +103,7 @@ class Index extends Controller
             'user_id'=>$user_id,
             'history.is_del'=>1
         ];
-        $datas=Goods::leftjoin('history','history.goods_id','=','shop_goods.goods_id')->where($wheres)->get();
+        $datas=Goods::leftjoin('history','history.goods_id','=','shop_goods.goods_id')->where($wheres)->limit(6)->get();
 //        dd($datas);
         foreach($datas as $k=>$v){
             $v['goods_img']=env('UPLOADS_URL').$v['goods_img'];
@@ -147,6 +148,14 @@ class Index extends Controller
             $v['goods_img']=env('UPLOADS_URL').$v['goods_img'];
         }
 //        var_dump($data);die;
+        return $data;
+    }
+    //购物车数量
+    public function count(){
+        $user_name=session('user_name');
+        $user=User::where('user_name',$user_name)->first();
+        $user_id=$user['user_id'];
+        $data=Cart::where(['is_del'=>1,'user_id'=>$user_id])->count();
         return $data;
     }
 }

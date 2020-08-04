@@ -203,6 +203,7 @@ Route::prefix("admin")->group(function (){//后台
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
 Route::any("/history/list", "index\Index@history");//浏览历史记录
 Route::any("/cart/list", "index\Index@cart");//首页我的收藏
+Route::any("/cart/count", "index\Index@count");//购物车数量
 Route::any("/history/del", "index\Index@del");//浏览历史记录删除
 Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("reg")->group(function() {//注册
