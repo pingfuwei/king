@@ -202,6 +202,7 @@ Route::prefix("admin")->group(function (){//后台
 
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
 Route::any("/history/list", "index\Index@history");//浏览历史记录
+Route::any("/cart/list", "index\Index@cart");//首页我的收藏
 Route::any("/history/del", "index\Index@del");//浏览历史记录删除
 Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("reg")->group(function() {//注册
@@ -229,6 +230,7 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("goods")->group(function() {//商品
         Route::any("desc", "index\GoodsController@desc");//单个商品详情
         Route::any("price", "index\GoodsController@price");//单个属性商品的库存与单价
+        Route::any("gethistory", "index\GoodsController@gethistory");//单个属性商品的库存与单价
     });
     Route::prefix("score")->group(function() {//积分换购
         Route::any("list", "index\Score@list");//积分换购展示

@@ -9,6 +9,7 @@ use App\IndexModel\User;
 use Illuminate\Http\Request;
 use App\AdminModel\Category;
 use App\IndexModel\HistoryModel;
+use App\IndexModel\Cart;
 
 class Index extends Controller
 {
@@ -110,5 +111,17 @@ class Index extends Controller
                 'data'=>$data
             ];
         }
+    }
+    //购物车列表
+    public function cart(){
+        $user_name=session('user_name');
+        $user=User::where('user_name',$user_name)->first();
+        $user_id=$user['user_id'];
+        $data=Cart::leftjoin('shop_goods','shop_goods.goods_id','=','cart.goods_id')->where(['user_id'=>$user_id])->get();
+        foreach($data as $k=>$v){
+            $v['goods_img']=env('UPLOADS_URL').$v['goods_img'];
+        }
+//        var_dump($data);die;
+        return $data;
     }
 }

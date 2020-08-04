@@ -56,8 +56,8 @@
                                 </div>
                                 <div class="control-group">
                                     <label for="sanwei" class="control-label"></label>
-                                    <div class="controls">
-                                        <button  class="sui-btn btn-primary btn button">修改</button>
+                                    <div>
+                                        <button  class="sui-btn btn-primary">修改</button>
                                     </div>
                                 </div>
                             </form>

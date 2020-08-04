@@ -42,27 +42,28 @@
     </div>
     <div class="list-items">
         <dl>
+            {{--{{dd(request()->url())}}--}}
             <dt><i>·</i> 订单中心</dt>
-            <dd ><a href="/index/persion/purchase"   >我的购买历史</a></dd>
-            <dd><a href="/index/persion/Tobepaid" >待付款</a></dd>
-            <dd><a href="/index/persion/Consignment"  >待发货</a></dd>
-            <dd><a href="/index/persion/gootbr" >待收货</a></dd>
-            <dd><a href="home-order-evaluate.html" >待评价</a></dd>
+            <dd ><a href="/index/persion/purchase" {{request()->url()=='http://www.king.com/index/persion/purchase'?"class=list-active" : "class:' '"}}   >我的购买历史</a></dd>
+            <dd><a href="/index/persion/Tobepaid" {{request()->url()=='http://www.king.com/index/persion/Tobepaid'?"class=list-active" : "class:' '"}}>待付款</a></dd>
+            <dd><a href="/index/persion/Consignment" {{request()->url()=='http://www.king.com/index/persion/Consignment'?"class=list-active" : "class:' '"}} >待发货</a></dd>
+            <dd><a href="/index/persion/gootbr" {{request()->url()=='http://www.king.com/index/persion/gootbr'?"class=list-active" : "class:' '"}}>待收货</a></dd>
+            <dd><a href="#"  >待评价</a></dd>
         </dl>
         <dl>
             <dt><i>·</i> 我的中心</dt>
-            <dd><a href="home-person-collect.html" >我的收藏</a></dd>
-            <dd><a href="home-person-footmark.html" >我的足迹</a></dd>
-            <dd><a href="{{url('index/discount/get')}}" >我的优惠券</a></dd>
+            <dd><a href="#"  >我的收藏</a></dd>
+            <dd><a href="{{url('index/goods/gethistory')}}" {{request()->url()=='http://www.king.com/index/goods/gethistory'?"class=list-active" : "class:' '"}} >我的足迹</a></dd>
+            <dd><a href="{{url('index/discount/get')}}" {{request()->url()=='http://www.king.com/index/discount/get'?"class=list-active" : "class:' '"}} >我的优惠券</a></dd>
         </dl>
         <dl>
             <dt><i>·</i> 物流消息</dt>
         </dl>
         <dl>
             <dt><i>·</i> 设置</dt>
-            <dd><a href="{{url('index/persion/personal')}}" class="list-active">个人信息</a></dd>
-            <dd><a href="{{url('index/address/list')}}"  >地址管理</a></dd>
-            <dd><a href="home-setting-safe.html" >安全管理</a></dd>
+            <dd><a href="{{url('index/persion/personal')}}" {{request()->url()=='http://www.king.com/index/persion/personal'?"class=list-active" : "class:' '"}} >个人信息</a></dd>
+            <dd><a href="{{url('index/address/list')}}" {{request()->url()=='http://www.king.com/index/address/list'?"class=list-active" : "class:' '"}} >地址管理</a></dd>
+            <dd><a href="#" >安全管理</a></dd>
         </dl>
     </div>
 </div>
@@ -71,4 +72,28 @@
             </div>
         </div>
         </div>
+        <script src="/js/jquery.min.js"></script>
+    {{--<script>--}}
+        {{--$(function(){--}}
+            {{--var web = window.location.href;--}}
+            {{--console.log(web)--}}
+            {{--var url = new Array();--}}
+            {{--$("dd a").each(function(){--}}
+                {{--url += $(this).attr("href");--}}
+            {{--})--}}
+            {{--console.log(url);--}}
+        {{--})--}}
+        {{--$("dd a").click(function(){--}}
+{{--//            console.log($(this));--}}
+
+            {{--if(web==url){--}}
+                {{--alert(123);--}}
+                {{--$(this).addClass("list-active");--}}
+                {{--$(this).parent().siblings("dd").children().removeClass("list-active")--}}
+            {{--}--}}
+
+
+
+        {{--})--}}
+    {{--</script>--}}
 @endsection
