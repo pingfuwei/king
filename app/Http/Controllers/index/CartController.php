@@ -1,4 +1,4 @@
--<?php
+<?php
 
 namespace App\Http\Controllers\index;
 
@@ -153,7 +153,6 @@ class CartController extends Controller
         }
         $arr=[];
         foreach($cart_id_info as $k=>$v){
-//            print_r($k);
             $k=[];
             $cart_model=new Cart();
             $where=[
@@ -161,6 +160,7 @@ class CartController extends Controller
                 ['cart.is_del','=',1]
             ];
             $arr[$v]=$cart_model::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->leftjoin('goods_stock','cart.stock_id','=','goods_stock.stock_id')->orderBy('time','desc')->where($where)->first()->toArray();
+//            var_dump($arr);die;
         }
         foreach($arr as $k=>$v){
 //                dd($v);
@@ -176,11 +176,13 @@ class CartController extends Controller
                 foreach($v['stock'][$kk] as $kkk=>$vvv){
 ////                        echo $kkk;
 //                        $vvv['val']=[];
+//                    var_dump($kkk);die;
                     if($kkk==0){
                         $goods_attrmodel=new Goods_attrModel();
                         $goods_attr_info=$goods_attrmodel::where('attr_id',$vvv)->first();
 //                            $arr[]=$goods_attr_info;
                         $v['stock'][$kk][$kkk]=$goods_attr_info['attr_name'];
+//                        var_dump($v);die;
                     }else{
                         $goods_valmodel=new GoodsvalueModel();
                         $goods_val_info=$goods_valmodel::where('goods_val_id',$vvv)->first();
@@ -193,6 +195,7 @@ class CartController extends Controller
             $arr[$k]=$v;
 //                dd($v);
         }
+//        dd($arr);
         //地址
         $name=session("user_name");
         $user_id=User::where("user_name",$name)->first();
@@ -219,12 +222,6 @@ class CartController extends Controller
         $cart_id=explode(",",$data["cart_id"]);
         $aa="";
         foreach ($cart_id as $k=>$v){
-            if($aa!==""){
-                $aa.=",".$v;
-            }else{
-                $aa=$v;
-//                echo $aa;die;
-            }
             $order=$user_id["user_id"].$v.time();
             $a=OrderCart::where(["user_id"=>$user_id["user_id"],"cart_id"=>$v,"status"=>1])->first();
             if(!$a){
@@ -232,19 +229,31 @@ class CartController extends Controller
                 if(!$res){
                     echo "内部异常";die;
                 }
+                if($aa!==""){
+                    $aa.=",".$v;
+                }else{
+                    $aa=$v;
+                }
+            }else{
+                if($aa!==""){
+                    $aa.=",".$v;
+                }else{
+                    $aa=$v;
+                }
             }
+
             $cart=Cart::where(["user_id"=>$user_id["user_id"],"cart_id"=>$v])->first();
             $stock=goods_stock::where("stock_id",$cart["stock_id"])->first();
             if($stock["stock"]<1){
                 echo $k+1 ."号商品库存不足";die;
             }
-            $goods_id=Cart::where("cart_id",$v)->first();
-            $ppri=Goods::where("goods_id",$goods_id["goods_id"])->first();
+            $sku_price=Cart::where("cart_id",$v)->first();
+            $ppri=goods_stock::where("stock_id",$sku_price["stock_id"])->first();
             if(isset($price)){
-                $price+=$ppri['goods_price']*$goods_id["buy_number"];
+                $price+=$ppri['price']*$sku_price["buy_number"];
             }  else{
                 $price=0;
-                $price=$ppri['goods_price']*$goods_id["buy_number"];
+                $price=$ppri['price']*$sku_price["buy_number"];
             }
         }
 //        echo $aa;die;
@@ -308,17 +317,21 @@ class CartController extends Controller
             //获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表
 
             //数据库逻辑代码
+//            var_dump($arr["out_trade_no"]);die;
             $user_name=session("user_name");
             $user_id=User::where("user_name",$user_name)->first();
             $strpos=strrpos($arr["out_trade_no"],"@");
             $subs=substr($arr["out_trade_no"],$strpos+1,strlen($arr["out_trade_no"]));
             $strl=strlen($subs);
+            $str="";
             if($strl===1){
                 $subs=$subs.",";
             }
+//            echo $subs;die;
             if($strl!=""){
                 $subs=explode(",",$subs);
                 foreach ($subs as $k=>$v){
+//                    var_dump($v);
                     if($v===""){
                         unset($k);
                         break;
@@ -329,7 +342,9 @@ class CartController extends Controller
                     if($OrderCart===false){
                         echo "内部异常";
                         DB::rollBack();//回滚事务
-                        die;
+                        $str="false";
+//                        break;
+//                        die;
                     }
                     //==============减sku库存
                     $cart=Cart::where("cart_id",$v)->first();
@@ -337,41 +352,57 @@ class CartController extends Controller
                     if($goods_stock["stock"]-$cart["buy_number"]>0){
                         $goods_stocks=goods_stock::where("stock_id",$cart["stock_id"])->update(["stock"=>$goods_stock["stock"]-$cart["buy_number"]]);
                     }else{
-                        echo "内部异常";
+                        echo "内部异常1";
                         DB::rollBack();//回滚事务
-                        die;
+                        $str="false";
+//                        break;
+//                        die;
                     }
                     if($goods_stocks===false){
-                        echo "内部异常";
+                        echo "内部异常2";
                         DB::rollBack();//回滚事务
-                        die;
+                        $str="false";
+//                        break;
+//                        die;
                     }
 //                ==========给用户加积分
                     $goods=Goods::where("goods_id",$cart["goods_id"])->first();
                     if(!$goods){
                         echo "商品内部异常";
                         DB::rollBack();//回滚事务
-                        die;
+                        $str="false";
+//                        break;
+//                        die;
                     }
                     $info=UserInfo::where("user_id",$user_id["user_id"])->first();
-                    $user=UserInfo::where("user_id",$user_id["user_id"])->update(["score"=>$info["score"]+$goods["goods_score"]]);
+                    $user=UserInfo::where("user_id",$user_id["user_id"])->update(["score"=>$info["score"]+$goods["goods_score"]*$cart["buy_number"]]);
 //                    $user=false;
                     if($user===false){
                         echo "积分内部异常";
                         DB::rollBack();//回滚事务
-                        die;
+                        $str="false";
+//                        break;
+//                        die;
                     }
                     //删除购物车的数据
                     $ca=Cart::where("cart_id",$v)->update(["is_del"=>2]);
                     if($ca===false){
                         echo "购物车内部异常";
                         DB::rollBack();//回滚事务
-                        die;
+                        $str="false";
+//                        break;
+
                     }
-                    DB::commit();//提交事务
-                    echo "<script>alert('支付成功');location.href='http://www.king.com/';</script>";
+                    if($str==="false"){
+                        DB::rollBack();//回滚事务
+                        echo "---请联系客服";die;
+                    }else{
+                        DB::commit();//提交事务
+                        echo "<script>alert('支付成功');location.href='http://www.king.com/';</script>";
+                    }
+//                    DB::commit();//提交事务
+//                    echo "<script>alert('支付成功');location.href='http://www.king.com/';</script>";
                 }
-            }else{
 
             }
             //商户订单号
@@ -468,7 +499,7 @@ class CartController extends Controller
                 ->where($where)
                 ->whereIn("cart.stock_id",$id)
                 ->get(["price","buy_number"]);
-        // dd($info);
+//         dd($info);
         $money=0;
         //循环查询出的值
         foreach($info as $k=>$v){
@@ -478,7 +509,7 @@ class CartController extends Controller
             // dump($money);
         }
 
-        // dd($money);
+//         dd($money);
         return $money;
     }
 
@@ -578,7 +609,7 @@ class CartController extends Controller
                     ];
                     // dd($where);
                     $goods = Cart::where($where)->first();
-                    // dd($goods);
+//                     dd($goods);
                     if($goods){
                         //判断输入数量是否超过库存
                         if(($goods["buy_number"]+$arr["buy_number"])>$buy_num){
@@ -624,7 +655,7 @@ class CartController extends Controller
                     $message = $this->datacode("false","00001","没有该属性值库存");
                 }
 
-                return json_encode($message);
+//                return json_encode($message);
 
             }else{
 

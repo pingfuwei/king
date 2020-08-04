@@ -10,6 +10,11 @@
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-cart.css" />
 
+
+	<link rel="stylesheet" href="/index/asset/css/modallayer.min.css">
+	<script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>
+	<script src="/index/asset/js/modallayer-ie.min.js"></script>
+
     <style>
     	.add{
     		background-color: #f5f5f5;
@@ -188,7 +193,7 @@
 									</li>
 									<li class="yui3-u-11-24">
 										<div class="good-item">
-											<div class="item-img"><img jqimg="{{env('UPLOADS_URL')}}{{$v['goods_img']}}"src="{{env('UPLOADS_URL')}}{{$v['goods_img']}}" /></div>
+											<div class="item-img"><img jqimg="{{env('UPLOADS_URL')}}{{$v['goods_img']}}"src="{{env('UPLOADS_URL')}}{{$v['goods_img']}}" width="70px;" /></div>
 											<div class="item-msg">{{$v['goods_name']}}---
 												@if($v['stock']!=[])
 													@foreach($v['stock'] as $kk=>$vv)
@@ -260,7 +265,7 @@
 						<span><em>已节省：</em><i>-¥20.00</i></span>
 					</div>
 					<div class="sumbtn">
-						<a class="sum-btn" href="javascript:;" target="_blank" id="account">结算</a>
+						<a class="sum-btn account" href="javascript:;"  id="msg-button" >结算</a>
 					</div>
 				</div>
 			</div>
@@ -598,9 +603,9 @@
             // console.log(goods_num);
             if (buy_number <= 1) {
                 _this.next("input").val("1");
-                _this.attr("disabled","");
             } else {
                 buy_number = buy_number - 1;
+                _this.next("input").val(buy_number);
             }
 
             background(_this);
@@ -774,7 +779,8 @@
         getMoney();
 	})
 	//点击结算
-	$(document).on("click",'#account',function(){
+	$(document).on("click",'.account',function(){
+//	    alert(123);
 		var box=$('.check:checked');
 //		console.log(box);
 //		return false;
@@ -789,6 +795,22 @@
 //		console.log(cart_id);return false;
 		var cart_id=cart_id.substr(0,cart_id.length-1);
 //		 alert(cart_id);
+        let option = {
+            popupTime: 2,
+            hook: {
+                initStart: function () {
+                    // 检查之前老旧实例如果存在则销毁
+                    if (document.querySelector('#modal-layer-container'))
+                        ModalLayer.removeAll();
+                }
+            },
+            displayProgressBar: true,
+            displayProgressBarPos: 'top',
+            displayProgressBarColor: 'green',
+            content: '<i class="fas fa-check" style="color: green"></i>进入结算!',
+        };
+
+        ModalLayer.msg(option);
 		location.href="/index/cart/account?cart_id="+cart_id;
 	})
 //	//  封装商品的总价

@@ -133,10 +133,10 @@
                         @foreach($arr as $k=>$v)
                             <?php
                             if(isset($price)){
-                                $price+=$v['goods_price']*$v["buy_number"];
+                                $price+=$v['price']*$v["buy_number"];
                             }  else{
                                 $price=0;
-                                $price=$v['goods_price']*$v["buy_number"];
+                                $price=$v['price']*$v["buy_number"];
                             }
                             $num=count($arr);
                             ?>
@@ -163,8 +163,8 @@
                                         </div>
                                         <div class="seven">7天无理由退货</div>
                                     </li>
-                                    <li class="yui3-u-1-12">
-                                        <div class="price">￥：{{$v['goods_price']*$v["buy_number"]}}</div>
+                                    <li class="yui3-u-1-12" style="margin-left: -50px;">
+                                        <div class="price" style="width: 300px;">￥：{{$v['price']*$v["buy_number"]}}</div>
                                     </li>
                                     <li class="yui3-u-1-12">
                                         <div class="num">{{$v["buy_number"]}}件</div>

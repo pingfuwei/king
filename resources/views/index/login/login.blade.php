@@ -71,7 +71,7 @@
                                     <li><img src="/index/img/weixin.png" /></li>
                                 </ul>
                             </div>
-                            <span class="register"><a href="/index/reg/reg" >立即注册</a></span>
+                            <span class="register"  id="msg-button"><a href="/index/reg/reg" >立即注册</a></span>
                         </div>
                     </div>
                 </div>
@@ -199,24 +199,43 @@
                     dataType:"json",
                     success:function (res) {
                         // alert(res.font)
-                        let option = {
-                          popupTime: 2,
-                          hook: {
-                            initStart: function () {
-                              // 检查之前老旧实例如果存在则销毁
-                              if (document.querySelector('#modal-layer-container'))
-                                ModalLayer.removeAll();
-                            }
-                          },
-                          displayProgressBar: true,
-                          displayProgressBarPos: 'top',
-                          displayProgressBarColor: 'green',
-                          content: '<i class="fas fa-check" style="color: green"></i>'+res.font+'!',
-                        };
 
-                        ModalLayer.msg(option);
                         if(res.code==="000"){
+                            let option = {
+                                popupTime: 2,
+                                hook: {
+                                    initStart: function () {
+                                        // 检查之前老旧实例如果存在则销毁
+                                        if (document.querySelector('#modal-layer-container'))
+                                            ModalLayer.removeAll();
+                                    }
+                                },
+                                displayProgressBar: true,
+                                displayProgressBarPos: 'top',
+                                displayProgressBarColor: 'green',
+                                content: '<i class="fas fa-check" style="color: green"></i>'+res.font+'!',
+                            };
+
+                            ModalLayer.msg(option);
                             location.href="http://www.king.com/"
+                        }else{
+                            let option = {
+                                popupTime: 2,
+                                hook: {
+                                    initStart: function () {
+                                        // 检查之前老旧实例如果存在则销毁
+                                        if (document.querySelector('#modal-layer-container'))
+                                            ModalLayer.removeAll();
+                                    }
+                                },
+                                displayProgressBar: true,
+                                displayProgressBarPos: 'top',
+                                displayProgressBarColor: 'red',
+                                content: '<i style="color: deepskyblue"></i>'+res.font+'!',
+                            };
+
+                            ModalLayer.msg(option);
+                            return
                         }
                     }
                 })
