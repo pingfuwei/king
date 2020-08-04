@@ -33,6 +33,16 @@
 					</li>
 					<li class="active">iphone 6S系类</li>
 				</ul>
+					<li style="float: right;margin-top: -40px;margin-right: 10px;list-style: none;" id="store" status="{{$status}}" goods_id="{{$goods->goods_id}}">
+						@if($status==1)
+						<img src="/index/img/timg.jfif" width="30px;" height="30px;" alt="">
+						@elseif($status==2)
+						<img src="/index/img/timg.jpg" width="30px;" height="30px;" alt="">
+						@else
+						<img src="/index/img/timg.jfif" width="30px;" height="30px;" alt="">
+						@endif
+					</li>
+
 			</div>
 			<!--product-info-->
 			<div class="product-info">
@@ -831,9 +841,50 @@
                 }
             });
         })
+        $(document).on("click","#store",function(){
+        	var _this = $(this);
+        	var goods_id = $(this).attr('goods_id');
+        	var status = $(this).attr('status');
+        	var data = {}
+        	if (status == 3) {
+        		alert('登陆后才能收藏');
+        		location.href="/index/login/login";
+        	}
+        	if(status ==1){
+        		status=2;
+        	}else{
+        		status=1;
+        	}
+        	data.goods_id = goods_id;
+        	data.status = status;
+        	$.ajax({
+        			url: '/index/store/add',
+        			type: 'get',
+        			dataType: 'json',
+        			data:data,
+        			success:function(msg){
+        				if(msg.code==10000){
+        					_this.remove();
+        					if(status==2){
+        						var str='<li style="float: right;margin-top: -40px;margin-right: 10px;list-style: none;" id="store" status="2" goods_id="{{$goods->goods_id}}"><img src="/index/img/timg.jpg" width="30px;" height="30px;" alt=""></li>'
+        						$(".sui-breadcrumb").after(str);
+        					}else{
+        						var str='<li style="float: right;margin-top: -40px;margin-right: 10px;list-style: none;" id="store" status="1" goods_id="{{$goods->goods_id}}"><img src="/index/img/timg.jfif" width="30px;" height="30px;" alt=""></li>'
+        						$(".sui-breadcrumb").after(str);
+        					}
+        					
+        				}else{
+        					alert('系统错误')
+        				}
+        			}
+        		})	
+        })
 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
     </script>
 
 
 @endsection
+
+						
+

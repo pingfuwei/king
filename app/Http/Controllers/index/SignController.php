@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\index;
 
+use App\AdminModel\goods_stock;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\IndexModel\User;
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Session;
 use App\indexModel\CartScroe;
 use App\AdminModel\Goods;
 use App\indexModel\UrgeScore;
+use App\indexModel\OrderCart;
+use App\indexModel\Cart;
+use App\indexModel\UrgeMone;
+
 class SignController extends Controller
 {
     public function sign(){
@@ -228,6 +233,7 @@ class SignController extends Controller
     }
     //代发货方法
     public function Consignment(){
+        $page=isset(\request()->page)?\request()->page:1;
         $name=session("user_name");
         $user_id=User::where("user_name",$name)->first();
         $where=[
@@ -238,11 +244,21 @@ class SignController extends Controller
         foreach ($data as $k=>$v){
                 $v->goods_id=Goods::where("goods_id",$v->goods_id)->first()->toArray();
         }
-//        dd($data);
-        return view("index.persion.Consignment",["data"=>$data]);
+        $monData=OrderCart::where(["user_id"=>$user_id["user_id"],"status"=>2])->get();
+        $monData=$this->Ggoo($monData);
+        $countMon=count($monData);
+        if($countMon>1){
+            $monDatas=$this->page($page,$monData);
+            $countMons=ceil($countMon/2);
+        }else{
+            $countMons=ceil($countMon/2);
+            $monDatas=$monData;
+        }
+        return view("index.persion.Consignment",["data"=>$data,"monData"=>$monDatas,"count"=>$countMons,"countAll"=>$countMon]);
     }
     //待付款方法
     public function Tobepaid(){
+        $page=isset(\request()->page)?\request()->page:1;
         $name=session("user_name");
         $user_id=User::where("user_name",$name)->first();
         $where=[
@@ -254,11 +270,17 @@ class SignController extends Controller
             foreach ($data as $k=>$v){
                 $v->goods_id=Goods::where("goods_id",$v->goods_id)->first()->toArray();
             }
-//        }else{
-//            echo 11;die;
-//        }
-
-        return view("index.persion.Tobepaid",["data"=>$data]);
+        $monData=OrderCart::where(["user_id"=>$user_id["user_id"],"status"=>1])->get();
+        $monData=$this->Ggoo($monData);
+        $countMon=count($monData);
+        if($countMon>1){
+            $monDatas=$this->page($page,$monData);
+            $countMons=ceil($countMon/2);
+        }else{
+            $countMons=ceil($countMon/2);
+            $monDatas=$monData;
+        }
+        return view("index.persion.Tobepaid",["data"=>$data,"monData"=>$monDatas,"count"=>$countMons,"countAll"=>$countMon]);
     }
     //催货ajax
     public function urgeScore(){
@@ -271,7 +293,6 @@ class SignController extends Controller
         $user=UrgeScore::where(["user_id"=>$user_id["user_id"],"order"=>$data["order"],"goods_id"=>$data["goods_id"]])->first();
 //        echo time()-$user['addtime'];die;
         if((time()-$user['addtime'])<60*5){
-
             echo "不能连续提醒---请".ceil((300-(time()-$user['addtime']))/60)."分钟后再提醒";die;
         }
         if($user){
@@ -287,8 +308,34 @@ class SignController extends Controller
         }
 
     }
+    //金钱催货ajax
+    public function sendMone(){
+        $user_name=session("user_name");
+        $user_id=User::where("user_name",$user_name)->first();
+        $data=\request()->all();
+        $data["user_id"]=$user_id["user_id"];
+        $data["addtime"]=time();
+        $data["status"]=1;
+        $user=UrgeMone::where(["user_id"=>$user_id["user_id"],"order"=>$data["order"]])->first();
+//        echo time()-$user['addtime'];die;
+        if((time()-$user['addtime'])<60*5){
+            echo "不能连续提醒---请".ceil((300-(time()-$user['addtime']))/60)."分钟后再提醒";die;
+        }
+        if($user){
+            $res=UrgeMone::where(["user_id"=>$user_id["user_id"],"order"=>$data["order"]])->update(['status'=>$user["status"]+1,"addtime"=>time()]);
+            if($res){
+                echo "ok";die;
+            }
+        }else{
+            $res=UrgeMone::insert($data);
+            if($res){
+                echo "ok";
+            }
+        }
+    }
     //待收货方法
     public function gootbr(){
+        $page=isset(\request()->page)?\request()->page:1;
         $name=session("user_name");
         $user_id=User::where("user_name",$name)->first();
         $where=[
@@ -300,7 +347,17 @@ class SignController extends Controller
         foreach ($data as $k=>$v){
             $v->goods_id=Goods::where("goods_id",$v->goods_id)->first()->toArray();
         }
-        return view("index.persion.gootbr",["data"=>$data]);
+        $monData=OrderCart::where(["user_id"=>$user_id["user_id"],"status"=>3])->get();
+        $monData=$this->Ggoo($monData);
+        $countMon=count($monData);
+        if($countMon>1){
+            $monDatas=$this->page($page,$monData);
+            $countMons=ceil($countMon/2);
+        }else{
+            $countMons=ceil($countMon/2);
+            $monDatas=$monData;
+        }
+        return view("index.persion.gootbr",["data"=>$data,"monData"=>$monDatas,"count"=>$countMons,"countAll"=>$countMon]);
     }
     //待收货ajax
     public function gootbrajax(){
@@ -313,9 +370,25 @@ class SignController extends Controller
         }else{
             echo "服务器繁忙";
         }
+
+    }
+    //金钱待收货的ajax
+    public function sendMon(){
+        $user_name=session("user_name");
+        $user_id=User::where("user_name",$user_name)->first();
+        $data=\request()->all();
+//        var_dump($data);die;
+        $res=OrderCart::where(["user_id"=>$user_id["user_id"],"order"=>intval($data["order"]),"status"=>3])->update(["status"=>4]);
+        var_dump($res);die;
+        if($res!==false){
+            echo "ok";
+        }else{
+            echo "服务器繁忙";
+        }
     }
     //我的购买历史
     public function purchase(){
+        $page=isset(\request()->page)?\request()->page:1;
         $name=session("user_name");
         $user_id=User::where("user_name",$name)->first();
         $where=[
@@ -326,6 +399,50 @@ class SignController extends Controller
         foreach ($data as $k=>$v){
             $v->goods_id=Goods::where("goods_id",$v->goods_id)->first()->toArray();
         }
-        return view("index.persion.purchase",["data"=>$data]);
+        $monData=OrderCart::where(["user_id"=>$user_id["user_id"],"status"=>4])->get();
+        $monData=$this->Ggoo($monData);
+        $countMon=count($monData);
+        if($countMon>1){
+            $monDatas=$this->page($page,$monData);
+            $countMons=ceil($countMon/2);
+        }else{
+            $countMons=ceil($countMon/2);
+            $monDatas=$monData;
+        }
+        return view("index.persion.purchase",["data"=>$data,"monData"=>$monDatas,"count"=>$countMons,"countAll"=>$countMon]);
+    }
+
+    //拿到商品信息
+    public function Ggoo($monData){
+        $arr=[];
+        foreach ($monData as $k=>$v){
+            $cart=Cart::where("cart_id",$v["cart_id"])->first();
+//            var_dump($cart);die;
+            $goods_stock=goods_stock::where("stock_id",$cart["stock_id"])->first();
+            $goods=Goods::where("goods_id",$cart["goods_id"])->first();
+            $arr[$k]=["order"=>$v["order"],"cart_id"=>$v["cart_id"],"addtime"=>$v["addtime"],"buy_number"=>$cart["buy_number"],"stock_id"=>$cart["stock_id"],"goods_id"=>$goods["goods_id"],"goods_score"=>$goods["goods_score"],"goods_img"=>$goods["goods_img"],"goods_price"=>$goods["goods_price"],"goods_name"=>$goods["goods_name"],"status"=>$v["status"]];
+//            var_dump($goods_stock);die;
+        }
+        return $arr;
+    }
+    //分页
+    public function page($page,$monData){
+        $countMon=count($monData);
+        if($page===1){
+            if($countMon>1){
+                $monDatas[]=$monData[0];
+                $monDatas[]=$monData[1];
+            }else{
+                $monDatas[]=$monData[0];
+            }
+        }else{
+            if($page*2<=$countMon){
+                $monDatas[]=$monData[2*$page-2];
+                $monDatas[]=$monData[2*$page-1];
+            }else{
+                $monDatas[]=$monData[2*$page-2];
+            }
+        }
+        return $monDatas;
     }
 }

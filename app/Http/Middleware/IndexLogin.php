@@ -17,8 +17,8 @@ class IndexLogin
     {
         $url=$request->url();
         $user=session("user_name");
-//        echo $user;
-        if($user===""){
+//        echo $user;die;
+        if(!$user){
             $user=$request->cookie("user");
             $user_pwd=$request->cookie("user_pwd");
             \session(["user_name"=>$user,"user_pwd"=>$user_pwd]);
@@ -30,6 +30,7 @@ class IndexLogin
                 return $next($request);
             }
         }
+
         return $next($request);
     }
 }

@@ -3,9 +3,9 @@
     <br>
     <style>
         .button {
-            background-color: powderblue; /* Green */
+            background-color: paleturquoise; /* Green */
             border: none;
-            color: red;
+            color: powderblue;
             padding: 10px 5px;
             text-align: center;
             text-decoration: none;
@@ -60,7 +60,7 @@
                 </table>
             </div>
             <script src="/layui/bootstrap.min.js"></script>
-            <button class="button button3"><a href="{{url('index/persion/pers')}}">修改个人信息</a></button>
+            <button class="sui-btn btn-primary"><a href="{{url('index/persion/pers')}}">修改个人信息</a></button>
             <button class="button button3"><a href="{{url('index/persion/sign')}}">签到</a></button>
             <!--新增地址弹出层-->
             <div  tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade edit" style="width:580px;">

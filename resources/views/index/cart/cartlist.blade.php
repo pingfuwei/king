@@ -791,25 +791,25 @@
 //		 alert(cart_id);
 		location.href="/index/cart/account?cart_id="+cart_id;
 	})
-	//  封装商品的总价
-	function getmonney(){
-		var cart_id='';
-		var box=$('.check:checked');//获取选中的复选框
-		box.each(function(index){
-			cart_id+=$(this).val()+',';   //给每个上面拼接一个,号  每个都拼接  用字符串连接一起
-		})
-		cart_id=cart_id.substr(0,cart_id.length-1); //截取长度减去1 控制用in查询 所以去一位就可以  //alert(goods_id);
-		$.ajax({
-			type:"post",
-			url:"{:url('cart/getmonney')}",
-			data:{cart_id:cart_id},
-			async:false,
-			success:function(index){
-				// alert(index);
-				$('#monney').text('￥'+index);
-			}
-		})
-	}
+//	//  封装商品的总价
+//	function getmonney(){
+//		var cart_id='';
+//		var box=$('.check:checked');//获取选中的复选框
+//		box.each(function(index){
+//			cart_id+=$(this).val()+',';   //给每个上面拼接一个,号  每个都拼接  用字符串连接一起
+//		})
+//		cart_id=cart_id.substr(0,cart_id.length-1); //截取长度减去1 控制用in查询 所以去一位就可以  //alert(goods_id);
+//		$.ajax({
+//			type:"post",
+//			url:"{:url('cart/getmonney')}",
+//			data:{cart_id:cart_id},
+//			async:false,
+//			success:function(index){
+//				// alert(index);
+//				$('#monney').text('￥'+index);
+//			}
+//		})
+//	}
 	// 封装当前行 背景色改变
 	function background(_this){
 		_this.parents("ul").addClass("add");
@@ -823,18 +823,20 @@
         // alert(123);
         //获取类为box选择复选框的
         var _box = $(".check:checked");
-        // console.log(_box);
+//         console.log(_box);
+//         return false;
         var stock_id = "";
         //将选中的复选框循环
         _box.each(function(index) {
                 //获取到的值 再加上id
-                // console.log($(this));
+//                 console.log($(this));
                 stock_id += $(this).parents("ul").attr("stock_id") + ",";
             })
-            // console.log(stock_id);
+//             console.log(stock_id);
             //将id最后一个符号去掉
         stock_id = stock_id.substr(0, stock_id.length - 1);
-        // console.log(stock_id);
+//         console.log(stock_id);
+//         return false;
         $.get(
             "/index/cart/getmonney", {
                 stock_id:stock_id
