@@ -9,7 +9,12 @@ use App\Http\Controllers\Controller;
 use App\IndexModel\Cart;
 use App\IndexModel\User;
 use App\AdminModel\Goods;
+use App\IndexModel\UserInfo;
 use Illuminate\Http\Request;
+use App\indexModel\AddressModel;
+use App\indexModel\Shop_Area;
+use App\indexModel\OrderCart;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -134,6 +139,7 @@ class CartController extends Controller
      */
     public function account(Request $request){
         $data=$request->all();
+//        dd($data);
         $cart_id_info=explode(',',$data['cart_id']);
         if(empty($data['cart_id'])){
             $message = [
@@ -187,7 +193,207 @@ class CartController extends Controller
             $arr[$k]=$v;
 //                dd($v);
         }
-        dd($arr);
+        //地址
+        $name=session("user_name");
+        $user_id=User::where("user_name",$name)->first();
+        $address=AddressModel::where("user_id",$user_id["user_id"])->get();
+        foreach ($address as $k=>$v){
+            $province=Shop_Area::where("id",$v->province)->pluck("name");
+            $v["province"]=$province[0];
+            $city=Shop_Area::where("id",$v->city)->pluck("name");
+            $v["city"]=$city[0];
+            $area=Shop_Area::where("id",$v->area)->pluck("name");
+            $v["area"]=$area[0];
+        }
+//        ===============
+//        dd($arr);
+        return view("index.cart.settlement",["address"=>$address,"arr"=>$arr,"cart_id"=>$data["cart_id"]]);
+//        dd($arr);
+    }
+    //支付
+    public function settlementAjax(){
+        $data=\request()->all();
+//        echo 11;die;
+        $name=session("user_name");
+        $user_id=User::where("user_name",$name)->first();
+        $cart_id=explode(",",$data["cart_id"]);
+        $aa="";
+        foreach ($cart_id as $k=>$v){
+            if($aa!==""){
+                $aa.=",".$v;
+            }else{
+                $aa=$v;
+//                echo $aa;die;
+            }
+            $order=$user_id["user_id"].$v.time();
+            $a=OrderCart::where(["user_id"=>$user_id["user_id"],"cart_id"=>$v,"status"=>1])->first();
+            if(!$a){
+                $res=OrderCart::insert(["user_id"=>$user_id["user_id"],"cart_id"=>$v,"status"=>1,"addtime"=>time(),"address_id"=>$data["address_id"],"order"=>$order]);
+                if(!$res){
+                    echo "内部异常";die;
+                }
+            }
+            $cart=Cart::where(["user_id"=>$user_id["user_id"],"cart_id"=>$v])->first();
+            $stock=goods_stock::where("stock_id",$cart["stock_id"])->first();
+            if($stock["stock"]<1){
+                echo $k+1 ."号商品库存不足";die;
+            }
+            $goods_id=Cart::where("cart_id",$v)->first();
+            $ppri=Goods::where("goods_id",$goods_id["goods_id"])->first();
+            if(isset($price)){
+                $price+=$ppri['goods_price']*$goods_id["buy_number"];
+            }  else{
+                $price=0;
+                $price=$ppri['goods_price']*$goods_id["buy_number"];
+            }
+        }
+//        echo $aa;die;
+        //======================支付宝
+        require_once app_path('/libs/alipay/wappay/service/AlipayTradeService.php');
+        require_once app_path('/libs/alipay/wappay/buildermodel/AlipayTradeWapPayContentBuilder.php');
+        $config=config("alipays");
+        if (!empty($price) && trim($price) != "") {
+
+//        if (!empty($bb) && trim($bb) != "") {
+            //商户订单号，商户网站订单系统中唯一订单号，必填
+            $out_trade_no = time().rand(000,999)."@".$aa;
+
+            //订单名称，必填
+            $subject =$aa;
+
+            //付款金额，必填
+            $total_amount = $price;
+
+            //商品描述，可空
+            $body = "";
+
+            //超时时间
+            $timeout_express = "1m";
+//            \libs\alipay\wappay\buildermodel
+            $payRequestBuilder = new \App\libs\alipay\wappay\buildermodel\AlipayTradeWapPayContentBuilder();
+            $payRequestBuilder->setBody($body);
+            $payRequestBuilder->setSubject($subject);
+            $payRequestBuilder->setOutTradeNo($out_trade_no);
+            $payRequestBuilder->setTotalAmount($total_amount);
+            $payRequestBuilder->setTimeExpress($timeout_express);
+
+            $payResponse = new \App\libs\alipay\wappay\service\AlipayTradeService($config);
+            $result = $payResponse->wapPay($payRequestBuilder, $config['return_url'], $config['notify_url']);
+            return $result;
+
+        }
+    }
+    /**
+     *支付同步回调接口，在config/alipay.php的return_url参数进行配置
+
+     */
+    public function return_url() {
+        require_once app_path('/libs/alipay/wappay/service/AlipayTradeService.php');
+        $config=config("alipays");
+        $arr=$_GET;
+        $alipaySevice = new \App\libs\alipay\wappay\service\AlipayTradeService($config);
+        $result = $alipaySevice->check($arr);
+//        var_dump($result);die;
+        /* 实际验证过程建议商户添加以下校验。
+        1、商户需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
+        2、判断total_amount是否确实为该订单的实际金额（即商户订单创建时的金额），
+        3、校验通知中的seller_id（或者seller_email) 是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email）
+        4、验证app_id是否为该商户本身。
+        */
+        if($result) {//验证成功
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //请在这里加上商户的业务逻辑程序代码
+
+            //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
+            //获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表
+
+            //数据库逻辑代码
+            $user_name=session("user_name");
+            $user_id=User::where("user_name",$user_name)->first();
+            $strpos=strrpos($arr["out_trade_no"],"@");
+            $subs=substr($arr["out_trade_no"],$strpos+1,strlen($arr["out_trade_no"]));
+            $strl=strlen($subs);
+            if($strl===1){
+                $subs=$subs.",";
+            }
+            if($strl!=""){
+                $subs=explode(",",$subs);
+                foreach ($subs as $k=>$v){
+                    if($v===""){
+                        unset($k);
+                        break;
+                    }
+                    DB::beginTransaction();//开启一个事务
+
+                    $OrderCart=OrderCart::where("cart_id",$v)->update(["status"=>2,"addtime"=>time()]);//改变支付状态
+                    if($OrderCart===false){
+                        echo "内部异常";
+                        DB::rollBack();//回滚事务
+                        die;
+                    }
+                    //==============减sku库存
+                    $cart=Cart::where("cart_id",$v)->first();
+                    $goods_stock=goods_stock::where("stock_id",$cart["stock_id"])->first();
+                    if($goods_stock["stock"]-$cart["buy_number"]>0){
+                        $goods_stocks=goods_stock::where("stock_id",$cart["stock_id"])->update(["stock"=>$goods_stock["stock"]-$cart["buy_number"]]);
+                    }else{
+                        echo "内部异常";
+                        DB::rollBack();//回滚事务
+                        die;
+                    }
+                    if($goods_stocks===false){
+                        echo "内部异常";
+                        DB::rollBack();//回滚事务
+                        die;
+                    }
+//                ==========给用户加积分
+                    $goods=Goods::where("goods_id",$cart["goods_id"])->first();
+                    if(!$goods){
+                        echo "商品内部异常";
+                        DB::rollBack();//回滚事务
+                        die;
+                    }
+                    $info=UserInfo::where("user_id",$user_id["user_id"])->first();
+                    $user=UserInfo::where("user_id",$user_id["user_id"])->update(["score"=>$info["score"]+$goods["goods_score"]]);
+//                    $user=false;
+                    if($user===false){
+                        echo "积分内部异常";
+                        DB::rollBack();//回滚事务
+                        die;
+                    }
+                    //删除购物车的数据
+                    $ca=Cart::where("cart_id",$v)->update(["is_del"=>2]);
+                    if($ca===false){
+                        echo "购物车内部异常";
+                        DB::rollBack();//回滚事务
+                        die;
+                    }
+                    DB::commit();//提交事务
+                    echo "<script>alert('支付成功');location.href='http://www.king.com/';</script>";
+                }
+            }else{
+
+            }
+            //商户订单号
+//                $out_trade_no = htmlspecialchars($_GET['out_trade_no']);
+            //支付宝交易号
+//            $trade_no = htmlspecialchars($_GET['trade_no']);
+
+
+            //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
+        else {
+            //验证失败
+            echo "验证失败";
+        }
+    }
+
+    /**
+     *支付异步回调接口，在config/alipay.php的notify_url参数进行配置
+     */
+    public function notify_url() {
+        Log::info("测试支付宝支付");die;
     }
 
 
@@ -345,84 +551,85 @@ class CartController extends Controller
         //判断sku
         if(empty($arr["goods_stick"])){
             $message = $this->datacode("false","00001","请选择sku");
-        }
-        $arr["goods_stick"] = implode(":",$arr["goods_stick"]);
-        // dd($arr);
-        $arr["stock_id"] = goods_stock::where("ability",$arr["goods_stick"])->value("stock_id");
-        // dd($arr);
-        $count = Goods::where("goods_id",$arr["goods_id"])->count();
-        // dd($count);
-        //判断商品是否存在
-        if($count<1){
-            $message = $this->datacode("false","00001","非法操作");
-        }
-        $user_name = $request->session()->get("user_name");
-        $user_id = User::where("user_name",$user_name)->value("user_id");
-//         var_dump($user_name);
-        if($user_name){
-            //获取属性库存
-            $buy_num = goods_stock::where("stock_id",$arr["stock_id"])->value("stock");
-            // dd($buy_num);
-            if($buy_num){
-                $where = [
-                    "user_id"=>"$user_id",
-                    "goods_id"=>$arr["goods_id"],
-                    "stock_id"=>$arr["stock_id"],
-                    "is_del"=>"1"
-                ];
-                // dd($where);
-                $goods = Cart::where($where)->first();
-                // dd($goods);
-                if($goods){
-                    //判断输入数量是否超过库存
-                    if(($goods["buy_number"]+$arr["buy_number"])>$buy_num){
-                        //如果超过数量则让数量改为最大库存
-                        $num = $buy_num;
+        }else{
+            $arr["goods_stick"] = implode(":",$arr["goods_stick"]);
+            // dd($arr);
+            $arr["stock_id"] = goods_stock::where("ability",$arr["goods_stick"])->value("stock_id");
+            // dd($arr);
+            $count = Goods::where("goods_id",$arr["goods_id"])->count();
+            // dd($count);
+            //判断商品是否存在
+            if($count<1){
+                $message = $this->datacode("false","00001","非法操作");
+            }
+            $user_name = $request->session()->get("user_name");
+            $user_id = User::where("user_name",$user_name)->value("user_id");
+    //         var_dump($user_name);
+            if($user_name){
+                //获取属性库存
+                $buy_num = goods_stock::where("stock_id",$arr["stock_id"])->value("stock");
+                // dd($buy_num);
+                if($buy_num){
+                    $where = [
+                        "user_id"=>"$user_id",
+                        "goods_id"=>$arr["goods_id"],
+                        "stock_id"=>$arr["stock_id"],
+                        "is_del"=>"1"
+                    ];
+                    // dd($where);
+                    $goods = Cart::where($where)->first();
+                    // dd($goods);
+                    if($goods){
+                        //判断输入数量是否超过库存
+                        if(($goods["buy_number"]+$arr["buy_number"])>$buy_num){
+                            //如果超过数量则让数量改为最大库存
+                            $num = $buy_num;
+                        }else{
+                            //否则正常加
+                            $num = $goods["buy_number"]+$arr["buy_number"];
+                        }
+
+                        //将数据库的库存数量改为最新的库存数量 时间改为最新时间
+                        $cartUpd = Cart::where($where)->update(["buy_number"=>$num,"time"=>time()]);
+                        if($cartUpd){
+                            $message = $this->datacode("true","00000","加入购物车成功","/index/cart/cartlist");
+                        }else{
+                            $message = $this->datacode("false","00001","加入购物车失败");
+                        }
                     }else{
-                        //否则正常加
-                        $num = $goods["buy_number"]+$arr["buy_number"];
+
+                        $arr["time"] = time();
+                        $arr["user_id"] =$user_id;
+
+                        //判断输入数量是否超过库存
+                        if(($goods["buy_number"]+$arr["buy_number"])>$buy_num){
+                            //如果超过数量则让数量改为最大库存
+                            $num = $buy_num;
+                        }else{
+                            //否则正常加
+                            $num = $goods["buy_number"]+$arr["buy_number"];
+                        }
+                        //否则正常添加进库
+                        //数据存入数组
+                        $cartInfo = ["goods_id"=>$arr["goods_id"],"buy_number"=>$num,"time"=>time(),"user_id"=>$user_id,"stock_id"=>$arr["stock_id"]];
+                        $res = Cart::insert($cartInfo);
+                        if($res){
+                            $message = $this->datacode("true","00000","加入购物车成功","/index/cart/cartlist");
+                        }else{
+                            $message = $this->datacode("false","00001","加入购物车失败");
+                        }
                     }
 
-                    //将数据库的库存数量改为最新的库存数量 时间改为最新时间
-                    $cartUpd = Cart::where($where)->update(["buy_number"=>$num,"time"=>time()]);
-                    if($cartUpd){
-                        $message = $this->datacode("true","00000","加入购物车成功","/index/cart/cartlist");
-                    }else{
-                        $message = $this->datacode("false","00001","加入购物车失败");
-                    }
                 }else{
-
-                    $arr["time"] = time();
-                    $arr["user_id"] =$user_id;
-
-                    //判断输入数量是否超过库存
-                    if(($goods["buy_number"]+$arr["buy_number"])>$buy_num){
-                        //如果超过数量则让数量改为最大库存
-                        $num = $buy_num;
-                    }else{
-                        //否则正常加
-                        $num = $goods["buy_number"]+$arr["buy_number"];
-                    }
-                    //否则正常添加进库
-                    //数据存入数组
-                    $cartInfo = ["goods_id"=>$arr["goods_id"],"buy_number"=>$num,"time"=>time(),"user_id"=>$user_id,"stock_id"=>$arr["stock_id"]];
-                    $res = Cart::insert($cartInfo);
-                    if($res){
-                        $message = $this->datacode("true","00000","加入购物车成功","/index/cart/cartlist");
-                    }else{
-                        $message = $this->datacode("false","00001","加入购物车失败");
-                    }
+                    $message = $this->datacode("false","00001","没有该属性值库存");
                 }
 
+                return json_encode($message);
+
             }else{
-                $message = $this->datacode("false","00001","没有该属性值库存");
+
+                $message = $this->datacode("false","00001","请您先登录","/index/login/login");
             }
-
-            return json_encode($message);
-
-        }else{
-          
-            $message = $this->datacode("false","00001","请您先登录");
         }
 
         return json_encode($message);

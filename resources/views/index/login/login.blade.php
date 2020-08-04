@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -9,6 +9,11 @@
 
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-login.css" />
+
+
+<link rel="stylesheet" href="/index/asset/css/modallayer.min.css">
+  <script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>
+  <script src="/index/asset/js/modallayer-ie.min.js"></script>
 </head>
 
 <body>
@@ -105,7 +110,7 @@
                             </div>
                         </form>
                         <div class="otherlogin" >
-                            <span class="register" style="margin-top: -30px;"><a href="/index/login/login" >立即登陆</a></span>
+                            <span class="register" id="msg-button" style="margin-top: -30px;"><a href="/index/login/login" >立即登陆</a></span>
                         </div>
                     </div>
                 </div>
@@ -148,11 +153,43 @@
                     che=1
                 }
                 if(user_name===""){
-                    alert("账户不能为空")
+                    // alert("账户不能为空")
+                    let option = {
+                      popupTime: 2,
+                      hook: {
+                        initStart: function () {
+                          // 检查之前老旧实例如果存在则销毁
+                          if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                        }
+                      },
+                      displayProgressBar: true,
+                      displayProgressBarPos: 'top',
+                      displayProgressBarColor: 'red',
+                      content: '<i style="color: deepskyblue"></i>账户不能为空!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }
                 if(user_pwd===""){
-                    alert("密码不能为空")
+                    // alert("密码不能为空")
+                    let option = {
+                      popupTime: 2,
+                      hook: {
+                        initStart: function () {
+                          // 检查之前老旧实例如果存在则销毁
+                          if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                        }
+                      },
+                      displayProgressBar: true,
+                      displayProgressBarPos: 'top',
+                      displayProgressBarColor: 'red',
+                      content: '<i style="color: deepskyblue"></i>密码不能为空!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }
                 var data={user_name:user_name,user_pwd:user_pwd,che:che}
@@ -161,7 +198,23 @@
                     data:data,
                     dataType:"json",
                     success:function (res) {
-                        alert(res.font)
+                        // alert(res.font)
+                        let option = {
+                          popupTime: 2,
+                          hook: {
+                            initStart: function () {
+                              // 检查之前老旧实例如果存在则销毁
+                              if (document.querySelector('#modal-layer-container'))
+                                ModalLayer.removeAll();
+                            }
+                          },
+                          displayProgressBar: true,
+                          displayProgressBarPos: 'top',
+                          displayProgressBarColor: 'green',
+                          content: '<i class="fas fa-check" style="color: green"></i>'+res.font+'!',
+                        };
+
+                        ModalLayer.msg(option);
                         if(res.code==="000"){
                             location.href="http://www.king.com/"
                         }
@@ -177,11 +230,43 @@
                 var user_tel=$(".user_tel").val()
                 var pattern = /^1[34578]\d{9}$/;
                 if(user_tel===""){
-                    alert("手机号必填")
+                    // alert("手机号必填")
+                    let option = {
+                      popupTime: 2,
+                      hook: {
+                        initStart: function () {
+                          // 检查之前老旧实例如果存在则销毁
+                          if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                        }
+                      },
+                      displayProgressBar: true,
+                      displayProgressBarPos: 'top',
+                      displayProgressBarColor: 'red',
+                      content: '<i style="color: deepskyblue"></i>手机号必填!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }
                 if(!pattern.test(user_tel)){
-                    alert("格式不对")
+                    // alert("格式不对")
+                    let option = {
+                      popupTime: 2,
+                      hook: {
+                        initStart: function () {
+                          // 检查之前老旧实例如果存在则销毁
+                          if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                        }
+                      },
+                      displayProgressBar: true,
+                      displayProgressBarPos: 'top',
+                      displayProgressBarColor: 'red',
+                      content: '<i style="color: deepskyblue"></i>格式不对!',
+                    };
+
+                    ModalLayer.msg(option);
                 }else{
                     $("#getcode").val("60s");//这个是吧span里面值改成5s
                     _t=setInterval(vals,1000);//定时器
@@ -192,7 +277,23 @@
                         success:function (res) {
                             console.log(res)
                             if(res=="ok"){
-                                alert("发送成功")
+                                // alert("发送成功")
+                                let option = {
+                                  popupTime: 2,
+                                  hook: {
+                                    initStart: function () {
+                                      // 检查之前老旧实例如果存在则销毁
+                                      if (document.querySelector('#modal-layer-container'))
+                                        ModalLayer.removeAll();
+                                    }
+                                  },
+                                  displayProgressBar: true,
+                                  displayProgressBarPos: 'top',
+                                  displayProgressBarColor: 'green',
+                                  content: '<i class="fas fa-check" style="color: green"></i>发送成功!',
+                                };
+
+                                ModalLayer.msg(option);
                             }
                         }
                     })
@@ -206,26 +307,122 @@
                 var user_pwdss=$(".user_pwdss").val()
                 var date={user_tel:user_tel,codes:codes,user_pwds:user_pwds}
                 if(user_tel===""){
-                    alert("手机号不能为空")
+                    // alert("手机号不能为空")
+                    let option = {
+                      popupTime: 2,
+                      hook: {
+                        initStart: function () {
+                          // 检查之前老旧实例如果存在则销毁
+                          if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                        }
+                      },
+                      displayProgressBar: true,
+                      displayProgressBarPos: 'top',
+                      displayProgressBarColor: 'red',
+                      content: '<i style="color: deepskyblue"></i>手机号不能为空!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }else if(!pattern.test(user_tel)){
-                    alert("手机号格式不对")
+                    // alert("手机号格式不对")
+                    let option = {
+                      popupTime: 2,
+                      hook: {
+                        initStart: function () {
+                          // 检查之前老旧实例如果存在则销毁
+                          if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                        }
+                      },
+                      displayProgressBar: true,
+                      displayProgressBarPos: 'top',
+                      displayProgressBarColor: 'red',
+                      content: '<i style="color: deepskyblue"></i>手机号格式不对!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }
                 if(codes===""){
-                    alert("验证码不能为空")
+                    // alert("验证码不能为空")
+                    let option = {
+                      popupTime: 2,
+                      hook: {
+                        initStart: function () {
+                          // 检查之前老旧实例如果存在则销毁
+                          if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                        }
+                      },
+                      displayProgressBar: true,
+                      displayProgressBarPos: 'top',
+                      displayProgressBarColor: 'red',
+                      content: '<i style="color: deepskyblue"></i>验证码不能为空!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }
                 if(user_pwds===""){
-                    alert("密码不能为空")
+                    // alert("密码不能为空")
+                    let option = {
+                      popupTime: 2,
+                      hook: {
+                        initStart: function () {
+                          // 检查之前老旧实例如果存在则销毁
+                          if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                        }
+                      },
+                      displayProgressBar: true,
+                      displayProgressBarPos: 'top',
+                      displayProgressBarColor: 'red',
+                      content: '<i style="color: deepskyblue"></i>密码不能为空!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }
                 if(user_pwdss===""){
-                    alert("确认密码不能为空")
+                    // alert("确认密码不能为空")
+                    let option = {
+                      popupTime: 2,
+                      hook: {
+                        initStart: function () {
+                          // 检查之前老旧实例如果存在则销毁
+                          if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                        }
+                      },
+                      displayProgressBar: true,
+                      displayProgressBarPos: 'top',
+                      displayProgressBarColor: 'red',
+                      content: '<i style="color: deepskyblue"></i>确认密码不能为空!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }
                 if(user_pwds!==user_pwdss){
-                    alert("两次密码不一致")
+                    // alert("两次密码不一致")
+                    let option = {
+                      popupTime: 2,
+                      hook: {
+                        initStart: function () {
+                          // 检查之前老旧实例如果存在则销毁
+                          if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                        }
+                      },
+                      displayProgressBar: true,
+                      displayProgressBarPos: 'top',
+                      displayProgressBarColor: 'red',
+                      content: '<i style="color: deepskyblue"></i>两次密码不一致!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }
                 $.ajax({
@@ -233,7 +430,23 @@
                     data:date,
                     dataType:"json",
                     success:function (res) {
-                        alert(res.font)
+                        // alert(res.font)
+                        let option = {
+                          popupTime: 2,
+                          hook: {
+                            initStart: function () {
+                              // 检查之前老旧实例如果存在则销毁
+                              if (document.querySelector('#modal-layer-container'))
+                                ModalLayer.removeAll();
+                            }
+                          },
+                          displayProgressBar: true,
+                          displayProgressBarPos: 'top',
+                          displayProgressBarColor: 'green',
+                          content: '<i class="fas fa-check" style="color: green"></i>'+res.font+'!',
+                        };
+
+                        ModalLayer.msg(option);
                     }
                 })
 

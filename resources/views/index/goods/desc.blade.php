@@ -1,6 +1,23 @@
 @extends('layout.index')
 @section('content')
+
+<style>
+
+    #test-button-container button {
+          width: 145px;
+          margin: 5px 0px;
+          padding: 10px 0px;
+        }
+</style>
+
+<link rel="stylesheet" href="/index/asset/css/modallayer.min.css">
+  <script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>
+  <script src="/index/asset/js/modallayer-ie.min.js"></script>
+
+
 	<script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
+
+
 	<div class="py-container">
 		<div id="item">
 			<div class="crumb-wrap">
@@ -39,7 +56,7 @@
 						</div>
 						<!--下方的缩略图-->
 						<div class="spec-scroll">
-							<a class="prev">&lt;</a>///
+							<a class="prev">&lt;</a>
 							<div class="items">
 								<ul>
                                         @php $goods_imgs = explode("|",$goods["goods_imgs"]); @endphp
@@ -197,10 +214,12 @@
 
 								</div>
 							</div>
-							<div class="fl" style="margin-top: 31px;">
+							<div class="fl" style="margin-top: 20px;">
 								<ul class="btn-choose unstyled">
 									<li>
-										<a href="javascript:;"  id="addcart" goods_id="{{$goods->goods_id}}" class="sui-btn  btn-danger addshopcar" disabled>加入购物车</a>
+                                        <div id="test-button-container">
+                                        <button id="msg-button" goods_id="{{$goods->goods_id}}" class="btn sui-btn  btn-danger addshopcar addbut" disabled>加入购物车</button>
+                                        </div>
 									</li>
 								</ul>
 							</div>
@@ -571,6 +590,7 @@
 			</div>
 		</div>
 	</div>
+
 	<script type="text/javascript" src="/index/js/model/cartModel.js"></script>
 	<script type="text/javascript" src="/index/js/plugins/jquery.easing/jquery.easing.min.js"></script>
 	<script type="text/javascript" src="/index/js/plugins/sui/sui.min.js"></script>
@@ -636,7 +656,7 @@
                                 $("#month").removeAttr("disabled");
                                 $("#add").removeAttr("disabled");
                                 $("#del").removeAttr("disabled");
-                                $("#addcart").removeAttr("disabled");
+                                $(".addbut").removeAttr("disabled");
                             }
                             if(buy_number="0"){
                                 // alert(123);
@@ -646,22 +666,37 @@
                                 $("#month").removeAttr("disabled");
                                 $("#add").removeAttr("disabled");
                                 $("#del").removeAttr("disabled");
-                                $("#addcart").removeAttr("disabled");
+                                $(".addbut").removeAttr("disabled");
                             }
 
                         }else{
-                            alert("没有该库存");
                             $("#stock").text("0");
                             var buy_number = parseInt($("#month").val());
                             if(buy_number="0"){
                                 $("#month").val("0");
                                 var info = goods_score*0;
                                 $("#goods_score").text(info);
-                                $("#addcart").attr("disabled","");
+                                $(".addbut").attr("disabled","");
                                 $("#month").attr("disabled","");
                                 $("#add").attr("disabled","");
                                 $("#del").attr("disabled","");
                             }
+                            let option = {
+                              popupTime: 2,
+                              hook: {
+                                initStart: function () {
+                                  // 检查之前老旧实例如果存在则销毁
+                                  if (document.querySelector('#modal-layer-container'))
+                                    ModalLayer.removeAll();
+                                }
+                              },
+                              displayProgressBar: true,
+                              displayProgressBarPos: 'top',
+                              displayProgressBarColor: 'red',
+                              content: '<i style="color: deepskyblue"></i>没有库存!',
+                            };
+
+                            ModalLayer.msg(option);
 
                         }
                     }
@@ -738,9 +773,11 @@
 
         })
 
+
         //加入购物车
-        $(document).on("click","#addcart",function(){
+        $(document).on("click",".addbut",function(){
             // alert(123)
+            var _this = $(this);
             var goods_id = $(this).attr("goods_id");
             var buy_number = parseInt($("#month").val());
             var goods_stick = new Array();
@@ -758,14 +795,48 @@
                     buy_number:buy_number,
                     goods_stick:goods_stick
                 },
+                async:true,
                 dataType:"json",
                 success:function(res){
                     // console.log(res);
                     if(res.status=="true"){
-                        alert(res.msg);
+                        let option = {
+                          popupTime: 2,
+                          hook: {
+                            initStart: function () {
+                              // 检查之前老旧实例如果存在则销毁
+                              if (document.querySelector('#modal-layer-container'))
+                                ModalLayer.removeAll();
+                            }
+                          },
+                          displayProgressBar: true,
+                          displayProgressBarPos: 'top',
+                          displayProgressBarColor: 'red',
+                          content: '<i class="fas fa-check" style="color: deepskyblue"></i>'+res.msg+'!',
+                        };
+
+                        ModalLayer.msg(option);
                         window.location.href=res.result;
                     }else{
-                        alert(res.msg);
+                        let option = {
+                          popupTime: 2,
+                          hook: {
+                            initStart: function () {
+                              // 检查之前老旧实例如果存在则销毁
+                              if (document.querySelector('#modal-layer-container'))
+                                ModalLayer.removeAll();
+                            }
+                          },
+                          displayProgressBar: true,
+                          displayProgressBarPos: 'top',
+                          displayProgressBarColor: 'red',
+                          content: '<i style="color: deepskyblue"></i>'+res.msg+'!',
+                        };
+
+                        ModalLayer.msg(option);
+                        // ModalLayer.msg('测试一下');
+                        // window.location.href=res.result;
+
                     }
                 }
             });
@@ -811,6 +882,7 @@
 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
     </script>
+
 
 @endsection
 
