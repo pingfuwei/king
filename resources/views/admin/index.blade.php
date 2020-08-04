@@ -70,7 +70,7 @@
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="javascript:;" class="small-box-footer">详细 <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="/admin/index/MonList" class="small-box-footer">详细 <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
 

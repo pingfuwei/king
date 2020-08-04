@@ -97,6 +97,104 @@
                 </div>
             </div>
             {{--========================================积分代付款 id=scroe--}}
+
+            {{--=======================================金钱待付款--}}
+            <div id="scroe" >
+                <div class="table-title">
+                    <table class="sui-table  order-table">
+                        <tr>
+                            <thead>
+                            <th width="35%">宝贝</th>
+                            <th width="5%">价钱</th>
+                            <th width="5%">数量</th>
+                            <th width="8%">商品操作</th>
+                            <th width="10%">交易状态</th>
+                            <th width="10%">交易操作</th>
+                            </thead>
+                        </tr>
+                    </table>
+                </div>
+                <div class="order-detail">
+                    <div class="orders">
+
+                    @if(isset($monData[0]))
+                        <!--order2-->
+                            @foreach($monData as $k=>$v)
+                                {{--{{$v}}--}}
+                                <div class="choose-title">
+                                    <label data-toggle="checkbox" class="checkbox-pretty ">
+                                        <input type="checkbox" checked="checked"><span>2017-02-11 11:59　订单编号：{{$v['order']}}  店铺：哇哈哈 <a>和我联系</a></span>
+                                    </label>
+                                    <a class="sui-btn btn-info share-btn">分享</a>
+                                </div>
+                                <table class="sui-table table-bordered order-datatable">
+                                    <tbody>
+                                    <tr>
+                                        <td width="35%">
+                                            <div class="typographic"><img src="{{env('UPLOADS_URL')}}{{$v["goods_img"]}}" width="50px;" height="60px;"/>
+                                                <a href="#" class="block-text">{{$v["goods_name"]}}</a>
+                                                <span class="guige">规格：温泉喷雾150ml</span>
+                                            </div>
+                                        </td>
+                                        <td width="5%" class="center">
+                                            <ul class="unstyled">
+                                                <li>¥{{$v["goods_price"]}}</li>
+                                                <li><span>赠送积分</span>{{$v['goods_score']}}</li>
+                                            </ul>
+                                        </td>
+                                        <td width="5%" class="center">{{$v['buy_number']}}</td>
+                                        <td width="8%" class="center">
+                                            <ul class="unstyled">
+
+                                                <li><a>退货/退款</a></li>
+                                            </ul>
+                                        </td>
+                                        <td width="10%" class="center">
+                                            <ul class="unstyled">
+                                                <li>买家未付款</li>
+                                                <li><a href="orderDetail.html" class="btn">订单详情 </a></li>
+                                            </ul>
+                                        </td>
+                                        <td width="10%" class="center">
+                                            <ul class="unstyled">
+                                                <li><a href="http://www.king.com/index/cart/account?cart_id={{$v['cart_id']}}"  class="sui-btn btn-info">立即购买</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            @endforeach
+
+                    </div>
+                    @if($countAll>=3)
+                        <div class="choose-order">
+
+                            <div class="sui-pagination pagination-large top-pages">
+                                <ul>
+                                    {{--class="active"--}}
+                                    <li class="next"><a href="/index/persion/Tobepaid?page=1">«首页</a></li>
+                                    @for($i=1;$i<=$count;$i++)
+                                        <li ><a href="/index/persion/Tobepaid?page=<?php echo $i;  ?>"><?php echo $i;  ?></a></li>
+                                    @endfor
+                                    <li class="next"><a href="/index/persion/Tobepaid?page={{$count}}">尾页»</a></li>
+                                </ul>
+                                <div><span>共10页&nbsp;</span><span>
+                                            到
+                                            <input type="text" class="page-num"><button class="page-confirm" onclick="alert(1)">确定</button>
+                                            页</span></div>
+                            </div>
+                        </div>
+                    @endif
+                    @else
+                        <h2>暂无宝贝</h2>
+                    @endif
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            {{--=======================================金钱待付款--}}
+
             <div class="like-title">
                 <div class="mt">
                     <span class="fl"><strong>热卖单品</strong></span>
