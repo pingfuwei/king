@@ -247,7 +247,8 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("cartdel", "index\CartController@cartdel");//购物车列表
         Route::any("total", "index\CartController@total");//购物车小计
         Route::any("updnumber", "index\CartController@updnumber");//购物车购买数量
-        Route::any("getmonney", "index\CartController@getmonney");//购物车结算
+        Route::any("getmonney", "index\CartController@getmonney");//购物车合计
+        Route::any("account", "index\CartController@account");//点击结算
     });
 
     Route::prefix("persion")->group(function() {//个人中心
@@ -294,6 +295,14 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("cate")->group(function() {//个人中心
         Route::any('top','index\CateController@top');//导航栏
         Route::any('list','index\CateController@list');//列表
+    });
+
+
+
+
+    Route::prefix("store")->group(function() {//收藏
+        Route::any('add','index\StoreController@add');//添加收藏
+        Route::any('list','index\StoreController@list');//收藏列表
     });
 
 });

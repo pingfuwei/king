@@ -24,6 +24,7 @@ class Index extends Controller
         $data = Category::where('status',1)->get()->toArray();
         $ret = $this->gatCate3($data);
         //浏览历史记录展示
+//        dd($ret);
         $user_name=session('user_name');
         $user=User::where('user_name',$user_name)->first();
         $user_id=$user['user_id'];
@@ -53,9 +54,33 @@ class Index extends Controller
             $goodsinfos=Goods::where('goods_id',$referInfos['goods_id'])->first();
             $referInfo=Goods::where('cate_id',$goodsinfos['cate_id'])->limit(4)->get();
         }
-
-        return view("index.index",compact("res","ret","like","referInfo"));
+        $catemodel=new Category();
+//        获取女状
+//        $nvzhuang=$catemodel::where('status',1)->get()->toArray();
+//        $nv_id=$this->gatCate3($nvzhuang,1);
+////        dd($nv_id);
+        $where1=[
+            ['is_del','=','1'],
+            ['cate_id','=',14]
+        ];
+        $na_info=Goods::where($where1)->limit(6)->get();
+        $where2=[
+            ['is_del','=','1'],
+            ['cate_id','=',6]
+        ];
+        $nv_info=Goods::where($where2)->limit(6)->get();
+        $where3=[
+            ['is_del','=','1'],
+            ['cate_id','=',26]
+        ];
+        $se_info=Goods::where($where3)->limit(6)->get();
+        return view("index.index",compact("res","ret","like","referInfo","nv_info","na_info","se_info"));
     }
+//    public function zilei($nvzhuang){
+//        foreach($nvzhuang as $k=>$v){
+//            print_r($v);
+//        }
+//    }
     function gatCate3($array,$pid=0)//许海哲分类
     {
         $info=[];

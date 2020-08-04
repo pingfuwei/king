@@ -442,9 +442,6 @@
 
 </html>
 
-<!-- <script src="/js/jquery.js"></script> -->
-
-<!-- <script src="/js/jquery.js"></script>-->
 
 <script src="/index/vue/axios.min.js"></script>
 <script src="/index/vue/vue.min.js"></script>
