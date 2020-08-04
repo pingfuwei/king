@@ -248,7 +248,7 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("getmonney", "index\CartController@getmonney");//购物车合计
         Route::any("account", "index\CartController@account");//点击结算
     });
-    
+
     Route::prefix("persion")->group(function() {//个人中心
         Route::any('sign','index\SignController@sign');//签到
         Route::any('Dosign','index\SignController@Dosign');//签到
