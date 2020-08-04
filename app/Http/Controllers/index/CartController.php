@@ -248,7 +248,32 @@ class CartController extends Controller
      * 获取合计
      */
     public function getmonney(Request $request){
+        $stock_id = $request->get("stock_id");
+        // echo $stock_id;
+        $id = explode(",",$stock_id);
+        $user_name = $request->session()->get("user_name");
+        $user_id = User::where("user_name",$user_name)->value("user_id");
+        $where = [
+            "user_id"=>$user_id,
+            "cart.is_del"=>1
+        ];
+        // dd($where);
+        $info = Cart::leftjoin("goods_stock","cart.stock_id","=","goods_stock.stock_id")
+                ->where($where)
+                ->whereIn("cart.stock_id",$id)
+                ->get(["price","buy_number"]);
+        // dd($info);
+        $money=0;
+        //循环查询出的值
+        foreach($info as $k=>$v){
+            // dump($v);
+            //将价格乘以购买数量 赋值给空值
+            $money += $v["price"]*$v["buy_number"];
+            // dump($money);
+        }
 
+        // dd($money);
+        return $money;
     }
 
 

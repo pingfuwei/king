@@ -181,7 +181,11 @@
 							<tr>
 						<div class="cart-body">
 							<div class="cart-list">
+<<<<<<< HEAD
+								<ul class="goods-list yui3-g" stock_id="{{$v['stock_id']}}">
+=======
 								<ul class="goods-list yui3-g" cart_id="{{$v['cart_id']}}">
+>>>>>>> cbff815988c5cb9c56f912b16596ce8f41bce024
 									<li class="yui3-u-1-24">
 										<input type="checkbox" name="cart_id" class="check" value="{{$v['cart_id']}}" />
 									</li>
@@ -255,7 +259,7 @@
 				<div class="toolbar">
 					<div class="chosed">已选择<span>0</span>件商品</div>
 					<div class="sumprice">
-						<span><em>总价（不含运费） ：</em><i class="summoney">¥16283.00</i></span>
+						<span><em>总价（不含运费） ：</em><i class="summoney"id="money">¥0</i></span>
 						<span><em>已节省：</em><i>-¥20.00</i></span>
 					</div>
 					<div class="sumbtn">
@@ -584,6 +588,7 @@
             // alert(1)
             updnumber(buy_number,cart_id);
             total(_this,stock_id,cart_id);
+            getMoney();
         })
         //减号
         $(document).on("click",".mins",function(){
@@ -602,8 +607,10 @@
             }
 
             background(_this);
+            _this.parent().prev().prev().prev().children().attr("checked","aa");
             updnumber(buy_number,cart_id);
             total(_this,stock_id,cart_id);
+            getMoney();
         })
         //失去焦点
         $(document).on("blur",".itxt",function(){
@@ -635,8 +642,10 @@
             }
 
 			background(_this);
+            _this.parent().prev().prev().prev().children().attr("checked","aa");
             updnumber(buy_number,cart_id);
             total(_this,stock_id,cart_id);
+            getMoney();
         })
         //修改购买数量
         function updnumber(buy_number,cart_id){
@@ -668,6 +677,7 @@
                 }
             )
         }
+
     })
 </script>
 <script>
@@ -705,11 +715,11 @@
 			// 当前行复选框 变为选中状态
 			checkbox(_this);
 			// 重新获取总价
-			getmonney();
+            getMoney();
 		}else{
 			// 重新获取总价
 			_this.parents("ul").removeClass("add");
-			getmonney();
+            getMoney();
 		}
 		//alert(_this);
 	})
@@ -717,6 +727,7 @@
 	$(document).on("click",".allcheck",function(){
 		// alert(1);
 		var _this=$(this);
+
 		var _checkbox=_this.prop("checked");
             var _this = $(".check");
 		// console.log(_checkbox);
@@ -727,7 +738,7 @@
 		}
 		$('.check').prop("checked",_checkbox);
 		// 重新获取总价
-		getmonney();
+        getMoney();
 	})
 	//点击批量删除
 	$(document).on("click",'#pdel',function(){
@@ -763,7 +774,7 @@
 			})
 		}
 		// 重新获取总价
-		getmonney();
+        getMoney();
 	})
 	//点击结算
 	$(document).on("click",'#account',function(){
@@ -810,4 +821,31 @@
 	function checkbox(_this){
 		_this.parents("tr").find('.check').prop("checked",true);
 	}
+    //获取总价
+    function getMoney() {
+        // alert(123);
+        //获取类为box选择复选框的
+        var _box = $(".check:checked");
+        // console.log(_box);
+        var stock_id = "";
+        //将选中的复选框循环
+        _box.each(function(index) {
+                //获取到的值 再加上id
+                // console.log($(this));
+                stock_id += $(this).parents("ul").attr("stock_id") + ",";
+            })
+            // console.log(stock_id);
+            //将id最后一个符号去掉
+        stock_id = stock_id.substr(0, stock_id.length - 1);
+        // console.log(stock_id);
+        $.get(
+            "/index/cart/getmonney", {
+                stock_id:stock_id
+            },
+            function(res) {
+                // console.log(res);
+                $("#money").text("￥" + res);
+            }
+        )
+    }
 </script>
