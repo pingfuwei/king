@@ -181,11 +181,8 @@
 							<tr>
 						<div class="cart-body">
 							<div class="cart-list">
-<<<<<<< HEAD
-								<ul class="goods-list yui3-g" stock_id="{{$v['stock_id']}}">
-=======
-								<ul class="goods-list yui3-g" cart_id="{{$v['cart_id']}}">
->>>>>>> cbff815988c5cb9c56f912b16596ce8f41bce024
+
+								<ul class="goods-list yui3-g" cart_id="{{$v['cart_id']}}" stock_id="{{$v['stock_id']}}">
 									<li class="yui3-u-1-24">
 										<input type="checkbox" name="cart_id" class="check" value="{{$v['cart_id']}}" />
 									</li>
@@ -601,9 +598,9 @@
             // console.log(goods_num);
             if (buy_number <= 1) {
                 _this.next("input").val("1");
+                _this.attr("disabled","");
             } else {
                 buy_number = buy_number - 1;
-                _this.next("input").val(buy_number);
             }
 
             background(_this);
@@ -657,7 +654,7 @@
                 function(res) {
                     // console.log(res);
                     if(res.status=="false"){
-                        alert(res.msg);
+                        // alert(res.msg);
                         return false;
                     }
                 },'json'
