@@ -178,10 +178,14 @@
 						<a href="/"><h3 style="text-align: center">亲，您购物车空空如也，请先先加入一些东西吧</h3></a>
 					@else
 						@foreach($cart_info as $k=>$v)
-							<tr cart_id="{{$v['cart_id']}}">
+							<tr>
 						<div class="cart-body">
 							<div class="cart-list">
-								<ul class="goods-list yui3-g">
+<<<<<<< HEAD
+								<ul class="goods-list yui3-g" stock_id="{{$v['stock_id']}}">
+=======
+								<ul class="goods-list yui3-g" cart_id="{{$v['cart_id']}}">
+>>>>>>> cbff815988c5cb9c56f912b16596ce8f41bce024
 									<li class="yui3-u-1-24">
 										<input type="checkbox" name="cart_id" class="check" value="{{$v['cart_id']}}" />
 									</li>
@@ -255,11 +259,11 @@
 				<div class="toolbar">
 					<div class="chosed">已选择<span>0</span>件商品</div>
 					<div class="sumprice">
-						<span><em>总价（不含运费） ：</em><i class="summoney">¥16283.00</i></span>
+						<span><em>总价（不含运费） ：</em><i class="summoney"id="money">¥0</i></span>
 						<span><em>已节省：</em><i>-¥20.00</i></span>
 					</div>
 					<div class="sumbtn">
-						<a class="sum-btn" href="getOrderInfo.html" target="_blank">结算</a>
+						<a class="sum-btn" href="javascript:;" target="_blank" id="account">结算</a>
 					</div>
 				</div>
 			</div>
@@ -584,6 +588,7 @@
             // alert(1)
             updnumber(buy_number,cart_id);
             total(_this,stock_id,cart_id);
+            getMoney();
         })
         //减号
         $(document).on("click",".mins",function(){
@@ -602,8 +607,10 @@
             }
 
             background(_this);
+            _this.parent().prev().prev().prev().children().attr("checked","aa");
             updnumber(buy_number,cart_id);
             total(_this,stock_id,cart_id);
+            getMoney();
         })
         //失去焦点
         $(document).on("blur",".itxt",function(){
@@ -635,8 +642,10 @@
             }
 
 			background(_this);
+            _this.parent().prev().prev().prev().children().attr("checked","aa");
             updnumber(buy_number,cart_id);
             total(_this,stock_id,cart_id);
+            getMoney();
         })
         //修改购买数量
         function updnumber(buy_number,cart_id){
@@ -668,6 +677,7 @@
                 }
             )
         }
+
     })
 </script>
 <script>
@@ -705,11 +715,11 @@
 			// 当前行复选框 变为选中状态
 			checkbox(_this);
 			// 重新获取总价
-			getmonney();
+            getMoney();
 		}else{
 			// 重新获取总价
 			_this.parents("ul").removeClass("add");
-			getmonney();
+            getMoney();
 		}
 		//alert(_this);
 	})
@@ -717,6 +727,7 @@
 	$(document).on("click",".allcheck",function(){
 		// alert(1);
 		var _this=$(this);
+
 		var _checkbox=_this.prop("checked");
             var _this = $(".check");
 		// console.log(_checkbox);
@@ -727,7 +738,7 @@
 		}
 		$('.check').prop("checked",_checkbox);
 		// 重新获取总价
-		getmonney();
+        getMoney();
 	})
 	//点击批量删除
 	$(document).on("click",'#pdel',function(){
@@ -763,29 +774,32 @@
 			})
 		}
 		// 重新获取总价
-		getmonney();
+        getMoney();
 	})
 	//点击结算
-	$(document).on("click",'#okmonney',function(){
+	$(document).on("click",'#account',function(){
 		var box=$('.check:checked');
-		if (box.length<1) {
+//		console.log(box);
+//		return false;
+		if (box.length<0) {
 			alert('请至少选择一见商品');
 			return false;
 		}
-		goods_id='';
+		var cart_id='';
 		box.each(function(index){
-			goods_id+=$(this).parents('tr').attr('goods_id')+',';
+			cart_id+=$(this).val()+',';
 		})
-		var goods_id=goods_id.substr(0,goods_id.length-1);
-		// alert(goods_id);
-		location.href="{:url('cart/cart_settleed')}?goods_id="+goods_id;
+//		console.log(cart_id);return false;
+		var cart_id=cart_id.substr(0,cart_id.length-1);
+//		 alert(cart_id);
+		location.href="/index/cart/account?cart_id="+cart_id;
 	})
 	//  封装商品的总价
 	function getmonney(){
 		var cart_id='';
 		var box=$('.check:checked');//获取选中的复选框
 		box.each(function(index){
-			cart_id+=$(this).parents("tr").attr('cart_id')+',';   //给每个上面拼接一个,号  每个都拼接  用字符串连接一起
+			cart_id+=$(this).val()+',';   //给每个上面拼接一个,号  每个都拼接  用字符串连接一起
 		})
 		cart_id=cart_id.substr(0,cart_id.length-1); //截取长度减去1 控制用in查询 所以去一位就可以  //alert(goods_id);
 		$.ajax({
@@ -807,4 +821,31 @@
 	function checkbox(_this){
 		_this.parents("tr").find('.check').prop("checked",true);
 	}
+    //获取总价
+    function getMoney() {
+        // alert(123);
+        //获取类为box选择复选框的
+        var _box = $(".check:checked");
+        // console.log(_box);
+        var stock_id = "";
+        //将选中的复选框循环
+        _box.each(function(index) {
+                //获取到的值 再加上id
+                // console.log($(this));
+                stock_id += $(this).parents("ul").attr("stock_id") + ",";
+            })
+            // console.log(stock_id);
+            //将id最后一个符号去掉
+        stock_id = stock_id.substr(0, stock_id.length - 1);
+        // console.log(stock_id);
+        $.get(
+            "/index/cart/getmonney", {
+                stock_id:stock_id
+            },
+            function(res) {
+                // console.log(res);
+                $("#money").text("￥" + res);
+            }
+        )
+    }
 </script>

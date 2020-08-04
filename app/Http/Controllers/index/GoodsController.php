@@ -17,10 +17,6 @@ class GoodsController extends Controller
     /*
      * 商品详情
      */
-//    public function desc(Request $request)
-//    {
-//        $goods_id = $request->get('goods_id');
-//        if (empty($goods_id)) {
     public function desc(Request $request){
         $goods_id=$request->get('goods_id');
         //        游览历史记录、

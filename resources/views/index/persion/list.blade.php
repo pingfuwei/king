@@ -36,6 +36,10 @@
 										@endif
 									</th>
 								</tr>
+                                <tr>
+                                    <th>积分</th>
+                                    <th>{{$data->score}}</th>
+                                </tr>
 								</thead>
 
 							</table>
