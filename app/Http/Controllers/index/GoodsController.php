@@ -10,6 +10,7 @@ use App\AdminModel\HistoryModel;
 use App\Http\Controllers\Controller;
 use App\indexModel\User;
 use Illuminate\Http\Request;
+use App\indexModel\store;
 
 class GoodsController extends Controller
 {
@@ -116,7 +117,21 @@ class GoodsController extends Controller
 //            print_r($goods_attr);
 //            print_r($goods_val);
 //            die;
-            return view('index.goods.desc',['goods'=>$goods_info,'goods_attr'=>$goods_attr,'goods_val'=>$goods_val,'stock'=>$stock]);
+//            --------------------------------------------------------------xu 判断商品是否修改
+              $user_name =request()->session()->get('user_name');
+              if(empty($user_name)){
+                $status = 3;
+                return view('index.goods.desc',['goods'=>$goods_info,'goods_attr'=>$goods_attr,'goods_val'=>$goods_val,'stock'=>$stock,'status'=>$status]);
+              }
+              $user_id = user::where('user_name',$user_name)->get();
+              $user_id = $user_id[0]->user_id;
+              $data = store::where(['goods_id'=>$goods_id,'user_id'=>$user_id])->first();
+              if($data){
+                $status=$data->status;
+              }else{
+                $status=1;
+              }
+            return view('index.goods.desc',['goods'=>$goods_info,'goods_attr'=>$goods_attr,'goods_val'=>$goods_val,'stock'=>$stock,'status'=>$status]);
         }
     }
     /*
@@ -174,6 +189,40 @@ class GoodsController extends Controller
 //        // dump($arr);
 //        cookie('historyinfo',$historyinfo);
 //    }
+    public function gethistory(){
+        $user_name=session('user_name');
+        $user=User::where('user_name',$user_name)->first();
+        $user_id=$user['user_id'];
+//        echo $user_id;die;
+        $wheres=[
+            'user_id'=>$user_id,
+            'history.is_del'=>1
+        ];
+        if($user_id){
+            //猜你喜欢列表展示
+            $likeinfo=[
+                ['user_id',$user_id],
+                ['history.is_del',1]
+            ];
+            $likeinfos = HistoryModel::leftjoin('shop_goods', 'shop_goods.goods_id', '=', 'history.goods_id')->leftjoin('category','category.cate_id','=','shop_goods.goods_id')->where($likeinfo)->orderBy('count', 'desc')->first();
+//           dd($like);
+            $goodsinfo=Goods::where('goods_id',$likeinfos['goods_id'])->first();
+            $like=Goods::where('cate_id',$goodsinfo['cate_id'])->limit(4)->get();
+            //条数
+            $num=Goods::where('cate_id',$goodsinfo['cate_id'])->count();
+        }else {
+            //猜你喜欢列表展示
+
+            $likeinfo = HistoryModel::leftjoin('shop_goods', 'shop_goods.goods_id', '=', 'history.goods_id')->leftjoin('category','category.cate_id','=','shop_goods.goods_id')->where('history.is_del', 1)->orderBy('count', 'desc')->first();
+//           dd($like);
+            $goodsinfo=Goods::where('goods_id',$likeinfo['goods_id'])->first();
+            $like=Goods::where('cate_id',$goodsinfo['cate_id'])->limit(4)->get();
+            $num=Goods::where('cate_id',$goodsinfo['cate_id'])->count();
+        }
+        $data=Goods::leftjoin('history','history.goods_id','=','shop_goods.goods_id')->where($wheres)->get();
+
+        return view('index.goods.gethistory',['data'=>$data,'like'=>$like,'num'=>$num]);
+    }
 
 
 

@@ -204,6 +204,7 @@ Route::prefix("admin")->group(function (){//后台
 
 Route::any("/", "index\Index@index")->middleware("IndexLogin");//首页
 Route::any("/history/list", "index\Index@history");//浏览历史记录
+Route::any("/cart/list", "index\Index@cart");//首页我的收藏
 Route::any("/history/del", "index\Index@del");//浏览历史记录删除
 Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("reg")->group(function() {//注册
@@ -231,6 +232,7 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("goods")->group(function() {//商品
         Route::any("desc", "index\GoodsController@desc");//单个商品详情
         Route::any("price", "index\GoodsController@price");//单个属性商品的库存与单价
+        Route::any("gethistory", "index\GoodsController@gethistory");//单个属性商品的库存与单价
     });
     Route::prefix("score")->group(function() {//积分换购
         Route::any("list", "index\Score@list");//积分换购展示
@@ -253,7 +255,7 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("return_url", "index\CartController@return_url");//支付同步
         Route::any("notify_url", "index\CartController@notify_url");//支付异步
     });
-    
+
     Route::prefix("persion")->group(function() {//个人中心
         Route::any('sign','index\SignController@sign');//签到
         Route::any('Dosign','index\SignController@Dosign');//签到
@@ -300,6 +302,14 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("cate")->group(function() {//个人中心
         Route::any('top','index\CateController@top');//导航栏
         Route::any('list','index\CateController@list');//列表
+    });
+
+
+
+
+    Route::prefix("store")->group(function() {//收藏
+        Route::any('add','index\StoreController@add');//添加收藏
+        Route::any('list','index\StoreController@list');//收藏列表
     });
 
 });

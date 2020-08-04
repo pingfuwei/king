@@ -309,25 +309,36 @@
                         </div>
                     </div>
                     <!-- 小计 -->
-                    <div id="cart-footer" class="tbar-panel-footer J-panel-footer">
-                        <div class="tbar-checkout">
-                            <div class="jtc-number"> <strong class="J-count" id="cart-number">0</strong>件商品 </div>
-                            <div class="jtc-sum"> 共计：<strong class="J-total" id="cart-sum">¥0</strong> </div>
-                            <a class="jtc-btn J-btn" href="#none" target="_blank">去购物车结算</a>
-                        </div>
-                    </div>
+                    {{--<div id="cart-footer" class="tbar-panel-footer J-panel-footer">--}}
+                        {{--<div class="tbar-checkout">--}}
+                            {{--<div class="jtc-number"> <strong class="J-count" id="cart-number">0</strong>件商品 </div>--}}
+                            {{--<div class="jtc-sum"> 共计：<strong class="J-total" id="cart-sum">¥0</strong> </div>--}}
+                            {{--<a class="jtc-btn J-btn" href="#none" target="_blank">去购物车结算</a>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                 </div>
 
                 <!-- 我的关注 -->
                 <div style="visibility: hidden;" data-name="follow" class="J-content toolbar-panel tbar-panel-follow">
                     <h3 class="tbar-panel-header J-panel-header">
-                        <a href="#" target="_blank" class="title"> <i></i> <em class="title">我的关注</em> </a>
+                        <a href="#" target="_blank" class="title"> <i></i> <em class="title">我的收藏</em> </a>
                         <span class="close-panel J-close" onclick="cartPanelView.tbar_panel_close('follow');"></span>
                     </h3>
                     <div class="tbar-panel-main">
-                        <div class="tbar-panel-content J-panel-content">
-                            <div class="tbar-tipbox2">
-                                <div class="tip-inner"> <i class="i-loading"></i> </div>
+                        <div class="tbar-panel-content J-panel-content" id="btn">
+                            <div class="jt-history-wrap cart">
+                                <ul>
+
+                                    <li class="jth-item" v-for="v in cart">
+                                        <a :href="'/index/goods/desc?goods_id='+v.goods_id" class="img-wrap"> <img v-bind:src="v.goods_img" height="80" width="80" /> </a>
+                                        <a class="add-cart-button" href="'/index/goods/desc?goods_id='+v.goods_id" target="_blank">@{{v.goods_name}}</a>
+                                        <a :href="'/index/goods/desc?goods_id='+v.goods_id" target="_blank" class="price">￥@{{v.goods_price}}</a>
+                                        <div height="10" width="100" style="background: plum"><a ><b class="del" his_id="@{{v.his_id}}" style="align-content: center">删除记录</b></a></div>
+                                    </li>
+
+                                </ul>
+
+
                             </div>
                         </div>
                     </div>
@@ -367,12 +378,7 @@
 
             <!-- 侧栏按钮 -->
             <div class="toolbar-tabs J-tab">
-                <div onclick="cartPanelView.tabItemClick('cart')" class="toolbar-tab tbar-tab-cart" data="购物车" tag="cart" >
-                    <i class="tab-ico"></i>
-                    <em class="tab-text"></em>
-                    <span class="tab-sub J-count " id="tab-sub-cart-count">0</span>
-                </div>
-                <div onclick="cartPanelView.tabItemClick('follow')" class="toolbar-tab tbar-tab-follow" data="我的关注" tag="follow" >
+                <div onclick="cartPanelView.tabItemClick('follow')" class="toolbar-tab tbar-tab-follow" data="我的收藏" tag="follow" >
                     <i class="tab-ico"></i>
                     <em class="tab-text"></em>
                     <span class="tab-sub J-count hide">0</span>
@@ -398,22 +404,8 @@
     </div>
 </div>
 <!--购物车单元格 模板-->
-<script type="text/template" id="tbar-cart-item-template">
-    <div class="tbar-cart-item" >
-        <div class="jtc-item-promo">
-            <em class="promo-tag promo-mz">满赠<i class="arrow"></i></em>
-            <div class="promo-text">已购满600元，您可领赠品</div>
-        </div>
-        <div class="jtc-item-goods">
-            <span class="p-img"><a href="#" target="_blank"><img src="{2}" alt="{1}" height="50" width="50" /></a></span>
-            <div class="p-name">
-                <a href="#">{1}</a>
-            </div>
-            <div class="p-price"><strong>¥{3}</strong>×{4} </div>
-            <a href="#none" class="p-del J-del">删除</a>
-        </div>
-    </div>
-</script>
+
+
 <!--侧栏面板结束-->
 <script type="text/javascript">
     $(function(){
@@ -453,6 +445,7 @@
 
 <script src="/index/vue/axios.min.js"></script>
 <script src="/index/vue/vue.min.js"></script>
+{{--//浏览历史记录--}}
 <script>
     var me = new Vue({
         el:".but",
@@ -468,6 +461,28 @@
         axios.post(url,data).then(function (msg){
 //            console.log(msg.data);return;
             _this.history=msg.data;
+        });
+    },
+    methods:{
+    }
+    });
+</script>
+{{--我的收藏--}}
+<script>
+    var me = new Vue({
+        el:".cart",
+        data:{
+            cart:null,
+        },
+        mounted(){
+        var _this=this;
+        var data={
+
+        };
+        var url="/cart/list"
+        axios.post(url,data).then(function (msg){
+//            console.log(msg.data);return;
+            _this.cart=msg.data;
         });
     },
     methods:{

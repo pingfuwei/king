@@ -45,8 +45,8 @@
 							</table>
 						</div>
 						<script src="/layui/bootstrap.min.js"></script>
-						<button class="button button3"><a href="{{url('index/persion/pers')}}">修改个人信息</a></button>
-						<button class="button button3"><a href="{{url('index/persion/sign')}}">签到</a></button>
+						<button class="sui-btn btn-primary"><a href="{{url('index/persion/pers')}}"><font style="color: white">修改个人信息</font></a></button>
+						<button class="sui-btn btn-primary"><a href="{{url('index/persion/sign')}}"><font style="color: white">签到</font></a></button>
                         <!--新增地址弹出层-->
                          <div  tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade edit" style="width:580px;">
                             <div class="modal-dialog">
