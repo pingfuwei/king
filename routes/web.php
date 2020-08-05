@@ -218,6 +218,7 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
         Route::any("ajaxLogin", "index\LoginController@ajaxLogin");//登录执行
         Route::any("ajaxCode", "index\LoginController@ajaxCodes");//忘记密码短信ajax
         Route::any("forgetPas", "index\LoginController@forgetPas");//忘记密码执行
+        Route::any("quit", "index\LoginController@quit");//退出
     });
     Route::prefix("vip")->group(function() {//vip
         Route::any("index", "index\VipController@index");//注册
@@ -247,6 +248,7 @@ Route::prefix("index")->middleware("IndexLogin")->group(function() {
     Route::prefix("cart")->group(function() {//商品
         Route::any("cartcreate", "index\CartController@cartcreate");//购物车添加
         Route::any("cartlist", "index\CartController@cartlist");//购物车列表
+        Route::any("cartajax", "index\CartController@cartajax");//点击进入结算
         Route::any("cartdel", "index\CartController@cartdel");//购物车列表
         Route::any("total", "index\CartController@total");//购物车小计
         Route::any("updnumber", "index\CartController@updnumber");//购物车购买数量

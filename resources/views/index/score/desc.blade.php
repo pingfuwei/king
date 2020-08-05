@@ -1,5 +1,8 @@
 @extends('layout.index')
 @section('content')
+    <link rel="stylesheet" href="/index/asset/css/modallayer.min.css">
+    <script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>
+    <script src="/index/asset/js/modallayer-ie.min.js"></script>
     <script type="text/javascript" src="/index/js/plugins/jquery/jquery.min.js"></script>
     <div class="py-container">
         <div id="item">
@@ -136,7 +139,7 @@
                             <div class="fl" style="margin-top: 31px;">
                                 <ul class="btn-choose unstyled">
                                     <li>
-                                        <a href="javascript:;"  class="sui-btn  btn-danger addshopcar" id="btn">加入购物车</a>
+                                        <a href="javascript:;"  id="msg-button"  class="sui-btn  btn-danger addshopcar btn">加入购物车</a>
                                     </li>
                                 </ul>
                             </div>
@@ -548,7 +551,7 @@
                 $(this).addClass("selected").append("<span title='点击取消选择'>&nbsp;</span>")
                     $(this).children("#che").attr("checked",true)
             })
-            $(document).on("click","#btn",function () {
+            $(document).on("click",".btn",function () {
                 var count=$("#count").attr("count")
                 var goods_id="{{$goods["goods_id"]}}"
                 var scroe="{{$goods["goods_price"]*2}}"
@@ -561,18 +564,66 @@
                 var n=(str.split(':')).length-1;
 
                 if(str==""){
-                    alert("请选择类型")
+//                    alert("请选择类型")
+                    let option = {
+                        popupTime: 2,
+                        hook: {
+                            initStart: function () {
+                                // 检查之前老旧实例如果存在则销毁
+                                if (document.querySelector('#modal-layer-container'))
+                                    ModalLayer.removeAll();
+                            }
+                        },
+                        displayProgressBar: true,
+                        displayProgressBarPos: 'top',
+                        displayProgressBarColor: 'red',
+                        content: '<i style="color: deepskyblue"></i>请选择类型!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }
                 if(count-1!==n){
-                    alert("请选择类型")
+//                    alert("请选择类型")
+                    let option = {
+                        popupTime: 2,
+                        hook: {
+                            initStart: function () {
+                                // 检查之前老旧实例如果存在则销毁
+                                if (document.querySelector('#modal-layer-container'))
+                                    ModalLayer.removeAll();
+                            }
+                        },
+                        displayProgressBar: true,
+                        displayProgressBarPos: 'top',
+                        displayProgressBarColor: 'red',
+                        content: '<i style="color: deepskyblue"></i>请选择类型!',
+                    };
+
+                    ModalLayer.msg(option);
                     return
                 }
                 $.ajax({
                     url:"/index/score/descAjax",
                     data:{score:price,ability:str,goods_id:goods_id,scroe:scroe},
                     success:function (res) {
-                        alert(res)
+//                        alert(res)
+                        let option = {
+                            popupTime: 2,
+                            hook: {
+                                initStart: function () {
+                                    // 检查之前老旧实例如果存在则销毁
+                                    if (document.querySelector('#modal-layer-container'))
+                                        ModalLayer.removeAll();
+                                }
+                            },
+                            displayProgressBar: true,
+                            displayProgressBarPos: 'top',
+                            displayProgressBarColor: 'green',
+                            content: '<i class="fas fa-check" style="color: green"></i>'+res+'!',
+                        };
+
+                        ModalLayer.msg(option);
                         if(res==="添加成功"){
                             location.href='/index/score/settlement?goods_id='+goods_id
                         }

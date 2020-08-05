@@ -134,6 +134,51 @@ class CartController extends Controller
            }
            return json_encode($message,JSON_UNESCAPED_UNICODE);
        }
+     //购物车到结算ajax
+    public function cartajax(Request $request){
+        $data=$request->all();
+        $cart_id_info=explode(',',$data['cart_id']);
+        if(empty($data['cart_id'])){
+            $message = [
+                'code' => '000001',
+                'message' => 'error',
+                'result' => [
+                    'message' =>"请规范您的操作",
+                ]
+            ];
+            return json_encode($message,JSON_UNESCAPED_UNICODE);
+        }
+        $arr=[];
+        foreach($cart_id_info as $k=>$v){
+//            var_dump($v);die;
+            $k=[];
+            $cart_model=new Cart();
+            $where=[
+                ['cart_id','=',$v],
+                ['cart.is_del','=',1]
+            ];
+            $arr[$v]=$cart_model::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->leftjoin('goods_stock','cart.stock_id','=','goods_stock.stock_id')->orderBy('time','desc')->where($where)->first()->toArray();
+//            var_dump($arr);die;
+            if($arr[$v]["stock"]-$arr[$v]["buy_number"]<0){
+                $message = [
+                    'code' => '000001',
+                    'message' => 'error',
+                    'result' => [
+                        'message' =>$arr[$v]["goods_name"]."---库存不足",
+                    ]
+                ];
+                return json_encode($message,JSON_UNESCAPED_UNICODE);
+            }
+        }
+        $message = [
+            'code' => '000000',
+            'message' => 'success',
+            'result' => [
+                'message' =>"即将进入结算",
+            ]
+        ];
+        return json_encode($message,JSON_UNESCAPED_UNICODE);
+    }
     /*
      * 点击结算
      */
@@ -153,6 +198,7 @@ class CartController extends Controller
         }
         $arr=[];
         foreach($cart_id_info as $k=>$v){
+//            var_dump($v);die;
             $k=[];
             $cart_model=new Cart();
             $where=[
@@ -160,6 +206,17 @@ class CartController extends Controller
                 ['cart.is_del','=',1]
             ];
             $arr[$v]=$cart_model::leftjoin('shop_goods','cart.goods_id','=','shop_goods.goods_id')->leftjoin('goods_stock','cart.stock_id','=','goods_stock.stock_id')->orderBy('time','desc')->where($where)->first()->toArray();
+//            var_dump($arr);die;
+            if($arr[$v]["stock"]-$arr[$v]["buy_number"]<0){
+                $message = [
+                    'code' => '000001',
+                    'message' => 'error',
+                    'result' => [
+                        'message' =>$arr[$v]["goods_name"]."---库存不足",
+                    ]
+                ];
+                return json_encode($message,JSON_UNESCAPED_UNICODE);
+            }
 //            var_dump($arr);die;
         }
         foreach($arr as $k=>$v){

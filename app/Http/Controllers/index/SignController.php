@@ -134,9 +134,11 @@ class SignController extends Controller
         }else{
             echo "<script>alert('请登录');location.href='/index/login/login'</script>";
         }
-        $check=SignModel::where('user_id',$user_id)->first();
-//        dd($check);
-        if(!empty($check)&&($check['time']-time())>86400){
+        $check=SignModel::where('user_id',$user_id)->orderBy("time","desc")->first();
+//        var_dump($check);die;
+        $time=strtotime(date("Y-m-d"),time());
+//        echo $time;die;
+        if(($check["time"]<$time)){
             $data=[
                 'img'=>$img,
                 'user_id'=>$user_id,
@@ -144,35 +146,19 @@ class SignController extends Controller
                 'time'=>time(),
                 'content'=>$content
             ];
-            $res=SignModel::insert($data);
-            if($res){
-                return [
-                    'code'=>'000',
-                    'msg'=>"签到成功",
-                    'data'=>$res
-                ];
-            }else{
-                return [
-                    'code'=>'001',
-                    'msg'=>"签到失败",
-                    'data'=>$res
-                ];
-            }
-        }else{
-            if(empty($check)){
-                $data=[
-                    'img'=>$img,
-                    'user_id'=>$user_id,
-                    'score'=>$score,
-                    'time'=>time(),
-                    'content'=>$content
-                ];
+            $user_score=UserInfo::where("user_id",$user_id)->first();
+            $user_score=UserInfo::where("user_id",$user_id)->update(["score"=>$user_score["score"]+$score]);
+            if($user_score){
                 $res=SignModel::insert($data);
-//                UserInfo::where('user_id',$user_id)->insert(['score'=>$score]);
                 if($res){
+                    if($score===10){
+                        $font="由于您是至尊会员签到---送10积分";
+                    }else{
+                        $font="由于您是普通会员签到---送5积分";
+                    }
                     return [
                         'code'=>'000',
-                        'msg'=>"签到成功",
+                        'msg'=>$font,
                         'data'=>$res
                     ];
                 }else{
@@ -184,12 +170,16 @@ class SignController extends Controller
                 }
             }else{
                 return [
+                    'code'=>'001',
+                    'msg'=>"内部异常---联系客服",
+                    'data'=>""
+                ];
+            }
+        }else{
+                return [
                     'code'=>'002',
                     'msg'=>"一天只能签到一次哦",
                 ];
-            }
-
-
         }
 
 
@@ -379,7 +369,7 @@ class SignController extends Controller
         $data=\request()->all();
 //        var_dump($data);die;
         $res=OrderCart::where(["user_id"=>$user_id["user_id"],"order"=>intval($data["order"]),"status"=>3])->update(["status"=>4]);
-        var_dump($res);die;
+//        var_dump($res);die;
         if($res!==false){
             echo "ok";
         }else{

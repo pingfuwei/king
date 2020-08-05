@@ -26,7 +26,7 @@
 						<li class="yui3-u-1-5">
 							<div class="list-wrap">
 								<div class="p-img">
-									<a href="/index/goods/desc/?goods_id={{$val['goods_id']}}" target="_blank"><img src="{{env('UPLOADS_URL')}}{{$val['goods_img']}}" width="500px" height="500px;"></a>
+									<a href="/index/goods/desc/?goods_id={{$val['goods_id']}}" target="_blank"><img src="{{env('UPLOADS_URL')}}{{$val['goods_img']}}" width="180px"></a>
 								</div>
 								<div class="price">
 									<strong>
@@ -35,15 +35,15 @@
 										</strong>
 								</div>
 								<div class="attr">
-									<em>{{$val['goods_name']}}</em>
+									<em title="{{$val['goods_name']}}">{{substr($val['goods_name'],0,9)}}...</em>
 								</div>
-								<div class="cu">
-									<em><span>促</span>满一件可参加超值换购</em>
-								</div>								
-								<div class="commit">
-									<i class="command">已有2000人评价</i>
-								</div>
-								<div class="operate">
+								{{--<div class="cu">--}}
+									{{--<em><span>促</span>满一件可参加超值换购</em>--}}
+								{{--</div>								--}}
+								{{--<div class="commit">--}}
+									{{--<i class="command">已有2000人评价</i>--}}
+								{{--</div>--}}
+								<div class="operate" style="margin-left: -20px;width: 350px;">
 									<a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
 									<a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
 									<a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>

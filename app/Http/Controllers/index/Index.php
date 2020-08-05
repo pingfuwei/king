@@ -103,7 +103,7 @@ class Index extends Controller
             'user_id'=>$user_id,
             'history.is_del'=>1
         ];
-        $datas=Goods::leftjoin('history','history.goods_id','=','shop_goods.goods_id')->where($wheres)->limit(6)->get();
+        $datas=Goods::leftjoin('history','history.goods_id','=','shop_goods.goods_id')->OrderBy("time","desc")->where($wheres)->limit(6)->get();
 //        dd($datas);
         foreach($datas as $k=>$v){
             $v['goods_img']=env('UPLOADS_URL').$v['goods_img'];

@@ -30,7 +30,9 @@
 									<th>会员</th>
 									<th>
 										@if($vipinfo)
-											{{$vipinfo->vip_name}}
+											<font color="red">{{$vipinfo->vip_name}}</font>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---
+                                            到期：{{date("y-m-d",$vipinfo->outtime)}}
 										@else
 											普通用户
 										@endif

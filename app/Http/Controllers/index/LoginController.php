@@ -299,4 +299,20 @@ class LoginController extends Controller
             }
         }
     }
+    //退出
+    public function quit(){
+        \request()->session()->forget('user_name');
+//        $aa=\session("user_name");
+//        echo $aa;die;
+//        Cookie::queue("user",1111);
+        $aa=Cookie::queue(Cookie::forget('user'));
+
+        $bb=Cookie::queue(Cookie::forget('user_pwd'));
+//        echo $aa.$bb;die;
+        if(empty($aa) && empty($bb)){
+            echo "ok";
+        }else{
+            echo "no";
+        }
+    }
 }

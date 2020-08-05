@@ -9,6 +9,10 @@
 
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-getOrderInfo.css" />
+
+    <link rel="stylesheet" href="/index/asset/css/modallayer.min.css">
+    <script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>
+    <script src="/index/asset/js/modallayer-ie.min.js"></script>
 </head>
 
 <body>
@@ -116,14 +120,6 @@
                         <li class="selected">支付宝<span title="点击取消选择"></span></li>
                     </ul>
                 </div>
-                <div class="step-tit">
-                    <h5>红包使用</h5>
-                </div>
-                <div class="step-cont">
-                    <ul class="payType">
-                        <li class="selected">红包<span title="点击取消选择"></span></li>
-                    </ul>
-                </div>
                 <div class="hr"></div>
                 <div class="step-tit">
                     <h5>送货清单</h5>
@@ -200,7 +196,7 @@
     </div>
     {{--<span>---{{$v->tel}}</span>--}}
     <div class="submit">
-        <a class="sui-btn btn-danger btn-xlarge" id="btn" href="#">提交订单</a>
+        <a class="sui-btn btn-danger btn-xlarge btn" id="msg-button" href="#">提交订单</a>
     </div>
 </div>
 
@@ -213,19 +209,67 @@
 <script>
     $(function () {
         //提交订单
-        $(document).on("click","#btn",function () {
+        $(document).on("click",".btn",function () {
             var cart_id="{{$cart_id}}"//购物车的id
             var address_id=$(".bb").attr("address")
-//            if(cart_id==""){
+            if(cart_id==""){
 //                alert("篡改数据");
-//                return
-//            }
-//            if(address_id==""){
+                let option = {
+                    popupTime: 2,
+                    hook: {
+                        initStart: function () {
+                            // 检查之前老旧实例如果存在则销毁
+                            if (document.querySelector('#modal-layer-container'))
+                                ModalLayer.removeAll();
+                        }
+                    },
+                    displayProgressBar: true,
+                    displayProgressBarPos: 'top',
+                    displayProgressBarColor: 'red',
+                    content: '<i style="color: deepskyblue"></i>篡改数据!',
+                };
+
+                ModalLayer.msg(option);
+                return
+            }
+            if(address_id==""){
 //                alert("篡改数据");
-//                return
-//            }
+                let option = {
+                    popupTime: 2,
+                    hook: {
+                        initStart: function () {
+                            // 检查之前老旧实例如果存在则销毁
+                            if (document.querySelector('#modal-layer-container'))
+                                ModalLayer.removeAll();
+                        }
+                    },
+                    displayProgressBar: true,
+                    displayProgressBarPos: 'top',
+                    displayProgressBarColor: 'red',
+                    content: '<i style="color: deepskyblue"></i>篡改数据!',
+                };
+
+                ModalLayer.msg(option);
+                return
+            }
 //            alert(1)
 //            return
+            let option = {
+                popupTime: 2,
+                hook: {
+                    initStart: function () {
+                        // 检查之前老旧实例如果存在则销毁
+                        if (document.querySelector('#modal-layer-container'))
+                            ModalLayer.removeAll();
+                    }
+                },
+                displayProgressBar: true,
+                displayProgressBarPos: 'top',
+                displayProgressBarColor: 'green',
+                content: '<i class="fas fa-check" style="color: green"></i>进入支付!',
+            };
+
+            ModalLayer.msg(option);
             location.href="/index/cart/settlementAjax?address_id="+address_id+"&cart_id="+cart_id;
 
         })

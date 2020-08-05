@@ -15,6 +15,10 @@
     <link rel="stylesheet" type="text/css" href="/index/css/pages-list.css" />
 
     <link rel="stylesheet" type="text/css" href="/index/css/pages-cart.css" />
+
+    <link rel="stylesheet" href="/index/asset/css/modallayer.min.css">
+    <script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>
+    <script src="/index/asset/js/modallayer-ie.min.js"></script>
 </head>
 <body>
 <!-- 头部栏位 -->
@@ -27,10 +31,16 @@
                 <div class="shortcut">
                     <ul class="fl">
                         <li class="f-item">品优购欢迎{{session("user_name")}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-
+                        <?php $aa=session("user_name"); ?>
                         <li class="f-item">
-                            <a href="/index/login/login">登录</a>　<span>
+                            @if($aa!="")
+                                <a href="javascript:;" class="quits" id="msg-button">退出</a>　<span>
                                     <a href="/index/reg/reg">免费注册</a></span></li>
+                                @else
+                                <a href="/index/login/login">登录</a>　<span>
+                                    <a href="/index/reg/reg">免费注册</a></span></li>
+                                @endif
+
                     </ul>
                     <ul class="fr">
                         <li class="f-item"><a href="{{url('index/persion/sign')}}">签到</a></li>
@@ -546,5 +556,46 @@ var me = new Vue({
             }
         })
     })
-
+    $(document).on("click",".quits",function () {
+            $.ajax({
+                url:"/index/login/quit",
+                data:{},
+                success:function (res) {
+                    if(res==="ok"){
+                        let option = {
+                            popupTime: 2,
+                            hook: {
+                                initStart: function () {
+                                    // 检查之前老旧实例如果存在则销毁
+                                    if (document.querySelector('#modal-layer-container'))
+                                        ModalLayer.removeAll();
+                                }
+                            },
+                            displayProgressBar: true,
+                            displayProgressBarPos: 'top',
+                            displayProgressBarColor: 'green',
+                            content: '<i class="fas fa-check" style="color: green"></i>退出成功',
+                        };
+                        ModalLayer.msg(option);
+                        location.href="/"
+                    }else{
+                        let option = {
+                            popupTime: 2,
+                            hook: {
+                                initStart: function () {
+                                    // 检查之前老旧实例如果存在则销毁
+                                    if (document.querySelector('#modal-layer-container'))
+                                        ModalLayer.removeAll();
+                                }
+                            },
+                            displayProgressBar: true,
+                            displayProgressBarPos: 'top',
+                            displayProgressBarColor: 'red',
+                            content: '<i style="color: red"></i>系统错误---联系客服',
+                        };
+                        ModalLayer.msg(option);
+                    }
+                }
+            })
+    })
 </script>

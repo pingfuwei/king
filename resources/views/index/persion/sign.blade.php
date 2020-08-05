@@ -1,5 +1,8 @@
 @extends('layout.index')
 @section('content')
+    <link rel="stylesheet" href="/index/asset/css/modallayer.min.css">
+    <script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>
+    <script src="/index/asset/js/modallayer-ie.min.js"></script>
 <div style="background-image: url(/img/timg.gif); width: 1250px; height: 500px">
 {{--<img src="/img/timg.gif" alt="" style="float: left">--}}
 {{--<h1 align="center" ><font style="color: cornflowerblue">签到了</font></h1>--}}
@@ -30,7 +33,7 @@
         对本网站的建议:<textarea  style="width: 200px ; height: 40px" class="content" ></textarea></div>
 
     <font style="font-size: smaller;color:red" >签到可获得积分哦！！！</font><br>
-    <button class="btn layui-btn" style="width: 100px; height: 40px; background: cadetblue;">点击签到</button><br>
+    <button class="btn layui-btn"  id="msg-button" style="width: 100px; height: 40px; background: cadetblue;">点击签到</button><br>
     </div>
     </center>
 </div>
@@ -49,11 +52,43 @@
               function(res){
 //                  console.log(res);return;
                   if(res.code=='000'){
-                      alert(res.msg);
+//                      alert(res.msg);
+                      let option = {
+                          popupTime: 2,
+                          hook: {
+                              initStart: function () {
+                                  // 检查之前老旧实例如果存在则销毁
+                                  if (document.querySelector('#modal-layer-container'))
+                                      ModalLayer.removeAll();
+                              }
+                          },
+                          displayProgressBar: true,
+                          displayProgressBarPos: 'top',
+                          displayProgressBarColor: 'green',
+                          content: '<i class="fas fa-check" style="color: green"></i>'+res.msg+'',
+                      };
+
+                      ModalLayer.msg(option);
                       location.href="{{url('/')}}"
                   }else{
-                      alert(res.msg);
-                      location.href="{{url('/')}}"
+//                      alert(res.msg);
+                      let option = {
+                          popupTime: 2,
+                          hook: {
+                              initStart: function () {
+                                  // 检查之前老旧实例如果存在则销毁
+                                  if (document.querySelector('#modal-layer-container'))
+                                      ModalLayer.removeAll();
+                              }
+                          },
+                          displayProgressBar: true,
+                          displayProgressBarPos: 'top',
+                          displayProgressBarColor: 'red',
+                          content: '<i style="color: deepskyblue"></i>'+res.msg+'!',
+                      };
+
+                      ModalLayer.msg(option);
+                      {{--location.href="{{url('/')}}"--}}
                   }
               }
         )

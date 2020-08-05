@@ -211,9 +211,9 @@
 									</li>
 									<li class="yui3-u-1-8"><span class="price">{{$v['price']}}</span></li>
 									<li class="yui3-u-1-8" goods_num="{{$v['stoock']}}" stock_id="{{$v['stock_id']}}" cart_id="{{$v["cart_id"]}}">
-										<a href="javascript:void(0)" class="increment mins">-</a>
+										<a href="javascript:void(0)" class="increment mins" style="height: 16px;">-</a>
 										<input autocomplete="off" type="text" value="{{$v['buy_number']}}" minnum="1" class="itxt" />
-										<a href="javascript:void(0)" class="increment plus">+</a>
+										<a href="javascript:void(0)" class="increment plus" style="height: 16px;">+</a>
 									</li>
 									<li class="yui3-u-1-8"><span class="sum">{{$v['buy_number']*$v['price']}}</span></li>
 									<li class="yui3-u-1-8">
@@ -794,24 +794,49 @@
 		})
 //		console.log(cart_id);return false;
 		var cart_id=cart_id.substr(0,cart_id.length-1);
-//		 alert(cart_id);
-        let option = {
-            popupTime: 2,
-            hook: {
-                initStart: function () {
-                    // 检查之前老旧实例如果存在则销毁
-                    if (document.querySelector('#modal-layer-container'))
-                        ModalLayer.removeAll();
-                }
-            },
-            displayProgressBar: true,
-            displayProgressBarPos: 'top',
-            displayProgressBarColor: 'green',
-            content: '<i class="fas fa-check" style="color: green"></i>进入结算!',
-        };
+		$.ajax({
+			url:"/index/cart/cartajax",
+			data:{cart_id:cart_id},
+			dataType:"json",
+			success:function (res) {
+				if(res.code==="000000"){
+                    let option = {
+                        popupTime: 2,
+                        hook: {
+                            initStart: function () {
+                                // 检查之前老旧实例如果存在则销毁
+                                if (document.querySelector('#modal-layer-container'))
+                                    ModalLayer.removeAll();
+                            }
+                        },
+                        displayProgressBar: true,
+                        displayProgressBarPos: 'top',
+                        displayProgressBarColor: 'green',
+                        content: '<i class="fas fa-check" style="color: green"></i>'+res.result.message,
+                    };
+                    ModalLayer.msg(option);
+					location.href="/index/cart/account?cart_id="+cart_id;
+                }else{
+                    let option = {
+                        popupTime: 2,
+                        hook: {
+                            initStart: function () {
+                                // 检查之前老旧实例如果存在则销毁
+                                if (document.querySelector('#modal-layer-container'))
+                                    ModalLayer.removeAll();
+                            }
+                        },
+                        displayProgressBar: true,
+                        displayProgressBarPos: 'top',
+                        displayProgressBarColor: 'red',
+                        content: '<i style="color: red"></i>'+res.result.message,
+                    };
+                    ModalLayer.msg(option);
+				}
+            }
+		})
 
-        ModalLayer.msg(option);
-		location.href="/index/cart/account?cart_id="+cart_id;
+//		location.href="/index/cart/account?cart_id="+cart_id;
 	})
 //	//  封装商品的总价
 //	function getmonney(){

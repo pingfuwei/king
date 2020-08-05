@@ -7,6 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <title>结算页</title>
 
+    <link rel="stylesheet" href="/index/asset/css/modallayer.min.css">
+    <script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>
+    <script src="/index/asset/js/modallayer-ie.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="/index/css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="/index/css/pages-getOrderInfo.css" />
 </head>
@@ -170,7 +174,7 @@
     </div>
     {{--<span>---{{$v->tel}}</span>--}}
     <div class="submit">
-        <a class="sui-btn btn-danger btn-xlarge" id="btn" href="javascrpt:;">提交订单</a>
+        <a class="sui-btn btn-danger btn-xlarge btn" id="msg-button" href="javascrpt:;">提交订单</a>
     </div>
 </div>
 
@@ -201,7 +205,7 @@
                 }
             })
         })
-        $(document).on("click","#btn",function () {
+        $(document).on("click",".btn",function () {
             var goods_id="{{$goods->goods_id}}"
             var address_id=$(".bb").attr("address")
             var score="{{$goods->goods_price*2}}"
@@ -212,9 +216,44 @@
                 url:"/index/score/settlementAjax",
                 data:{goods_id:goods_id,address_id:address_id,price:score,ability:ability},
                 success:function (res) {
-                    alert(res)
+//                    alert(res)
+
                     if(res==="兑换成功"){
+                        let option = {
+                            popupTime: 2,
+                            hook: {
+                                initStart: function () {
+                                    // 检查之前老旧实例如果存在则销毁
+                                    if (document.querySelector('#modal-layer-container'))
+                                        ModalLayer.removeAll();
+                                }
+                            },
+                            displayProgressBar: true,
+                            displayProgressBarPos: 'top',
+                            displayProgressBarColor: 'green',
+                            content: '<i class="fas fa-check" style="color: green"></i>'+res+'!',
+                        };
+
+                        ModalLayer.msg(option);
                         location.href='http://www.king.com/'
+                    }else{
+//                        alert(123);
+                        let option = {
+                            popupTime: 2,
+                            hook: {
+                                initStart: function () {
+                                    // 检查之前老旧实例如果存在则销毁
+                                    if (document.querySelector('#modal-layer-container'))
+                                        ModalLayer.removeAll();
+                                }
+                            },
+                            displayProgressBar: true,
+                            displayProgressBarPos: 'top',
+                            displayProgressBarColor: 'red',
+                            content: '<i style="color: red"></i>'+res+'!',
+                        };
+
+                        ModalLayer.msg(option);
                     }
                 }
             })

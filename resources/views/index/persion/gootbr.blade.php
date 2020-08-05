@@ -1,5 +1,8 @@
 @extends('index.persion.index')
 @section('contents')
+    <link rel="stylesheet" href="/index/asset/css/modallayer.min.css">
+<script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>
+<script src="/index/asset/js/modallayer-ie.min.js"></script>
     <!--右侧主内容-->
     <div class="yui3-u-5-6 order-pay">
         <div class="body">
@@ -61,7 +64,7 @@
                                         </td>
                                         <td width="10%" class="center">
                                             <ul class="unstyled">
-                                                <li><a href="javascript:;"  order="{{$v->order}}" goods_id="{{$v->goods_id["goods_id"]}}" class="sui-btn btn-info sendScroe">确认收获</a></li>
+                                                <li><a href="javascript:;" id="msg-button"  order="{{$v->order}}" goods_id="{{$v->goods_id["goods_id"]}}" class="sui-btn btn-info sendScroe">确认收获</a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -155,7 +158,7 @@
                                         </td>
                                         <td width="10%" class="center">
                                             <ul class="unstyled">
-                                                <li><a href="javascript:;"  order="{{$v['order']}}" goods_id="{{$v["goods_id"]}}" class="sui-btn btn-info sendMon">确认收获</a></li>
+                                                <li><a href="javascript:;" id="msg-button"  order="{{$v['order']}}" goods_id="{{$v["goods_id"]}}" class="sui-btn btn-info sendMon">确认收获</a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -296,10 +299,42 @@
                     data:{goods_id:goods_id,order:order},
                     success:function (res) {
                         if(res==="ok"){
-                            alert("亲谢谢您的这次购买对本网站的支持")
+//                            alert("亲谢谢您的这次购买对本网站的支持")
+                            let option = {
+                                popupTime: 2,
+                                hook: {
+                                    initStart: function () {
+                                        // 检查之前老旧实例如果存在则销毁
+                                        if (document.querySelector('#modal-layer-container'))
+                                            ModalLayer.removeAll();
+                                    }
+                                },
+                                displayProgressBar: true,
+                                displayProgressBarPos: 'top',
+                                displayProgressBarColor: 'green',
+                                content: '<i class="fas fa-check" style="color: green"></i>亲谢谢您的这次购买对本网站的支持!',
+                            };
+
+                            ModalLayer.msg(option);
                             location.href="/index/persion/gootbr"
                         }else{
-                            alert(res)
+//                            alert(res)
+                            let option = {
+                                popupTime: 2,
+                                hook: {
+                                    initStart: function () {
+                                        // 检查之前老旧实例如果存在则销毁
+                                        if (document.querySelector('#modal-layer-container'))
+                                            ModalLayer.removeAll();
+                                    }
+                                },
+                                displayProgressBar: true,
+                                displayProgressBarPos: 'top',
+                                displayProgressBarColor: 'red',
+                                content: '<i style="color: deepskyblue"></i>'+res+'!',
+                            };
+
+                            ModalLayer.msg(option);
                         }
                     }
                 })
@@ -312,10 +347,42 @@
                     data:{goods_id:goods_id,order:order},
                     success:function (res) {
                         if(res==="ok"){
-                            alert("亲谢谢您的这次购买对本网站的支持")
+//                            alert("亲谢谢您的这次购买对本网站的支持")
+                            let option = {
+                                popupTime: 2,
+                                hook: {
+                                    initStart: function () {
+                                        // 检查之前老旧实例如果存在则销毁
+                                        if (document.querySelector('#modal-layer-container'))
+                                            ModalLayer.removeAll();
+                                    }
+                                },
+                                displayProgressBar: true,
+                                displayProgressBarPos: 'top',
+                                displayProgressBarColor: 'green',
+                                content: '<i class="fas fa-check" style="color: green"></i>亲谢谢您的这次购买对本网站的支持!',
+                            };
+
+                            ModalLayer.msg(option);
                             location.href="/index/persion/gootbr"
                         }else{
-                            alert(res)
+//                            alert(res)
+                            let option = {
+                                popupTime: 2,
+                                hook: {
+                                    initStart: function () {
+                                        // 检查之前老旧实例如果存在则销毁
+                                        if (document.querySelector('#modal-layer-container'))
+                                            ModalLayer.removeAll();
+                                    }
+                                },
+                                displayProgressBar: true,
+                                displayProgressBarPos: 'top',
+                                displayProgressBarColor: 'red',
+                                content: '<i style="color: deepskyblue"></i>'+res+'!',
+                            };
+
+                            ModalLayer.msg(option);
                         }
                     }
                 })
